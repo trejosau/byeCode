@@ -6,6 +6,7 @@ use Carbon\CarbonImmutable as Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 /**
+ * @property string|null $demo_run_id
  * @property int $id
  * @property string|null $public_id
  * @property int|null $assigned_to

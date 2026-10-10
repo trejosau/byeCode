@@ -13,6 +13,7 @@ use Illuminate\Support\Carbon;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 
 /**
+ * @property string|null $demo_run_id
  * @property int $id
  * @property string $role
  * @property bool $must_change_password

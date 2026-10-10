@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
 /**
+ * @property string|null $demo_run_id
  * @property int $id
  * @property int|null $style_id
  * @property bool $published
