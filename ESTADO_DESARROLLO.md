@@ -1,5 +1,14 @@
 # Estado del desarrollo de ByeCode
 
+## Equipo inicial de comercio del 10 de octubre de 2026
+
+Se creó y ejecutó `CommerceTeamSeeder` para las cuatro cuentas solicitadas de Jorge, Dani, Jesús y Sau. PostgreSQL `byecode` conserva el administrador existente y añade cuatro usuarios `commerce`, con correo verificado y cambio de contraseña al primer ingreso. La contraseña inicial se configura únicamente en `.env`; no se versiona.
+
+El lote es transaccional: un correo de otro rol cancela todas las altas. Repetirlo conserva nombres, contraseñas y estado de las cuentas existentes. No llama al seeder de administración ni se ejecuta automáticamente desde `DatabaseSeeder`.
+
+- Cinco pruebas nuevas aprobadas (56 aserciones): acceso de las cuatro cuentas, cambio inicial, conservación del administrador y contraseñas modificadas, repetición, conflicto de roles y configuración ausente. Las 123 pruebas anteriores también aprobaron; Pint y Larastan sin errores.
+- Comprobación separada en Supabase: cuatro cuentas creadas, hashes de acceso verificados, repetición sin cambios y administrador conservado. Sin migraciones ni envíos de correo.
+
 ## Diseño del CRM y perfiles del 10 de octubre de 2026
 
 Se adaptó la organización visual del CRM de referencia al directorio y al perfil de ByeCode. El directorio usa tabla en escritorio, fichas en móvil, filtros combinables, etiquetas removibles, orden por nombre/actividad/pagos y vista rápida lateral. El perfil separa perfil comercial, actividad/evidencia y oportunidades; cada dimensión se revisa en su contexto. La navegación conserva la consulta del directorio.

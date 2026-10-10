@@ -16,6 +16,12 @@ php artisan byecode:verify-local-email tu-correo@example.com
 
 El comando solo funciona en entorno `local`. Recuperación de contraseña y segundo factor siguen disponibles en la configuración de Laravel. No publiques el entorno de desarrollo en Internet; hosting, correo real y configuración de producción siguen pendientes.
 
+### Equipo inicial de comercio
+
+`CommerceTeamSeeder` crea las cuatro cuentas de Jorge, Dani, Jesús y Sau con rol `commerce` y correo verificado. Configura `COMMERCE_TEAM_INITIAL_PASSWORD` únicamente en `.env` (mínimo ocho caracteres), ejecuta `php artisan config:clear` y luego `php artisan db:seed --class=CommerceTeamSeeder`. La contraseña se almacena mediante hash y debe cambiarse al primer ingreso.
+
+El seeder conserva las cuentas de comercio existentes, incluidas sus contraseñas y nombres. No ejecuta `InitialAdminSeeder` ni modifica el administrador. Si algún correo pertenece a otro rol, cancela el lote completo. No se ejecuta automáticamente desde `DatabaseSeeder`; no envía correos ni requiere migraciones.
+
 ## 2. Activar OpenAI con una clave
 
 Agrega tu clave únicamente en `.env`:
