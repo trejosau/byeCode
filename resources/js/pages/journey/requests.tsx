@@ -1,7 +1,7 @@
 import { Link, router } from '@inertiajs/react';
 import { Journey } from '@/components/byecode/journey';
 import { Button } from '@/components/ui/button';
-import { money } from '@/lib/byecode';
+import { money, statuses } from '@/lib/byecode';
 type Case = {
     id: number;
     public_id: string;
@@ -51,7 +51,7 @@ export default function Requests({
                         <div className="flex justify-between gap-3">
                             <h2 className="font-semibold">{c.title}</h2>
                             <span className="text-sm text-muted-foreground">
-                                {c.status === 'open' ? 'Abierta' : c.status}
+                                {statuses[c.status] ?? c.status}
                             </span>
                         </div>
                         <p className="text-sm text-muted-foreground">

@@ -7,8 +7,10 @@ use App\Domain\Cases\CommercialProfile;
 use App\Domain\Cases\CustomerDirectory;
 use App\Domain\Cases\CustomerJourney;
 use App\Domain\Cases\QuoteService;
+use App\Domain\Cases\RecommendationReviewService;
 use App\Domain\Cases\Workspace;
 use App\Domain\Decision\RuleEngine;
+use App\Domain\Demo\DemoPolicy;
 use App\Domain\Evaluation\BudgetLedger;
 use App\Domain\Evaluation\EvaluationService;
 use App\Domain\Prediction\PredictionService;
@@ -61,6 +63,7 @@ class CommerceController extends Controller
     {
         $sets = DataSet::where(fn ($q) => $q->where('mode', 'live')->orWhere('user_id', $request->user()->id))->get()->keyBy('id');
         $query = CommercialCase::whereIn('data_set_id', $sets->keys())->orderByDesc('updated_at');
+        DemoPolicy::filter($query, $request);
         if ($request->filled('search')) {
             $term = mb_substr($request->string('search')->toString(), 0, 120);
             $query->where(fn ($q) => $q->where('external_id', 'like', '%'.$term.'%')->orWhere('title', 'like', '%'.$term.'%'));
@@ -100,6 +103,7 @@ class CommerceController extends Controller
         $snapshot = $this->projector->snapshot($case);
         $history = Recommendation::where('commercial_case_id', $case->id)->latest('id')->get()->map(fn ($r) => [
             ...$r->toArray(), 'is_current' => $this->evaluations->isCurrent($case, $r),
+            'change_summary' => $r->validation['change_summary'] ?? null,
             'review' => HumanReview::where('recommendation_id', $r->id)->first(),
             'feedback' => RecommendationFeedback::where('recommendation_id', $r->id)->latest('id')->get(),
         ]);
@@ -169,30 +173,14 @@ class CommerceController extends Controller
 
     public function review(Request $request, Recommendation $recommendation): RedirectResponse
     {
-        $case = CommercialCase::findOrFail($recommendation->commercial_case_id);
-        $this->workspace->ownCase($request->user(), $case);
-        $data = $request->validate(['decision' => ['required', Rule::in(['approved', 'rejected'])], 'reason' => ['required', 'string', 'min:5', 'max:2000']]);
-        DB::transaction(function () use ($case, $recommendation, $request, $data) {
-            DataSet::whereKey($case->data_set_id)->lockForUpdate()->firstOrFail();
-            $case = CommercialCase::whereKey($case->id)->lockForUpdate()->firstOrFail();
-            $recommendation = Recommendation::whereKey($recommendation->id)->lockForUpdate()->firstOrFail();
-            abort_unless($this->evaluations->isCurrent($case, $recommendation), 409, 'La recomendación ya no está vigente.');
-            abort_unless($recommendation->publication_status === 'awaiting_review', 409, 'La revisión ya fue resuelta.');
-            HumanReview::create(['recommendation_id' => $recommendation->id, 'user_id' => $request->user()->id, ...$data, 'created_at' => now()]);
-            $recommendation->update(['publication_status' => $data['decision'] === 'approved' ? 'published' : 'rejected']);
-            app(CustomerJourney::class)->record($case, $request->user(), 'recommendation.reviewed', ['recommendation_id' => $recommendation->id, ...$data]);
-        }, 3);
+        app(RecommendationReviewService::class)->review($request->user(), $recommendation, $request->all());
 
         return back()->with('success', 'Revisión guardada. No se ejecutó ninguna acción comercial.');
     }
 
     public function feedback(Request $request, Recommendation $recommendation): RedirectResponse
     {
-        $case = CommercialCase::findOrFail($recommendation->commercial_case_id);
-        $this->workspace->ownCase($request->user(), $case);
-        $data = $request->validate(['verdict' => ['required', Rule::in(['useful', 'not_useful'])], 'reason' => ['required', 'string', 'min:5', 'max:2000']]);
-        RecommendationFeedback::create(['recommendation_id' => $recommendation->id, 'user_id' => $request->user()->id, ...$data, 'created_at' => now()]);
-        app(CustomerJourney::class)->record($case, $request->user(), 'recommendation.feedback', ['recommendation_id' => $recommendation->id, ...$data]);
+        app(RecommendationReviewService::class)->feedback($request->user(), $recommendation, $request->all());
 
         return back()->with('success', 'Feedback guardado por separado de la ejecución y del resultado de venta.');
     }
@@ -241,6 +229,7 @@ class CommerceController extends Controller
         }
         $filters = $request->validate($rules);
         $query = $directory->query();
+        DemoPolicy::filter($query, $request, 'customers.demo_run_id');
         if ($search = $filters['search'] ?? null) {
             $query->where(fn ($q) => $q->whereLike('company', '%'.$search.'%')->orWhereLike('contact_name', '%'.$search.'%')->orWhereLike('email', '%'.$search.'%'));
         }
@@ -295,6 +284,5 @@ class CommerceController extends Controller
         $request->session()->put('portal_link_'.$case->id, url('/my/quotes/'.$case->public_id));
 
         return back()->with('success', 'Enlace de cuenta disponible.');
-
     }
 }

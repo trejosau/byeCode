@@ -95,13 +95,13 @@ final class QuoteService
             if (! $case) {
                 $external = 'COT-'.now()->format('ymd').'-'.Str::upper(Str::random(6));
                 $batch = $this->importer->import($set, json_encode(['event_id' => (string) Str::uuid(), 'case_id' => $external, 'event_type' => 'case.opened',
-                    'occurred_at' => Utc::iso(CarbonImmutable::now('UTC')), 'data' => ['status' => 'open', 'proposal_amount_mxn' => $total / 100]], JSON_THROW_ON_ERROR), 'Nueva cotización', EventProfile::BUSINESS);
+                    'occurred_at' => Utc::iso(CarbonImmutable::now('UTC')), 'data' => ['status' => 'open', 'proposal_amount_mxn' => $total / 100]], JSON_THROW_ON_ERROR), 'Nueva cotización', EventProfile::BUSINESS, $customer->demo_run_id);
                 if ($batch->errors) {
                     throw ValidationException::withMessages(['quote' => 'No se pudo abrir la cotización.']);
                 }
                 $case = CommercialCase::where('data_set_id', $set->id)->where('external_id', $external)->firstOrFail();
             }
-            $case->update(['customer_id' => $customer->id, 'title' => $input['title'], 'public_id' => $case->public_id ?: (string) Str::uuid()]);
+            $case->update(['demo_run_id' => $customer->demo_run_id, 'customer_id' => $customer->id, 'title' => $input['title'], 'public_id' => $case->public_id ?: (string) Str::uuid()]);
             $version = (int) QuoteVersion::where('commercial_case_id', $case->id)->max('version') + 1;
             QuoteVersion::create(['commercial_case_id' => $case->id, 'version' => $version, 'lines' => $lines, 'subtotal_cents' => $subtotal,
                 'tax_cents' => $tax, 'shipping_cents' => $shipping, 'discount_cents' => $discount, 'total_cents' => $total,
