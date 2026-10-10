@@ -1,0 +1,14 @@
+{
+    "description": "Operaciones integradas en scenarios.json; referencias de evidencia estables.",
+    "keys": [
+        "marina.collection",
+        "camila.hypothesis",
+        "camila.correction-message",
+        "camila.correction",
+        "camila.conflict",
+        "diego.pack-message",
+        "diego.pack-update",
+        "paula.requirement-message",
+        "paula.withdraw-requirement"
+    ]
+}

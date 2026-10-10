@@ -2,7 +2,9 @@
 
 namespace App\Http\Middleware;
 
+use App\Domain\Demo\DemoPolicy;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Inertia\Middleware;
 
 class HandleInertiaRequests extends Middleware
@@ -35,9 +37,16 @@ class HandleInertiaRequests extends Middleware
      */
     public function share(Request $request): array
     {
+        if ($request->has('origin') && in_array($request->user()?->role, ['admin', 'commerce'], true)) {
+            $request->session()->put('demo_origin', DemoPolicy::scope($request));
+        }
+
         return [
             ...parent::share($request),
             'name' => config('app.name'),
+            'demo' => fn () => ['available' => DB::table('demo_runs')->where('status', 'ready')->exists(),
+                'active' => DemoPolicy::activeRunId() !== null, 'account' => (bool) $request->user()?->demo_run_id,
+                'scope' => DemoPolicy::scope($request)],
             'success' => fn () => $request->session()->get('success'),
             'auth' => [
                 'user' => $request->user(),

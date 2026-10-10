@@ -3,6 +3,7 @@ import type { PropsWithChildren } from 'react';
 import AppWordmark from '@/components/app-wordmark';
 import { Button } from '@/components/ui/button';
 import type { User } from '@/types/auth';
+import { DemoNotice } from '@/components/byecode/demo-notice';
 
 export function Journey({
     title,
@@ -52,6 +53,7 @@ export function Journey({
                     )}
                 </nav>
             </header>
+            <DemoNotice />
             <main className="mx-auto max-w-7xl space-y-7 px-5 py-10">
                 <div className="max-w-3xl">
                     <h1 className="text-3xl font-semibold tracking-tight">

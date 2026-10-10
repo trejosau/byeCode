@@ -1,0 +1,134 @@
+[
+    {
+        "key": "REG",
+        "name": "Playera regular",
+        "category": "Playera",
+        "fit": "Regular",
+        "gsm": 180,
+        "composition": "100% algodón",
+        "unit_price_cents": 12500,
+        "colors": ["Negro", "Natural"],
+        "sizes": ["S", "M", "L"],
+        "moq": 12,
+        "stock": 200,
+        "details": {
+            "description": "Playera regular de demostración para comparar tallas, cantidades y abastecimiento. Prenda sin personalización incluida.",
+            "fabric": "Tejido de 100% algodón, 180 g/m².",
+            "construction": "Costuras reforzadas y remates revisables en muestra; ficha ilustrativa de prueba.",
+            "care": "Lavar al revés con agua fría. No usar cloro. Secar a la sombra.",
+            "fit_guide": "Fit Regular. Confirmar muestra antes de comprometer medidas finales.",
+            "size_guide": "S: pecho 50 cm/largo 68 cm. M: 53/71 cm. L: 56/74 cm. Medidas de prenda en plano; tolerancia ±1.5 cm.",
+            "photos": []
+        }
+    },
+    {
+        "key": "OVR",
+        "name": "Playera oversize",
+        "category": "Playera",
+        "fit": "Oversize",
+        "gsm": 220,
+        "composition": "100% algodón",
+        "unit_price_cents": 16500,
+        "colors": ["Negro", "Natural"],
+        "sizes": ["S", "M", "L"],
+        "moq": 12,
+        "stock": 0,
+        "details": {
+            "description": "Playera oversize de demostración para comparar tallas, cantidades y abastecimiento. Prenda sin personalización incluida.",
+            "fabric": "Tejido de 100% algodón, 220 g/m².",
+            "construction": "Costuras reforzadas y remates revisables en muestra; ficha ilustrativa de prueba.",
+            "care": "Lavar al revés con agua fría. No usar cloro. Secar a la sombra.",
+            "fit_guide": "Fit Oversize. Confirmar muestra antes de comprometer medidas finales.",
+            "size_guide": "S: pecho 50 cm/largo 68 cm. M: 53/71 cm. L: 56/74 cm. Medidas de prenda en plano; tolerancia ±1.5 cm.",
+            "photos": []
+        }
+    },
+    {
+        "key": "HVE",
+        "name": "Playera pesada",
+        "category": "Playera",
+        "fit": "Boxy",
+        "gsm": 260,
+        "composition": "100% algodón",
+        "unit_price_cents": 19000,
+        "colors": ["Negro", "Natural"],
+        "sizes": ["S", "M", "L"],
+        "moq": 12,
+        "stock": 80,
+        "details": {
+            "description": "Playera pesada de demostración para comparar tallas, cantidades y abastecimiento. Prenda sin personalización incluida.",
+            "fabric": "Tejido de 100% algodón, 260 g/m².",
+            "construction": "Costuras reforzadas y remates revisables en muestra; ficha ilustrativa de prueba.",
+            "care": "Lavar al revés con agua fría. No usar cloro. Secar a la sombra.",
+            "fit_guide": "Fit Boxy. Confirmar muestra antes de comprometer medidas finales.",
+            "size_guide": "S: pecho 50 cm/largo 68 cm. M: 53/71 cm. L: 56/74 cm. Medidas de prenda en plano; tolerancia ±1.5 cm.",
+            "photos": []
+        }
+    },
+    {
+        "key": "LNG",
+        "name": "Manga larga",
+        "category": "Long sleeve",
+        "fit": "Regular",
+        "gsm": 200,
+        "composition": "100% algodón",
+        "unit_price_cents": 18000,
+        "colors": ["Negro", "Natural"],
+        "sizes": ["S", "M", "L"],
+        "moq": 12,
+        "stock": 100,
+        "details": {
+            "description": "Manga larga de demostración para comparar tallas, cantidades y abastecimiento. Prenda sin personalización incluida.",
+            "fabric": "Tejido de 100% algodón, 200 g/m².",
+            "construction": "Costuras reforzadas y remates revisables en muestra; ficha ilustrativa de prueba.",
+            "care": "Lavar al revés con agua fría. No usar cloro. Secar a la sombra.",
+            "fit_guide": "Fit Regular. Confirmar muestra antes de comprometer medidas finales.",
+            "size_guide": "S: pecho 50 cm/largo 68 cm. M: 53/71 cm. L: 56/74 cm. Medidas de prenda en plano; tolerancia ±1.5 cm.",
+            "photos": []
+        }
+    },
+    {
+        "key": "CRW",
+        "name": "Sudadera sin capucha",
+        "category": "Crewneck",
+        "fit": "Regular",
+        "gsm": 300,
+        "composition": "80% algodón / 20% poliéster",
+        "unit_price_cents": 31000,
+        "colors": ["Negro", "Natural"],
+        "sizes": ["S", "M", "L"],
+        "moq": 12,
+        "stock": 0,
+        "details": {
+            "description": "Sudadera sin capucha de demostración para comparar tallas, cantidades y abastecimiento. Prenda sin personalización incluida.",
+            "fabric": "Tejido de 80% algodón / 20% poliéster, 300 g/m².",
+            "construction": "Costuras reforzadas y remates revisables en muestra; ficha ilustrativa de prueba.",
+            "care": "Lavar al revés con agua fría. No usar cloro. Secar a la sombra.",
+            "fit_guide": "Fit Regular. Confirmar muestra antes de comprometer medidas finales.",
+            "size_guide": "S: pecho 50 cm/largo 68 cm. M: 53/71 cm. L: 56/74 cm. Medidas de prenda en plano; tolerancia ±1.5 cm.",
+            "photos": []
+        }
+    },
+    {
+        "key": "HOD",
+        "name": "Sudadera con capucha",
+        "category": "Hoodie",
+        "fit": "Relaxed",
+        "gsm": 320,
+        "composition": "80% algodón / 20% poliéster",
+        "unit_price_cents": 36000,
+        "colors": ["Negro", "Natural"],
+        "sizes": ["S", "M", "L"],
+        "moq": 12,
+        "stock": null,
+        "details": {
+            "description": "Sudadera con capucha de demostración para comparar tallas, cantidades y abastecimiento. Prenda sin personalización incluida.",
+            "fabric": "Tejido de 80% algodón / 20% poliéster, 320 g/m².",
+            "construction": "Costuras reforzadas y remates revisables en muestra; ficha ilustrativa de prueba.",
+            "care": "Lavar al revés con agua fría. No usar cloro. Secar a la sombra.",
+            "fit_guide": "Fit Relaxed. Confirmar muestra antes de comprometer medidas finales.",
+            "size_guide": "S: pecho 50 cm/largo 68 cm. M: 53/71 cm. L: 56/74 cm. Medidas de prenda en plano; tolerancia ±1.5 cm.",
+            "photos": []
+        }
+    }
+]
