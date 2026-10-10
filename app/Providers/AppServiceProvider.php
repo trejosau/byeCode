@@ -2,9 +2,11 @@
 
 namespace App\Providers;
 
+use App\Notifications\AccountMailChannel;
 use Carbon\CarbonImmutable;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Validation\Rules\Password;
 
@@ -24,6 +26,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         $this->configureDefaults();
+        Notification::extend('mail', fn () => new AccountMailChannel);
     }
 
     /**

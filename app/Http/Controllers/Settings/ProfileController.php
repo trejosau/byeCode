@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Settings;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Settings\ProfileDeleteRequest;
 use App\Http\Requests\Settings\ProfileUpdateRequest;
+use App\Models\Customer;
+use App\Models\DataSet;
+use App\Models\Product;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -50,6 +53,7 @@ class ProfileController extends Controller
     {
         $user = $request->user();
 
+        abort_if($user->role === 'admin' || DataSet::where('user_id', $user->id)->exists() || Customer::where('user_id', $user->id)->orWhere('account_id', $user->id)->exists() || Product::where('user_id', $user->id)->exists(), 422, 'La cuenta conserva historial comercial. Contacta con administración.');
         Auth::logout();
 
         $user->delete();
