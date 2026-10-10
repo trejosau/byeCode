@@ -1,0 +1,458 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ByeCode: ranking de prioridad por plazo explícito, versión 1.0",
+  "description": "Contrato independiente de recomendaciones. Esta versión implementa únicamente la política temporal ilustrativa; otras políticas requieren una extensión versionada. Las relaciones entre casos, comparaciones, fuentes y posiciones se validan además por código.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "ranking_id",
+    "ranking_type",
+    "evaluation_at",
+    "context_version",
+    "policy_id",
+    "queue",
+    "objective",
+    "cohort_case_ids",
+    "criteria_order",
+    "items",
+    "comparisons",
+    "unranked"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "1.0"
+    },
+    "ranking_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "ranking_type": {
+      "const": "case_priority"
+    },
+    "evaluation_at": {
+      "type": "string",
+      "format": "date-time",
+      "pattern": "Z$"
+    },
+    "context_version": {
+      "type": "string",
+      "minLength": 1
+    },
+    "policy_id": {
+      "const": "explicit_deadline_then_request_age_v1"
+    },
+    "queue": {
+      "enum": [
+        "customer_contact",
+        "internal_review"
+      ]
+    },
+    "objective": {
+      "type": "string",
+      "minLength": 1
+    },
+    "cohort_case_ids": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "uniqueItems": true,
+      "minItems": 1
+    },
+    "criteria_order": {
+      "const": [
+        "explicit_deadline_at",
+        "pending_request_at"
+      ]
+    },
+    "items": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "position",
+          "case_id",
+          "recommendation_ref",
+          "action",
+          "criteria",
+          "reason",
+          "comparison_ids",
+          "restrictions",
+          "evidence_event_refs",
+          "missing_information",
+          "uncertainty"
+        ],
+        "properties": {
+          "position": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "case_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "recommendation_ref": {
+            "type": "string",
+            "minLength": 1
+          },
+          "action": {
+            "enum": [
+              "contact",
+              "request_information",
+              "resolve_objection",
+              "escalate"
+            ]
+          },
+          "criteria": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "explicit_deadline_at",
+              "pending_request_at"
+            ],
+            "properties": {
+              "explicit_deadline_at": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "value",
+                  "evidence_event_refs"
+                ],
+                "properties": {
+                  "value": {
+                    "type": "string",
+                    "format": "date-time",
+                    "pattern": "Z$"
+                  },
+                  "evidence_event_refs": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "required": [
+                        "case_id",
+                        "event_id"
+                      ],
+                      "properties": {
+                        "case_id": {
+                          "type": "string",
+                          "minLength": 1
+                        },
+                        "event_id": {
+                          "type": "string",
+                          "minLength": 1
+                        }
+                      }
+                    },
+                    "uniqueItems": true,
+                    "minItems": 1
+                  }
+                }
+              },
+              "pending_request_at": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "value",
+                  "evidence_event_refs"
+                ],
+                "properties": {
+                  "value": {
+                    "type": "string",
+                    "format": "date-time",
+                    "pattern": "Z$"
+                  },
+                  "evidence_event_refs": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "required": [
+                        "case_id",
+                        "event_id"
+                      ],
+                      "properties": {
+                        "case_id": {
+                          "type": "string",
+                          "minLength": 1
+                        },
+                        "event_id": {
+                          "type": "string",
+                          "minLength": 1
+                        }
+                      }
+                    },
+                    "uniqueItems": true,
+                    "minItems": 1
+                  }
+                }
+              }
+            }
+          },
+          "reason": {
+            "type": "string",
+            "minLength": 1
+          },
+          "comparison_ids": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            },
+            "uniqueItems": true
+          },
+          "restrictions": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "evidence_event_refs": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "case_id",
+                "event_id"
+              ],
+              "properties": {
+                "case_id": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "event_id": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              }
+            },
+            "uniqueItems": true,
+            "minItems": 1
+          },
+          "missing_information": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "uncertainty": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    "comparisons": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "comparison_id",
+          "left_case_id",
+          "right_case_id",
+          "relationship",
+          "decisive_criterion",
+          "reason",
+          "evidence_event_refs"
+        ],
+        "properties": {
+          "comparison_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "left_case_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "right_case_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "relationship": {
+            "enum": [
+              "higher_priority",
+              "tied"
+            ]
+          },
+          "decisive_criterion": {
+            "enum": [
+              "explicit_deadline_at",
+              "pending_request_at",
+              null
+            ]
+          },
+          "reason": {
+            "type": "string",
+            "minLength": 1
+          },
+          "evidence_event_refs": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "case_id",
+                "event_id"
+              ],
+              "properties": {
+                "case_id": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "event_id": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              }
+            },
+            "uniqueItems": true,
+            "minItems": 1
+          }
+        },
+        "allOf": [
+          {
+            "if": {
+              "properties": {
+                "relationship": {
+                  "const": "tied"
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "decisive_criterion": {
+                  "type": "null"
+                }
+              }
+            },
+            "else": {
+              "properties": {
+                "decisive_criterion": {
+                  "enum": [
+                    "explicit_deadline_at",
+                    "pending_request_at"
+                  ]
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "unranked": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "case_id",
+          "status",
+          "reason",
+          "restrictions",
+          "missing_information",
+          "evidence_event_refs"
+        ],
+        "properties": {
+          "case_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "status": {
+            "enum": [
+              "excluded",
+              "uncomparable"
+            ]
+          },
+          "reason": {
+            "type": "string",
+            "minLength": 1
+          },
+          "restrictions": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "missing_information": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "evidence_event_refs": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "case_id",
+                "event_id"
+              ],
+              "properties": {
+                "case_id": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "event_id": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              }
+            },
+            "uniqueItems": true
+          }
+        }
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "queue": {
+            "const": "customer_contact"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "items": {
+            "items": {
+              "properties": {
+                "action": {
+                  "enum": [
+                    "contact",
+                    "request_information",
+                    "resolve_objection"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      },
+      "else": {
+        "properties": {
+          "items": {
+            "items": {
+              "properties": {
+                "action": {
+                  "const": "escalate"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "contracts_schema_checked": 13,
+  "event_types_defined": 12,
+  "linked_example_messages_valid": 16,
+  "additional_boundary_fixtures_valid": 3,
+  "invalid_structural_variants_rejected": 18,
+  "invalid_linked_variants_rejected": 6,
+  "official_recommendation_unchanged": true,
+  "human_review_transition_valid": true,
+  "scope": "Static design/schema/example validation only; no live backend, connector, rule engine or LLM was executed."
+}

@@ -1,0 +1,145 @@
+{
+  "schema_version": "1.0",
+  "ranking_id": "DEMO-RANKING-01",
+  "ranking_type": "case_priority",
+  "evaluation_at": "2026-10-10T16:00:00Z",
+  "context_version": "DEMO-SNAPSHOT-01",
+  "policy_id": "explicit_deadline_then_request_age_v1",
+  "queue": "customer_contact",
+  "objective": "Ordenar solicitudes de información permitidas según el plazo explícito para definir el pedido.",
+  "cohort_case_ids": [
+    "DEMO-RANK-A",
+    "DEMO-RANK-B"
+  ],
+  "criteria_order": [
+    "explicit_deadline_at",
+    "pending_request_at"
+  ],
+  "items": [
+    {
+      "position": 1,
+      "case_id": "DEMO-RANK-A",
+      "recommendation_ref": "DEMO-REC-A-01",
+      "action": "request_information",
+      "criteria": {
+        "explicit_deadline_at": {
+          "value": "2026-10-10T18:00:00Z",
+          "evidence_event_refs": [
+            {
+              "case_id": "DEMO-RANK-A",
+              "event_id": "DEMO-A-E03"
+            }
+          ]
+        },
+        "pending_request_at": {
+          "value": "2026-10-10T15:00:00Z",
+          "evidence_event_refs": [
+            {
+              "case_id": "DEMO-RANK-A",
+              "event_id": "DEMO-A-E03"
+            }
+          ]
+        }
+      },
+      "reason": "A precede a B porque el comprador pide definir el pedido antes del 10 de octubre a las 18:00 UTC; el plazo de B es el 11 de octubre a la misma hora. El plazo explícito decide la comparación.",
+      "comparison_ids": [
+        "DEMO-COMP-01"
+      ],
+      "restrictions": [
+        "Caso abierto; contacto permitido; sin fecha mínima futura ni pausa R4 activa en el contexto sintético.",
+        "Solo se propone solicitar la distribución por talla; no se promete capacidad ni entrega."
+      ],
+      "evidence_event_refs": [
+        {
+          "case_id": "DEMO-RANK-A",
+          "event_id": "DEMO-A-E01"
+        },
+        {
+          "case_id": "DEMO-RANK-A",
+          "event_id": "DEMO-A-E02"
+        },
+        {
+          "case_id": "DEMO-RANK-A",
+          "event_id": "DEMO-A-E03"
+        }
+      ],
+      "missing_information": [
+        "Distribución por talla de las unidades solicitadas."
+      ],
+      "uncertainty": "La distribución pendiente no cambia la comparación de los plazos explícitos. La prioridad no demuestra intención de compra ni garantiza formalización."
+    },
+    {
+      "position": 2,
+      "case_id": "DEMO-RANK-B",
+      "recommendation_ref": "DEMO-REC-B-01",
+      "action": "request_information",
+      "criteria": {
+        "explicit_deadline_at": {
+          "value": "2026-10-11T18:00:00Z",
+          "evidence_event_refs": [
+            {
+              "case_id": "DEMO-RANK-B",
+              "event_id": "DEMO-B-E03"
+            }
+          ]
+        },
+        "pending_request_at": {
+          "value": "2026-10-10T15:20:00Z",
+          "evidence_event_refs": [
+            {
+              "case_id": "DEMO-RANK-B",
+              "event_id": "DEMO-B-E03"
+            }
+          ]
+        }
+      },
+      "reason": "B está debajo de A porque su plazo explícito vence un día después. Sigue requiriendo atención permitida; la segunda posición no significa menor probabilidad de compra.",
+      "comparison_ids": [
+        "DEMO-COMP-01"
+      ],
+      "restrictions": [
+        "Caso abierto; contacto permitido; sin fecha mínima futura ni pausa R4 activa en el contexto sintético.",
+        "Solo se propone solicitar la distribución por talla; no se promete capacidad ni entrega."
+      ],
+      "evidence_event_refs": [
+        {
+          "case_id": "DEMO-RANK-B",
+          "event_id": "DEMO-B-E01"
+        },
+        {
+          "case_id": "DEMO-RANK-B",
+          "event_id": "DEMO-B-E02"
+        },
+        {
+          "case_id": "DEMO-RANK-B",
+          "event_id": "DEMO-B-E03"
+        }
+      ],
+      "missing_information": [
+        "Distribución por talla de las unidades solicitadas."
+      ],
+      "uncertainty": "La distribución pendiente no cambia la comparación de los plazos explícitos. La prioridad no demuestra intención de compra ni garantiza formalización."
+    }
+  ],
+  "comparisons": [
+    {
+      "comparison_id": "DEMO-COMP-01",
+      "left_case_id": "DEMO-RANK-A",
+      "right_case_id": "DEMO-RANK-B",
+      "relationship": "higher_priority",
+      "decisive_criterion": "explicit_deadline_at",
+      "reason": "2026-10-10T18:00:00Z es anterior a 2026-10-11T18:00:00Z. La política compara primero esos plazos; no necesita usar la antigüedad de solicitud para desempatar.",
+      "evidence_event_refs": [
+        {
+          "case_id": "DEMO-RANK-A",
+          "event_id": "DEMO-A-E03"
+        },
+        {
+          "case_id": "DEMO-RANK-B",
+          "event_id": "DEMO-B-E03"
+        }
+      ]
+    }
+  ],
+  "unranked": []
+}

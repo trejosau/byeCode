@@ -1,0 +1,184 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ByeCode: recomendación, esquema propuesto derivado del PDF",
+  "description": "Validación estructural. R1–R6, existencia y sustento de evidencia, fechas respecto del contexto y revisión humana requieren validación adicional en código.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "case_id",
+    "action",
+    "timing",
+    "scheduled_for",
+    "reason",
+    "evidence_event_ids",
+    "confidence",
+    "confidence_reason",
+    "risk_level",
+    "requires_human_review",
+    "missing_information"
+  ],
+  "properties": {
+    "case_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "action": {
+      "enum": [
+        "contact",
+        "request_information",
+        "resolve_objection",
+        "escalate",
+        "wait",
+        "no_action"
+      ]
+    },
+    "timing": {
+      "enum": [
+        "immediate",
+        "within_24h",
+        "at_date",
+        "on_new_information",
+        "not_applicable"
+      ]
+    },
+    "scheduled_for": {
+      "oneOf": [
+        {
+          "type": "string",
+          "format": "date-time",
+          "pattern": "Z$"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "reason": {
+      "type": "string",
+      "minLength": 1
+    },
+    "evidence_event_ids": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "uniqueItems": true
+    },
+    "confidence": {
+      "enum": [
+        "low",
+        "medium",
+        "high"
+      ]
+    },
+    "confidence_reason": {
+      "type": "string",
+      "minLength": 1
+    },
+    "risk_level": {
+      "enum": [
+        "low",
+        "medium",
+        "high"
+      ]
+    },
+    "requires_human_review": {
+      "type": "boolean"
+    },
+    "missing_information": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "action": {
+            "const": "wait"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "timing": {
+            "enum": [
+              "at_date",
+              "on_new_information"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "action": {
+            "const": "no_action"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "timing": {
+            "const": "not_applicable"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "action": {
+            "enum": [
+              "contact",
+              "request_information",
+              "resolve_objection",
+              "escalate"
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "timing": {
+            "enum": [
+              "immediate",
+              "within_24h",
+              "at_date"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "timing": {
+            "const": "at_date"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "scheduled_for": {
+            "type": "string",
+            "format": "date-time",
+            "pattern": "Z$"
+          }
+        }
+      },
+      "else": {
+        "properties": {
+          "scheduled_for": {
+            "type": "null"
+          }
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,1004 @@
+{
+  "description": "Escenario enteramente sintético. Las validaciones y el modelo en los payloads representan estados ilustrativos; no son registros de una ejecución real. Cotización con datos comerciales omitidos de forma explícita y stock/capacidad desconocidos.",
+  "linked_resources": [
+    {
+      "resource_ref": "QUOTE-SNAPSHOT-DEMO-03",
+      "resource_type": "published_quote_snapshot",
+      "value": {
+        "quote_id": "QUOTE-DEMO-01",
+        "quote_version": 3,
+        "publication_status": "published",
+        "published_at": "2026-10-10T14:02:00Z",
+        "valid_until": null,
+        "owner_ref": "SELLER-DEMO",
+        "currency": "MXN",
+        "subtotal": null,
+        "tax": null,
+        "freight": null,
+        "total": null,
+        "commercial_terms_refs": [],
+        "lines": [
+          {
+            "line_id": "LINE-DEMO-01",
+            "product_ref": "BLANK-TEE-DEMO",
+            "garment": "playera blank",
+            "model": null,
+            "fit": null,
+            "fabric_composition": null,
+            "gsm": null,
+            "color": "negro",
+            "requested_quantity": 500,
+            "quoted_quantity": 500,
+            "declared_accepted_quantity": null,
+            "formalized_quantity": null,
+            "cancelled_quantity": null,
+            "variants": [],
+            "size_pending_quantity": 500,
+            "price": {
+              "unit_price": null,
+              "price_basis": "unknown",
+              "pieces_per_pack": null,
+              "discount": null,
+              "tax": null,
+              "line_total": null,
+              "approval_ref": null
+            },
+            "sourcing": {
+              "mode": "hybrid",
+              "planned_stock_quantity": 300,
+              "planned_production_quantity": 200,
+              "unallocated_quantity": 0,
+              "confirmed_reserved_quantity": null,
+              "availability_status": "unknown",
+              "capacity_status": "unknown",
+              "observation_refs": []
+            },
+            "delivery": {
+              "requested_at": null,
+              "confirmed_at": null,
+              "timezone": null,
+              "destination_ref": null,
+              "evidence_event_ids": []
+            },
+            "evidence_event_ids": [
+              "FLOW-E03",
+              "FLOW-E04"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "messages": [
+    {
+      "contract": "event_ingress",
+      "schema_version": "1.0",
+      "payload": {
+        "event_id": "FLOW-E01",
+        "case_id": "DEMO-FLOW-01",
+        "event_type": "case.opened",
+        "occurred_at": "2026-10-10T14:00:00Z",
+        "data": {
+          "status": "open",
+          "proposal_amount_mxn": null,
+          "customer_id": "CUSTOMER-DEMO",
+          "quote_id": "QUOTE-DEMO-01"
+        }
+      }
+    },
+    {
+      "contract": "event_ingress",
+      "schema_version": "1.0",
+      "payload": {
+        "event_id": "FLOW-E02",
+        "case_id": "DEMO-FLOW-01",
+        "event_type": "constraint.updated",
+        "occurred_at": "2026-10-10T14:01:00Z",
+        "data": {
+          "contact_allowed": true,
+          "contact_not_before": null,
+          "reason": "Preferencias verificadas en el escenario sintético.",
+          "authority_ref": "AUTH-DEMO-01"
+        }
+      }
+    },
+    {
+      "contract": "event_ingress",
+      "schema_version": "1.0",
+      "payload": {
+        "event_id": "FLOW-E03",
+        "case_id": "DEMO-FLOW-01",
+        "event_type": "proposal.version_published",
+        "occurred_at": "2026-10-10T14:02:00Z",
+        "data": {
+          "quote_id": "QUOTE-DEMO-01",
+          "quote_version": 3,
+          "snapshot_ref": "QUOTE-SNAPSHOT-DEMO-03",
+          "previous_version": 2
+        }
+      }
+    },
+    {
+      "contract": "event_ingress",
+      "schema_version": "1.0",
+      "payload": {
+        "event_id": "FLOW-E04",
+        "case_id": "DEMO-FLOW-01",
+        "event_type": "message.received",
+        "occurred_at": "2026-10-10T15:00:00Z",
+        "data": {
+          "message": "Quiero las 500 playeras negras, pero todavía no tengo la distribución por talla.",
+          "source_message_ref": "MSG-DEMO-01",
+          "conversation_ref": "CONV-DEMO-01",
+          "channel": "demo",
+          "sender_attribution": "verified",
+          "quote_version": 3,
+          "attachment_refs": []
+        }
+      }
+    },
+    {
+      "contract": "event_record",
+      "schema_version": "1.0",
+      "payload": {
+        "tenant_id": "TENANT-DEMO",
+        "source": "demo_commercial_adapter",
+        "source_event_id": "FLOW-E01",
+        "received_at": "2026-10-10T14:00:01Z",
+        "ingested_at": "2026-10-10T14:00:02Z",
+        "case_sequence": 1,
+        "correlation_id": "CORR-DEMO-01",
+        "causation_id": null,
+        "actor_ref": "ACTOR-DEMO-01",
+        "raw_ref": null,
+        "event": {
+          "event_id": "FLOW-E01",
+          "case_id": "DEMO-FLOW-01",
+          "event_type": "case.opened",
+          "occurred_at": "2026-10-10T14:00:00Z",
+          "data": {
+            "status": "open",
+            "proposal_amount_mxn": null,
+            "customer_id": "CUSTOMER-DEMO",
+            "quote_id": "QUOTE-DEMO-01"
+          }
+        }
+      }
+    },
+    {
+      "contract": "event_record",
+      "schema_version": "1.0",
+      "payload": {
+        "tenant_id": "TENANT-DEMO",
+        "source": "demo_commercial_adapter",
+        "source_event_id": "FLOW-E02",
+        "received_at": "2026-10-10T14:01:01Z",
+        "ingested_at": "2026-10-10T14:01:02Z",
+        "case_sequence": 2,
+        "correlation_id": "CORR-DEMO-01",
+        "causation_id": null,
+        "actor_ref": "ACTOR-DEMO-01",
+        "raw_ref": null,
+        "event": {
+          "event_id": "FLOW-E02",
+          "case_id": "DEMO-FLOW-01",
+          "event_type": "constraint.updated",
+          "occurred_at": "2026-10-10T14:01:00Z",
+          "data": {
+            "contact_allowed": true,
+            "contact_not_before": null,
+            "reason": "Preferencias verificadas en el escenario sintético.",
+            "authority_ref": "AUTH-DEMO-01"
+          }
+        }
+      }
+    },
+    {
+      "contract": "event_record",
+      "schema_version": "1.0",
+      "payload": {
+        "tenant_id": "TENANT-DEMO",
+        "source": "demo_commercial_adapter",
+        "source_event_id": "FLOW-E03",
+        "received_at": "2026-10-10T14:02:01Z",
+        "ingested_at": "2026-10-10T14:02:02Z",
+        "case_sequence": 3,
+        "correlation_id": "CORR-DEMO-01",
+        "causation_id": null,
+        "actor_ref": "ACTOR-DEMO-01",
+        "raw_ref": null,
+        "event": {
+          "event_id": "FLOW-E03",
+          "case_id": "DEMO-FLOW-01",
+          "event_type": "proposal.version_published",
+          "occurred_at": "2026-10-10T14:02:00Z",
+          "data": {
+            "quote_id": "QUOTE-DEMO-01",
+            "quote_version": 3,
+            "snapshot_ref": "QUOTE-SNAPSHOT-DEMO-03",
+            "previous_version": 2
+          }
+        }
+      }
+    },
+    {
+      "contract": "event_record",
+      "schema_version": "1.0",
+      "payload": {
+        "tenant_id": "TENANT-DEMO",
+        "source": "demo_commercial_adapter",
+        "source_event_id": "FLOW-E04",
+        "received_at": "2026-10-10T15:00:01Z",
+        "ingested_at": "2026-10-10T15:00:02Z",
+        "case_sequence": 4,
+        "correlation_id": "CORR-DEMO-01",
+        "causation_id": null,
+        "actor_ref": "ACTOR-DEMO-01",
+        "raw_ref": null,
+        "event": {
+          "event_id": "FLOW-E04",
+          "case_id": "DEMO-FLOW-01",
+          "event_type": "message.received",
+          "occurred_at": "2026-10-10T15:00:00Z",
+          "data": {
+            "message": "Quiero las 500 playeras negras, pero todavía no tengo la distribución por talla.",
+            "source_message_ref": "MSG-DEMO-01",
+            "conversation_ref": "CONV-DEMO-01",
+            "channel": "demo",
+            "sender_attribution": "verified",
+            "quote_version": 3,
+            "attachment_refs": []
+          }
+        }
+      }
+    },
+    {
+      "contract": "operation_receipt",
+      "schema_version": "1.0",
+      "payload": {
+        "request_id": "REQ-DEMO-01",
+        "status": "accepted",
+        "resource_type": "event",
+        "resource_id": "FLOW-E04",
+        "error": null
+      }
+    },
+    {
+      "contract": "case_snapshot",
+      "schema_version": "1.0",
+      "payload": {
+        "snapshot_id": "SNAPSHOT-DEMO-01",
+        "tenant_id": "TENANT-DEMO",
+        "case_id": "DEMO-FLOW-01",
+        "customer_id": "CUSTOMER-DEMO",
+        "context_version": "CTX-DEMO-01",
+        "case_sequence": 4,
+        "evaluation_at": "2026-10-10T15:01:00Z",
+        "knowledge_cutoff": "2026-10-10T15:01:00Z",
+        "status": "open",
+        "quote": {
+          "quote_id": "QUOTE-DEMO-01",
+          "quote_version": 3,
+          "publication_status": "published",
+          "published_at": "2026-10-10T14:02:00Z",
+          "valid_until": null,
+          "owner_ref": "SELLER-DEMO",
+          "currency": "MXN",
+          "subtotal": null,
+          "tax": null,
+          "freight": null,
+          "total": null,
+          "commercial_terms_refs": [],
+          "lines": [
+            {
+              "line_id": "LINE-DEMO-01",
+              "product_ref": "BLANK-TEE-DEMO",
+              "garment": "playera blank",
+              "model": null,
+              "fit": null,
+              "fabric_composition": null,
+              "gsm": null,
+              "color": "negro",
+              "requested_quantity": 500,
+              "quoted_quantity": 500,
+              "declared_accepted_quantity": null,
+              "formalized_quantity": null,
+              "cancelled_quantity": null,
+              "variants": [],
+              "size_pending_quantity": 500,
+              "price": {
+                "unit_price": null,
+                "price_basis": "unknown",
+                "pieces_per_pack": null,
+                "discount": null,
+                "tax": null,
+                "line_total": null,
+                "approval_ref": null
+              },
+              "sourcing": {
+                "mode": "hybrid",
+                "planned_stock_quantity": 300,
+                "planned_production_quantity": 200,
+                "unallocated_quantity": 0,
+                "confirmed_reserved_quantity": null,
+                "availability_status": "unknown",
+                "capacity_status": "unknown",
+                "observation_refs": []
+              },
+              "delivery": {
+                "requested_at": null,
+                "confirmed_at": null,
+                "timezone": null,
+                "destination_ref": null,
+                "evidence_event_ids": []
+              },
+              "evidence_event_ids": [
+                "FLOW-E03",
+                "FLOW-E04"
+              ]
+            }
+          ]
+        },
+        "contact_policy": {
+          "contact_allowed": true,
+          "contact_not_before": null,
+          "constraints_known": true,
+          "last_relevant_action_at": null,
+          "new_buyer_message_after_action": false,
+          "cooldown_until": null,
+          "semantic_contact_hold": false,
+          "evidence_event_ids": [
+            "FLOW-E02"
+          ]
+        },
+        "facts": [
+          {
+            "fact_id": "F-QTY",
+            "path": "quote.lines.LINE-DEMO-01.requested_quantity",
+            "value": 500,
+            "unit": "piece",
+            "kind": "buyer_statement",
+            "evidence_event_ids": [
+              "FLOW-E04"
+            ],
+            "as_of": "2026-10-10T15:00:00Z",
+            "freshness": "not_applicable",
+            "status": "usable"
+          },
+          {
+            "fact_id": "F-SIZES",
+            "path": "quote.lines.LINE-DEMO-01.size_distribution",
+            "value": null,
+            "unit": null,
+            "kind": "unknown",
+            "evidence_event_ids": [
+              "FLOW-E04"
+            ],
+            "as_of": "2026-10-10T15:00:00Z",
+            "freshness": "unknown",
+            "status": "missing"
+          }
+        ],
+        "metrics": [
+          {
+            "name": "confirmed_contacts_in_case",
+            "value": 0,
+            "unit": "count",
+            "window_start": "2026-10-10T14:00:00Z",
+            "window_end": "2026-10-10T15:01:00Z",
+            "formula_version": "confirmed_action_count_v1",
+            "evidence_event_ids": [
+              "FLOW-E01"
+            ],
+            "coverage": "complete"
+          }
+        ],
+        "evidence": [
+          {
+            "event_id": "FLOW-E01",
+            "event_type": "case.opened",
+            "occurred_at": "2026-10-10T14:00:00Z",
+            "ingested_at": "2026-10-10T14:00:02Z",
+            "field_path": "data",
+            "excerpt": null,
+            "attribution": "not_applicable"
+          },
+          {
+            "event_id": "FLOW-E02",
+            "event_type": "constraint.updated",
+            "occurred_at": "2026-10-10T14:01:00Z",
+            "ingested_at": "2026-10-10T14:01:02Z",
+            "field_path": "data",
+            "excerpt": null,
+            "attribution": "not_applicable"
+          },
+          {
+            "event_id": "FLOW-E03",
+            "event_type": "proposal.version_published",
+            "occurred_at": "2026-10-10T14:02:00Z",
+            "ingested_at": "2026-10-10T14:02:02Z",
+            "field_path": "data",
+            "excerpt": null,
+            "attribution": "not_applicable"
+          },
+          {
+            "event_id": "FLOW-E04",
+            "event_type": "message.received",
+            "occurred_at": "2026-10-10T15:00:00Z",
+            "ingested_at": "2026-10-10T15:00:02Z",
+            "field_path": "data",
+            "excerpt": "Quiero las 500 playeras negras, pero todavía no tengo la distribución por talla.",
+            "attribution": "verified"
+          }
+        ],
+        "acceptance_refs": [],
+        "order_refs": [],
+        "missing_information": [
+          "Distribución de las 500 piezas por talla.",
+          "Disponibilidad y reserva actuales de stock.",
+          "Capacidad y plazo confirmado de producción.",
+          "Fecha de entrega requerida por el comprador."
+        ],
+        "data_quality": {
+          "restrictions_complete": true,
+          "action_history_complete": true,
+          "event_processing_complete": true,
+          "decisive_evidence_complete": true,
+          "conflicts": [],
+          "omitted_evidence_event_ids": []
+        }
+      }
+    },
+    {
+      "contract": "model_request",
+      "schema_version": "1.0",
+      "payload": {
+        "evaluation_id": "EVAL-DEMO-01",
+        "case_id": "DEMO-FLOW-01",
+        "context_version": "CTX-DEMO-01",
+        "evaluation_at": "2026-10-10T15:01:00Z",
+        "knowledge_cutoff": "2026-10-10T15:01:00Z",
+        "policy_version": "byecode_r1_r6_v1",
+        "prompt_version": "byecode_interpret_propose_v1",
+        "task": "interpret_and_propose",
+        "context": {
+          "status": "open",
+          "quote": {
+            "quote_id": "QUOTE-DEMO-01",
+            "quote_version": 3,
+            "publication_status": "published",
+            "published_at": "2026-10-10T14:02:00Z",
+            "valid_until": null,
+            "owner_ref": null,
+            "currency": "MXN",
+            "subtotal": null,
+            "tax": null,
+            "freight": null,
+            "total": null,
+            "commercial_terms_refs": [],
+            "lines": [
+              {
+                "line_id": "LINE-DEMO-01",
+                "product_ref": "BLANK-TEE-DEMO",
+                "garment": "playera blank",
+                "model": null,
+                "fit": null,
+                "fabric_composition": null,
+                "gsm": null,
+                "color": "negro",
+                "requested_quantity": 500,
+                "quoted_quantity": 500,
+                "declared_accepted_quantity": null,
+                "formalized_quantity": null,
+                "cancelled_quantity": null,
+                "variants": [],
+                "size_pending_quantity": 500,
+                "price": {
+                  "unit_price": null,
+                  "price_basis": "unknown",
+                  "pieces_per_pack": null,
+                  "discount": null,
+                  "tax": null,
+                  "line_total": null,
+                  "approval_ref": null
+                },
+                "sourcing": {
+                  "mode": "hybrid",
+                  "planned_stock_quantity": 300,
+                  "planned_production_quantity": 200,
+                  "unallocated_quantity": 0,
+                  "confirmed_reserved_quantity": null,
+                  "availability_status": "unknown",
+                  "capacity_status": "unknown",
+                  "observation_refs": []
+                },
+                "delivery": {
+                  "requested_at": null,
+                  "confirmed_at": null,
+                  "timezone": null,
+                  "destination_ref": null,
+                  "evidence_event_ids": []
+                },
+                "evidence_event_ids": [
+                  "FLOW-E03",
+                  "FLOW-E04"
+                ]
+              }
+            ]
+          },
+          "contact_policy": {
+            "contact_allowed": true,
+            "contact_not_before": null,
+            "constraints_known": true,
+            "last_relevant_action_at": null,
+            "new_buyer_message_after_action": false,
+            "cooldown_until": null,
+            "semantic_contact_hold": false,
+            "evidence_event_ids": [
+              "FLOW-E02"
+            ]
+          },
+          "facts": [
+            {
+              "fact_id": "F-QTY",
+              "path": "quote.lines.LINE-DEMO-01.requested_quantity",
+              "value": 500,
+              "unit": "piece",
+              "kind": "buyer_statement",
+              "evidence_event_ids": [
+                "FLOW-E04"
+              ],
+              "as_of": "2026-10-10T15:00:00Z",
+              "freshness": "not_applicable",
+              "status": "usable"
+            },
+            {
+              "fact_id": "F-SIZES",
+              "path": "quote.lines.LINE-DEMO-01.size_distribution",
+              "value": null,
+              "unit": null,
+              "kind": "unknown",
+              "evidence_event_ids": [
+                "FLOW-E04"
+              ],
+              "as_of": "2026-10-10T15:00:00Z",
+              "freshness": "unknown",
+              "status": "missing"
+            }
+          ],
+          "metrics": [
+            {
+              "name": "confirmed_contacts_in_case",
+              "value": 0,
+              "unit": "count",
+              "window_start": "2026-10-10T14:00:00Z",
+              "window_end": "2026-10-10T15:01:00Z",
+              "formula_version": "confirmed_action_count_v1",
+              "evidence_event_ids": [
+                "FLOW-E01"
+              ],
+              "coverage": "complete"
+            }
+          ],
+          "evidence": [
+            {
+              "event_id": "FLOW-E01",
+              "event_type": "case.opened",
+              "occurred_at": "2026-10-10T14:00:00Z",
+              "ingested_at": "2026-10-10T14:00:02Z",
+              "field_path": "data",
+              "excerpt": null,
+              "attribution": "not_applicable"
+            },
+            {
+              "event_id": "FLOW-E02",
+              "event_type": "constraint.updated",
+              "occurred_at": "2026-10-10T14:01:00Z",
+              "ingested_at": "2026-10-10T14:01:02Z",
+              "field_path": "data",
+              "excerpt": null,
+              "attribution": "not_applicable"
+            },
+            {
+              "event_id": "FLOW-E03",
+              "event_type": "proposal.version_published",
+              "occurred_at": "2026-10-10T14:02:00Z",
+              "ingested_at": "2026-10-10T14:02:02Z",
+              "field_path": "data",
+              "excerpt": null,
+              "attribution": "not_applicable"
+            },
+            {
+              "event_id": "FLOW-E04",
+              "event_type": "message.received",
+              "occurred_at": "2026-10-10T15:00:00Z",
+              "ingested_at": "2026-10-10T15:00:02Z",
+              "field_path": "data",
+              "excerpt": "Quiero las 500 playeras negras, pero todavía no tengo la distribución por talla.",
+              "attribution": "verified"
+            }
+          ],
+          "missing_information": [
+            "Distribución de las 500 piezas por talla.",
+            "Disponibilidad y reserva actuales de stock.",
+            "Capacidad y plazo confirmado de producción.",
+            "Fecha de entrega requerida por el comprador."
+          ],
+          "data_quality": {
+            "restrictions_complete": true,
+            "action_history_complete": true,
+            "event_processing_complete": true,
+            "decisive_evidence_complete": true,
+            "conflicts": [],
+            "omitted_evidence_event_ids": []
+          },
+          "preliminary_allowed_actions": [
+            "contact",
+            "request_information",
+            "resolve_objection",
+            "escalate",
+            "wait",
+            "no_action"
+          ],
+          "preliminary_rule_checks": [
+            {
+              "rule_id": "R1",
+              "result": "pass",
+              "reason": "Caso abierto.",
+              "evidence_event_ids": [
+                "FLOW-E01"
+              ]
+            },
+            {
+              "rule_id": "R2",
+              "result": "pass",
+              "reason": "Contacto permitido por registro autorizado.",
+              "evidence_event_ids": [
+                "FLOW-E02"
+              ]
+            },
+            {
+              "rule_id": "R3",
+              "result": "pass",
+              "reason": "Sin fecha mínima vigente.",
+              "evidence_event_ids": [
+                "FLOW-E02"
+              ]
+            },
+            {
+              "rule_id": "R4",
+              "result": "pass",
+              "reason": "Historial sintético completo sin acciones previas de contacto.",
+              "evidence_event_ids": [
+                "FLOW-E01"
+              ]
+            },
+            {
+              "rule_id": "R5",
+              "result": "pass",
+              "reason": "La propuesta se apoya en un mensaje explícito, no en aperturas.",
+              "evidence_event_ids": [
+                "FLOW-E04"
+              ]
+            },
+            {
+              "rule_id": "R6",
+              "result": "pass",
+              "reason": "Se reconocen tallas y datos operativos faltantes; no se promete disponibilidad.",
+              "evidence_event_ids": [
+                "FLOW-E03",
+                "FLOW-E04"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "contract": "model_response",
+      "schema_version": "1.0",
+      "payload": {
+        "evaluation_id": "EVAL-DEMO-01",
+        "case_id": "DEMO-FLOW-01",
+        "context_version": "CTX-DEMO-01",
+        "signals": [
+          {
+            "label": "ambiguity",
+            "description": "La distribución por talla está pendiente; la expresión de interés no formaliza compra.",
+            "evidence_event_ids": [
+              "FLOW-E04"
+            ],
+            "excerpt": "Quiero las 500 playeras negras, pero todavía no tengo la distribución por talla."
+          }
+        ],
+        "candidate": {
+          "case_id": "DEMO-FLOW-01",
+          "action": "request_information",
+          "timing": "within_24h",
+          "scheduled_for": null,
+          "reason": "Solicitar la distribución por talla de las 500 playeras negras: el comprador indica que todavía no la tiene y es necesaria para identificar variantes. La solicitud no confirma stock, reserva, capacidad ni fecha de entrega.",
+          "evidence_event_ids": [
+            "FLOW-E04"
+          ],
+          "confidence": "high",
+          "confidence_reason": "El faltante de tallas está expresado por el comprador. La confianza se refiere a pedir ese dato; la compra y la viabilidad operativa siguen sin confirmarse.",
+          "risk_level": "low",
+          "requires_human_review": false,
+          "missing_information": [
+            "Distribución de las 500 piezas por talla.",
+            "Disponibilidad y reserva actuales de stock.",
+            "Capacidad y plazo confirmado de producción.",
+            "Fecha de entrega requerida por el comprador."
+          ]
+        },
+        "explanation": {
+          "criteria": [
+            {
+              "criterion": "Dato necesario para identificar variantes",
+              "effect": "Pedir tallas resuelve el faltante expresado antes de validar abastecimiento.",
+              "evidence_event_ids": [
+                "FLOW-E03",
+                "FLOW-E04"
+              ]
+            }
+          ],
+          "alternatives": [
+            {
+              "action": "contact",
+              "disposition": "not_selected",
+              "reason": "La solicitud específica de información describe mejor el propósito que un seguimiento genérico.",
+              "evidence_event_ids": [
+                "FLOW-E04"
+              ]
+            },
+            {
+              "action": "wait",
+              "disposition": "not_selected",
+              "reason": "No hay una petición de espera ni bloqueo registrado; pedir el dato está permitido.",
+              "evidence_event_ids": [
+                "FLOW-E02",
+                "FLOW-E04"
+              ]
+            }
+          ],
+          "restrictions": [
+            {
+              "rule_or_policy": "R2/R3",
+              "effect": "Contacto permitido y sin fecha mínima; se revalida antes de actuar.",
+              "evidence_event_ids": [
+                "FLOW-E02"
+              ]
+            },
+            {
+              "rule_or_policy": "R6",
+              "effect": "No prometer stock, reserva o producción mientras falten fuentes actuales.",
+              "evidence_event_ids": [
+                "FLOW-E03",
+                "FLOW-E04"
+              ]
+            }
+          ],
+          "uncertainty": [
+            {
+              "missing_or_uncertain": "Distribución de las 500 piezas por talla.",
+              "could_change": "Si llegan las tallas, dejar de pedirlas y reevaluar variantes y abastecimiento.",
+              "needed_source": "Mensaje del comprador con cantidades por talla."
+            },
+            {
+              "missing_or_uncertain": "Disponibilidad y capacidad desconocidas.",
+              "could_change": "Determinar viabilidad y necesidad de revisión operativa; no bloquea preguntar tallas.",
+              "needed_source": "Almacén y producción autorizados."
+            }
+          ]
+        }
+      }
+    },
+    {
+      "contract": "recommendation_record",
+      "schema_version": "1.0",
+      "payload": {
+        "tenant_id": "TENANT-DEMO",
+        "recommendation_id": "REC-DEMO-01",
+        "evaluation_id": "EVAL-DEMO-01",
+        "context_version": "CTX-DEMO-01",
+        "evaluation_at": "2026-10-10T15:01:00Z",
+        "knowledge_cutoff": "2026-10-10T15:01:00Z",
+        "created_at": "2026-10-10T15:01:05Z",
+        "valid_until": "2026-10-11T15:01:00Z",
+        "publication_status": "published",
+        "producer": "llm_assisted",
+        "model_version": "DEMO-MODEL-NOT-EXECUTED",
+        "prompt_version": "byecode_interpret_propose_v1",
+        "policy_version": "byecode_r1_r6_v1",
+        "human_review": {
+          "status": "not_required",
+          "review_ref": null
+        },
+        "validation": {
+          "schema_valid": true,
+          "evidence_valid": true,
+          "version_current": true,
+          "semantic_review": "passed",
+          "rule_checks": [
+            {
+              "rule_id": "R1",
+              "result": "pass",
+              "reason": "Caso abierto.",
+              "evidence_event_ids": [
+                "FLOW-E01"
+              ]
+            },
+            {
+              "rule_id": "R2",
+              "result": "pass",
+              "reason": "Contacto permitido por registro autorizado.",
+              "evidence_event_ids": [
+                "FLOW-E02"
+              ]
+            },
+            {
+              "rule_id": "R3",
+              "result": "pass",
+              "reason": "Sin fecha mínima vigente.",
+              "evidence_event_ids": [
+                "FLOW-E02"
+              ]
+            },
+            {
+              "rule_id": "R4",
+              "result": "pass",
+              "reason": "Historial sintético completo sin acciones previas de contacto.",
+              "evidence_event_ids": [
+                "FLOW-E01"
+              ]
+            },
+            {
+              "rule_id": "R5",
+              "result": "pass",
+              "reason": "La propuesta se apoya en un mensaje explícito, no en aperturas.",
+              "evidence_event_ids": [
+                "FLOW-E04"
+              ]
+            },
+            {
+              "rule_id": "R6",
+              "result": "pass",
+              "reason": "Se reconocen tallas y datos operativos faltantes; no se promete disponibilidad.",
+              "evidence_event_ids": [
+                "FLOW-E03",
+                "FLOW-E04"
+              ]
+            }
+          ]
+        },
+        "explanation": {
+          "criteria": [
+            {
+              "criterion": "Dato necesario para identificar variantes",
+              "effect": "Pedir tallas resuelve el faltante expresado antes de validar abastecimiento.",
+              "evidence_event_ids": [
+                "FLOW-E03",
+                "FLOW-E04"
+              ]
+            }
+          ],
+          "alternatives": [
+            {
+              "action": "contact",
+              "disposition": "not_selected",
+              "reason": "La solicitud específica de información describe mejor el propósito que un seguimiento genérico.",
+              "evidence_event_ids": [
+                "FLOW-E04"
+              ]
+            },
+            {
+              "action": "wait",
+              "disposition": "not_selected",
+              "reason": "No hay una petición de espera ni bloqueo registrado; pedir el dato está permitido.",
+              "evidence_event_ids": [
+                "FLOW-E02",
+                "FLOW-E04"
+              ]
+            }
+          ],
+          "restrictions": [
+            {
+              "rule_or_policy": "R2/R3",
+              "effect": "Contacto permitido y sin fecha mínima; se revalida antes de actuar.",
+              "evidence_event_ids": [
+                "FLOW-E02"
+              ]
+            },
+            {
+              "rule_or_policy": "R6",
+              "effect": "No prometer stock, reserva o producción mientras falten fuentes actuales.",
+              "evidence_event_ids": [
+                "FLOW-E03",
+                "FLOW-E04"
+              ]
+            }
+          ],
+          "uncertainty": [
+            {
+              "missing_or_uncertain": "Distribución de las 500 piezas por talla.",
+              "could_change": "Si llegan las tallas, dejar de pedirlas y reevaluar variantes y abastecimiento.",
+              "needed_source": "Mensaje del comprador con cantidades por talla."
+            },
+            {
+              "missing_or_uncertain": "Disponibilidad y capacidad desconocidas.",
+              "could_change": "Determinar viabilidad y necesidad de revisión operativa; no bloquea preguntar tallas.",
+              "needed_source": "Almacén y producción autorizados."
+            }
+          ]
+        },
+        "recommendation": {
+          "case_id": "DEMO-FLOW-01",
+          "action": "request_information",
+          "timing": "within_24h",
+          "scheduled_for": null,
+          "reason": "Solicitar la distribución por talla de las 500 playeras negras: el comprador indica que todavía no la tiene y es necesaria para identificar variantes. La solicitud no confirma stock, reserva, capacidad ni fecha de entrega.",
+          "evidence_event_ids": [
+            "FLOW-E04"
+          ],
+          "confidence": "high",
+          "confidence_reason": "El faltante de tallas está expresado por el comprador. La confianza se refiere a pedir ese dato; la compra y la viabilidad operativa siguen sin confirmarse.",
+          "risk_level": "low",
+          "requires_human_review": false,
+          "missing_information": [
+            "Distribución de las 500 piezas por talla.",
+            "Disponibilidad y reserva actuales de stock.",
+            "Capacidad y plazo confirmado de producción.",
+            "Fecha de entrega requerida por el comprador."
+          ]
+        }
+      }
+    },
+    {
+      "contract": "evaluation_job",
+      "schema_version": "1.0",
+      "payload": {
+        "evaluation_id": "EVAL-DEMO-01",
+        "tenant_id": "TENANT-DEMO",
+        "case_id": "DEMO-FLOW-01",
+        "context_version": "CTX-DEMO-01",
+        "trigger_event_id": "FLOW-E04",
+        "reason": "new_event",
+        "evaluation_at": "2026-10-10T15:01:00Z",
+        "knowledge_cutoff": "2026-10-10T15:01:00Z",
+        "status": "completed",
+        "attempt": 1,
+        "recommendation_ref": "REC-DEMO-01",
+        "error": null
+      }
+    },
+    {
+      "contract": "human_command",
+      "schema_version": "1.0",
+      "payload": {
+        "command_id": "CMD-DEMO-01",
+        "case_id": "DEMO-FLOW-01",
+        "recommendation_id": "REC-DEMO-01",
+        "expected_context_version": "CTX-DEMO-01",
+        "operation": "approve_recommendation",
+        "reason": "Pedir las tallas conforme a la propuesta. La aprobación no envía un mensaje.",
+        "execution_receipt": null
+      }
+    },
+    {
+      "contract": "feedback_record",
+      "schema_version": "1.0",
+      "payload": {
+        "feedback_id": "FB-DEMO-01",
+        "tenant_id": "TENANT-DEMO",
+        "case_id": "DEMO-FLOW-01",
+        "recommendation_id": "REC-DEMO-01",
+        "context_version": "CTX-DEMO-01",
+        "recorded_at": "2026-10-10T15:02:00Z",
+        "actor_ref": "SELLER-DEMO",
+        "decision": "accepted",
+        "reason": "Falta confirmar distribución por talla.",
+        "outcome_event_refs": []
+      }
+    }
+  ]
+}
