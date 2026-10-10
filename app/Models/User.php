@@ -14,6 +14,9 @@ use Laravel\Fortify\TwoFactorAuthenticatable;
 
 /**
  * @property int $id
+ * @property string $role
+ * @property bool $must_change_password
+ * @property Carbon|null $temporary_password_expires_at
  * @property string $name
  * @property string $email
  * @property Carbon|null $email_verified_at
@@ -43,6 +46,8 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return [
             'email_verified_at' => 'datetime',
+            'must_change_password' => 'boolean',
+            'temporary_password_expires_at' => 'datetime',
             'password' => 'hashed',
             'two_factor_confirmed_at' => 'datetime',
         ];
