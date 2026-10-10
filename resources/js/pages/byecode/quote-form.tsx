@@ -1,0 +1,502 @@
+import { Link, useForm } from '@inertiajs/react';
+import { Plus, Trash2, Save } from 'lucide-react';
+import {
+    WorkspacePage,
+    Field,
+    FormErrors,
+} from '@/components/byecode/workspace-page';
+import { Alert, AlertDescription } from '@/components/ui/alert';
+import { Button } from '@/components/ui/button';
+import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
+import {
+    Select,
+    SelectTrigger,
+    SelectValue,
+    SelectContent,
+    SelectItem,
+} from '@/components/ui/select';
+import { money } from '@/lib/byecode';
+import type { Customer, Product, Quote } from '@/types/byecode';
+
+type Line = {
+    product_id: string;
+    quantity: string;
+    unit_price: string;
+    supply_mode: string;
+    stock_units: string;
+};
+export default function QuoteForm({
+    case: current,
+    quote,
+    customers,
+    products,
+    requestLines = [],
+    draft,
+}: {
+    case: {
+        id: number;
+        title: string;
+        revision: number;
+        customer_id: number;
+    } | null;
+    quote: Quote | null;
+    customers: Customer[];
+    products: Product[];
+    draft?: { payload: string; revision: number } | null;
+    requestLines?: { product_id: number; quantity: number }[];
+}) {
+    const blank: Line = {
+        product_id: '',
+        quantity: '1',
+        unit_price: '',
+        supply_mode: 'stock',
+        stock_units: '',
+    };
+    const stored = (draft ? JSON.parse(draft.payload) : {}) as Partial<{
+        title: string;
+        valid_until: string;
+        terms: string;
+        authorization_reference: string;
+        tax: string;
+        shipping: string;
+        discount: string;
+        lines: Line[];
+    }>;
+    const form = useForm({
+        draft_revision: draft?.revision ?? 0,
+        title: stored.title ?? current?.title ?? '',
+        customer_id: String(current?.customer_id ?? ''),
+        expected_revision: current?.revision ?? 0,
+        valid_until:
+            stored.valid_until ?? quote?.valid_until.slice(0, 10) ?? '',
+        terms: stored.terms ?? quote?.terms ?? '',
+        authorization_reference: stored.authorization_reference ?? '',
+        tax: stored.tax ?? String((quote?.tax_cents ?? 0) / 100),
+        shipping: stored.shipping ?? String((quote?.shipping_cents ?? 0) / 100),
+        discount: stored.discount ?? String((quote?.discount_cents ?? 0) / 100),
+        lines:
+            stored.lines ??
+            quote?.lines.map((l) => ({
+                product_id: String(l.product_id),
+                quantity: String(l.quantity),
+                unit_price: String(l.unit_price_cents / 100),
+                supply_mode: l.supply_mode,
+                stock_units:
+                    l.stock_units === null ? '' : String(l.stock_units),
+            })) ??
+            (requestLines.length
+                ? requestLines.map((l) => ({
+                      ...blank,
+                      product_id: String(l.product_id),
+                      quantity: String(l.quantity),
+                      supply_mode: 'manufacture',
+                      stock_units: '0',
+                  }))
+                : [{ ...blank }]),
+    });
+    const saveDraft = () => {
+        if (current)
+            form.post('/cases/' + current.id + '/draft', {
+                preserveScroll: true,
+                onSuccess: () =>
+                    form.setData(
+                        'draft_revision',
+                        form.data.draft_revision + 1,
+                    ),
+            });
+    };
+    const setLine = (i: number, key: keyof Line, value: string) =>
+        form.setData(
+            'lines',
+            form.data.lines.map((l, n) => {
+                if (i !== n) return l;
+                const updated = { ...l, [key]: value };
+                if (key === 'product_id') {
+                    const p = products.find((p) => String(p.id) === value);
+                    updated.unit_price =
+                        p?.unit_price_cents === null
+                            ? ''
+                            : String((p?.unit_price_cents ?? 0) / 100);
+                }
+                return updated;
+            }),
+        );
+    const subtotal = form.data.lines.reduce(
+        (sum, l) =>
+            sum +
+            (Number(l.quantity) || 0) *
+                Math.round((Number(l.unit_price) || 0) * 100),
+        0,
+    );
+    const total =
+        subtotal +
+        Math.round(Number(form.data.tax) * 100) +
+        Math.round(Number(form.data.shipping) * 100) -
+        Math.round(Number(form.data.discount) * 100);
+    return (
+        <WorkspacePage
+            title={current ? 'Nueva versión de cotización' : 'Nueva cotización'}
+            description="Conserva las versiones anteriores y registra las condiciones autorizadas. Los totales finales se validan en el servidor."
+        >
+            {(!customers.length || !products.length) && (
+                <Alert>
+                    <AlertDescription>
+                        Para un cliente nuevo, captura{' '}
+                        <Link className="underline" href="/physical-request">
+                            su solicitud presencial
+                        </Link>{' '}
+                        y verifica{' '}
+                        <Link className="underline" href="/products">
+                            una variante de producto
+                        </Link>
+                        .
+                    </AlertDescription>
+                </Alert>
+            )}
+            <form
+                className="space-y-7"
+                onSubmit={(e) => {
+                    e.preventDefault();
+                    form.post(
+                        current ? '/cases/' + current.id + '/quote' : '/quotes',
+                    );
+                }}
+            >
+                <FormErrors errors={form.errors} />
+                {current && (
+                    <Button type="button" variant="outline" onClick={saveDraft}>
+                        Guardar borrador interno
+                    </Button>
+                )}
+                <div className="grid gap-5 lg:grid-cols-3">
+                    <Field label="Título de la oportunidad" htmlFor="title">
+                        <Input
+                            id="title"
+                            required
+                            value={form.data.title}
+                            onChange={(e) =>
+                                form.setData('title', e.target.value)
+                            }
+                            placeholder="Lote de blanks para…"
+                        />
+                    </Field>
+                    <Field label="Empresa compradora" htmlFor="customer">
+                        <Select
+                            value={form.data.customer_id}
+                            onValueChange={(v) =>
+                                form.setData('customer_id', v)
+                            }
+                        >
+                            <SelectTrigger id="customer">
+                                <SelectValue placeholder="Selecciona un cliente" />
+                            </SelectTrigger>
+                            <SelectContent>
+                                {customers.map((c) => (
+                                    <SelectItem key={c.id} value={String(c.id)}>
+                                        {c.company}
+                                    </SelectItem>
+                                ))}
+                            </SelectContent>
+                        </Select>
+                    </Field>
+                    <Field
+                        label="Vigente hasta"
+                        htmlFor="valid_until"
+                        hint="Final del día en Ciudad de México."
+                    >
+                        <Input
+                            id="valid_until"
+                            type="date"
+                            required
+                            value={form.data.valid_until}
+                            onChange={(e) =>
+                                form.setData('valid_until', e.target.value)
+                            }
+                        />
+                    </Field>
+                </div>
+                <section className="space-y-4">
+                    <div className="flex items-center justify-between gap-3">
+                        <h2 className="text-lg font-semibold">
+                            Líneas de producto
+                        </h2>
+                        <Button
+                            type="button"
+                            variant="outline"
+                            size="sm"
+                            disabled={form.data.lines.length >= 30}
+                            onClick={() =>
+                                form.setData('lines', [
+                                    ...form.data.lines,
+                                    { ...blank },
+                                ])
+                            }
+                        >
+                            <Plus />
+                            Agregar línea
+                        </Button>
+                    </div>
+                    {form.data.lines.map((l, i) => (
+                        <Card key={i} className="shadow-none">
+                            <CardContent className="space-y-4">
+                                <div className="flex items-center justify-between">
+                                    <p className="text-sm font-medium">
+                                        Línea {i + 1}
+                                    </p>
+                                    <Button
+                                        type="button"
+                                        variant="ghost"
+                                        size="icon"
+                                        aria-label={'Eliminar línea ' + (i + 1)}
+                                        disabled={form.data.lines.length === 1}
+                                        onClick={() =>
+                                            form.setData(
+                                                'lines',
+                                                form.data.lines.filter(
+                                                    (_, n) => n !== i,
+                                                ),
+                                            )
+                                        }
+                                    >
+                                        <Trash2 className="size-4" />
+                                    </Button>
+                                </div>
+                                <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-5">
+                                    <Field
+                                        label="Variante / SKU"
+                                        htmlFor={'product-' + i}
+                                    >
+                                        <Select
+                                            value={l.product_id}
+                                            onValueChange={(v) =>
+                                                setLine(i, 'product_id', v)
+                                            }
+                                        >
+                                            <SelectTrigger id={'product-' + i}>
+                                                <SelectValue placeholder="Seleccionar" />
+                                            </SelectTrigger>
+                                            <SelectContent>
+                                                {products.map((p) => (
+                                                    <SelectItem
+                                                        key={p.id}
+                                                        value={String(p.id)}
+                                                    >
+                                                        {p.sku} · {p.name}
+                                                    </SelectItem>
+                                                ))}
+                                            </SelectContent>
+                                        </Select>
+                                    </Field>
+                                    <Field
+                                        label="Cantidad"
+                                        htmlFor={'qty-' + i}
+                                    >
+                                        <Input
+                                            id={'qty-' + i}
+                                            type="number"
+                                            required
+                                            min="1"
+                                            step="1"
+                                            value={l.quantity}
+                                            onChange={(e) =>
+                                                setLine(
+                                                    i,
+                                                    'quantity',
+                                                    e.target.value,
+                                                )
+                                            }
+                                        />
+                                    </Field>
+                                    <Field
+                                        label="Precio neto / unidad"
+                                        htmlFor={'price-' + i}
+                                    >
+                                        <Input
+                                            id={'price-' + i}
+                                            type="number"
+                                            required
+                                            min="0"
+                                            step="0.01"
+                                            value={l.unit_price}
+                                            onChange={(e) =>
+                                                setLine(
+                                                    i,
+                                                    'unit_price',
+                                                    e.target.value,
+                                                )
+                                            }
+                                        />
+                                    </Field>
+                                    <Field
+                                        label="Abastecimiento"
+                                        htmlFor={'supply-' + i}
+                                    >
+                                        <Select
+                                            value={l.supply_mode}
+                                            onValueChange={(v) =>
+                                                setLine(i, 'supply_mode', v)
+                                            }
+                                        >
+                                            <SelectTrigger id={'supply-' + i}>
+                                                <SelectValue />
+                                            </SelectTrigger>
+                                            <SelectContent>
+                                                <SelectItem value="stock">
+                                                    Inventario
+                                                </SelectItem>
+                                                <SelectItem value="manufacture">
+                                                    Fabricación
+                                                </SelectItem>
+                                                <SelectItem value="mixed">
+                                                    Mixto
+                                                </SelectItem>
+                                            </SelectContent>
+                                        </Select>
+                                    </Field>
+                                    <Field
+                                        label="Unidades de inventario"
+                                        htmlFor={'stock-' + i}
+                                    >
+                                        <Input
+                                            id={'stock-' + i}
+                                            type="number"
+                                            min="0"
+                                            max={l.quantity}
+                                            value={l.stock_units}
+                                            placeholder="Por verificar"
+                                            onChange={(e) =>
+                                                setLine(
+                                                    i,
+                                                    'stock_units',
+                                                    e.target.value,
+                                                )
+                                            }
+                                        />
+                                    </Field>
+                                </div>
+                            </CardContent>
+                        </Card>
+                    ))}
+                </section>
+                <div className="grid gap-6 xl:grid-cols-[minmax(0,1fr)_340px]">
+                    <div className="space-y-5">
+                        <Field
+                            label="Condiciones comerciales"
+                            htmlFor="terms"
+                            hint="Pago, entrega, pendientes y condiciones. No se interpreta una aceptación como pedido formalizado."
+                        >
+                            <Textarea
+                                id="terms"
+                                value={form.data.terms}
+                                onChange={(e) =>
+                                    form.setData('terms', e.target.value)
+                                }
+                                className="min-h-32"
+                            />
+                        </Field>
+                        <Field
+                            label="Referencia de autorización"
+                            htmlFor="authorization"
+                            hint="Identifica quién o qué documento autoriza precios, impuestos y descuentos."
+                        >
+                            <Input
+                                id="authorization"
+                                required
+                                minLength={5}
+                                value={form.data.authorization_reference}
+                                onChange={(e) =>
+                                    form.setData(
+                                        'authorization_reference',
+                                        e.target.value,
+                                    )
+                                }
+                            />
+                        </Field>
+                    </div>
+                    <Card className="shadow-none">
+                        <CardHeader>
+                            <CardTitle className="text-base">
+                                Importes · MXN
+                            </CardTitle>
+                        </CardHeader>
+                        <CardContent className="space-y-4">
+                            <div className="flex justify-between text-sm">
+                                <span>Subtotal</span>
+                                <span>{money(subtotal)}</span>
+                            </div>
+                            {(
+                                [
+                                    {
+                                        key: 'tax',
+                                        label: 'Impuestos autorizados',
+                                    },
+                                    {
+                                        key: 'shipping',
+                                        label: 'Envío / cargos',
+                                    },
+                                    {
+                                        key: 'discount',
+                                        label: 'Descuento adicional',
+                                    },
+                                ] as const
+                            ).map((f) => (
+                                <Field
+                                    key={f.key}
+                                    label={f.label}
+                                    htmlFor={f.key}
+                                >
+                                    <Input
+                                        id={f.key}
+                                        type="number"
+                                        required
+                                        min="0"
+                                        step="0.01"
+                                        value={form.data[f.key]}
+                                        onChange={(e) =>
+                                            form.setData(f.key, e.target.value)
+                                        }
+                                    />
+                                </Field>
+                            ))}
+                            <div className="flex justify-between border-t pt-4 font-semibold">
+                                <span>Total estimado</span>
+                                <span>{money(total)}</span>
+                            </div>
+                            <p className="text-xs text-muted-foreground">
+                                No se duplican descuentos incluidos en el precio
+                                neto.
+                            </p>
+                        </CardContent>
+                    </Card>
+                </div>
+                <div className="flex flex-wrap justify-end gap-3 border-t pt-5">
+                    <Button type="button" variant="outline" asChild>
+                        <Link
+                            href={current ? '/cases/' + current.id : '/cases'}
+                        >
+                            Cancelar
+                        </Link>
+                    </Button>
+                    <Button
+                        disabled={
+                            form.processing ||
+                            !customers.length ||
+                            !products.length
+                        }
+                    >
+                        <Save />
+                        {form.processing ? 'Guardando…' : 'Guardar versión'}
+                    </Button>
+                </div>
+            </form>
+        </WorkspacePage>
+    );
+}
+QuoteForm.layout = {
+    breadcrumbs: [
+        { title: 'Cotizaciones', href: '/cases' },
+        { title: 'Cotización', href: '/quotes/create' },
+    ],
+};
