@@ -5,10 +5,12 @@ use App\Http\Middleware\HandleInertiaRequests;
 use App\Http\Middleware\PrivateWorkspaceResponse;
 use App\Http\Middleware\RequireInitialPassword;
 use App\Http\Middleware\RequireRole;
+use App\Http\Middleware\TrustRailwayProxies;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
 use Illuminate\Http\Middleware\AddLinkHeadersForPreloadedAssets;
+use Illuminate\Http\Middleware\TrustProxies;
 use Illuminate\Http\Request;
 
 return Application::configure(basePath: dirname(__DIR__))
@@ -18,6 +20,8 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
+        $middleware->replace(TrustProxies::class, TrustRailwayProxies::class);
+
         $middleware->alias(['role' => RequireRole::class]);
         $middleware->encryptCookies(except: ['appearance', 'sidebar_state']);
 
