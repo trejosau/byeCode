@@ -34,6 +34,7 @@ class RegistrationTest extends TestCase
         ]);
 
         $this->assertAuthenticated();
+        $this->assertNotNull(auth()->user()->email_verified_at);
         $response->assertRedirect(route('dashboard', absolute: false));
     }
 }

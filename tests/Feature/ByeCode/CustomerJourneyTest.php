@@ -47,12 +47,12 @@ it('starts one CRM only on first submission and reuses it for future cases', fun
     $this->post('/request', [...$this->input, 'submission_id' => (string) Str::uuid()])->assertRedirect();
     expect(Customer::count())->toBe(1)->and(CommercialCase::count())->toBe(2);
 });
-it('never exposes catalog prices and requires verification before submitting', function () {
+it('never exposes catalog prices and allows unverified accounts to submit', function () {
     $this->get('/catalog')->assertInertia(fn (Assert $p) => $p->component('journey/catalog')->has('variants', 1)->missing('variants.0.unit_price_cents')->missing('variants.0.user_id')->missing('customers'));
     $this->post('/request', $this->input)->assertRedirect('/login');
     $this->buyer->forceFill(['email_verified_at' => null])->save();
-    $this->actingAs($this->buyer)->post('/request', $this->input)->assertRedirect('/email/verify');
-    expect(Customer::count())->toBe(0);
+    $this->actingAs($this->buyer)->post('/request', $this->input)->assertRedirect()->assertSessionHasNoErrors();
+    expect(Customer::count())->toBe(1);
 });
 it('enforces admin read only and commerce sharing with buyer isolation', function () {
     $case = app(CustomerJourney::class)->submit($this->buyer, $this->input);
@@ -132,10 +132,9 @@ it('returns customers to their selection after login and refuses changed duplica
     expect(Customer::count())->toBe(1)->and(CommercialCase::count())->toBe(1);
 });
 
-it('queues verification and recovery encrypted and discards expired credentials without sending', function () {
-    $this->buyer->sendEmailVerificationNotification();
+it('queues recovery encrypted and discards expired credentials without sending', function () {
     $this->buyer->sendPasswordResetNotification('test-reset-token');
-    expect(DB::table('mail_deliveries')->count())->toBe(2);
+    expect(DB::table('mail_deliveries')->count())->toBe(1);
     $rows = DB::table('mail_deliveries')->get();
     foreach ($rows as $row) {
         expect($row->encrypted_body)->not->toContain('test-reset-token')->not->toContain('http');

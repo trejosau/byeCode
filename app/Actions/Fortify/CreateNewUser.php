@@ -31,7 +31,7 @@ class CreateNewUser implements CreatesNewUsers
             'password' => $input['password'],
         ]);
         $demoRun = DemoPolicy::activeRunId();
-        $user->forceFill(['role' => 'customer', 'demo_run_id' => $demoRun, 'email_verified_at' => $demoRun ? now() : null])->save();
+        $user->forceFill(['role' => 'customer', 'demo_run_id' => $demoRun, 'email_verified_at' => now()])->save();
 
         return $user;
     }

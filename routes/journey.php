@@ -14,7 +14,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/initial-password', [AccountController::class, 'password']);
     Route::post('/initial-password', [AccountController::class, 'changePassword'])->middleware('throttle:6,1');
 });
-Route::middleware(['auth', 'verified'])->group(function () {
+Route::middleware('auth')->group(function () {
     Route::middleware('role:admin')->group(function () {
         Route::get('/admin', [AccountController::class, 'admin']);
         Route::post('/admin/team', [AccountController::class, 'team'])->middleware('throttle:10,1');

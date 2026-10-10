@@ -14,8 +14,8 @@ Route::get('/catalog', [CatalogController::class, 'index']);
 Route::post('/selection', [CatalogController::class, 'selection'])->middleware('throttle:30,1');
 require __DIR__.'/journey.php';
 
-Route::get('dashboard', [AccountController::class, 'home'])->middleware(['auth', 'verified'])->name('dashboard');
-Route::middleware(['auth', 'verified', 'role:commerce'])->group(function () {
+Route::get('dashboard', [AccountController::class, 'home'])->middleware('auth')->name('dashboard');
+Route::middleware(['auth', 'role:commerce'])->group(function () {
     Route::get('workspace', [CommerceController::class, 'dashboard']);
     Route::get('cases', [CommerceController::class, 'index'])->name('cases.index');
     Route::get('quotes/create', [CommerceController::class, 'quoteForm'])->name('quotes.create');
@@ -43,6 +43,6 @@ Route::middleware(['auth', 'verified', 'role:commerce'])->group(function () {
     Route::get('prediction/template', [PredictionController::class, 'template']);
 });
 
-Route::get('portal/{token}', [PortalController::class, 'show'])->middleware(['auth', 'verified', 'throttle:60,1']);
+Route::get('portal/{token}', [PortalController::class, 'show'])->middleware(['auth', 'throttle:60,1']);
 
 require __DIR__.'/settings.php';

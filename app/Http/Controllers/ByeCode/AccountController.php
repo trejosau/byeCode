@@ -38,9 +38,6 @@ class AccountController
         abort_if(Hash::check($data['password'], $user->password), 422, 'Elige una contraseña diferente.');
         $user->forceFill(['password' => $data['password'], 'must_change_password' => false, 'temporary_password_expires_at' => null])->save();
         $request->session()->regenerate();
-        if (! $user->hasVerifiedEmail()) {
-            $user->sendEmailVerificationNotification();
-        }
 
         return redirect('/dashboard');
     }
