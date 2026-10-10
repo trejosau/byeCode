@@ -4,6 +4,7 @@ use App\Domain\Cases\CaseProjector;
 use App\Domain\Decision\DecisionValidator;
 use App\Domain\Evaluation\BudgetLedger;
 use App\Domain\Evaluation\EvaluationService;
+use App\Domain\Evaluation\OpenAiAdapter;
 use App\Domain\Events\ImportService;
 use App\Models\AiUsage;
 use App\Models\CommercialCase;
@@ -24,6 +25,36 @@ beforeEach(function () {
     $this->set = DataSet::create(['user_id' => User::factory()->create()->id, 'mode' => 'kit', 'name' => 'Safety fixtures', 'evaluation_at' => '2026-10-09T16:00:00Z']);
     app(ImportService::class)->import($this->set, file_get_contents(base_path('referencias/kit_publico/events.jsonl')), 'Kit');
 });
+
+it('sends a larger history intact and blocks oversized context before spending', function (bool $oversized) {
+    Http::fake(['api.openai.com/*' => Http::response([
+        'status' => 'completed', 'usage' => ['input_tokens' => 100, 'output_tokens' => 10],
+        'output' => [['content' => [['type' => 'output_text', 'text' => '{"facts":[]}']]]],
+    ])]);
+    $case = CommercialCase::where('external_id', 'P01')->firstOrFail();
+    $evaluation = app(EvaluationService::class)->request($case);
+    $snapshot = $evaluation->snapshot;
+    $history = str_repeat('Condición explícita del cliente. ', $oversized ? 7000 : 3000);
+    $snapshot['events'][0]['data']['text'] = $history;
+    $evaluation->update(['snapshot' => $snapshot]);
+
+    if ($oversized) {
+        expect(fn () => app(OpenAiAdapter::class)->evaluate($evaluation))
+            ->toThrow(RuntimeException::class, 'context_too_large');
+        Http::assertNothingSent();
+        expect(AiUsage::count())->toBe(0);
+    } else {
+        expect(strlen($history))->toBeGreaterThan(20000);
+        app(OpenAiAdapter::class)->evaluate($evaluation);
+        Http::assertSent(function ($request) use ($history) {
+            $input = json_decode($request['input'][0]['content'], true);
+
+            return $input['events'][0]['data']['text'] === $history;
+        });
+        Http::assertSentCount(1);
+        expect(AiUsage::first()->status)->toBe('confirmed');
+    }
+})->with([false, true]);
 
 it('blocks every buyer-facing action under each hard restriction', function (string $action, string $rule) {
     $case = CommercialCase::where('external_id', 'P01')->firstOrFail();

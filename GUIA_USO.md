@@ -1,6 +1,14 @@
 # ByeCode: usar, comprobar y activar IA
 
+## Contexto ampliado del análisis
+
+El historial serializado admite hasta 200,000 bytes UTF-8 (antes 20,000), configurable con `BYECODE_MAX_CONTEXT_BYTES`. El límite se comparte con los lotes de perfil. No se recortan silenciosamente mensajes para forzar un ranking. Los límites de gasto y las tarifas se conservan; un historial mayor consume más contexto. Si se supera el nuevo límite, el análisis sigue bloqueándose antes de reservar presupuesto.
+
+Después de cambiar esta configuración, reinicia `composer run dev` para que el worker la cargue. Los resultados bloqueados ya guardados no se recalculan solo por recargar la página; los nuevos eventos comerciales activan la siguiente evaluación. No hay reintentos automáticos de llamadas fallidas.
+
 ## Evidencia de lectura en el ranking
+
+El envío de la solicitud también es evidencia comercial citable en el ranking, con sus productos y cantidades. Solo se admite el evento del mismo caso; las señales que permiten contacto siguen requiriendo mensajes explícitos. La versión de contexto `byecode-semantic-4.3` incorpora este evento para evitar rechazar citas válidas de la solicitud inicial.
 
 Las nuevas evaluaciones consideran productos, precios, condiciones, decisión y conversación visibles; permanencia activa reportada y desplazamiento por versión, junto con mensajes, cambios, aceptación, rechazo y pagos. En cada alternativa, **Qué pasó · evidencia de esta decisión** muestra hechos citados, fecha, versión y origen. El motivo explica su relación con la prioridad. **Lectura y desplazamiento considerados** permite revisar los agregados disponibles al evaluar.
 

@@ -277,3 +277,10 @@ Implementar cotizaciones, eventos y el adaptador explícito del kit público; de
 El correo de desarrollo escribe en el log local (`MAIL_MAILER=log`). Aún no hay proveedor SMTP ni envío de correos reales. La portada y el panel indican que los módulos comerciales están en desarrollo.
 
 Ver [README.md](README.md) para instalación y comandos.
+## Ampliación de contexto del 10 de octubre de 2026
+
+Corrección posterior: `request.submitted` estaba presente en `activity_context`, pero ausente del catálogo de evidencias de planes. Se incorpora como hecho comercial del mismo caso, con productos/cantidades, manteniendo las restricciones de contacto. Versión de contexto 4.3. Validación: 47 pruebas (324 aserciones) de negociación, seguridad y eventos; rechazo de evidencias inventadas o de otra solicitud. Para resolver el fallo reportado se hicieron dos análisis reales locales dentro del presupuesto existente: diagnóstico y evaluación corregida. La evaluación 13 terminó correctamente y dejó un ranking vigente para la solicitud reportada. Sin cambios de tarifas, presupuesto ni correo.
+
+Por petición del usuario, el máximo de contexto serializado pasa de 20,000 a 200,000 bytes UTF-8, configurable mediante `BYECODE_MAX_CONTEXT_BYTES`, tanto para ranking como para lotes de perfil. Se conservan la evidencia completa del ranking, tarifas y límites de presupuesto. Los bloqueos anteriores no se reintentan automáticamente.
+
+Validación: 49 pruebas de seguridad, análisis por eventos y perfil comercial aprobadas (371 aserciones), incluyendo envío íntegro de un historial mayor de 20 KB y bloqueo previo a gasto si supera el nuevo máximo. HTTP simulado y SQLite aislado, sin llamadas reales de IA ni correo.

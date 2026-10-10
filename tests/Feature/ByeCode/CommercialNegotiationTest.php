@@ -4,6 +4,7 @@ use App\Domain\Cases\CaseProjector;
 use App\Domain\Cases\CustomerJourney;
 use App\Domain\Cases\ProductionCosts;
 use App\Domain\Cases\QuoteService;
+use App\Domain\Decision\BehaviorEvidence;
 use App\Domain\Decision\CommercialPlans;
 use App\Domain\Decision\DecisionValidator;
 use App\Domain\Decision\RuleEngine;
@@ -38,6 +39,27 @@ beforeEach(function () {
     $this->quoteData = ['customer_id' => $this->case->customer_id, 'title' => 'Cotización', 'valid_until' => now()->addWeek()->format('Y-m-d'),
         'authorization_reference' => 'Revisión del vendedor', 'tax' => '100.00', 'shipping' => '50.00', 'discount' => '25.00', 'expected_revision' => $this->case->revision,
         'lines' => [['product_id' => $this->product->id, 'quantity' => 75, 'line_total' => '3750.00']]];
+});
+
+it('accepts submitted request evidence in plans without admitting foreign or invented events', function () {
+    $other = app(CustomerJourney::class)->submit($this->buyer, ['submission_id' => (string) Str::uuid(),
+        'lines' => [['product_id' => $this->product->id, 'quantity' => 5]], 'message' => 'Otra solicitud.']);
+    $snapshot = app(CaseProjector::class)->snapshot($this->case);
+    $id = DB::table('activity_events')->where('commercial_case_id', $this->case->id)->where('type', 'request.submitted')->value('event_id');
+    $foreign = DB::table('activity_events')->where('commercial_case_id', $other->id)->where('type', 'request.submitted')->value('event_id');
+    $catalog = app(BehaviorEvidence::class)->catalog($snapshot);
+    expect($catalog[$id]['summary'])->toContain('Solicitud enviada', '75 unidades')->and($catalog)->not->toHaveKey($foreign);
+    $candidate = ['action' => 'escalate', 'signals' => [], 'plans' => [[
+        'action' => 'escalate', 'title' => 'Revisar solicitud', 'reason' => 'La solicitud necesita revisión interna.',
+        'steps' => ['Revisar cantidades.'], 'message' => null, 'proposed_total_cents' => null,
+        'additional_delivery_days' => null, 'checks' => [], 'evidence_event_ids' => [$id],
+    ]]];
+    app(CommercialPlans::class)->validate($snapshot, $candidate);
+    foreach ([$foreign, 'invented-event'] as $invalidId) {
+        $candidate['plans'][0]['evidence_event_ids'] = [$invalidId];
+        expect(fn () => app(CommercialPlans::class)->validate($snapshot, $candidate))->toThrow(InvalidArgumentException::class);
+    }
+    Http::assertNothingSent();
 });
 
 it('calculates manufacturing costs for requests and quotes without treating unknown garments as free', function () {

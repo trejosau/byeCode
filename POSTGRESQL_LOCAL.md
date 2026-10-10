@@ -4,15 +4,15 @@ Configuración solicitada el 10 de octubre de 2026. Laravel local utiliza una ba
 
 ## Conexión
 
-| Parámetro | Valor |
-| --- | --- |
-| Servidor | PostgreSQL 17.11, distribución Windows x64 de EDB |
-| Host y puerto | `127.0.0.1:5432` |
-| Base de datos | `byecode` |
-| Esquema | `byecode` |
+| Parámetro          | Valor                                                        |
+| ------------------ | ------------------------------------------------------------ |
+| Servidor           | PostgreSQL 17.11, distribución Windows x64 de EDB            |
+| Host y puerto      | `127.0.0.1:5432`                                             |
+| Base de datos      | `byecode`                                                    |
+| Esquema            | `byecode`                                                    |
 | Usuario de Laravel | `byecode_local`, sin superusuario ni creación de roles/bases |
-| Autenticación | Contraseña aleatoria, SCRAM-SHA-256 |
-| SSL local | Deshabilitado; escucha exclusivamente en loopback |
+| Autenticación      | Contraseña aleatoria, SCRAM-SHA-256                          |
+| SSL local          | Deshabilitado; escucha exclusivamente en loopback            |
 
 Laravel lee la contraseña desde `.env`, ignorado por Git. La cuenta administrativa y una copia de las credenciales locales están en `.env.postgresql-local`, con permisos de archivo restringidos. No compartir estos archivos ni subirlos al repositorio. `APP_KEY`, las contraseñas de las cuentas de la aplicación y la configuración económica se conservan.
 

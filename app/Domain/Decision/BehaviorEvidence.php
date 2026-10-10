@@ -42,7 +42,7 @@ final class BehaviorEvidence
                 $scroll[$scrollKey] = ['version' => $version, 'max_depth' => max($depth, $scroll[$scrollKey]['max_depth'] ?? 0)];
                 $text = 'Desplazamiento reportado: '.$depth.'% de la página; no demuestra lectura completa.';
             } elseif ($row->source === 'application') {
-                $label = ['buyer.accept' => 'Aceptación registrada (revisar alcance y condiciones)', 'buyer.reject' => 'Rechazo registrado',
+                $label = ['request.submitted' => 'Solicitud enviada por el cliente', 'buyer.accept' => 'Aceptación registrada (revisar alcance y condiciones)', 'buyer.reject' => 'Rechazo registrado',
                     'buyer.change' => 'Solicitud de cambios registrada', 'sale.payment' => 'Pago registrado', 'sale.formalized' => 'Formalización registrada',
                     'sale.rejected' => 'Rechazo comercial registrado', 'sale.cancelled' => 'Cancelación registrada'][$row->type] ?? null;
                 if ($label) {
@@ -54,7 +54,8 @@ final class BehaviorEvidence
                         $text .= '. Condiciones: '.$data['conditions'];
                     }
                     foreach ($data['lines'] ?? [] as $line) {
-                        $text .= '. Línea '.$line['line_id'].': '.$line['quantity'].' unidades';
+                        $reference = isset($line['line_id']) ? 'Línea '.$line['line_id'] : 'Producto '.($line['product_id'] ?? 'solicitado');
+                        $text .= '. '.$reference.': '.$line['quantity'].' unidades';
                         if (isset($line['proposed_total_cents'])) {
                             $text .= ', total solicitado $'.number_format($line['proposed_total_cents'] / 100, 2, '.', ',').' MXN';
                         }

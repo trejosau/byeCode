@@ -2,13 +2,14 @@
 
 return [
     'rules_version' => 'r1-r6-v1.0',
-    'prompt_version' => 'byecode-semantic-4.2',
+    'prompt_version' => 'byecode-semantic-4.3',
     // Confirmed manufacturing cost in MXN cents; other garment categories remain unknown.
     'commercial_costs' => ['playera_unit_cents' => 4730],
     'kit_clock' => '2026-10-09T16:00:00Z',
     'model' => env('OPENAI_MODEL') ?: 'gpt-5.6-luna',
     'max_output_tokens' => 1800,
-    'max_context_bytes' => 20000,
+    // UTF-8 serialized history size, not tokens. Never silently truncate evidence.
+    'max_context_bytes' => (int) env('BYECODE_MAX_CONTEXT_BYTES', 200000),
     'max_import_bytes' => 2097152,
     'max_import_lines' => 2000,
     'budget' => [

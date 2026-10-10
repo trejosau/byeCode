@@ -102,7 +102,7 @@ function setup(enabled = true) {
     };
 }
 
-test('batches reading duration with case and version, and caps inactivity', () => {
+void test('batches reading duration with case and version, and caps inactivity', () => {
     const page = setup();
     page.visible();
     page.tick(10000);
@@ -128,7 +128,7 @@ test('batches reading duration with case and version, and caps inactivity', () =
     page.cleanup();
 });
 
-test('does not count hidden time and flushes partial reading on exit', () => {
+void test('does not count hidden time and flushes partial reading on exit', () => {
     const page = setup();
     page.visible();
     page.tick(10000);
@@ -155,7 +155,7 @@ test('does not count hidden time and flushes partial reading on exit', () => {
     page.cleanup();
 });
 
-test('observes sections introduced by a partial reload and avoids duplicate views', () => {
+void test('observes sections introduced by a partial reload and avoids duplicate views', () => {
     const page = setup();
     page.visible();
     page.visible();
@@ -173,7 +173,7 @@ test('observes sections introduced by a partial reload and avoids duplicate view
     assert.equal(page.listeners.size, 0);
 });
 
-test('staff pages do not install or send buyer activity', () => {
+void test('staff pages do not install or send buyer activity', () => {
     const page = setup(false);
     assert.equal(page.listeners.size, 0);
     assert.equal(page.observed.size, 0);
