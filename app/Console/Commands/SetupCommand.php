@@ -7,13 +7,19 @@ use Illuminate\Support\Facades\DB;
 
 class SetupCommand extends Command
 {
-    protected $signature = 'byecode:setup';
+    protected $signature = 'byecode:setup {--force : Autoriza migraciones pendientes en producción}';
 
     protected $description = 'Inicializa la clave, el esquema de PostgreSQL y las migraciones pendientes';
 
     public function handle(): int
     {
         if (! config('app.key')) {
+            if (app()->isProduction()) {
+                $this->error('APP_KEY debe configurarse antes de desplegar. No se generará una clave en producción.');
+
+                return self::FAILURE;
+            }
+
             if ($this->call('key:generate') !== self::SUCCESS) {
                 return self::FAILURE;
             }
@@ -34,6 +40,9 @@ class SetupCommand extends Command
             $this->info('Esquema PostgreSQL disponible: '.$schema);
         }
 
-        return $this->call('migrate', ['--no-interaction' => true]);
+        return $this->call('migrate', [
+            '--no-interaction' => true,
+            '--force' => (bool) $this->option('force'),
+        ]);
     }
 }

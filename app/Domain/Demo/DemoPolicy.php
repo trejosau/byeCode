@@ -30,7 +30,7 @@ final class DemoPolicy
 
     public static function activeRunId(): ?string
     {
-        if (! app()->environment(['local', 'testing']) || ! config('demo.enabled') || ! config('demo.active_key')) {
+        if (! app()->environment('testing') || ! config('demo.enabled') || ! config('demo.active_key')) {
             return null;
         }
 
@@ -44,8 +44,8 @@ final class DemoPolicy
 
     public static function requireLoadingEnabled(): void
     {
-        if (! app()->environment(['local', 'testing']) || ! config('demo.enabled')) {
-            throw new \RuntimeException('La carga requiere entorno local/testing y BYECODE_DEMO_ENABLED=true.');
+        if (! app()->environment('testing') || ! config('demo.enabled')) {
+            throw new \RuntimeException('El historial sintético solo se permite en pruebas automatizadas. Los clientes se registran en la aplicación.');
         }
     }
 }

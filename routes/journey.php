@@ -30,7 +30,6 @@ Route::middleware('auth')->group(function () {
         Route::get('/requests', [RequestController::class, 'index']);
         Route::get('/physical-request', [RequestController::class, 'form']);
         Route::post('/physical-request', [RequestController::class, 'store'])->middleware('throttle:10,1');
-        Route::post('/requests/{case}/assign', [RequestController::class, 'assign']);
         Route::post('/products/styles', [CatalogController::class, 'style']);
         Route::post('/products/variants', [CatalogController::class, 'variant']);
         Route::post('/journey/{case}/result', [ConversationController::class, 'result']);

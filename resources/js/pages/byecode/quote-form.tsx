@@ -23,7 +23,7 @@ import type { Customer, Product, Quote } from '@/types/byecode';
 type Line = {
     product_id: string;
     quantity: string;
-    unit_price: string;
+    line_total: string;
 };
 export default function QuoteForm({
     case: current,
@@ -31,10 +31,12 @@ export default function QuoteForm({
     customers,
     products,
     requestLines = [],
+    requestMessage,
     draft,
 }: {
     case: {
         id: number;
+        public_id: string;
         title: string;
         revision: number;
         customer_id: number;
@@ -44,11 +46,12 @@ export default function QuoteForm({
     products: Product[];
     draft?: { payload: string; revision: number } | null;
     requestLines?: { product_id: number; quantity: number }[];
+    requestMessage?: string | null;
 }) {
     const blank: Line = {
         product_id: '',
         quantity: '1',
-        unit_price: '',
+        line_total: '',
     };
     const stored = (draft ? JSON.parse(draft.payload) : {}) as Partial<{
         title: string;
@@ -58,7 +61,7 @@ export default function QuoteForm({
         tax: string;
         shipping: string;
         discount: string;
-        lines: Line[];
+        lines: (Line & { unit_price?: string })[];
     }>;
     const form = useForm({
         draft_revision: draft?.revision ?? 0,
@@ -66,18 +69,28 @@ export default function QuoteForm({
         customer_id: String(current?.customer_id ?? ''),
         expected_revision: current?.revision ?? 0,
         valid_until:
-            stored.valid_until ?? quote?.valid_until.slice(0, 10) ?? '',
+            stored.valid_until ??
+            quote?.valid_until.slice(0, 10) ??
+            new Date(Date.now() + 7 * 86400000).toISOString().slice(0, 10),
         terms: stored.terms ?? quote?.terms ?? '',
         authorization_reference: stored.authorization_reference ?? '',
         tax: stored.tax ?? String((quote?.tax_cents ?? 0) / 100),
         shipping: stored.shipping ?? String((quote?.shipping_cents ?? 0) / 100),
         discount: stored.discount ?? String((quote?.discount_cents ?? 0) / 100),
         lines:
-            stored.lines ??
+            stored.lines?.map((l) => ({
+                product_id: l.product_id,
+                quantity: l.quantity,
+                line_total:
+                    l.line_total ??
+                    (l.unit_price
+                        ? (Number(l.unit_price) * Number(l.quantity)).toFixed(2)
+                        : ''),
+            })) ??
             quote?.lines.map((l) => ({
                 product_id: String(l.product_id),
                 quantity: String(l.quantity),
-                unit_price: String(l.unit_price_cents / 100),
+                line_total: String(l.total_cents / 100),
             })) ??
             (requestLines.length
                 ? requestLines.map((l) => ({
@@ -104,21 +117,12 @@ export default function QuoteForm({
             form.data.lines.map((l, n) => {
                 if (i !== n) return l;
                 const updated = { ...l, [key]: value };
-                if (key === 'product_id') {
-                    const p = products.find((p) => String(p.id) === value);
-                    updated.unit_price =
-                        p?.unit_price_cents === null
-                            ? ''
-                            : String((p?.unit_price_cents ?? 0) / 100);
-                }
+                if (key === 'product_id') updated.line_total = '';
                 return updated;
             }),
         );
     const subtotal = form.data.lines.reduce(
-        (sum, l) =>
-            sum +
-            (Number(l.quantity) || 0) *
-                Math.round((Number(l.unit_price) || 0) * 100),
+        (sum, l) => sum + Math.round((Number(l.line_total) || 0) * 100),
         0,
     );
     const total =
@@ -128,8 +132,8 @@ export default function QuoteForm({
         Math.round(Number(form.data.discount) * 100);
     return (
         <WorkspacePage
-            title={current ? 'Nueva versión de cotización' : 'Nueva cotización'}
-            description="Conserva las versiones anteriores y registra las condiciones autorizadas. Los totales finales se validan en el servidor."
+            title={quote ? 'Actualizar cotización' : 'Preparar cotización'}
+            description="Pon el precio total de cada detalle. La suma es el total de la cotización."
         >
             {(!customers.length || !products.length) && (
                 <Alert>
@@ -156,210 +160,295 @@ export default function QuoteForm({
                 }}
             >
                 <FormErrors errors={form.errors} />
-                {current && (
-                    <Button type="button" variant="outline" onClick={saveDraft}>
-                        Guardar borrador interno
-                    </Button>
-                )}
-                <div className="grid gap-5 lg:grid-cols-3">
-                    <Field label="Título de la oportunidad" htmlFor="title">
-                        <Input
-                            id="title"
-                            required
-                            value={form.data.title}
-                            onChange={(e) =>
-                                form.setData('title', e.target.value)
-                            }
-                            placeholder="Lote de blanks para…"
-                        />
-                    </Field>
-                    <Field label="Empresa compradora" htmlFor="customer">
-                        <Select
-                            value={form.data.customer_id}
-                            onValueChange={(v) =>
-                                form.setData('customer_id', v)
-                            }
-                        >
-                            <SelectTrigger id="customer">
-                                <SelectValue placeholder="Selecciona un cliente" />
-                            </SelectTrigger>
-                            <SelectContent>
-                                {customers.map((c) => (
-                                    <SelectItem key={c.id} value={String(c.id)}>
-                                        {c.company}
-                                    </SelectItem>
-                                ))}
-                            </SelectContent>
-                        </Select>
-                    </Field>
-                    <Field
-                        label="Vigente hasta"
-                        htmlFor="valid_until"
-                        hint="Final del día en Ciudad de México."
-                    >
-                        <Input
-                            id="valid_until"
-                            type="date"
-                            required
-                            value={form.data.valid_until}
-                            onChange={(e) =>
-                                form.setData('valid_until', e.target.value)
-                            }
-                        />
-                    </Field>
-                </div>
-                <section className="space-y-4">
-                    <div className="flex items-center justify-between gap-3">
-                        <h2 className="text-lg font-semibold">
-                            Líneas de producto
+                {requestMessage && (
+                    <section className="rounded-lg border bg-muted/40 p-4">
+                        <h2 className="mb-2 font-medium">
+                            Lo que necesita el cliente
                         </h2>
-                        <Button
-                            type="button"
-                            variant="outline"
-                            size="sm"
-                            disabled={form.data.lines.length >= 100}
-                            onClick={() =>
-                                form.setData('lines', [
-                                    ...form.data.lines,
-                                    { ...blank },
-                                ])
-                            }
+                        <p className="text-sm whitespace-pre-wrap">
+                            {requestMessage}
+                        </p>
+                    </section>
+                )}
+                <details className="rounded-lg border p-4" open={!current}>
+                    <summary className="cursor-pointer text-sm">
+                        Datos de la cotización y vigencia
+                    </summary>
+                    <div className="grid gap-5 lg:grid-cols-3">
+                        <Field label="Título de la oportunidad" htmlFor="title">
+                            <Input
+                                id="title"
+                                required
+                                value={form.data.title}
+                                onChange={(e) =>
+                                    form.setData('title', e.target.value)
+                                }
+                                placeholder="Lote de blanks para…"
+                            />
+                        </Field>
+                        <Field label="Empresa compradora" htmlFor="customer">
+                            <Select
+                                disabled={!!current}
+                                value={form.data.customer_id}
+                                onValueChange={(v) =>
+                                    form.setData('customer_id', v)
+                                }
+                            >
+                                <SelectTrigger id="customer">
+                                    <SelectValue placeholder="Selecciona un cliente" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                    {customers.map((c) => (
+                                        <SelectItem
+                                            key={c.id}
+                                            value={String(c.id)}
+                                        >
+                                            {c.company}
+                                        </SelectItem>
+                                    ))}
+                                </SelectContent>
+                            </Select>
+                        </Field>
+                        <Field
+                            label="Vigente hasta"
+                            htmlFor="valid_until"
+                            hint="Final del día en Ciudad de México."
                         >
-                            <Plus />
-                            Agregar línea
-                        </Button>
+                            <Input
+                                id="valid_until"
+                                type="date"
+                                required
+                                value={form.data.valid_until}
+                                onChange={(e) =>
+                                    form.setData('valid_until', e.target.value)
+                                }
+                            />
+                        </Field>
                     </div>
-                    {form.data.lines.map((l, i) => (
-                        <Card key={i} className="shadow-none">
-                            <CardContent className="space-y-4">
-                                <div className="flex items-center justify-between">
-                                    <p className="text-sm font-medium">
-                                        Línea {i + 1}
-                                    </p>
-                                    <Button
-                                        type="button"
-                                        variant="ghost"
-                                        size="icon"
-                                        aria-label={'Eliminar línea ' + (i + 1)}
-                                        disabled={form.data.lines.length === 1}
-                                        onClick={() =>
-                                            form.setData(
-                                                'lines',
-                                                form.data.lines.filter(
-                                                    (_, n) => n !== i,
-                                                ),
-                                            )
-                                        }
-                                    >
-                                        <Trash2 className="size-4" />
-                                    </Button>
-                                </div>
-                                <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+                </details>
+                {current && form.data.lines.every((line) => line.product_id) ? (
+                    <section className="space-y-4">
+                        <h2 className="text-lg font-semibold">
+                            Detalles de la cotización
+                        </h2>
+                        {form.data.lines.map((line, index) => {
+                            const product = products.find(
+                                (item) => String(item.id) === line.product_id,
+                            );
+                            return (
+                                <div
+                                    key={line.product_id}
+                                    className="grid items-center gap-4 rounded-lg border p-5 sm:grid-cols-[1fr_240px]"
+                                >
+                                    <div>
+                                        <h3 className="font-medium">
+                                            {line.quantity} ×{' '}
+                                            {product?.name ?? 'Producto'}
+                                        </h3>
+                                        <p className="text-sm text-muted-foreground">
+                                            {product?.color} · Talla{' '}
+                                            {product?.size}
+                                        </p>
+                                    </div>
                                     <Field
-                                        label="Prenda"
-                                        htmlFor={'product-' + i}
-                                    >
-                                        <details className="rounded-md border p-3">
-                                            <summary
-                                                id={'product-' + i}
-                                                className="cursor-pointer text-sm"
-                                            >
-                                                {(() => {
-                                                    const p = products.find(
-                                                        (p) =>
-                                                            String(p.id) ===
-                                                            l.product_id,
-                                                    );
-                                                    return p
-                                                        ? `${p.name} · ${p.color} · ${p.size} · ${p.gsm} g/m²`
-                                                        : 'Elegir prenda';
-                                                })()}
-                                            </summary>
-                                            <div className="mt-3 grid max-h-64 gap-2 overflow-y-auto">
-                                                {products.map((p) => (
-                                                    <Button
-                                                        key={p.id}
-                                                        type="button"
-                                                        variant={
-                                                            String(p.id) ===
-                                                            l.product_id
-                                                                ? 'secondary'
-                                                                : 'ghost'
-                                                        }
-                                                        className="h-auto justify-start text-left whitespace-normal"
-                                                        onClick={(event) => {
-                                                            setLine(
-                                                                i,
-                                                                'product_id',
-                                                                String(p.id),
-                                                            );
-                                                            event.currentTarget
-                                                                .closest(
-                                                                    'details',
-                                                                )
-                                                                ?.removeAttribute(
-                                                                    'open',
-                                                                );
-                                                        }}
-                                                    >
-                                                        {p.name} · {p.color} ·{' '}
-                                                        {p.size} · {p.gsm} g/m²
-                                                    </Button>
-                                                ))}
-                                            </div>
-                                        </details>
-                                    </Field>
-                                    <Field
-                                        label="Cantidad"
-                                        htmlFor={'qty-' + i}
+                                        label="Precio total del detalle (MXN)"
+                                        htmlFor={'price-' + index}
                                     >
                                         <Input
-                                            id={'qty-' + i}
+                                            id={'price-' + index}
                                             type="number"
-                                            required
-                                            min="1"
-                                            step="1"
-                                            value={l.quantity}
-                                            onChange={(e) =>
-                                                setLine(
-                                                    i,
-                                                    'quantity',
-                                                    e.target.value,
-                                                )
-                                            }
-                                        />
-                                    </Field>
-                                    <Field
-                                        label="Precio neto / unidad"
-                                        htmlFor={'price-' + i}
-                                    >
-                                        <Input
-                                            id={'price-' + i}
-                                            type="number"
+                                            inputMode="decimal"
                                             required
                                             min="0"
+                                            max="999999999"
                                             step="0.01"
-                                            value={l.unit_price}
-                                            onChange={(e) =>
+                                            placeholder="0.00"
+                                            value={line.line_total}
+                                            onChange={(event) =>
                                                 setLine(
-                                                    i,
-                                                    'unit_price',
-                                                    e.target.value,
+                                                    index,
+                                                    'line_total',
+                                                    event.target.value,
                                                 )
                                             }
                                         />
                                     </Field>
                                 </div>
-                            </CardContent>
-                        </Card>
-                    ))}
-                </section>
+                            );
+                        })}
+                    </section>
+                ) : (
+                    <section className="space-y-4">
+                        <div className="flex items-center justify-between gap-3">
+                            <h2 className="text-lg font-semibold">
+                                Líneas de producto
+                            </h2>
+                            <Button
+                                type="button"
+                                variant="outline"
+                                size="sm"
+                                disabled={form.data.lines.length >= 100}
+                                onClick={() =>
+                                    form.setData('lines', [
+                                        ...form.data.lines,
+                                        { ...blank },
+                                    ])
+                                }
+                            >
+                                <Plus />
+                                Agregar línea
+                            </Button>
+                        </div>
+                        {form.data.lines.map((l, i) => (
+                            <Card key={i} className="shadow-none">
+                                <CardContent className="space-y-4">
+                                    <div className="flex items-center justify-between">
+                                        <p className="text-sm font-medium">
+                                            Línea {i + 1}
+                                        </p>
+                                        <Button
+                                            type="button"
+                                            variant="ghost"
+                                            size="icon"
+                                            aria-label={
+                                                'Eliminar línea ' + (i + 1)
+                                            }
+                                            disabled={
+                                                form.data.lines.length === 1
+                                            }
+                                            onClick={() =>
+                                                form.setData(
+                                                    'lines',
+                                                    form.data.lines.filter(
+                                                        (_, n) => n !== i,
+                                                    ),
+                                                )
+                                            }
+                                        >
+                                            <Trash2 className="size-4" />
+                                        </Button>
+                                    </div>
+                                    <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+                                        <Field
+                                            label="Prenda"
+                                            htmlFor={'product-' + i}
+                                        >
+                                            <details className="rounded-md border p-3">
+                                                <summary
+                                                    id={'product-' + i}
+                                                    className="cursor-pointer text-sm"
+                                                >
+                                                    {(() => {
+                                                        const p = products.find(
+                                                            (p) =>
+                                                                String(p.id) ===
+                                                                l.product_id,
+                                                        );
+                                                        return p
+                                                            ? `${p.name} · ${p.color} · ${p.size} · ${p.gsm} g/m²`
+                                                            : 'Elegir prenda';
+                                                    })()}
+                                                </summary>
+                                                <div className="mt-3 grid max-h-64 gap-2 overflow-y-auto">
+                                                    {products.map((p) => (
+                                                        <Button
+                                                            key={p.id}
+                                                            type="button"
+                                                            variant={
+                                                                String(p.id) ===
+                                                                l.product_id
+                                                                    ? 'secondary'
+                                                                    : 'ghost'
+                                                            }
+                                                            className="h-auto justify-start text-left whitespace-normal"
+                                                            onClick={(
+                                                                event,
+                                                            ) => {
+                                                                setLine(
+                                                                    i,
+                                                                    'product_id',
+                                                                    String(
+                                                                        p.id,
+                                                                    ),
+                                                                );
+                                                                event.currentTarget
+                                                                    .closest(
+                                                                        'details',
+                                                                    )
+                                                                    ?.removeAttribute(
+                                                                        'open',
+                                                                    );
+                                                            }}
+                                                        >
+                                                            {p.name} · {p.color}{' '}
+                                                            · {p.size} · {p.gsm}{' '}
+                                                            g/m²
+                                                        </Button>
+                                                    ))}
+                                                </div>
+                                            </details>
+                                        </Field>
+                                        <Field
+                                            label="Cantidad"
+                                            htmlFor={'qty-' + i}
+                                        >
+                                            <Input
+                                                id={'qty-' + i}
+                                                type="number"
+                                                required
+                                                min="1"
+                                                step="1"
+                                                value={l.quantity}
+                                                onChange={(e) =>
+                                                    setLine(
+                                                        i,
+                                                        'quantity',
+                                                        e.target.value,
+                                                    )
+                                                }
+                                            />
+                                        </Field>
+                                        <Field
+                                            label="Total de este producto (MXN)"
+                                            htmlFor={'price-' + i}
+                                        >
+                                            <Input
+                                                id={'price-' + i}
+                                                type="number"
+                                                required
+                                                min="0"
+                                                step="0.01"
+                                                value={l.line_total}
+                                                onChange={(e) =>
+                                                    setLine(
+                                                        i,
+                                                        'line_total',
+                                                        e.target.value,
+                                                    )
+                                                }
+                                            />
+                                        </Field>
+                                    </div>
+                                    <p
+                                        className="text-sm text-muted-foreground"
+                                        aria-live="polite"
+                                    >
+                                        {l.line_total !== '' &&
+                                        Number(l.quantity) > 0
+                                            ? `${l.quantity} piezas · ${money(Math.round(Number(l.line_total) * 100) / Number(l.quantity))} por pieza${Math.round(Number(l.line_total) * 100) % Number(l.quantity) ? ' aprox.' : ''} · Total ${money(Math.round(Number(l.line_total) * 100))}`
+                                            : 'Escribe el total para calcular el precio por pieza.'}
+                                    </p>
+                                </CardContent>
+                            </Card>
+                        ))}
+                    </section>
+                )}
                 <div className="grid gap-6 xl:grid-cols-[minmax(0,1fr)_340px]">
                     <div className="space-y-5">
                         <Field
-                            label="Condiciones comerciales"
+                            label="Texto para el cliente (opcional)"
                             htmlFor="terms"
-                            hint="Pago, entrega, pendientes y condiciones. No se interpreta una aceptación como pedido formalizado."
+                            hint="Añade cualquier comentario que quieras incluir en la cotización."
                         >
                             <Textarea
                                 id="terms"
@@ -368,24 +457,6 @@ export default function QuoteForm({
                                     form.setData('terms', e.target.value)
                                 }
                                 className="min-h-32"
-                            />
-                        </Field>
-                        <Field
-                            label="Referencia de autorización"
-                            htmlFor="authorization"
-                            hint="Identifica quién o qué documento autoriza precios, impuestos y descuentos."
-                        >
-                            <Input
-                                id="authorization"
-                                required
-                                minLength={5}
-                                value={form.data.authorization_reference}
-                                onChange={(e) =>
-                                    form.setData(
-                                        'authorization_reference',
-                                        e.target.value,
-                                    )
-                                }
                             />
                         </Field>
                     </div>
@@ -400,55 +471,70 @@ export default function QuoteForm({
                                 <span>Subtotal</span>
                                 <span>{money(subtotal)}</span>
                             </div>
-                            {(
-                                [
-                                    {
-                                        key: 'tax',
-                                        label: 'Impuestos autorizados',
-                                    },
-                                    {
-                                        key: 'shipping',
-                                        label: 'Envío / cargos',
-                                    },
-                                    {
-                                        key: 'discount',
-                                        label: 'Descuento adicional',
-                                    },
-                                ] as const
-                            ).map((f) => (
-                                <Field
-                                    key={f.key}
-                                    label={f.label}
-                                    htmlFor={f.key}
-                                >
-                                    <Input
-                                        id={f.key}
-                                        type="number"
-                                        required
-                                        min="0"
-                                        step="0.01"
-                                        value={form.data[f.key]}
-                                        onChange={(e) =>
-                                            form.setData(f.key, e.target.value)
-                                        }
-                                    />
-                                </Field>
-                            ))}
+                            {(Number(form.data.tax) !== 0 ||
+                                Number(form.data.shipping) !== 0 ||
+                                Number(form.data.discount) !== 0) && (
+                                <div className="space-y-2 text-sm text-muted-foreground">
+                                    <p>
+                                        Ajustes conservados de la cotización
+                                        anterior:
+                                    </p>
+                                    <p>
+                                        Impuestos:{' '}
+                                        {money(
+                                            Math.round(
+                                                Number(form.data.tax) * 100,
+                                            ),
+                                        )}
+                                    </p>
+                                    <p>
+                                        Envío:{' '}
+                                        {money(
+                                            Math.round(
+                                                Number(form.data.shipping) *
+                                                    100,
+                                            ),
+                                        )}
+                                    </p>
+                                    <p>
+                                        Descuento:{' '}
+                                        {money(
+                                            Math.round(
+                                                Number(form.data.discount) *
+                                                    100,
+                                            ),
+                                        )}
+                                    </p>
+                                </div>
+                            )}
                             <div className="flex justify-between border-t pt-4 font-semibold">
-                                <span>Total estimado</span>
+                                <span>Total de la cotización</span>
                                 <span>{money(total)}</span>
                             </div>
                             <p className="text-xs text-muted-foreground">
-                                No se duplican descuentos incluidos en el precio
-                                neto.
+                                Suma de los precios totales de cada detalle.
                             </p>
                         </CardContent>
                     </Card>
                 </div>
                 <div className="flex flex-wrap justify-end gap-3 border-t pt-5">
+                    {current && (
+                        <Button
+                            type="button"
+                            variant="outline"
+                            onClick={saveDraft}
+                            disabled={form.processing}
+                        >
+                            Guardar borrador
+                        </Button>
+                    )}
                     <Button type="button" variant="outline" asChild>
                         <Link
-                            href={current ? '/cases/' + current.id : '/cases'}
+                            href={
+                                current
+                                    ? '/my/quotes/' + current.public_id
+                                    : '/cases'
+                            }
                         >
                             Cancelar
                         </Link>
@@ -461,7 +547,9 @@ export default function QuoteForm({
                         }
                     >
                         <Save />
-                        {form.processing ? 'Guardando…' : 'Guardar versión'}
+                        {form.processing
+                            ? 'Enviando…'
+                            : 'Enviar cotización al cliente'}
                     </Button>
                 </div>
             </form>

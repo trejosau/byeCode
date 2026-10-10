@@ -41,7 +41,7 @@ class CommerceTeamSeeder extends Seeder
                 $user->forceFill([
                     'role' => 'commerce',
                     'email_verified_at' => now(),
-                    'must_change_password' => true,
+                    'must_change_password' => false,
                 ])->save();
             }
         });

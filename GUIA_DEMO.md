@@ -1,5 +1,9 @@
 # Historial de demostración de ByeCode
 
+**Retirado por decisión posterior del usuario.** Los clientes se crean manualmente en la aplicación. La base local ya no contiene las cuentas/historial de este escenario y los comandos de carga están bloqueados fuera de `testing`. La inicialización normal (`php artisan db:seed`) solo crea admin, comercio y catálogo. El contenido siguiente documenta fixtures históricos para pruebas; sus cuentas y enlaces ya no representan accesos vigentes.
+
+Estado vigente: cargado `operational-demo-v2` en PostgreSQL **local** por petición expresa del usuario el 10 de octubre de 2026. Supabase conserva el estado limpio anterior. La contraseña demo se generó aleatoriamente y está únicamente en `DEMO_CUSTOMER_PASSWORD` de `.env`; las cuentas del equipo conservan sus contraseñas. El modo demo global sigue deshabilitado, pero las cuentas sembradas mantienen su procedencia y protecciones. El catálogo existente se reutilizó sin duplicarlo. Las referencias históricas a una carga en Supabase no describen esta instalación.
+
 El seeder reproduce nueve meses de trabajo en las tablas reales de la aplicación. Las cuentas pueden entrar, conversar, continuar cotizaciones y enviar nuevas solicitudes. Los datos se identifican como demostración y no entrenan el predictor ni generan correos o consumo de OpenAI.
 
 ## Entrar y elegir un recorrido

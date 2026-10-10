@@ -1,0 +1,25 @@
+{
+    admin off
+    persist_config off
+    auto_https off
+    log {
+        output stderr
+        format json
+        level WARN
+    }
+    frankenphp {
+        num_threads 4
+    }
+}
+
+:{$PORT:8080} {
+    root * /app/public
+    encode zstd gzip
+    request_body {
+        max_size 25MB
+    }
+    file_server {
+        hide .git .env*
+    }
+    php_server
+}

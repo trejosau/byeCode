@@ -18,7 +18,12 @@ final class ActionRanking
         $rules = app(RuleEngine::class)->assess($snapshot, $signals);
         $order = $candidate['action_order'] ?? array_values(array_unique([$decision['action'], 'wait', 'no_action', ...RuleEngine::ACTIONS]));
         $rows = [];
+        $plans = [];
+        foreach ($candidate['plans'] ?? [] as $plan) {
+            $plans[$plan['action']] = $plan;
+        }
         $rank = 0;
+        $evidence = app(BehaviorEvidence::class)->catalog($snapshot);
         foreach ($order as $action) {
             $result = null;
             $excluded = $rules['blocked'][$action] ?? [];
@@ -48,7 +53,12 @@ final class ActionRanking
                     $reason = 'Sin interpretación adicional que sustente esta alternativa.';
                 }
             }
+            $evidenceIds = $result ? array_values(array_unique([...($plans[$action]['evidence_event_ids'] ?? []), ...($result['evidence_event_ids'] ?? [])])) : [];
             $rows[] = ['action' => $action, 'allowed' => $result !== null, 'selected' => $action === $decision['action'],
+                'evidence' => array_values(array_intersect_key($evidence, array_flip($evidenceIds))),
+                'behavior_summary' => $result && $action === $decision['action'] && isset($snapshot['behavior_context'])
+                    ? array_intersect_key($snapshot['behavior_context'], array_flip(['sections', 'scroll', 'measurement_note'])) : null,
+                'plan' => $result ? ($plans[$action] ?? null) : null,
                 'rank' => $result ? ++$rank : null, 'excluded_by' => $excluded, 'reason' => $result['reason'] ?? $reason,
                 'evidence_event_ids' => $result['evidence_event_ids'] ?? [], 'timing' => $result['timing'] ?? null,
                 'scheduled_for' => $result['scheduled_for'] ?? null, 'confidence' => $result['confidence'] ?? null,

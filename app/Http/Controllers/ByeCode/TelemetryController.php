@@ -63,14 +63,14 @@ class TelemetryController
                 $changed += DB::table('activity_events')->where('session_key', $session)->whereNull('account_id')->update(['account_id' => $request->user()->id, 'customer_id' => $customer->id]);
                 $changed += DB::table('activity_events')->where('account_id', $request->user()->id)->whereNull('customer_id')->update(['customer_id' => $customer->id]);
                 if ($changed) {
-                    app(DecisionUpdates::class)->customerChanged($customer->id);
+                    app(DecisionUpdates::class)->customerChanged($customer->id, 20);
                     foreach (CommercialCase::where('customer_id', $customer->id)->where('status', 'open')->get() as $openCase) {
                         $cases[$openCase->id] = $openCase;
                     }
                 }
             }
             foreach ($cases as $changedCase) {
-                app(DecisionUpdates::class)->caseChanged($changedCase);
+                app(DecisionUpdates::class)->caseChanged($changedCase, delaySeconds: 20);
             }
         });
 

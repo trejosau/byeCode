@@ -23,8 +23,10 @@ class DispatchEvaluations extends Command
         ]);
         $live = DataSet::where('mode', 'live')->pluck('id');
         foreach (CommercialCase::whereIn('data_set_id', $live)->where('next_review_at', '<=', now())->limit(100)->get() as $case) {
-            $service->request($case);
-            $case->update(['next_review_at' => null]);
+            $evaluation = $service->request($case);
+            // A new event arriving during dispatch must retain its recovery marker.
+            CommercialCase::whereKey($case->id)->where('revision', $evaluation->case_revision)
+                ->where('next_review_at', '<=', now())->update(['next_review_at' => null]);
         }
         $pending = Evaluation::where('status', 'pending')->where(function ($q) {
             $q->whereNull('dispatched_at')->orWhere('dispatched_at', '<', now()->subMinutes(2));

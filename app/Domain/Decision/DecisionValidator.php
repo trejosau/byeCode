@@ -15,6 +15,9 @@ final class DecisionValidator
     public function compile(array $s, array $candidate): array
     {
         $expected = ['action', 'action_order', 'timing', 'scheduled_for', 'signals', 'missing_information', 'confidence', 'risk_level', 'requires_human_review'];
+        if (array_key_exists('plans', $candidate)) {
+            $expected[] = 'plans';
+        }
         if (array_diff(array_keys($candidate), $expected) || array_diff($expected, array_keys($candidate))) {
             throw new InvalidArgumentException('Contrato semántico incompleto o con campos extra.');
         }
@@ -50,6 +53,9 @@ final class DecisionValidator
             }
         }
         $rules = app(RuleEngine::class)->assess($s, $signals);
+        if (array_key_exists('plans', $candidate)) {
+            app(CommercialPlans::class)->validate($s, $candidate);
+        }
         if (! in_array($candidate['action'], $rules['allowed'], true)) {
             throw new InvalidArgumentException('Acción bloqueada por políticas o preferencias del comprador.');
         }
@@ -93,7 +99,7 @@ final class DecisionValidator
         if ($rules['reevaluate_at']) {
             $reason .= ' Sigue vigente una pausa temporal de contacto.';
         }
-        $requiresReview = $candidate['requires_human_review'] || $candidate['risk_level'] === 'high'
+        $requiresReview = isset($candidate['plans']) || $candidate['requires_human_review'] || $candidate['risk_level'] === 'high'
             || count(array_intersect($kinds, ['ambiguity', 'conditional_acceptance', 'partial_acceptance', 'change_request', 'contact_refusal'])) > 0
             || in_array($action, [...RuleEngine::CONTACT, 'escalate'], true);
         $result = [

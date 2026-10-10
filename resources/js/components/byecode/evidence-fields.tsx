@@ -19,16 +19,46 @@ const labels: Record<string, string> = {
     conditions: 'Condiciones',
     reason: 'Motivo',
     desired_date: 'Fecha solicitada',
+    message: 'Mensaje',
+    text: 'Texto',
+    notes: 'Notas',
+    lines: 'Productos',
+    quantity: 'Cantidad',
+    name: 'Producto',
+    color: 'Color',
+    size: 'Talla',
+    terms: 'Condiciones',
+    decision: 'Decisión',
+    kind: 'Tipo',
+    company: 'Empresa',
+    search: 'Búsqueda',
+    title: 'Título',
+    unit_price_cents: 'Precio por pieza',
 };
+export function readableValue(value: unknown): string {
+    if (value === null || value === undefined) return 'Sin dato';
+    if (typeof value === 'boolean') return value ? 'Sí' : 'No';
+    if (Array.isArray(value)) return value.map(readableValue).join(' · ');
+    if (typeof value === 'object')
+        return Object.entries(value)
+            .filter(
+                ([key]) =>
+                    !key.endsWith('_id') && !['id', 'images'].includes(key),
+            )
+            .map(
+                ([key, item]) =>
+                    `${labels[key] ?? key.replaceAll('_', ' ')}: ${key.endsWith('_cents') && typeof item === 'number' ? money(item) : readableValue(item)}`,
+            )
+            .join(' · ');
+    return typeof value === 'string' || typeof value === 'number'
+        ? String(value)
+        : 'Sin dato';
+}
 export function EvidenceFields({ data }: { data: Record<string, unknown> }) {
     return (
         <dl className="mt-3 flex flex-wrap gap-x-5 gap-y-2 text-xs">
             {Object.entries(data)
-                .filter(
-                    ([key, value]) =>
-                        labels[key] &&
-                        (value === null || typeof value !== 'object'),
-                )
+                .filter(([key, value]) => labels[key] && value !== undefined)
                 .map(([key, value]) => (
                     <div key={key}>
                         <dt className="text-muted-foreground">{labels[key]}</dt>
@@ -45,7 +75,7 @@ export function EvidenceFields({ data }: { data: Record<string, unknown> }) {
                                     : typeof value === 'string' ||
                                         typeof value === 'number'
                                       ? value
-                                      : 'Sin dato'}
+                                      : readableValue(value)}
                         </dd>
                     </div>
                 ))}

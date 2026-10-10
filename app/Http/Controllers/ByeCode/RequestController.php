@@ -10,7 +10,6 @@ use App\Domain\Demo\DemoPolicy;
 use App\Models\CommercialCase;
 use App\Models\Customer;
 use App\Models\Product;
-use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -58,20 +57,7 @@ class RequestController
             DemoPolicy::filter($query, $request);
         }
 
-        return Inertia::render('journey/requests', ['cases' => $query->latest('updated_at')->limit(200)->get(['id', 'public_id', 'external_id', 'title', 'stage', 'status', 'amount_cents', 'assigned_to', 'created_at', 'updated_at']),
-            'team' => $request->user()->role === 'commerce' ? User::where('role', 'commerce')->get(['id', 'name']) : [], 'commerce' => $request->user()->role === 'commerce']);
-    }
-
-    public function assign(Request $request, CommercialCase $case, CustomerJourney $journey): RedirectResponse
-    {
-        $journey->authorize($request->user(), $case);
-        $data = $request->validate(['assigned_to' => 'nullable|integer']);
-        if ($data['assigned_to']) {
-            User::where('role', 'commerce')->findOrFail($data['assigned_to']);
-        }
-        $case->update($data);
-        $journey->record($case, $request->user(), 'case.assigned', $data);
-
-        return back();
+        return Inertia::render('journey/requests', ['cases' => $query->latest('updated_at')->limit(200)->get(['id', 'public_id', 'external_id', 'title', 'stage', 'status', 'amount_cents', 'created_at', 'updated_at']),
+            'commerce' => $request->user()->role === 'commerce']);
     }
 }

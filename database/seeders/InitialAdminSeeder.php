@@ -21,8 +21,11 @@ class InitialAdminSeeder extends Seeder
             return;
         }
         $data = ['name' => config('onboarding.admin_name'), 'email' => $email, 'password' => config('onboarding.admin_password')];
-        Validator::make($data, ['name' => 'required|string|max:255', 'email' => 'required|email', 'password' => ['required', Password::min(12)->letters()->numbers()]])->validate();
+        $passwordRule = app()->environment(['local', 'testing'])
+            ? Password::min(8)
+            : Password::min(12)->letters()->numbers();
+        Validator::make($data, ['name' => 'required|string|max:255', 'email' => 'required|email', 'password' => ['required', $passwordRule]])->validate();
         $user = new User($data);
-        $user->forceFill(['role' => 'admin', 'email_verified_at' => now(), 'must_change_password' => true])->save();
+        $user->forceFill(['role' => 'admin', 'email_verified_at' => now(), 'must_change_password' => false])->save();
     }
 }

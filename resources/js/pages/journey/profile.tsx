@@ -1,3 +1,4 @@
+import { readableValue } from '@/components/byecode/evidence-fields';
 import { Link, router, useForm } from '@inertiajs/react';
 import {
     ArrowLeft,
@@ -133,7 +134,7 @@ export default function Profile({
         }
         return typeof fact.value === 'string'
             ? fact.value
-            : JSON.stringify(fact.value);
+            : readableValue(fact.value);
     };
     const renderFact = (fact: Fact) => (
         <article key={fact.id} className="space-y-2 border-b p-4 last:border-0">

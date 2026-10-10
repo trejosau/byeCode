@@ -1,6 +1,74 @@
 # ByeCode: usar, comprobar y activar IA
 
+## Evidencia de lectura en el ranking
+
+Las nuevas evaluaciones consideran productos, precios, condiciones, decisión y conversación visibles; permanencia activa reportada y desplazamiento por versión, junto con mensajes, cambios, aceptación, rechazo y pagos. En cada alternativa, **Qué pasó · evidencia de esta decisión** muestra hechos citados, fecha, versión y origen. El motivo explica su relación con la prioridad. **Lectura y desplazamiento considerados** permite revisar los agregados disponibles al evaluar.
+
+El resumen reúne el historial de navegación del caso al corte, aunque supere los últimos 30 eventos. Conserva muestras recientes por tipo/sección/versión y todos los hechos comerciales; no confunde una muestra con el tiempo acumulado. La medición de navegador requiere pestaña visible y actividad reciente, puede solapar secciones y no demuestra comprensión ni compra. Las restricciones y hechos explícitos prevalecen. Se aplica en las siguientes evaluaciones; los análisis anteriores no adquieren evidencia retrospectiva.
+
+## Costos y contraofertas
+
+El ranking usa un costo interno confirmado de **$47.30 MXN por playera**, multiplicado por las cantidades. Este dato se mantiene en `config/byecode.php` (`commercial_costs.playera_unit_cents` = 4730). No incluye otros gastos ni representa utilidad neta; las demás categorías necesitan su propio costo confirmado. La IA debe evitar descuentos que consuman el costo de fabricación y solo puede sugerir no negociar por un desajuste extremo respaldado por evidencia, no por una simple queja de precio. Las propuestas requieren revisión humana y nunca cierran el caso automáticamente.
+
+En **Tu decisión**, el cliente puede ajustar cantidades y el **total propuesto por esas unidades** de cada producto. Modificar el precio convierte la respuesta en una contraoferta. Impuestos y envío no se editan allí; comercio revisa los cambios y publica una nueva versión. El importe publicado se conserva hasta entonces.
+
+El último ranking permanece visible al recargar y mientras se procesa información nueva. Si perdió vigencia, aparece marcado como referencia pendiente de actualización. Se conserva su scroll independiente. Los clientes no ven el análisis interno ni el costo de fabricación.
+
+## Qué hacer y qué decirle al cliente
+
+Las nuevas evaluaciones muestran una decisión principal y alternativas concretas ordenadas por prioridad. Cada opción incluye motivo, pasos, un borrador de respuesta cuando corresponde y comprobaciones pendientes. Ante una objeción de precio, la IA puede proponer un total y días adicionales, sujetos a verificar margen, costos y capacidad. Son propuestas internas: no cambian la cotización ni se envían al cliente automáticamente. Esperar o no actuar también pueden ser decisiones apropiadas; no se rellenan opciones sin evidencia.
+
+## Vista siempre actual
+
+La pantalla muestra siempre la cotización más reciente y el análisis vigente. Cuando llega una actualización se presenta automáticamente; no hay selector ni comparación de versiones, ni números de versión en mensajes o decisiones. El historial interno conserva la trazabilidad de los acuerdos.
+
+## Solicitudes compartidas por todo el equipo
+
+Todas las solicitudes comerciales están disponibles para todo el equipo. Se retiró el selector Responsable y la asignación individual; tampoco se asigna automáticamente una solicitud presencial. El cliente sigue viendo únicamente sus propias solicitudes.
+
+## Análisis automático por eventos
+
+El panel comercial ya no tiene botón para analizar. Los mensajes, solicitudes, cambios de cotización, decisiones y pagos programan una actualización al confirmar la operación. La lectura de secciones, su duración visible y el desplazamiento del cliente se agrupan durante 20 segundos antes de evaluar; la pantalla consulta los resultados cada 10 segundos.
+
+La actividad identifica la versión consultada, contempla secciones recibidas mediante actualización parcial y no cuenta tiempo con la pestaña oculta ni después de un minuto sin interacción. Se excluye la navegación de comercio/administración. Estas señales son observaciones del navegador, no prueban comprensión del contrato, aceptación ni intención de compra. Cuando basta una regla, se muestra expresamente como decisión basada en reglas; no se fabrica un ranking de IA.
+
+Worker y agenda deben estar activos (`composer run dev`). Fallos, bloqueos y presupuesto agotado permanecen visibles; no se reintentan automáticamente llamadas fallidas o de costo incierto. No se modificaron tarifas ni límites.
+
+## Ranking integrado en la cotización
+
+La pantalla de solicitud/cotización es el punto de trabajo para comercio. A la izquierda muestra el ranking vigente de acciones e inacciones propuesto por IA, ordenado por prioridad, con motivos y alternativas excluidas por las reglas. A la derecha están los productos, la cotización y la conversación. En móvil el ranking aparece primero. Está disponible antes y después del envío; **Ver análisis** lleva al panel de esa misma pantalla.
+
+Los enlaces antiguos `/cases/{id}` de casos con enlace de cuenta redirigen a `/my/quotes/{public_id}`. Los conjuntos importados sin enlace de cuenta conservan su visor. El ranking y el estado de evaluación son internos y no se envían al cliente. Si falta un ranking vigente se muestra ese estado; los eventos activan su actualización automática, con los límites y reglas existentes.
+
+## Cotización simplificada por detalle
+
+En una solicitud sin cotización enviada, comercio ve el análisis de IA vigente disponible y el botón **Preparar cotización**. **Ver análisis** y el registro de resultados aparecen después del primer envío. El análisis interno no se entrega al cliente.
+
+Al preparar una solicitud, cada producto y su cantidad forman un detalle: se captura únicamente su precio total en MXN. Por ejemplo, 100 playeras por $2,000 y 89 por $1,700.50 suman $3,700.50; no se vuelve a multiplicar por la cantidad. El texto para el cliente es opcional. Los datos y la vigencia están plegados; se conserva el borrador. Las versiones antiguas con ajustes mantienen y muestran esos importes para no perder condiciones previas.
+
+## Inicialización vigente: equipo y catálogo
+
+`php artisan db:seed` crea únicamente el administrador, las cuatro cuentas de comercio y el catálogo. Lee las credenciales iniciales de `.env` y conserva cuentas, contraseñas y productos existentes al repetirlo. **No crea clientes ni historial comercial.** Los clientes los registra el usuario en la aplicación. Se retiraron las cuentas demo locales, conservando el cliente y la solicitud registrados manualmente. La carga de demostración solo está disponible para las pruebas automatizadas.
+
+Administrador y comercio tienen la contraseña local indicada por el usuario; la configuración vigente está en `INITIAL_ADMIN_PASSWORD` y `COMMERCE_TEAM_INITIAL_PASSWORD` de `.env`. El cambio invalidó las sesiones anteriores. Las instrucciones históricas sobre contraseñas iniciales o datos demo quedan sustituidas por este apartado.
+
+## Base de datos local vigente
+
+La aplicación local usa PostgreSQL 17.11 en esta computadora, base y esquema `byecode`. PostgreSQL se inicia al entrar a Windows; `composer run dev` sigue levantando la aplicación. Conserva el administrador, las cuatro cuentas de comercio y el catálogo con las mismas contraseñas. La primera entrada requiere iniciar sesión de nuevo porque no se copiaron sesiones.
+
+Railway mantiene Supabase: los datos locales y remotos son independientes. Consulta [POSTGRESQL_LOCAL.md](POSTGRESQL_LOCAL.md) para iniciar/detener PostgreSQL, comprobar conexión y localizar respaldos privados. No cargar seeders para volver a abrir el proyecto.
+
+## Flujo vigente: solicitud y precio por producto
+
+Selecciona prendas y cantidades en el catálogo. Al continuar, inicia sesión o crea tu cuenta; la selección se conserva. Envía la solicitud y el equipo de comercio la recibe en **Solicitudes**. Comercio abre **Preparar cotización**, revisa los productos y escribe el **Total de este producto (MXN)** en cada línea. Ejemplo: 10 playeras por $2,000 corresponden a $200 por pieza. El total capturado es exacto; si la división no da centavos exactos, el precio por pieza se muestra aproximado.
+
+**Guardar borrador interno** conserva una preparación sin enviarla. **Enviar cotización al cliente** publica la versión y abre la conversación. El cliente la encuentra en **Mis solicitudes y cotizaciones → Ver cotización**, consulta precios y condiciones y puede responder, pedir cambios o aceptar. Impuestos, envío y descuentos siguen como ajustes opcionales, inicialmente en cero. La publicación registra automáticamente al comercial; no hay que escribir una referencia técnica.
+
+Se borraron las cuentas e historial de prueba por indicación del usuario, conservando catálogo, administrador y cuatro cuentas de comercio. Estas cuentas entran directamente sin cambio inicial obligatorio. No se recargan datos demo. SMTP continúa deshabilitado: la cotización queda disponible dentro de la cuenta, sin entrega real por correo.
+
 Versión local del 10 de octubre de 2026. Laravel + Inertia + React/shadcn; PostgreSQL en Supabase. Sin Docker. El plan y las fuentes recuperadas están en `PLAN_IMPLEMENTACION.md` y `referencias/notion/00.md` a `07.md`.
+
+La preparación de Railway, las variables transferidas y los pasos del primer despliegue están en [PRODUCCION_RAILWAY.md](PRODUCCION_RAILWAY.md). El push a `main` dispara el flujo automático después de CI. La clave de OpenAI ya está configurada, pero eso no certifica su validez ni la calidad del modelo. Gmail continúa pendiente y los archivos privados existentes requieren completar su transferencia al volumen tras el primer arranque.
 
 ## Catálogo configurable — actualización del 10 de octubre de 2026
 
@@ -14,7 +82,7 @@ Ver [CATALOGO_INTEGRACION.md](CATALOGO_INTEGRACION.md) para carga nueva, actuali
 
 En esta carpeta ejecuta `composer run dev` y abre [ByeCode local](http://127.0.0.1:8000). Se levantan Laravel, Vite, worker y agenda. No cierres ese proceso mientras esperas evaluaciones. Ctrl+C lo detiene. En esta computadora, las herramientas del agente se ejecutan con prefijo RTK; también puedes usar `rtk proxy composer run dev`.
 
-El registro público crea únicamente cuentas de **cliente**. El administrador inicial consulta análisis y crea usuarios de **comercio**; comercio comparte catálogo, CRM y oportunidades operativas. Los conjuntos importados de prueba conservan su propietario. La cuenta inicial local se creó para Alberto Trejo; su acceso está en `.local/acceso-inicial-admin.txt`, fuera de Git. Al entrar debe cambiar la contraseña y después eliminar ese archivo.
+El registro público crea únicamente cuentas de **cliente**. El administrador inicial consulta análisis y crea usuarios de **comercio**; comercio comparte catálogo, CRM y oportunidades operativas. Los conjuntos importados de prueba conservan su propietario. La cuenta inicial local se creó para Alberto Trejo; sus credenciales vigentes están en `.env`, fuera de Git. El equipo inicial conservado no exige cambiar contraseña al entrar.
 
 Los correos se guardan cifrados en una cola privada. El envío por Gmail está desactivado hasta completar su contraseña de aplicación. Para confirmar una cuenta exclusivamente durante desarrollo local puedes ejecutar:
 
@@ -26,9 +94,9 @@ El comando solo funciona en entorno `local`. Recuperación de contraseña y segu
 
 ### Equipo inicial de comercio
 
-`CommerceTeamSeeder` crea las cuatro cuentas de Jorge, Dani, Jesús y Sau con rol `commerce` y correo verificado. Configura `COMMERCE_TEAM_INITIAL_PASSWORD` únicamente en `.env` (mínimo ocho caracteres), ejecuta `php artisan config:clear` y luego `php artisan db:seed --class=CommerceTeamSeeder`. La contraseña se almacena mediante hash y debe cambiarse al primer ingreso.
+`CommerceTeamSeeder` crea las cuatro cuentas de Jorge, Dani, Jesús y Sau con rol `commerce` y correo verificado. Configura `COMMERCE_TEAM_INITIAL_PASSWORD` únicamente en `.env` (mínimo ocho caracteres), ejecuta `php artisan config:clear` y luego `php artisan db:seed --class=CommerceTeamSeeder`. La contraseña se almacena mediante hash; estas cuentas iniciales acceden directamente sin cambio obligatorio.
 
-El seeder conserva las cuentas de comercio existentes, incluidas sus contraseñas y nombres. No ejecuta `InitialAdminSeeder` ni modifica el administrador. Si algún correo pertenece a otro rol, cancela el lote completo. No se ejecuta automáticamente desde `DatabaseSeeder`; no envía correos ni requiere migraciones.
+El seeder conserva las cuentas de comercio existentes, incluidas sus contraseñas y nombres. Ejecutado por separado no modifica el administrador. Si algún correo pertenece a otro rol, cancela el lote completo. `DatabaseSeeder` incluye admin, equipo y catálogo en una transacción; no envía correos ni crea clientes.
 
 ## 2. Activar OpenAI con una clave
 
@@ -134,7 +202,7 @@ Para otra instalación, configura `INITIAL_ADMIN_NAME`, `INITIAL_ADMIN_EMAIL` e 
 php artisan db:seed --class=InitialAdminSeeder
 ```
 
-El seeder no duplica cuentas, no restablece contraseñas y rechaza un correo que ya tenga otro rol. Después retira `INITIAL_ADMIN_PASSWORD` de `.env`. El administrador debe cambiar su contraseña al entrar; nunca se incluye una contraseña predeterminada en el repositorio.
+El seeder no duplica cuentas, no restablece contraseñas y rechaza un correo que ya tenga otro rol. Las credenciales iniciales locales se mantienen únicamente en `.env`; el administrador inicial no exige cambio de contraseña al entrar. Nunca se incluye una contraseña predeterminada en el código del seeder.
 
 ## 10. Perfil evolutivo y trazabilidad
 

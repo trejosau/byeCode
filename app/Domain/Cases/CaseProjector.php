@@ -2,6 +2,7 @@
 
 namespace App\Domain\Cases;
 
+use App\Domain\Decision\BehaviorEvidence;
 use App\Domain\Support\Utc;
 use App\Models\CaseEvent;
 use App\Models\CommercialCase;
@@ -120,6 +121,8 @@ final class CaseProjector
             ],
             'quote' => $quote ? ['version' => $quote->version, 'lines' => $quote->lines, 'total_cents' => $quote->total_cents, 'terms' => $quote->terms, 'valid_until' => Utc::iso($quote->valid_until), 'is_expired' => $quote->valid_until->lessThanOrEqualTo($at) || ($quote->getAttribute('withdrawn_at') && CarbonImmutable::parse($quote->getAttribute('withdrawn_at'))->lessThanOrEqualTo($at))] : null,
             'customer_context' => $set->mode === 'live' && $case->customer_id ? app(CustomerProfile::class)->context(Customer::findOrFail($case->customer_id), $at) : null,
+            'production_economics' => $set->mode === 'live' ? app(ProductionCosts::class)->context($case, $quote) : null,
+            'behavior_context' => $set->mode === 'live' && $case->customer_id ? app(BehaviorEvidence::class)->context($case, $at) : null,
             'activity_context' => ['total' => $activityCount, 'omitted' => max(0, $activityCount - $activityRows->count()),
                 'events' => $activityRows->reverse()->values()->map(fn ($event) => ['event_id' => $event->event_id, 'type' => $event->type, 'actor' => $event->actor,
                     'source' => $event->source, 'occurred_at' => $event->occurred_at, 'data' => json_decode($event->data, true)])->all()],

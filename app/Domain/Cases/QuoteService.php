@@ -32,7 +32,8 @@ final class QuoteService
         Validator::make($input, ['lines' => 'required|array|min:1|max:'.CatalogSelection::MAX_LINES,
             'lines.*.product_id' => 'required|integer|distinct|exists:products,id',
             'lines.*.quantity' => 'required|integer|min:1|max:1000000',
-            'lines.*.unit_price' => 'required|decimal:0,2|min:0|max:9999999'])->validate();
+            'lines.*.unit_price' => 'required_without:lines.*.line_total|prohibits:lines.*.line_total|decimal:0,2|min:0|max:9999999',
+            'lines.*.line_total' => 'required_without:lines.*.unit_price|decimal:0,2|min:0|max:999999999'])->validate();
         $set = $case ? $this->workspace->ownCase($user, $case) : $this->workspace->live($user);
         if ($set->mode !== 'live') {
             throw ValidationException::withMessages(['quote' => 'El kit oficial no se edita como una cotización real.']);
@@ -58,9 +59,10 @@ final class QuoteService
             $subtotal = 0;
             foreach ($input['lines'] as $i => $line) {
                 $product = Product::whereKey($line['product_id'])->firstOrFail();
-                $unit = Money::cents($line['unit_price']);
                 $quantity = (int) $line['quantity'];
-                $total = $unit * $quantity;
+                $total = isset($line['line_total']) ? Money::cents($line['line_total']) : Money::cents($line['unit_price']) * $quantity;
+                // The line total is authoritative; the displayed unit amount may be rounded.
+                $unit = (int) round($total / $quantity);
                 $subtotal += $total;
                 if ($subtotal > 999999999999) {
                     throw ValidationException::withMessages(['lines' => 'El importe supera el máximo operativo de esta versión.']);

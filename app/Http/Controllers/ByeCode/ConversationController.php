@@ -6,8 +6,11 @@ use App\Domain\Cases\CatalogManifest;
 use App\Domain\Cases\CommercialPresentation;
 use App\Domain\Cases\ConversationService;
 use App\Domain\Cases\CustomerJourney;
+use App\Domain\Evaluation\EvaluationService;
 use App\Models\CommercialCase;
+use App\Models\Evaluation;
 use App\Models\QuoteVersion;
+use App\Models\Recommendation;
 use Carbon\CarbonImmutable;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -32,11 +35,24 @@ class ConversationController
             return app(CommercialPresentation::class)->quote($quote, $case->demo_run_id !== null);
         });
         $submission = DB::table('purchase_requests')->where('commercial_case_id', $case->id)->first();
+        $analysis = $request->user()->role === 'commerce' || $request->user()->role === 'admin'
+            ? app(EvaluationService::class)->current($case) : null;
+        $staff = in_array($request->user()->role, ['commerce', 'admin'], true);
+        $previousAnalysis = $staff && ! $analysis
+            ? Recommendation::where('commercial_case_id', $case->id)->where('publication_status', '!=', 'rejected')->latest('id')->first()
+            : null;
+        $evaluation = $staff ? Evaluation::where('commercial_case_id', $case->id)
+            ->where('case_revision', $case->revision)->latest('id')->first() : null;
+        $stopped = $evaluation && in_array($evaluation->status, ['failed', 'blocked'], true);
 
         return Inertia::render('journey/quote', [
             'case' => $case->only(['id', 'public_id', 'title', 'status', 'external_id', 'demo_run_id']), 'quotes' => $quotes,
             'requestLines' => $submission ? json_decode($submission->lines, true) : [],
             'requestMessage' => $submission?->message, 'desiredDate' => $submission?->desired_date,
+            'analysis' => $analysis?->only(['result', 'publication_status', 'alternatives', 'source']),
+            'previousAnalysis' => $previousAnalysis?->only(['result', 'publication_status', 'alternatives', 'source']),
+            'analysisScheduled' => $staff && ! $analysis && ! $stopped && $case->next_review_at !== null && $case->next_review_at->lessThanOrEqualTo(now()),
+            'evaluation' => $evaluation?->only(['status', 'error_message']),
             'messages' => DB::table('chat_messages')->join('users', 'users.id', '=', 'chat_messages.author_id')->where('commercial_case_id', $case->id)->orderBy('chat_messages.id')->get(['chat_messages.id', 'event_id', 'body', 'quote_version', 'author_role', 'attachment_name', 'chat_messages.created_at', 'users.name'])
                 ->map(fn ($row) => [...(array) $row, 'body' => app(CommercialPresentation::class)->text($row->body, $case->demo_run_id !== null), 'created_at' => CarbonImmutable::parse($row->created_at, 'UTC')->toIso8601ZuluString()]),
             'decisions' => DB::table('buyer_decisions')->where('commercial_case_id', $case->id)->orderBy('id')->get()->map(fn ($r) => [...(array) $r, 'lines' => json_decode($r->lines, true)]),

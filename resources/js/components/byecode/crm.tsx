@@ -1,3 +1,4 @@
+import { EvidenceFields } from '@/components/byecode/evidence-fields';
 import { Head, usePage } from '@inertiajs/react';
 import type { ReactNode } from 'react';
 import { CheckCircle2 } from 'lucide-react';
@@ -202,9 +203,7 @@ export function EvidenceEvent({
                 <summary className="cursor-pointer text-muted-foreground">
                     Detalle registrado
                 </summary>
-                <pre className="mt-3 max-h-80 overflow-auto rounded-md bg-muted p-3 text-xs break-words whitespace-pre-wrap">
-                    {JSON.stringify(event.data, null, 2)}
-                </pre>
+                <EvidenceFields data={event.data as Record<string, unknown>} />
             </details>
         </article>
     );

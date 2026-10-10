@@ -47,7 +47,7 @@ it('rejects invalid quantities and prices without creating partial quotations', 
 
 it('shares commercial data while keeping imported sets private', function () {
     $other = User::factory()->create();
-    $this->actingAs($other)->get('/cases/'.$this->case->id)->assertOk();
+    $this->actingAs($other)->get('/cases/'.$this->case->id)->assertRedirect('/my/quotes/'.$this->case->public_id);
     $this->get('/customers')->assertInertia(fn (Assert $page) => $page->component('journey/customers')->has('customers.data', 1)->where('customers.total', 1));
     $this->get('/exports/'.$this->case->data_set_id.'/recommendations')->assertNotFound();
     $buyer = User::factory()->create(['role' => 'customer']);

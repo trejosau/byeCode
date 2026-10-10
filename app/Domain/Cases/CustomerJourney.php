@@ -75,7 +75,7 @@ class CustomerJourney
                 'event_type' => 'case.opened', 'occurred_at' => Utc::iso(CarbonImmutable::now('UTC')), 'data' => ['status' => 'open', 'proposal_amount_mxn' => null]], JSON_THROW_ON_ERROR), 'Solicitud del cliente', EventProfile::BUSINESS, $buyer->demo_run_id);
             abort_if($batch->errors !== [], 422);
             $case = CommercialCase::where('data_set_id', $set->id)->where('external_id', $external)->firstOrFail();
-            $case->update(['demo_run_id' => $buyer->demo_run_id, 'customer_id' => $customer->id, 'public_id' => (string) Str::uuid(), 'title' => 'Solicitud de '.$buyer->name, 'stage' => 'request_received', 'assigned_to' => $seller?->id]);
+            $case->update(['demo_run_id' => $buyer->demo_run_id, 'customer_id' => $customer->id, 'public_id' => (string) Str::uuid(), 'title' => 'Solicitud de '.$buyer->name, 'stage' => 'request_received']);
             DB::table('purchase_requests')->insert(['account_id' => $buyer->id, 'commercial_case_id' => $case->id,
                 'submission_id' => $input['submission_id'], 'lines' => json_encode($lines, JSON_THROW_ON_ERROR), 'message' => $input['message'] ?? null,
                 'desired_date' => $input['desired_date'] ?? null, 'source' => $seller ? 'physical' : 'self_service', 'created_at' => now(), 'updated_at' => now()]);

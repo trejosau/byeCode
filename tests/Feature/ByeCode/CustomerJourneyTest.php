@@ -4,12 +4,14 @@ use App\Domain\Cases\CustomerJourney;
 use App\Domain\Cases\CustomerProfile;
 use App\Domain\Cases\Onboarding;
 use App\Domain\Cases\QuoteService;
+use App\Domain\Evaluation\EvaluationService;
 use App\Domain\Prediction\BusinessHistory;
 use App\Jobs\DeliverTransactionalMail;
 use App\Models\CommercialCase;
 use App\Models\Customer;
 use App\Models\Product;
 use App\Models\QuoteVersion;
+use App\Models\Recommendation;
 use App\Models\User;
 use Carbon\CarbonImmutable;
 use Database\Seeders\InitialAdminSeeder;
@@ -34,6 +36,112 @@ beforeEach(function () {
     $style = DB::table('product_styles')->insertGetId(['name' => 'Playera', 'category' => 'Playera', 'details' => json_encode(['description' => 'Algodón', 'photos' => []]), 'published' => true, 'created_at' => now(), 'updated_at' => now()]);
     $this->product = Product::create(['user_id' => $this->seller->id, 'style_id' => $style, 'sku' => 'REG-N-M', 'name' => 'Playera', 'category' => 'Playera', 'fit' => 'Regular', 'color' => 'Negro', 'size' => 'M', 'published' => true, 'unit_price_cents' => 987654]);
     $this->input = ['submission_id' => (string) Str::uuid(), 'lines' => [['product_id' => $this->product->id, 'quantity' => 10]], 'message' => 'Necesito revisar la composición'];
+});
+
+it('publishes exact product totals with derived unit prices and preserves drafts', function () {
+    $case = app(CustomerJourney::class)->submit($this->buyer, $this->input);
+    $data = ['customer_id' => $case->customer_id, 'title' => 'Oferta por producto',
+        'valid_until' => now()->addWeek()->format('Y-m-d'), 'tax' => '0', 'shipping' => '0', 'discount' => '0',
+        'expected_revision' => $case->revision, 'draft_revision' => 0,
+        'lines' => [['product_id' => (string) $this->product->id, 'quantity' => '10', 'line_total' => '2000.00']]];
+    $this->actingAs($this->seller)->post('/cases/'.$case->id.'/draft', $data)->assertSessionHasNoErrors();
+    $this->get('/cases/'.$case->id.'/quote')->assertInertia(fn (Assert $p) => $p->where('draft.revision', 1));
+    $this->post('/cases/'.$case->id.'/quote', [...$data, 'draft_revision' => 1])->assertSessionHasNoErrors()->assertRedirect('/my/quotes/'.$case->public_id);
+    $quote = QuoteVersion::firstOrFail();
+    expect($quote->total_cents)->toBe(200000)->and($quote->lines[0]['unit_price_cents'])->toBe(20000);
+    $this->actingAs($this->buyer)->get('/my/quotes/'.$case->public_id)->assertInertia(fn (Assert $p) => $p->where('quotes.0.total_cents', 200000));
+    $case->refresh();
+    $data['expected_revision'] = $case->revision;
+    $data['lines'][0] = ['product_id' => (string) $this->product->id, 'quantity' => '3', 'line_total' => '100.00'];
+    $this->actingAs($this->seller)->post('/cases/'.$case->id.'/quote', $data)->assertSessionHasNoErrors();
+    $latest = QuoteVersion::latest('id')->firstOrFail();
+    expect($latest->total_cents)->toBe(10000)->and($latest->lines[0]['total_cents'])->toBe(10000)->and($latest->lines[0]['unit_price_cents'])->toBe(3333);
+});
+
+it('rejects missing negative malformed and conflicting product prices', function () {
+    $case = app(CustomerJourney::class)->submit($this->buyer, $this->input);
+    $data = ['customer_id' => $case->customer_id, 'title' => 'Oferta', 'valid_until' => now()->addWeek()->format('Y-m-d'),
+        'tax' => '0', 'shipping' => '0', 'discount' => '0', 'expected_revision' => $case->revision];
+    foreach ([[], ['line_total' => '-1'], ['line_total' => '1.999'], ['line_total' => '2000', 'unit_price' => '100']] as $price) {
+        $this->actingAs($this->seller)->post('/cases/'.$case->id.'/quote', [...$data,
+            'lines' => [['product_id' => $this->product->id, 'quantity' => 10, ...$price]]])->assertSessionHasErrors();
+    }
+    expect(QuoteVersion::count())->toBe(0);
+});
+
+it('adds detail totals without multiplying quantities and accepts optional text', function () {
+    $pink = $this->product->replicate();
+    $pink->sku = 'PINK-M';
+    $pink->color = 'Rosa';
+    $pink->save();
+    $case = app(CustomerJourney::class)->submit($this->buyer, [...$this->input, 'lines' => [
+        ['product_id' => $this->product->id, 'quantity' => 100],
+        ['product_id' => $pink->id, 'quantity' => 89],
+    ]]);
+    $data = ['customer_id' => $case->customer_id, 'title' => $case->title,
+        'valid_until' => now()->addWeek()->format('Y-m-d'), 'tax' => '0', 'shipping' => '0', 'discount' => '0',
+        'expected_revision' => $case->revision, 'lines' => [
+            ['product_id' => $this->product->id, 'quantity' => 100, 'line_total' => '2000.00'],
+            ['product_id' => $pink->id, 'quantity' => 89, 'line_total' => '1700.50'],
+        ]];
+    $this->actingAs($this->seller)->post('/cases/'.$case->id.'/quote', $data)->assertSessionHasNoErrors();
+    expect(QuoteVersion::firstOrFail()->total_cents)->toBe(370050);
+    $this->post('/cases/'.$case->id.'/quote', [...$data, 'expected_revision' => $case->fresh()->revision,
+        'terms' => 'Entrega acordada con el cliente.'])->assertSessionHasNoErrors();
+    $this->actingAs($this->buyer)->get('/my/quotes/'.$case->public_id)->assertInertia(fn (Assert $p) => $p
+        ->where('quotes.0.total_cents', 370050)->where('quotes.0.terms', 'Entrega acordada con el cliente.'));
+});
+
+it('shows current automatic analysis to staff and never exposes it to the buyer', function () {
+    $case = app(CustomerJourney::class)->submit($this->buyer, $this->input);
+    $evaluation = app(EvaluationService::class)->request($case);
+    $analysis = Recommendation::create([
+        'commercial_case_id' => $case->id, 'evaluation_id' => $evaluation->id,
+        'case_revision' => $case->revision, 'source' => 'openai', 'publication_status' => 'awaiting_review',
+        'result' => ['reason' => 'Revisar composición antes de cotizar.'], 'signals' => [], 'validation' => [],
+        'alternatives' => [
+            ['action' => 'wait', 'rank' => 1, 'allowed' => true, 'selected' => true, 'ranking_source' => 'model_validated', 'reason' => 'Esperar información.'],
+            ['action' => 'no_action', 'rank' => 2, 'allowed' => true, 'selected' => false, 'ranking_source' => 'model_validated', 'reason' => 'No actuar aún.'],
+            ['action' => 'contact', 'rank' => null, 'allowed' => false, 'selected' => false, 'excluded_by' => ['R2'], 'reason' => 'Contacto no permitido.'],
+        ], 'valid_until' => now()->addHour(), 'created_at' => now(),
+    ]);
+    $url = '/my/quotes/'.$case->public_id;
+    $this->actingAs($this->seller)->get($url)->assertInertia(fn (Assert $p) => $p
+        ->where('analysis.result.reason', 'Revisar composición antes de cotizar.')->has('quotes', 0)
+        ->where('analysis.alternatives.0.action', 'wait')->where('analysis.alternatives.0.rank', 1)
+        ->where('analysis.alternatives.1.action', 'no_action')->where('analysis.alternatives.2.allowed', false));
+    $this->get('/cases/'.$case->id)->assertRedirect($url);
+    $this->actingAs($this->admin)->get($url)->assertInertia(fn (Assert $p) => $p
+        ->where('readOnly', true)->has('analysis.alternatives', 3));
+    $this->actingAs($this->buyer)->get($url)->assertInertia(fn (Assert $p) => $p->where('analysis', null)->where('evaluation', null));
+    $analysis->update(['source' => 'rules']);
+    $this->actingAs($this->seller)->get($url)->assertInertia(fn (Assert $p) => $p->where('analysis.source', 'rules'));
+    $analysis->update(['source' => 'openai', 'valid_until' => now()->subMinute()]);
+    $this->get($url)->assertInertia(fn (Assert $p) => $p->where('analysis', null));
+    Http::assertNothingSent();
+});
+
+it('shows a failed current evaluation instead of an endless scheduled indicator', function () {
+    $case = app(CustomerJourney::class)->submit($this->buyer, $this->input);
+    $evaluation = app(EvaluationService::class)->request($case);
+    $evaluation->update(['status' => 'failed', 'error_code' => 'invalid_candidate', 'error_message' => 'La respuesta necesita revisión.']);
+    $case->update(['next_review_at' => now()]);
+    $this->actingAs($this->seller)->get('/my/quotes/'.$case->public_id)->assertInertia(fn (Assert $p) => $p
+        ->where('analysis', null)->where('analysisScheduled', false)->where('evaluation.status', 'failed')
+        ->where('evaluation.error_message', 'La respuesta necesita revisión.'));
+    $case->increment('revision');
+    $this->get('/my/quotes/'.$case->public_id)->assertInertia(fn (Assert $p) => $p
+        ->where('analysisScheduled', true)->where('evaluation', null));
+});
+
+it('continues registration into the selected request without a password change prompt', function () {
+    $this->post('/selection', ['lines' => $this->input['lines']])->assertRedirect('/request');
+    $this->get('/request')->assertRedirect('/login');
+    $this->post('/register', ['name' => 'Nuevo cliente', 'email' => 'nuevo@example.test', 'password' => 'ClientPassword123!', 'password_confirmation' => 'ClientPassword123!'])->assertRedirect('/request');
+    $this->get('/request')->assertOk()->assertInertia(fn (Assert $p) => $p->has('selection', 1));
+    expect(Customer::count())->toBe(0);
+    $this->post('/request', $this->input)->assertSessionHasNoErrors();
+    expect(Customer::count())->toBe(1)->and(CommercialCase::count())->toBe(1);
 });
 
 it('starts one CRM only on first submission and reuses it for future cases', function () {
@@ -111,7 +219,7 @@ it('enforces admin read only and commerce sharing with buyer isolation', functio
     $this->post('/admin/team', ['name' => 'Nueva comercial', 'email' => 'comercio@example.test'])->assertRedirect();
     expect(User::where('email', 'comercio@example.test')->first()->role)->toBe('commerce');
     $otherSeller = User::factory()->create(['role' => 'commerce']);
-    $this->actingAs($otherSeller)->get('/cases/'.$case->id)->assertOk();
+    $this->actingAs($otherSeller)->get('/cases/'.$case->id)->assertRedirect('/my/quotes/'.$case->public_id);
     $otherBuyer = User::factory()->create(['role' => 'customer']);
     $this->actingAs($otherBuyer)->get('/my/quotes/'.$case->public_id)->assertNotFound();
     $this->post('/admin/team', [])->assertForbidden();

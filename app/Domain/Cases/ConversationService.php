@@ -62,10 +62,37 @@ final class ConversationService
         abort_unless(in_array($user->role, ['customer'], true), 403);
         app(CustomerJourney::class)->authorize($user, $case);
         $data = Validator::make($input, ['event_id' => 'required|uuid', 'quote_version' => 'required|integer', 'kind' => ['required', Rule::in(['accept', 'reject', 'change'])],
-            'lines' => 'required|array|min:1|max:'.CatalogSelection::MAX_LINES, 'lines.*.line_id' => 'required|string|distinct', 'lines.*.quantity' => 'required|integer|min:0|max:1000000', 'conditions' => 'nullable|string|max:4000'])->validate();
+            'lines' => 'required|array|min:1|max:'.CatalogSelection::MAX_LINES,
+            'lines.*' => 'required|array:line_id,quantity,proposed_line_total',
+            'lines.*.line_id' => 'required|string|distinct', 'lines.*.quantity' => 'required|integer|min:0|max:1000000',
+            'lines.*.proposed_line_total' => 'nullable|decimal:0,2|min:0.01|max:999999999',
+            'conditions' => 'nullable|string|max:4000'])->validate();
         DB::transaction(function () use ($user, $case, $data) {
             DB::table('data_sets')->where('id', $case->data_set_id)->lockForUpdate()->firstOrFail();
             $case = CommercialCase::whereKey($case->id)->lockForUpdate()->firstOrFail();
+            $requestedQuote = QuoteVersion::where('commercial_case_id', $case->id)->where('version', $data['quote_version'])->firstOrFail();
+            $requestedLines = collect($requestedQuote->lines)->keyBy('line_id');
+            $counteroffer = false;
+            foreach ($data['lines'] as $index => $line) {
+                abort_unless($requestedLines->has($line['line_id']) && $line['quantity'] <= $requestedLines[$line['line_id']]['quantity'], 422);
+                $normalized = ['line_id' => $line['line_id'], 'quantity' => (int) $line['quantity']];
+                if (isset($line['proposed_line_total'])) {
+                    $original = $requestedLines[$line['line_id']];
+                    $baseline = (int) round($original['total_cents'] * $normalized['quantity'] / $original['quantity']);
+                    $proposed = Money::cents($line['proposed_line_total']);
+                    if ($proposed !== $baseline) {
+                        if ($normalized['quantity'] === 0 || $data['kind'] === 'reject') {
+                            throw ValidationException::withMessages(['lines.'.$index.'.proposed_line_total' => 'Propón un precio solo para unidades solicitadas y sin rechazar la propuesta.']);
+                        }
+                        $normalized['proposed_total_cents'] = $proposed;
+                        $counteroffer = true;
+                    }
+                }
+                $data['lines'][$index] = $normalized;
+            }
+            if ($counteroffer) {
+                $data['kind'] = 'change';
+            }
             $existing = DB::table('buyer_decisions')->where('event_id', $data['event_id'])->first();
             if ($existing) {
                 abort_unless($existing->account_id === $user->id && $existing->commercial_case_id === $case->id && $existing->kind === $data['kind']

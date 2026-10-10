@@ -1,4 +1,4 @@
-import { Link, router } from '@inertiajs/react';
+import { Link } from '@inertiajs/react';
 import { Journey } from '@/components/byecode/journey';
 import { Button } from '@/components/ui/button';
 import { money, statuses } from '@/lib/byecode';
@@ -10,16 +10,13 @@ type Case = {
     stage: string;
     status: string;
     amount_cents: number | null;
-    assigned_to: number | null;
     created_at: string;
 };
 export default function Requests({
     cases,
-    team,
     commerce,
 }: {
     cases: Case[];
-    team: { id: number; name: string }[];
     commerce: boolean;
 }) {
     return (
@@ -29,7 +26,7 @@ export default function Requests({
                     ? 'Solicitudes del equipo'
                     : 'Mis solicitudes y cotizaciones'
             }
-            description="Cada solicitud conserva su conversación, versiones y decisiones."
+            description="Cada solicitud muestra su cotización más reciente, conversación y decisiones."
         >
             <Button asChild>
                 <Link href={commerce ? '/physical-request' : '/catalog'}>
@@ -63,50 +60,33 @@ export default function Requests({
                                 ? 'Pendiente de cotizar'
                                 : money(c.amount_cents)}
                         </p>
-                        {commerce && (
-                            <label className="block text-sm">
-                                Responsable
-                                <select
-                                    className="ml-2 rounded border p-2"
-                                    value={c.assigned_to ?? ''}
-                                    onChange={(e) =>
-                                        router.post(
-                                            `/requests/${c.id}/assign`,
-                                            {
-                                                assigned_to:
-                                                    e.target.value || null,
-                                            },
-                                        )
-                                    }
-                                >
-                                    <option value="">Sin asignar</option>
-                                    {team.map((u) => (
-                                        <option key={u.id} value={u.id}>
-                                            {u.name}
-                                        </option>
-                                    ))}
-                                </select>
-                            </label>
-                        )}
                         <div className="flex flex-wrap gap-3">
                             <Button asChild>
                                 <Link href={'/my/quotes/' + c.public_id}>
-                                    Abrir conversación
+                                    {commerce
+                                        ? 'Revisar solicitud y conversación'
+                                        : c.amount_cents === null
+                                          ? 'Ver solicitud'
+                                          : 'Ver cotización'}
                                 </Link>
                             </Button>
                             {commerce && (
                                 <>
                                     <Button variant="outline" asChild>
                                         <Link href={`/cases/${c.id}/quote`}>
-                                            Preparar cotización
+                                            {c.amount_cents === null
+                                                ? 'Preparar cotización'
+                                                : 'Actualizar cotización'}
                                         </Link>
                                     </Button>
-                                    <Link
-                                        className="self-center underline"
-                                        href={`/cases/${c.id}`}
-                                    >
-                                        Análisis
-                                    </Link>
+                                    {c.amount_cents !== null && (
+                                        <Link
+                                            className="self-center underline"
+                                            href={`/my/quotes/${c.public_id}#analysis`}
+                                        >
+                                            Ver análisis
+                                        </Link>
+                                    )}
                                 </>
                             )}
                         </div>

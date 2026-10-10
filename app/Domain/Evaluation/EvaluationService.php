@@ -35,7 +35,8 @@ final class EvaluationService
                 ->update(['status' => 'stale', 'error_code' => 'stale_context', 'error_message' => 'Una revisión más reciente sustituyó este contexto antes de procesarlo.', 'finished_at' => now()]);
             $clockKey = $set->mode === 'kit' ? $snapshot['evaluation_at'] : Utc::iso(Utc::parse($snapshot['evaluation_at'])->startOfHour());
             $fingerprint = hash('sha256', json_encode([$case->id, $case->revision, $clockKey, $provider, config('byecode.model'), config('byecode.prompt_version'), config('byecode.rules_version'),
-                $snapshot['state'], $this->rules->assess($snapshot), array_column($snapshot['events'], 'event_id'), $snapshot['quote']['is_expired'] ?? null], JSON_THROW_ON_ERROR));
+                $snapshot['state'], $this->rules->assess($snapshot), array_column($snapshot['events'], 'event_id'), $snapshot['quote']['is_expired'] ?? null,
+                $snapshot['production_economics'] ?? null], JSON_THROW_ON_ERROR));
             $active = Evaluation::where('commercial_case_id', $case->id)->where('case_revision', $case->revision)
                 ->whereIn('status', ['pending', 'running'])->where('provider', $provider)
                 ->where('prompt_version', config('byecode.prompt_version'))->where('rules_version', config('byecode.rules_version'))->latest('id')->first();
@@ -210,6 +211,8 @@ final class EvaluationService
         $key = static fn (array $s) => EventProfile::hash([
             'events' => array_values(array_filter($s['events'], fn ($e) => $e['event_type'] !== 'proposal.viewed')),
             'state' => array_diff_key($s['state'], ['stage' => true]), 'quote' => $s['quote'], 'customer_context' => $s['customer_context'] ?? null, 'activity_context' => $s['activity_context'] ?? null,
+            'production_economics' => $s['production_economics'] ?? null,
+            'behavior_context' => $s['behavior_context'] ?? null,
         ]);
         if ($key($previous->snapshot) !== $key($snapshot)) {
             return null;
@@ -242,6 +245,7 @@ final class EvaluationService
         return $rec->publication_status !== 'rejected' && $rec->case_revision === $case->revision && ! $case->integrity_blocked && ! $set->integrity_blocked
             && $rec->valid_until->greaterThan($this->projector->clock($set))
             && $evaluation->rules_version === config('byecode.rules_version')
+            && ($set->mode !== 'live' || ($evaluation->snapshot['production_economics']['playera_unit_cost_cents'] ?? null) === config('byecode.commercial_costs.playera_unit_cents'))
             && $evaluation->prompt_version === config('byecode.prompt_version');
     }
 
@@ -258,5 +262,9 @@ final class EvaluationService
             'worker_interrupted' => 'El trabajo se interrumpió. No se repetirá automáticamente una llamada de costo incierto.',
         ];
         $evaluation->update(['status' => $status, 'error_code' => $code, 'error_message' => $messages[$code] ?? 'No se obtuvo una respuesta válida del proveedor. Revise configuración y reintente explícitamente.', 'finished_at' => now()]);
+        if (in_array($status, ['failed', 'blocked'], true)) {
+            CommercialCase::whereKey($evaluation->commercial_case_id)->where('revision', $evaluation->case_revision)
+                ->where('next_review_at', '<=', now())->update(['next_review_at' => null]);
+        }
     }
 }

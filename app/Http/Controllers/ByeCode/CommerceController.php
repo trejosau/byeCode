@@ -98,9 +98,12 @@ class CommerceController extends Controller
         })->all();
     }
 
-    public function show(Request $request, CommercialCase $case): Response
+    public function show(Request $request, CommercialCase $case): Response|RedirectResponse
     {
         $set = $this->workspace->ownCase($request->user(), $case);
+        if ($case->public_id) {
+            return redirect('/my/quotes/'.$case->public_id);
+        }
         $snapshot = $this->projector->snapshot($case);
         $history = Recommendation::where('commercial_case_id', $case->id)->latest('id')->get()->map(fn ($r) => [
             ...$r->toArray(), 'is_current' => $this->evaluations->isCurrent($case, $r),
@@ -115,7 +118,7 @@ class CommerceController extends Controller
             'recommendations' => $history, 'evaluations' => Evaluation::where('commercial_case_id', $case->id)->latest('id')->limit(15)->get(['id', 'status', 'provider', 'model', 'error_code', 'error_message', 'duration_ms', 'created_at']),
             'quotes' => QuoteVersion::where('commercial_case_id', $case->id)->orderByDesc('version')->get()->map(fn ($q) => app(CommercialPresentation::class)->quote($q->toArray(), $case->demo_run_id !== null)),
             'customer' => $case->customer_id ? Customer::find($case->customer_id) : null,
-            'portalUrl' => $case->public_id ? url('/my/quotes/'.$case->public_id) : null,
+            'portalUrl' => null,
             'prediction' => app(PredictionService::class)->predict($case),
         ]);
     }
@@ -195,6 +198,7 @@ class CommerceController extends Controller
         return Inertia::render('byecode/quote-form', [
             'case' => $case ? array_diff_key($case->toArray(), array_flip(['portal_token_hash'])) : null,
             'requestLines' => $case ? json_decode(DB::table('purchase_requests')->where('commercial_case_id', $case->id)->value('lines') ?? '[]', true) : [],
+            'requestMessage' => $case ? DB::table('purchase_requests')->where('commercial_case_id', $case->id)->value('message') : null,
             'draft' => $case ? DB::table('quote_drafts')->where('commercial_case_id', $case->id)->first() : null,
             'quote' => $case ? QuoteVersion::where('commercial_case_id', $case->id)->latest('version')->first() : null,
             'customers' => Customer::orderBy('company')->get(),
@@ -207,15 +211,18 @@ class CommerceController extends Controller
         $data = $request->validate([
             'customer_id' => ['required', 'integer'], 'title' => ['required', 'string', 'max:180'], 'expected_revision' => ['nullable', 'integer'], 'draft_revision' => ['nullable', 'integer', 'min:0'],
             'valid_until' => ['required', 'date_format:Y-m-d'], 'terms' => ['nullable', 'string', 'max:4000'],
-            'authorization_reference' => ['required', 'string', 'min:5', 'max:1000'],
+            'authorization_reference' => ['nullable', 'string', 'max:1000'],
             'tax' => ['required', 'decimal:0,2', 'min:0', 'max:999999999'], 'shipping' => ['required', 'decimal:0,2', 'min:0', 'max:999999999'],
             'discount' => ['required', 'decimal:0,2', 'min:0', 'max:999999999'],
             'lines' => ['required', 'array', 'min:1', 'max:'.CatalogSelection::MAX_LINES], 'lines.*.product_id' => ['required', 'integer'],
-            'lines.*.quantity' => ['required', 'integer', 'min:1', 'max:1000000'], 'lines.*.unit_price' => ['required', 'decimal:0,2', 'min:0', 'max:9999999'],
+            'lines.*.quantity' => ['required', 'integer', 'min:1', 'max:1000000'],
+            'lines.*.unit_price' => ['required_without:lines.*.line_total', 'prohibits:lines.*.line_total', 'decimal:0,2', 'min:0', 'max:9999999'],
+            'lines.*.line_total' => ['required_without:lines.*.unit_price', 'decimal:0,2', 'min:0', 'max:999999999'],
         ]);
+        $data['authorization_reference'] = $data['authorization_reference'] ?? 'Publicado por comercio #'.$request->user()->id;
         $saved = $service->save($request->user(), $data, $case);
 
-        return redirect('/cases/'.$saved->id)->with('success', 'Versión guardada. Los importes se calcularon en el servidor.');
+        return redirect('/my/quotes/'.$saved->public_id)->with('success', 'Cotización enviada. El cliente ya puede verla y responder desde su cuenta.');
     }
 
     public function customers(Request $request, CommercialProfile $commercial, CustomerDirectory $directory): Response

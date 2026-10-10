@@ -51,6 +51,61 @@ function rankedCandidate(): array
         'missing_information' => [], 'confidence' => 'medium', 'risk_level' => 'low', 'requires_human_review' => true];
 }
 
+it('aggregates navigation beyond the recent window with version and temporal isolation', function () {
+    $at = now()->toImmutable();
+    $insert = function (string $id, string $type, array $data, array $extra = []) use ($at) {
+        DB::table('activity_events')->insert([...['event_id' => $id, 'customer_id' => $this->customer->id,
+            'commercial_case_id' => $this->case->id, 'actor' => 'customer', 'source' => 'browser_unverified',
+            'type' => $type, 'data' => json_encode($data), 'occurred_at' => $at->subMinute(), 'ingested_at' => $at->subMinute()], ...$extra]);
+    };
+    foreach (['products', 'prices', 'terms', 'decision', 'conversation'] as $section) {
+        $insert('visible-'.$section, 'ui.section_visible', ['section' => $section, 'version' => 1]);
+    }
+    for ($i = 0; $i < 40; $i++) {
+        $insert('duration-'.$i, 'ui.section_visibility_duration', ['section' => 'prices', 'version' => 1, 'duration_ms' => 30000]);
+    }
+    $insert('v2', 'ui.section_visibility_duration', ['section' => 'prices', 'version' => 2, 'duration_ms' => 5000]);
+    $insert('scroll', 'ui.scroll_depth_reached', ['version' => 1, 'depth' => 75]);
+    $insert('future', 'ui.section_visibility_duration', ['section' => 'prices', 'version' => 1, 'duration_ms' => 30000], ['occurred_at' => $at->addMinute()]);
+    $insert('late', 'ui.section_visible', ['section' => 'prices'], ['ingested_at' => $at->addMinute()]);
+    $insert('unassigned', 'ui.section_visible', ['section' => 'prices'], ['commercial_case_id' => null]);
+    $insert('staff', 'ui.section_visible', ['section' => 'prices'], ['actor' => 'commerce']);
+    $insert('payment', 'sale.payment', ['amount_cents' => 25000], ['actor' => 'commerce', 'source' => 'application']);
+    $snapshot = app(CaseProjector::class)->snapshot($this->case->fresh(), $at);
+    $context = $snapshot['behavior_context'];
+    expect($context['sections'])->toHaveCount(6)
+        ->and(collect($context['sections'])->firstWhere('section', 'prices')['active_duration_ms'])->toBe(1200000)
+        ->and($context['sections'][5]['active_duration_ms'])->toBe(5000)
+        ->and($context['scroll'][0]['max_depth'])->toBe(75)
+        ->and(array_column($context['events'], 'event_id'))->toContain('visible-products', 'duration-39', 'payment')
+        ->not->toContain('future', 'late', 'unassigned', 'staff')
+        ->and(collect($context['events'])->firstWhere('event_id', 'payment')['summary'])->toContain('250.00 MXN');
+    $decision = app(RuleEngine::class)->deterministic($snapshot);
+    expect($decision['action'])->toBe('wait');
+    Http::assertNothingSent();
+});
+
+it('validates and displays cited behavior evidence without promoting it to explicit intent', function () {
+    app(QuoteService::class)->event($this->case, 'message.received', ['message' => '¿Qué composición tiene?'], 'question');
+    app(CustomerJourney::class)->record($this->case, $this->buyer, 'buyer.change', ['conditions' => 'Necesito otra tela.', 'quote_version' => 1], 'change-proof');
+    $snapshot = app(CaseProjector::class)->snapshot($this->case->fresh());
+    $candidate = rankedCandidate();
+    $candidate['plans'] = [['action' => 'resolve_objection', 'title' => 'Aclarar la tela',
+        'reason' => 'Preguntó la composición y solicitó otra tela; aclararla permite revisar el cambio.',
+        'steps' => ['Verificar composición.'], 'message' => null, 'proposed_total_cents' => null,
+        'additional_delivery_days' => null, 'checks' => [], 'evidence_event_ids' => ['question', 'change-proof']]];
+    $compiled = app(DecisionValidator::class)->compile($snapshot, $candidate);
+    $ranking = app(ActionRanking::class)->build($snapshot, $compiled['result'], $compiled['signals'], $candidate);
+    expect(array_column($ranking[0]['evidence'], 'event_id'))->toContain('change-proof', 'question')
+        ->and(collect($ranking[0]['evidence'])->firstWhere('event_id', 'change-proof')['summary'])->toContain('Necesito otra tela.');
+    $candidate['plans'][0]['evidence_event_ids'][] = 'foreign-or-future';
+    expect(fn () => app(DecisionValidator::class)->compile($snapshot, $candidate))->toThrow(InvalidArgumentException::class);
+    $candidate['plans'][0]['evidence_event_ids'] = ['change-proof'];
+    $candidate['signals'][0] = ['kind' => 'interest', 'event_id' => 'change-proof', 'quote' => 'Necesito otra tela.'];
+    expect(fn () => app(DecisionValidator::class)->compile($snapshot, $candidate))->toThrow(InvalidArgumentException::class);
+    Http::assertNothingSent();
+});
+
 function rankResponse(array $candidate): array
 {
     return ['status' => 'completed', 'model' => config('byecode.model'), 'usage' => ['input_tokens' => 200, 'output_tokens' => 100],
@@ -123,6 +178,104 @@ it('schedules automatic browser activity and ignores duplicate receipts without 
     Queue::assertPushed(EnrichCustomer::class, 1);
     expect(app(CaseProjector::class)->snapshot($this->case->fresh())['activity_context']['events'][0]['source'])->toBe('browser_unverified');
     Http::assertNothingSent();
+});
+
+it('batches reading events and keeps the latest section context without manual evaluation', function () {
+    $this->freezeTime();
+    $payload = ['events' => [
+        ['event_id' => (string) Str::uuid(), 'type' => 'ui.section_visible', 'case_id' => $this->case->id, 'data' => ['section' => 'terms']],
+        ['event_id' => (string) Str::uuid(), 'type' => 'ui.section_visibility_duration', 'case_id' => $this->case->id, 'data' => ['section' => 'terms', 'duration_ms' => 30000]],
+    ]];
+    $before = $this->case->fresh()->revision;
+    $this->actingAs($this->buyer)->post('/activity', $payload)->assertNoContent();
+    expect($this->case->fresh()->revision)->toBe($before + 1);
+    expect($this->case->fresh()->next_review_at->timestamp)->toBe(now()->addSeconds(20)->timestamp);
+    Queue::assertPushed(RefreshCaseDecision::class, fn ($job) => $job->delay->timestamp === now()->addSeconds(20)->timestamp);
+    $this->travel(10)->seconds();
+    $this->post('/activity', ['events' => [['event_id' => (string) Str::uuid(), 'type' => 'ui.scroll_depth_reached',
+        'case_id' => $this->case->id, 'data' => ['depth' => 100]]]])->assertNoContent();
+    expect($this->case->fresh()->next_review_at->timestamp)->toBe(now()->addSeconds(10)->timestamp);
+    (new RefreshCaseDecision($this->case->id))->handle(app(EvaluationService::class));
+    $evaluation = Evaluation::latest('id')->firstOrFail();
+    expect($evaluation->snapshot['activity_context']['events'])->toHaveCount(3);
+    expect($evaluation->snapshot['activity_context']['events'][1]['data']['section'])->toBe('terms');
+    expect(Recommendation::latest('id')->firstOrFail()->result['action'])->toBe('wait');
+    Http::assertNothingSent();
+});
+
+it('automatically schedules buyer messages and ignores staff reading telemetry', function () {
+    $before = $this->case->fresh()->revision;
+    $this->actingAs($this->seller)->post('/activity', ['events' => [['event_id' => (string) Str::uuid(),
+        'type' => 'ui.section_visible', 'case_id' => $this->case->id, 'data' => ['section' => 'terms']]]])->assertNoContent();
+    expect($this->case->fresh()->revision)->toBe($before);
+    Queue::assertNothingPushed();
+    $this->actingAs($this->buyer)->post('/journey/'.$this->case->id.'/messages', [
+        'event_id' => (string) Str::uuid(), 'body' => '¿Qué composición tiene?',
+    ])->assertRedirect()->assertSessionHasNoErrors();
+    Queue::assertPushed(RefreshCaseDecision::class);
+    expect($this->case->fresh()->next_review_at->lessThanOrEqualTo(now()))->toBeTrue();
+    Http::assertNothingSent();
+});
+
+it('ranks concrete negotiation plans without changing the quoted price or delivery', function () {
+    app(QuoteService::class)->event($this->case, 'message.received', ['message' => 'Está caro, puedo esperar tres días más.'], 'price-objection');
+    $snapshot = app(CaseProjector::class)->snapshot($this->case->fresh());
+    $snapshot['quote'] = ['total_cents' => 200000];
+    $snapshot['production_economics'] = ['all_lines_costed' => true, 'minimum_proposed_quote_total_cents' => 47300];
+    $candidate = [...rankedCandidate(), 'action' => 'escalate',
+        'action_order' => ['escalate', 'wait', 'no_action', 'resolve_objection', 'contact', 'request_information'],
+        'signals' => [['kind' => 'objection', 'event_id' => 'price-objection', 'quote' => 'Está caro']],
+        'missing_information' => ['authorization', 'delivery_confirmation'],
+        'plans' => [
+            ['action' => 'escalate', 'title' => 'Revisar descuento a cambio de tres días adicionales',
+                'reason' => 'El cliente objeta el precio y ofrece flexibilidad de entrega.',
+                'steps' => ['Comprobar margen y capacidad antes de ofrecer el cambio.'],
+                'message' => 'Podemos revisar un ajuste si tienes flexibilidad en la entrega; te confirmo tras validarlo.',
+                'proposed_total_cents' => 190000, 'additional_delivery_days' => 3,
+                'checks' => ['Validar costos y margen.', 'Confirmar capacidad de entrega.'], 'evidence_event_ids' => ['price-objection']],
+            ['action' => 'wait', 'title' => 'Mantener el precio mientras se valida el margen',
+                'reason' => 'Evita comprometer una concesión sin conocer su viabilidad.',
+                'steps' => ['Esperar la confirmación interna.'], 'message' => null,
+                'proposed_total_cents' => null, 'additional_delivery_days' => null,
+                'checks' => [], 'evidence_event_ids' => ['price-objection']],
+        ]];
+    $compiled = app(DecisionValidator::class)->compile($snapshot, $candidate);
+    $rows = app(ActionRanking::class)->build($snapshot, $compiled['result'], $compiled['signals'], $candidate);
+    expect($rows[0]['plan']['proposed_total_cents'])->toBe(190000)
+        ->and($rows[0]['plan']['additional_delivery_days'])->toBe(3)
+        ->and($rows[0]['requires_human_review'])->toBeTrue()
+        ->and($rows[1]['action'])->toBe('wait')->and($rows[1]['plan']['message'])->toBeNull()
+        ->and($snapshot['quote']['total_cents'])->toBe(200000);
+    foreach (['foreign_evidence', 'missing_checks', 'excess_price', 'fractional_days', 'wait_message'] as $invalid) {
+        $bad = $candidate;
+        match ($invalid) {
+            'foreign_evidence' => $bad['plans'][0]['evidence_event_ids'] = ['another-case'],
+            'missing_checks' => $bad['plans'][0]['checks'] = [],
+            'excess_price' => $bad['plans'][0]['proposed_total_cents'] = 999999,
+            'fractional_days' => $bad['plans'][0]['additional_delivery_days'] = 1.5,
+            'wait_message' => $bad['plans'][1]['message'] = 'Te contacto ahora.',
+        };
+        expect(fn () => app(DecisionValidator::class)->compile($snapshot, $bad))->toThrow(InvalidArgumentException::class);
+    }
+    Http::assertNothingSent();
+});
+
+it('persists concrete model plans in the automatic evaluation', function () {
+    config(['integrations.openai.api_key' => 'fake-key']);
+    app(QuoteService::class)->event($this->case, 'message.received', ['message' => '¿Qué composición tiene?'], 'question');
+    $candidate = [...rankedCandidate(), 'plans' => [[
+        'action' => 'resolve_objection', 'title' => 'Aclarar la composición de la prenda',
+        'reason' => 'El cliente pregunta por el material.', 'steps' => ['Revisar la ficha antes de responder.'],
+        'message' => 'Voy a revisar la ficha de la prenda para aclararte la composición.',
+        'proposed_total_cents' => null, 'additional_delivery_days' => null, 'checks' => ['Verificar la ficha.'],
+        'evidence_event_ids' => ['question'],
+    ]]];
+    Http::fake(['api.openai.com/*' => Http::response(rankResponse($candidate))]);
+    (new RefreshCaseDecision($this->case->id))->handle(app(EvaluationService::class));
+    $rec = Recommendation::latest('id')->firstOrFail();
+    expect($rec->alternatives[0]['plan']['title'])->toBe('Aclarar la composición de la prenda')
+        ->and($rec->publication_status)->toBe('awaiting_review');
+    Http::assertSentCount(1);
 });
 
 it('keeps blocked contact actions out of the ranking under each hard restriction', function (string $restriction) {

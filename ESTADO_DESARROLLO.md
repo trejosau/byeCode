@@ -1,5 +1,105 @@
 # Estado del desarrollo de ByeCode
 
+## Navegación y evidencia explicada en el ranking — 10 de octubre de 2026
+
+`BehaviorEvidence` añade al contexto secciones visibles, duración activa acumulada y desplazamiento máximo por versión, filtrados por caso/cliente y corte de ocurrencia e ingestión. Conserva todos los hechos comerciales y muestras de navegación por tipo/sección/versión; los agregados no se limitan a los últimos 30 eventos. El catálogo admite citas verificadas de actividad en los planes sin convertirlas en señales explícitas de intención ni modificar R1–R6. Se mantiene el límite de contexto y presupuesto.
+
+Contrato semántico 4.2: motivos que conectan hechos observados con prioridad, distinguen inferencia y navegación y respetan mensajes/decisiones posteriores. Ranking con evidencia legible, fecha, versión, origen y resumen de navegación al corte. Caché semántica sensible al nuevo contexto; recomendaciones anteriores siguen como referencia sin inventar respaldo retrospectivo. El análisis continúa privado al equipo.
+
+Validación aislada: 47 pruebas Pest (586 aserciones), cuatro pruebas frontend de telemetría, TypeScript, Larastan, formato/lint frontend y build aprobados. Tras el ajuste de presentación de evidencia, se repitieron las 18 pruebas de decisiones por eventos y Larastan, aprobadas. Sin migraciones, seeders, cambios de datos reales, correos ni llamadas reales de IA; calidad semántica real pendiente de medición.
+
+## Costo de playeras, contraofertas y continuidad del ranking — 10 de octubre de 2026
+
+Costo confirmado de fabricación: 47.30 MXN por playera, centralizado en `config/byecode.php`. Las evaluaciones operativas reciben costos por cantidad, contribución antes de otros gastos y límites; no se atribuye ese costo a prendas de categoría desconocida. Laravel rechaza totales sugeridos por IA inferiores al costo completo conocido más impuestos/envío; las concesiones siguen requiriendo revisión interna. El contrato distingue una primera objeción de precio de una incompatibilidad económica extrema y documentada: solo esta última puede justificar no negociar, sin cerrar automáticamente el caso. No se inventan márgenes objetivo ni utilidad neta.
+
+El cliente puede proponer un total por producto y cantidad seleccionada en «Tu decisión». Cambiar el importe registra una solicitud de cambio con centavos exactos, trazabilidad e idempotencia; nunca acepta ni sobrescribe la cotización publicada. Comercio recibe la contraoferta para revisar y publicar otra versión.
+
+Recargar conserva el análisis vigente. Si cambió el contexto o venció, se muestra el último resultado no rechazado como referencia desactualizada mientras se obtiene otro; no se presenta como autorización vigente. El historial analítico es privado de comercio/administración. La recarga no solicita por sí misma una evaluación.
+
+Verificación: 5 pruebas nuevas / 117 aserciones y 40 pruebas existentes / 452 aserciones aprobadas; TypeScript, formato frontend, Pint, Larastan y build aprobados. Sin migraciones, seeders, correos ni llamadas reales a OpenAI. Calidad semántica del modelo no medida; el cambio de contrato se aplica a futuras evaluaciones, sin recálculo masivo de pago.
+
+## Decisiones comerciales concretas en el ranking
+
+El contrato de IA incorpora planes por acción: título contextual, motivo, pasos, borrador de respuesta, total propuesto y días adicionales cuando existe evidencia, comprobaciones pendientes y referencias a eventos del caso. La prioridad principal y las alternativas se presentan en el panel comercial. Las concesiones requieren revisión interna; no alteran precios publicados ni envían mensajes. Se conserva compatibilidad con recomendaciones anteriores, sin fabricar planes para ellas.
+
+Validación aislada: 37 pruebas Pest y 176 aserciones aprobadas, TypeScript y build aprobados. OpenAI simulado; no se realizaron llamadas reales para comprobar este cambio. Los nuevos planes se generan en las siguientes evaluaciones automáticas por eventos.
+
+## Corrección del indicador de análisis pendiente
+
+El panel usa únicamente la evaluación de la revisión actual: un fallo o bloqueo no queda oculto por una marca de agenda, y una evaluación anterior no se presenta como el estado de un evento nuevo. El fallo retira su marca de recuperación vencida solo si la revisión sigue siendo la misma. Se refrescan los resultados al recuperar foco, volver a la pestaña o recuperar conexión, además del intervalo habitual.
+
+Diagnóstico local de solo lectura: OpenAI sí produjo una recomendación vigente para la solicitud real; había intentos anteriores rechazados por validación. No se repitió la llamada ni se modificaron datos del caso para diagnosticarlo.
+
+## Análisis automático y lectura por versión
+
+Retirados Analizar con IA y Actualizar análisis de IA del panel comercial. El recorrido utiliza DecisionUpdates tras confirmar eventos, la cola y la agenda de recuperación. Navegación agrupada en ventanas de 20 segundos; mensajes y hechos de negocio sin demora añadida. El despachador conserva la marca de recuperación si llega una revisión nueva durante su ejecución.
+
+Telemetría por caso/versión, observación de secciones agregadas por Inertia, duraciones acumuladas en bloques de 30 segundos, entrega de fracciones al ocultar/salir, y corte tras 60 segundos de inactividad. No atribuye lectura humana completa a visibilidad ni registra navegación comercial como cliente. El panel muestra también decisiones deterministas identificadas como reglas y estado de actualización automática, siempre privado al equipo.
+
+Validación: 53 pruebas Pest, 472 aserciones, y cuatro pruebas de telemetría frontend aprobadas; TypeScript, Larastan, Pint, lint y build aprobados. Pruebas aisladas con proveedor simulado, sin llamadas reales de IA ni correos; tarifas y límites intactos.
+
+## Ranking de IA integrado en la pantalla comercial
+
+Sustituida la página separada de los casos con enlace de cuenta por redirección autorizada a su solicitud/cotización. La columna izquierda muestra las alternativas vigentes de origen IA y ranking validado, ordenadas por rango, incluyendo esperar/no actuar cuando corresponda; las alternativas bloqueadas se muestran aparte. El panel permanece tras publicar y Ver análisis es un ancla local. El lado derecho conserva cotización y conversación; el cliente no recibe análisis ni estado interno de evaluación. Los visores de kits/importaciones sin enlace de cuenta permanecen independientes.
+
+Incluye solicitud explícita de evaluación y actualización del estado mediante el refresco existente. Sin ejecutar llamadas reales de IA ni modificar el cliente o la solicitud local.
+
+## Preparación simplificada de cotizaciones
+
+Formulario de solicitudes con un precio total por detalle, productos y cantidades precargados, suma automática y texto opcional. Datos generales y vigencia plegados; borrador y retorno a la conversación conservados. No ofrece cargos adicionales nuevos; muestra los ajustes existentes al recuperar una versión anterior.
+
+Antes del primer envío se ocultan Ver análisis y Registrar resultado; se muestra directamente el análisis de IA vigente disponible para comercio/administración, sin llamadas automáticas y sin exponerlo al cliente. Los listados también reservan Ver análisis para solicitudes cotizadas.
+
+Validación aislada: 23 pruebas del recorrido del cliente aprobadas, 278 aserciones; incluye suma de dos detalles con distintas cantidades, texto opcional y privacidad/vigencia del análisis. Sin modificaciones de datos reales, llamadas a OpenAI ni envíos de correo.
+
+## Inicialización definitiva sin clientes sembrados
+
+Por nueva decisión del usuario se retiraron las 12 cuentas demo y sus 34 casos locales, conservando una cuenta de cliente, su CRM y su solicitud creados fuera de esa carga. Conservados seis modelos, 36 variantes y registros de consumo de IA; respaldo PostgreSQL cifrado y verificado en `.local/postgresql/before-account-formalization-*.dump.enc`. Admin y cuatro comercios usan las credenciales locales solicitadas, verificadas mediante hash; sesiones anteriores invalidadas. Secretos únicamente en `.env` ignorado. Supabase y Railway sin cambios.
+
+`DatabaseSeeder` llama solo a `InitialAdminSeeder`, `CommerceTeamSeeder` y `ProductCatalogSeeder`, en transacción. Su repetición conserva cambios de contraseña y clientes registrados manualmente. Carga sintética y asignación automática de procedencia demo bloqueadas fuera de `testing`; los fixtures permanecen para las pruebas. Se ejecutó la carga inicial contra la base local sin crear clientes ni duplicar catálogo. Sin llamadas reales de IA ni correos.
+
+Validación: 38 pruebas de inicialización, equipo, recorrido de cliente y fixtures aislados aprobadas (1,069 aserciones); Pint y Larastan aprobados. Verificación real de cinco hashes del equipo, catálogo intacto y cliente manual conservado. No se alteró la protección de contraseñas temporales presenciales.
+
+## Seeders ejecutados en PostgreSQL local el 10 de octubre de 2026
+
+Por nueva instrucción expresa del usuario, cargado y auditado `operational-demo-v2` en la base local: 12 cuentas cliente, 10 CRM, 34 casos (22 cerrados y 12 abiertos), 46 versiones, 2 borradores, 17 formalizaciones, 27 pagos, 149 mensajes, 6 adjuntos y 77 hechos de perfil. Se reutilizaron los 6 modelos y 36 variantes existentes, asociando su procedencia a la ejecución sin duplicarlos. Se usó el replay directo transaccional de `DemoScenarioLoader`, evitando que el preparador PostgreSQL intentase insertar otra vez el catálogo. Admin, cuatro comerciales, contraseñas y registros de consumo de IA comparados antes/después sin cambios.
+
+Auditoría inicial independiente aprobada: relaciones, cantidades, importes, evidencia, adjuntos y aislamiento; 12 contraseñas verificadas mediante hash. Contraseña aleatoria demo guardada exclusivamente en `.env`, clave `DEMO_CUSTOMER_PASSWORD`. Correos demo suprimidos y cero llamadas a OpenAI. El modo demo global permanece deshabilitado; la procedencia individual mantiene las protecciones. Informes y enlaces locales actualizados. Supabase y Railway no se modificaron y conservan su estado limpio.
+
+## PostgreSQL local independiente del 10 de octubre de 2026
+
+Instalado PostgreSQL 17.11 Windows x64 desde EDB, distribución enlazada por PostgreSQL, sin Docker ni privilegios administrativos. Clúster privado en `.local/postgresql/data`, escucha exclusiva `127.0.0.1:5432`, SCRAM-SHA-256, base/esquema `byecode` y rol de Laravel sin superusuario ni creación de roles/bases. Arranque oculto al iniciar sesión de Windows, control mediante `scripts/postgresql-local.ps1` y utilidades en PATH de nuevas terminales. Guía: `POSTGRESQL_LOCAL.md`.
+
+Transferencia desde una instantánea de solo lectura de Supabase, sin modificar el origen. Verificación de contenido y cantidad mediante SHA-256 en 29 tablas persistentes y comprobación de secuencias. Conservados 1 admin, 4 comercio, 6 modelos, 36 variantes, APP_KEY y hashes de contraseñas; 0 clientes/casos. Sesiones, caché, tokens de recuperación y trabajos no se trasladaron. No se ejecutaron seeders. Respaldo cifrado de la instantánea, copia privada del entorno anterior e informe en `.local/postgresql`; credenciales locales fuera de Git.
+
+El `.env` de desarrollo conecta ahora al servidor local. Railway conserva Supabase y no hubo despliegue ni cambios de variables remotas. Las bases son independientes y no se sincronizan. Los párrafos históricos sobre una base compartida corresponden al estado anterior.
+
+Validación real: conexión PostgreSQL local y permisos limitados, escritura con rollback, migraciones al día, caché, job diagnóstico procesado por otro proceso y catálogo completo de 48 PNG aprobados. Ocho pruebas aisladas de stack/autenticación aprobadas, 26 aserciones. Sin llamadas reales a OpenAI ni envíos de correo; precios y presupuesto conservados. El lanzador de Inicio se comprobó tras detener y volver a arrancar PostgreSQL.
+
+## Limpieza y cotización por total de producto del 10 de octubre de 2026
+
+Por solicitud del usuario se retiraron de Supabase las 12 cuentas de cliente y todo el historial de demostración: clientes, solicitudes, cotizaciones, conversaciones, pagos, perfiles, evaluaciones, importaciones y navegación previa. Se conservaron el administrador, las cuatro cuentas de comercio, seis modelos, 36 variantes y sus imágenes. Respaldo cifrado verificado e informe en `.local`; sin reiniciar esquema, migraciones ni secuencias. El presupuesto y sus registros permanecen intactos. Las sesiones previas se invalidaron.
+
+La contraseña del administrador fue sustituida por la indicada por el usuario y verificada mediante hash; su acceso privado local se actualizó. Las cuentas conservadas y los seeders de admin/equipo ya no exigen cambiar la contraseña al entrar. La protección de accesos temporales de 24 horas para nuevas altas presenciales permanece. El modo demo local quedó deshabilitado y sin ejecución activa. Los fixtures históricos se conservan para pruebas aisladas, no se volvieron a cargar.
+
+El recorrido conserva la selección durante registro/login y crea CRM al enviar la solicitud. Comercio revisa los productos y el mensaje original, captura el total por producto y ve el importe por pieza calculado. El servidor valida los totales exactos, incluso si el precio unitario debe mostrarse aproximado. Se conservan borradores y versiones; la publicación registra al comercial automáticamente y vuelve a la conversación, donde el cliente consulta y responde. Se retiró el JSON visible de evidencia y propiedades del perfil.
+
+Validación: 153 pruebas Pest, 1,773 aserciones y nueve omisiones de verificación de correo; después del ajuste final de navegación se repitieron las 21 pruebas del recorrido, con 230 aserciones. Pint, Larastan, TypeScript, lint/formato de archivos afectados y build aprobados. Navegador con SQLite temporal aislado: acceso comercial directo, solicitud precargada, 10 piezas por $2,000 con unitario de $200, publicación hacia conversación y acceso del cliente mediante Ver cotización. Captura en `.local/quote-flow-reviewed.png`. Pruebas con OpenAI y correo deshabilitados. La limpieza afecta la base compartida; estos cambios de código siguen locales, sin despliegue nuevo de Railway.
+
+El manifiesto de transferencia de archivos a Railway quedó vacío porque los adjuntos/importaciones de prueba ya no están referenciados. Las copias privadas anteriores no deben restaurarse ni cargarse automáticamente.
+
+## Preparación de producción en Railway del 10 de octubre de 2026
+
+Configurado el servicio `byeCode` del proyecto `luminous-endurance`, entorno `production`, con autodespliegue desde `trejosau/byeCode:main` esperando GitHub CI, Railpack, pre-deploy incremental, inicio supervisado, `/up`, una réplica activa y volumen de 500 MB en `/app/storage/app`. Dominio reservado: `https://byecode-production.up.railway.app`. Guía vigente: `PRODUCCION_RAILWAY.md`.
+
+Transferidas y cotejadas las 52 variables del `.env`, incluida OpenAI, con ajustes de producción y ocho variables adicionales: 60 valores sin ausencias ni diferencias. APP_KEY y la base Supabase existente se conservan; no se hicieron migraciones ni seeders en esta preparación. SMTP sigue deshabilitado por ausencia de contraseña de aplicación de Gmail. No se cambian modelo, tarifas ni presupuesto.
+
+Archivos de arranque para FrankenPHP, Supervisor, cola `production` y agenda. `byecode:setup --force` habilita únicamente migraciones pendientes y rechaza generar una clave en producción. HTTPS detrás del proxy no confía en hosts reenviados. El healthcheck verifica base de datos y almacenamiento sin exponer detalles de conexión. PHPUnit fuerza clave OpenAI vacía y correo deshabilitado, independientemente del `.env` real.
+
+Validaciones locales: build, TypeScript, Pint, Larastan y lint/formato aprobados; PostgreSQL, caché y job diagnóstico en cola exclusiva aprobados. Suite final completa: 150 pruebas y 1,727 aserciones, con nueve omitidas de verificación de correo. Incluye seis pruebas de producción (15 aserciones), incluida la respuesta segura ante fallo de base de datos. Escaneo de 579 archivos versionables y del build sin coincidencias de secretos. No representa una validación del primer arranque en Railway ni de la calidad real de OpenAI.
+
+Pendiente el push de los archivos nuevos y el primer despliegue activo. Hay 285 archivos privados referenciados (246,264 bytes) preparados con manifiesto SHA-256 en `.local/production-storage`; su transferencia al volumen no pudo completarse por timeout de SFTP sin servicio activo. No se presentan como cargados. Los ajustes de Railway se guardaron sin publicar estos cambios; se cancelaron intentos con código anterior sin los scripts nuevos. Tras el primer arranque deben verificarse HTTP, procesos y archivos existentes. La configuración no implica que Gmail esté operativo.
+
 ## Cierre de catálogo e imágenes del 10 de octubre de 2026
 
 Por instrucción urgente del usuario se instalaron los 48 PNG existentes, sin nuevas generaciones; el verificador completo de catálogo aprobó dimensiones y canal alfa. Esto sustituye el pendiente de imágenes descrito más abajo. Se quitó el desplegable de variantes de la solicitud presencial y se enlazó al configurador del catálogo. La edición comercial conserva selección de prendas mediante botones, IDs, cantidades y precios. Cambios acotados, sin nuevas migraciones ni cambios económicos.

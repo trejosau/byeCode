@@ -1,6 +1,34 @@
 # Instrucciones del proyecto
 
+## Alta inicial definitiva sin clientes de muestra
+
+Decisión posterior del usuario, 10 de octubre de 2026: clientes solo por registro manual en la aplicación. `DatabaseSeeder` inicializa únicamente admin, cuatro comercios y catálogo, en transacción y sin sobrescribir cuentas existentes. Los accesos locales del administrador y equipo se unificaron por petición expresa; valores en `.env`, nunca como defaults del código. Admin admite contraseña de ocho caracteres en local/testing; fuera de esos entornos conserva el requisito anterior.
+
+Se retiró `operational-demo-v2` de PostgreSQL local con respaldo cifrado, conservando catálogo, presupuesto y una cuenta/CRM/solicitud registrada fuera del seeder. No eliminar ese registro real. `DemoPolicy` impide cargar historial sintético y asignar nuevas altas a una demo fuera de `testing`; fixtures conservados exclusivamente para pruebas. `.env` sin contraseña/ejecución demo activa. Las secciones anteriores sobre cargar clientes de muestra quedan sustituidas por esta decisión. No volver a sembrar clientes. Supabase y Railway no se modificaron.
+
+## Seeders locales autorizados posteriormente el 10 de octubre de 2026
+
+El usuario pidió expresamente ejecutar los seeders tras instalar PostgreSQL local. Se cargó `operational-demo-v2` únicamente en `127.0.0.1/byecode`: 12 cuentas cliente, 10 CRM, 34 casos (22 cerrados/12 abiertos), 46 versiones, 27 pagos y 149 mensajes. Admin/equipo y sus contraseñas intactos. El catálogo existente de 6 modelos/36 variantes se reutilizó y se asoció a la nueva procedencia demo, sin duplicar productos. Carga directa con `DemoScenarioLoader` transaccional mediante `.local/seed-local-existing-catalog.php`, porque el preparador PostgreSQL habitual intenta insertar un catálogo nuevo. Auditoría inicial independiente aprobada. Contraseña demo aleatoria únicamente en `DEMO_CUSTOMER_PASSWORD` de `.env`; 12 hashes verificados sin imprimir secretos. Informes y enlaces actuales en `.local/demo-report.json` y `.local/demo-links.md`. El modo demo global sigue deshabilitado: las cuentas sembradas conservan protecciones por procedencia. Supabase/Railway siguen sin clientes demo; la autorización de esta carga fue local y no autoriza futuras recargas automáticas.
+
+## PostgreSQL local independiente del 10 de octubre de 2026
+
+Por instrucción posterior del usuario, el `.env` local ahora conecta a PostgreSQL 17.11 en `127.0.0.1:5432`, base/esquema `byecode`, rol limitado `byecode_local`. Instalado sin Docker en `%LOCALAPPDATA%\Programs\ByeCodePostgreSQL17\pgsql`; datos persistentes en `.local/postgresql/data`, arranque al iniciar sesión de Windows y control mediante `scripts/postgresql-local.ps1`. Leer `POSTGRESQL_LOCAL.md`.
+
+Se copió y verificó una instantánea vigente de Supabase: 29 tablas persistentes, secuencias, 1 admin, 4 comercio, 6 modelos y 36 variantes; 0 clientes/casos. No se cargaron seeders ni historial eliminado. Se conservaron APP_KEY y hashes de contraseñas. Sesiones, caché, tokens de recuperación y trabajos de cola no se copiaron. Respaldo cifrado e informe en `.local/postgresql`; configuración anterior privada en `.local/postgresql/.env.supabase-before-local`. Credenciales administrativas locales en `.env.postgresql-local`, ignorado y restringido.
+
+Railway conserva Supabase y no se modificó: las bases local y remota son independientes y no se sincronizan. Las referencias históricas a una misma base compartida ya no describen el desarrollo local. No copiar las variables DB locales a Railway ni reconectar a Supabase por iniciativa propia. Pruebas con IA/correo deshabilitados; tarifas y límites intactos.
+
+## Limpieza y flujo simplificado del 10 de octubre de 2026
+
+El usuario pidió borrar clientes e historial de seeders conservando catálogo, admin y comercio. Aplicado y verificado en Supabase: 1 admin, 4 comercio, 0 clientes/casos, 6 modelos y 36 variantes. Respaldo cifrado en `.local`, sesiones invalidadas, demo local deshabilitada. No volver a cargar historial ni restablecer cuentas por iniciativa propia. Admin y equipo conservados ya no exigen cambio inicial de contraseña; contraseña de admin sustituida por instrucción expresa, sin incluirla en Git. Mantener la protección de las nuevas credenciales temporales presenciales.
+
+Cotización comercial por `line_total` en cada producto; el servidor conserva el total exacto y deriva el unitario, indicado como aproximado si es necesario. Compatibilidad con entradas históricas `unit_price`, sin admitir ambos campos juntos. Borrador recuperable y publicación hacia conversación. Registro/login conservan selección; enviar solicitud crea CRM. Evidencia y valores de perfil legibles, sin JSON crudo. Consultar sección vigente de `ESTADO_DESARROLLO.md` y `GUIA_USO.md`.
+
 Leer y seguir `C:\Users\User\.codex\RTK.md`.
+
+## Producción Railway preparada el 10 de octubre de 2026
+
+Consultar `PRODUCCION_RAILWAY.md` y la sección vigente de `ESTADO_DESARROLLO.md`. Railway sigue `trejosau/byeCode:main` tras CI, con Railpack, web/worker/agenda supervisados y volumen `/app/storage/app`. Las variables locales y OpenAI se transfirieron a Railway; APP_KEY y Supabase se comparten con local y no deben regenerarse. La cola de producción es `production`. SMTP permanece deshabilitado. El primer despliegue y la transferencia de los archivos privados existentes siguen pendientes; los helpers y la copia con hashes están en `.local`. No declarar producción publicada basándose solo en la configuración. Las pruebas deben mantener OpenAI y correo deshabilitados.
 
 ## Memoria: stack acordado de ByeCode
 

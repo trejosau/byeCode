@@ -124,6 +124,35 @@ export type Recommendation = {
     review: { decision: string; reason: string } | null;
     feedback: { verdict: string; reason: string }[];
     alternatives: {
+        evidence?: {
+            event_id: string;
+            type: string;
+            source: string;
+            occurred_at: string;
+            version: number | null;
+            summary: string;
+        }[];
+        behavior_summary?: {
+            sections: {
+                section: string;
+                label: string;
+                version: number | null;
+                visible_events: number;
+                active_duration_ms: number;
+            }[];
+            scroll: { version: number | null; max_depth: number }[];
+            measurement_note: string;
+        } | null;
+        plan?: {
+            title: string;
+            reason: string;
+            steps: string[];
+            message: string | null;
+            proposed_total_cents: number | null;
+            additional_delivery_days: number | null;
+            checks: string[];
+            evidence_event_ids: string[];
+        } | null;
         action: Action;
         allowed: boolean;
         selected: boolean;

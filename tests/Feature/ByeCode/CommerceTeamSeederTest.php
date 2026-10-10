@@ -12,7 +12,7 @@ beforeEach(function () {
     config(['onboarding.commerce_team_password' => '87654321']);
 });
 
-it('creates the four commerce accounts with hashed credentials and an initial password change', function () {
+it('creates the four commerce accounts with hashed credentials and direct workspace access', function () {
     $this->seed(CommerceTeamSeeder::class);
 
     expect(User::count())->toBe(4);
@@ -22,11 +22,11 @@ it('creates the four commerce accounts with hashed credentials and an initial pa
             ->and($user->hasVerifiedEmail())->toBeTrue()
             ->and(Hash::check('87654321', $user->password))->toBeTrue()
             ->and($user->password)->not->toBe('87654321')
-            ->and($user->must_change_password)->toBeTrue();
+            ->and($user->must_change_password)->toBeFalse();
 
         $this->post('/login', ['email' => $email, 'password' => '87654321'])->assertSessionHasNoErrors();
         $this->assertAuthenticatedAs($user);
-        $this->get('/workspace')->assertRedirect('/initial-password');
+        $this->get('/workspace')->assertOk();
         $this->post('/logout');
     }
 });

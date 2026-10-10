@@ -142,7 +142,13 @@ export default function Portal({
                                                     {l.quantity}
                                                 </TableCell>
                                                 <TableCell className="text-right whitespace-nowrap">
-                                                    {money(l.unit_price_cents)}
+                                                    {money(
+                                                        l.total_cents /
+                                                            l.quantity,
+                                                    )}
+                                                    {l.total_cents %
+                                                        l.quantity !==
+                                                        0 && ' aprox.'}
                                                 </TableCell>
                                                 <TableCell className="text-right whitespace-nowrap">
                                                     {money(l.total_cents)}

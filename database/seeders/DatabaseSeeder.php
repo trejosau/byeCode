@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class DatabaseSeeder extends Seeder
 {
@@ -14,6 +15,12 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // Los usuarios se crean mediante el registro de Laravel.
+        DB::transaction(function () {
+            $this->call([
+                InitialAdminSeeder::class,
+                CommerceTeamSeeder::class,
+                ProductCatalogSeeder::class,
+            ]);
+        });
     }
 }
