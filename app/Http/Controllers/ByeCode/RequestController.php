@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\ByeCode;
 
+use App\Domain\Cases\CatalogManifest;
+use App\Domain\Cases\CatalogSelection;
 use App\Domain\Cases\CustomerJourney;
 use App\Domain\Cases\Onboarding;
 use App\Domain\Demo\DemoPolicy;
@@ -20,14 +22,14 @@ class RequestController
     public function form(Request $request): Response
     {
         return Inertia::render('journey/request', ['selection' => $request->session()->get('selection', []),
-            'variants' => Product::where('published', true)->whereHasStylePublished()->get(['id', 'sku', 'name', 'fit', 'color', 'size', 'moq']), 'physical' => $request->user()->role === 'commerce']);
+            'variants' => Product::where('published', true)->whereHasStylePublished()->get(['id', 'name', 'fit', 'color', 'size', 'moq', 'gsm', 'details'])->map(fn ($p) => [...$p->toArray(), 'details' => CatalogManifest::visibleDetails($p->details ?? [])]), 'physical' => $request->user()->role === 'commerce']);
     }
 
     public function store(Request $request, CustomerJourney $journey): RedirectResponse
     {
         $physical = $request->user()->role === 'commerce';
         $data = $request->validate(['submission_id' => 'required|uuid', 'company' => 'nullable|string|max:180', 'message' => 'nullable|string|max:8000',
-            'desired_date' => 'nullable|date_format:Y-m-d|after_or_equal:today', 'lines' => 'required|array|min:1|max:30',
+            'desired_date' => 'nullable|date_format:Y-m-d|after_or_equal:today', 'lines' => 'required|array|min:1|max:'.CatalogSelection::MAX_LINES,
             'lines.*.product_id' => 'required|integer|distinct', 'lines.*.quantity' => 'required|integer|min:1|max:1000000',
             'name' => ($physical ? 'required' : 'nullable').'|string|max:180', 'email' => ($physical ? 'required' : 'nullable').'|email|max:180']);
         $case = DB::transaction(function () use ($request, $data, $physical, $journey) {
@@ -40,8 +42,9 @@ class RequestController
                 DB::table('activity_events')->where('session_key', $sessionKey)->whereNull('account_id')->whereNull('customer_id')
                     ->update(['account_id' => $request->user()->id, 'customer_id' => $case->customer_id]);
             }
-            $request->session()->forget('selection');
         }
+
+        $request->session()->forget('selection');
 
         return redirect($physical ? '/cases/'.$case->id.'/quote' : '/my/quotes/'.$case->public_id)->with('success', 'Solicitud recibida. El equipo preparará tu cotización.');
     }

@@ -1,4 +1,5 @@
 import { Link, usePage } from '@inertiajs/react';
+import { ThemeSwitch } from '@/components/theme-switch';
 import { BookOpen, Folder, LayoutGrid, Menu, Search } from 'lucide-react';
 import AppLogo from '@/components/app-logo';
 import AppWordmark from '@/components/app-wordmark';
@@ -233,6 +234,7 @@ export function AppHeader({ breadcrumbs = [] }: Props) {
                                 )}
                             </DropdownMenuContent>
                         </DropdownMenu>
+                        <ThemeSwitch />
                     </div>
                 </div>
             </div>

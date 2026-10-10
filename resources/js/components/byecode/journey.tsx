@@ -1,9 +1,9 @@
+import { ThemeSwitch } from '@/components/theme-switch';
 import { Head, Link, usePage } from '@inertiajs/react';
 import type { PropsWithChildren } from 'react';
 import AppWordmark from '@/components/app-wordmark';
 import { Button } from '@/components/ui/button';
 import type { User } from '@/types/auth';
-import { DemoNotice } from '@/components/byecode/demo-notice';
 
 export function Journey({
     title,
@@ -25,35 +25,39 @@ export function Journey({
                     <Link href="/" className="mr-auto">
                         <AppWordmark className="text-3xl font-normal" />
                     </Link>
-                    <Link href="/catalog">Blanks</Link>
-                    {auth.user ? (
-                        <>
-                            <Link href="/dashboard">Mi espacio</Link>
-                            {auth.user.role === 'commerce' && (
-                                <>
-                                    <Link href="/requests">Solicitudes</Link>
-                                    <Link href="/customers">CRM</Link>
-                                    <Link href="/products">Catálogo</Link>
-                                </>
-                            )}
-                            <Link href="/settings/profile">
-                                {auth.user.name}
-                            </Link>
-                            <Link href="/logout" method="post" as="button">
-                                Salir
-                            </Link>
-                        </>
-                    ) : (
-                        <>
-                            <Link href="/login">Entrar</Link>
-                            <Button asChild>
-                                <Link href="/register">Crear cuenta</Link>
-                            </Button>
-                        </>
-                    )}
+                    <div className="ml-auto flex max-w-full flex-wrap items-center justify-end gap-3 sm:gap-5">
+                        <Link href="/catalog">Blanks</Link>
+                        {auth.user ? (
+                            <>
+                                <Link href="/dashboard">Mi espacio</Link>
+                                {auth.user.role === 'commerce' && (
+                                    <>
+                                        <Link href="/requests">
+                                            Solicitudes
+                                        </Link>
+                                        <Link href="/customers">CRM</Link>
+                                        <Link href="/products">Catálogo</Link>
+                                    </>
+                                )}
+                                <Link href="/settings/profile">
+                                    {auth.user.name}
+                                </Link>
+                                <Link href="/logout" method="post" as="button">
+                                    Salir
+                                </Link>
+                            </>
+                        ) : (
+                            <>
+                                <Link href="/login">Entrar</Link>
+                                <Button asChild>
+                                    <Link href="/register">Crear cuenta</Link>
+                                </Button>
+                            </>
+                        )}
+                        <ThemeSwitch />
+                    </div>
                 </nav>
             </header>
-            <DemoNotice />
             <main className="mx-auto max-w-7xl space-y-7 px-5 py-10">
                 <div className="max-w-3xl">
                     <h1 className="text-3xl font-semibold tracking-tight">
@@ -89,6 +93,13 @@ export function Errors({ errors }: { errors: Record<string, string> }) {
 }
 export const inputClass =
     'w-full rounded-md border bg-background px-3 py-2 text-sm';
+export type CatalogImage = {
+    view: string;
+    path: string;
+    alt: string;
+    width: number;
+    height: number;
+};
 export type Variant = {
     id: number;
     style_id: number;
@@ -100,9 +111,14 @@ export type Variant = {
     gsm: number | null;
     composition: string | null;
     moq: number | null;
-    stock: number | null;
-    details?: Record<string, string>;
+    details?: {
+        color_code?: string;
+        measurements?: string;
+        tolerance?: string;
+        images?: CatalogImage[];
+    };
     published?: boolean;
+    source?: string;
 };
 export type Style = {
     id: number;

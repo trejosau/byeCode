@@ -2,7 +2,7 @@
 
 return [
     'rules_version' => 'r1-r6-v1.0',
-    'prompt_version' => 'byecode-semantic-2.0',
+    'prompt_version' => 'byecode-semantic-3.0',
     'kit_clock' => '2026-10-09T16:00:00Z',
     'model' => env('OPENAI_MODEL') ?: 'gpt-5.6-luna',
     'max_output_tokens' => 1800,

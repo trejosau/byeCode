@@ -639,9 +639,9 @@ export default function Profile({
                             </p>
                         )}
                         <p className="border-t pt-4 text-xs leading-5 text-muted-foreground">
-                            Estas interacciones dependen del consentimiento del
-                            usuario. No demuestran lectura, intención de compra
-                            ni pago.
+                            Estas interacciones se registran automáticamente en
+                            el catálogo y las cotizaciones. No demuestran
+                            lectura, intención de compra ni pago.
                         </p>
                     </aside>
                 </div>

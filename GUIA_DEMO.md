@@ -41,7 +41,7 @@ Los enlaces concretos de esta instalación están en [el informe local de enlace
 | A08   | Jesús       | Otra solicitud de Andrés tiene V1 retirada y borrador pendiente                        | Completar el borrador y publicar V2; V1 ya no se puede aceptar                 |
 | A09   | Sau         | Paula consultó la propuesta tres veces, sin mensajes en ese caso                       | Verificar que las vistas no implican aceptación, urgencia ni pago              |
 | A10   | Jorge       | Ricardo recibió un contacto seis horas antes de la carga y no respondió                | Comprobar R4; una respuesta posterior del comprador levanta esa pausa          |
-| A11   | Dani        | Elena tiene una versión vencida y disponibilidad desconocida                           | Confirmar disponibilidad y publicar una versión vigente                        |
+| A11   | Dani        | Elena tiene una versión vencida y fecha y términos pendientes de renovación            | Confirmar fecha y condiciones y publicar una versión vigente                   |
 | A12   | Jesús       | Mateo respondió después del último contacto                                            | Comprobar que R4 se levanta, conservando la interpretación semántica pendiente |
 
 Las fechas avanzan con el reloj real después de la carga. R3/R4 pueden haber vencido cuando abras la guía. El informe guarda la fecha de referencia original: repetir el comando no rejuvenece los casos ni reinicia sus plazos.
@@ -52,19 +52,25 @@ Las fechas avanzan con el reloj real después de la carga. R3/R4 pueden haber ve
 - 46 versiones publicadas y dos borradores internos; aceptar, formalizar, pagar y cerrar son hechos separados.
 - 17 formalizaciones y 27 pagos. Los 16 pedidos históricos aceptados concilian cotización, formalización y pagos; A03 conserva saldo pendiente.
 - 149 mensajes, seis adjuntos PNG privados y originales de eventos conservados con hash.
-- Seis estilos y 36 variantes con tallas, composición, gramaje, MOQ, instrucciones y observaciones de existencia. El catálogo público sigue sin precios.
+- Seis estilos y 36 variantes con tallas, composición, gramaje, MOQ, instrucciones y recursos visuales y referencias de ficha. El catálogo público sigue sin precios.
 - Siete dimensiones comerciales por ficha, desconocidos explícitos, evidencia propia y autor de las confirmaciones reproducidas. Camila tiene hipótesis, corrección y conflicto; Diego cambió el empaque; Paula retiró un requisito; Marina conserva una propiedad con alcance de colección.
 - Evaluaciones históricas y actuales del motor de reglas, revisiones humanas reproducidas y feedback. El ranking usa el contrato vigente de decisiones por evento.
 
-Las hipótesis son parte del guion sintético y llevan origen `demo_scenario`; no son respuestas de un modelo. Los casos con mensajes que necesitan interpretación muestran **análisis de demostración deshabilitado**. Las restricciones conocidas sí pueden producir recomendaciones de contingencia sujetas a revisión. No se inventan porcentajes ni resultados de OpenAI.
+Las hipótesis son parte del guion sintético y llevan origen `demo_scenario`; no son respuestas de un modelo. Los casos con mensajes que necesitan interpretación muestran **Análisis no habilitado para este registro**. Las restricciones conocidas sí pueden producir recomendaciones de contingencia sujetas a revisión. No se inventan porcentajes ni resultados de OpenAI.
 
-## Separar demostración y operación
+## Procedencia y protecciones internas
 
-En CRM, Casos, Solicitudes, el espacio de comercio y el resumen del administrador, **Mostrar** permite elegir todos los datos, solo demostración o sin demostración. La selección se mantiene durante la sesión. Los detalles de cuentas/casos demo muestran una advertencia; el presupuesto y los diagnósticos generales de correo siguen siendo globales.
+Los listados muestran todos los registros autorizados, sin filtros ni avisos de procedencia. El valor antiguo `demo_origin` se retira de la sesión. La marca interna se conserva para auditoría y protección del correo, IA y predictor.
 
 Con `BYECODE_DEMO_ENABLED=true` y `BYECODE_DEMO_RUN=operational-demo-v1`, las nuevas altas de clientes de este entorno local también son de prueba. Las cuentas existentes conservan su procedencia. Desactivar estos indicadores impide nuevas altas demo, pero no elimina la marca ni las protecciones de las cuentas ya creadas. El catálogo de ejemplo continúa publicado hasta que comercio cambie su publicación.
 
 Los mensajes privados de la aplicación se guardan y se ven normalmente. Las notificaciones y recuperaciones por correo para destinatarios demo quedan como `suppressed_demo`, sin cuerpo cifrado pendiente de envío. No se mandan mensajes a las direcciones Gmail ficticias. Los análisis de perfil y evaluaciones demo permanecen sin llamadas facturables aunque se configure una clave real después.
+
+## Catálogo v2 y compatibilidad
+
+Las nuevas instalaciones usan `operational-demo-v2` y el catálogo compartido `catalog-v2`. Las solicitudes de v2 cubren las 36 variantes y conservan los recorridos R2/R3/R4, versiones, pagos y aceptación parcial. Los archivos originales de `operational-demo-v1` permanecen sellados.
+
+La instalación v1 existente se actualiza con `byecode:upgrade-catalog`; no se vuelve a sembrar sobre sus cuentas. Su hash original se conserva. `byecode:verify-demo` reconoce ambas versiones y verifica por defecto todas las ejecuciones listas. El respaldo y las correspondencias quedan privados y cifrados. Ver [CATALOGO_INTEGRACION.md](CATALOGO_INTEGRACION.md).
 
 ## Ejecutar o comprobar
 

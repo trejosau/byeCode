@@ -1,5 +1,7 @@
 <?php
 
+use App\Domain\Cases\CatalogManifest;
+use App\Domain\Cases\CatalogUpgrade;
 use App\Domain\Cases\ConversationService;
 use App\Domain\Cases\CustomerJourney;
 use App\Domain\Cases\CustomerProfile;
@@ -25,6 +27,43 @@ use Illuminate\Support\Str;
 use Inertia\Testing\AssertableInertia;
 
 uses(RefreshDatabase::class);
+
+it('upgrades v1 in place with explicit aliases and preserves later edits and protected provenance', function () {
+    $loader = app(DemoScenarioLoader::class)->forVersion('operational-demo-v1');
+    $report = $loader->load();
+    $ids = Product::orderBy('id')->pluck('id')->all();
+    $totals = QuoteVersion::orderBy('id')->pluck('total_cents')->all();
+    $hash = DB::table('demo_runs')->where('id', $report['run_id'])->value('manifest_hash');
+    $upgrade = app(CatalogUpgrade::class);
+    $first = Product::firstOrFail();
+    $old = $first->gsm;
+    $first->update(['gsm' => 999]);
+    expect($upgrade->run(true)['conflicts'])->not->toBeEmpty();
+    expect(fn () => $upgrade->run(false))->toThrow(RuntimeException::class);
+    $first->update(['gsm' => $old]);
+    expect($upgrade->run(true)['mapping'])->toHaveCount(36);
+    expect($upgrade->run(false)['economics_preserved'])->toBeTrue();
+    expect(Product::orderBy('id')->pluck('id')->all())->toBe($ids);
+    expect(QuoteVersion::orderBy('id')->pluck('total_cents')->all())->toBe($totals);
+    expect(DB::table('demo_runs')->where('id', $report['run_id'])->value('manifest_hash'))->toBe($hash);
+    expect(Product::where('sku', 'like', 'BC-%')->count())->toBe(36);
+    expect(QuoteVersion::firstOrFail()->lines[0]['images'])->toHaveCount(4);
+    $first->refresh()->update(['name' => 'Nombre revisado por comercio']);
+    expect($upgrade->run(false)['already_applied'])->toBeTrue();
+    expect($first->fresh()->name)->toBe('Nombre revisado por comercio');
+    app(DemoIntegrityAudit::class)->verify($report['run_id']);
+    expect(Product::whereNull('demo_run_id')->count())->toBe(0);
+    Http::assertNothingSent();
+    Mail::assertNothingSent();
+});
+
+it('ships a complete image manifest and covers all catalog variants in v2 requests', function () {
+    expect(app(CatalogManifest::class)->imageErrors(false))->toBe([]);
+    app(DemoScenarioLoader::class)->load();
+    $ids = DB::table('purchase_requests')->pluck('lines')->flatMap(fn ($json) => array_column(json_decode($json, true), 'product_id'))->unique();
+    expect($ids)->toHaveCount(36);
+    expect(DB::table('products')->count())->toBe(36);
+});
 
 beforeEach(function () {
     config(['demo.enabled' => true, 'demo.active_key' => DemoScenarioLoader::KEY, 'demo.customer_password' => 'FixturePassword123!',
@@ -136,7 +175,7 @@ it('continues seeded drafts and proposals through the real HTTP workflow with pr
             'draft_revision' => DB::table('quote_drafts')->where('commercial_case_id', $id)->value('revision'),
             'title' => 'Continuación '.$key, 'valid_until' => now()->addWeek()->format('Y-m-d'), 'authorization_reference' => 'Autorización de la prueba de continuidad',
             'tax' => '384.00', 'shipping' => '150.00', 'discount' => '0.00', 'terms' => 'Nueva versión acordada',
-            'lines' => [['product_id' => Product::where('sku', 'DEMO-REG-NEG-M')->firstOrFail()->id, 'quantity' => 24, 'unit_price' => '100.00', 'supply_mode' => 'manufacture', 'stock_units' => 0]]])
+            'lines' => [['product_id' => Product::where('sku', 'BC-REG-180-NEG-M')->firstOrFail()->id, 'quantity' => 24, 'unit_price' => '100.00']]])
             ->assertRedirect()->assertSessionHasNoErrors();
         $quote = QuoteVersion::where('commercial_case_id', $id)->latest('version')->firstOrFail();
         expect($quote->version)->toBe($oldCount + 1)->and($quote->total_cents)->toBe(293400);
@@ -160,15 +199,15 @@ it('continues seeded drafts and proposals through the real HTTP workflow with pr
     Mail::assertNothingSent();
 });
 
-it('separates demo metrics and preserves historical profile evidence at its cutoff', function () {
+it('shows all authorized records despite old origin filters and preserves predictor exclusions', function () {
     app(DemoScenarioLoader::class)->load();
     $seller = User::where('role', 'commerce')->firstOrFail();
     $this->actingAs($seller)->get('/customers?origin=demo')->assertInertia(fn (AssertableInertia $page) => $page->has('customers.data', 10));
-    $this->get('/customers?origin=real')->assertInertia(fn (AssertableInertia $page) => $page->has('customers.data', 0));
-    $this->get('/requests')->assertInertia(fn (AssertableInertia $page) => $page->has('cases', 0));
+    $this->get('/customers?origin=real')->assertInertia(fn (AssertableInertia $page) => $page->has('customers.data', 10));
+    $this->get('/requests')->assertInertia(fn (AssertableInertia $page) => $page->has('cases', 34));
     $admin = User::factory()->create(['role' => 'admin']);
     $this->actingAs($admin)->get('/admin?origin=demo')->assertInertia(fn (AssertableInertia $page) => $page->where('summary.customers', 10)->where('summary.quotes', 46));
-    $this->get('/admin?origin=real')->assertInertia(fn (AssertableInertia $page) => $page->where('summary.customers', 0)->where('summary.quotes', 0));
+    $this->get('/admin?origin=real')->assertInertia(fn (AssertableInertia $page) => $page->where('summary.customers', 10)->where('summary.quotes', 46));
     $camila = Customer::where('email', 'camila@gmail.com')->firstOrFail();
     $facts = DB::table('profile_facts')->where('customer_id', $camila->id)->where('name', 'fit_preferido')->orderBy('id')->get();
     expect($facts->pluck('status')->all())->toBe(['superseded', 'active', 'conflicting']);

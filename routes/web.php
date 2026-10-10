@@ -11,7 +11,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [CatalogController::class, 'index'])->name('home');
 Route::get('/catalog', [CatalogController::class, 'index']);
-Route::post('/selection', [CatalogController::class, 'selection'])->middleware('throttle:30,1');
+Route::get('/catalog/{style}', [CatalogController::class, 'show'])->whereNumber('style');
+Route::post('/selection/save', [CatalogController::class, 'saveSelection'])->middleware('throttle:120,1')->block();
+Route::post('/selection', [CatalogController::class, 'selection'])->middleware('throttle:30,1')->block();
 require __DIR__.'/journey.php';
 
 Route::get('dashboard', [AccountController::class, 'home'])->middleware('auth')->name('dashboard');

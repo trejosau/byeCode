@@ -15,6 +15,7 @@ use App\Models\QuoteVersion;
 use App\Models\User;
 use Carbon\CarbonImmutable;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
 
@@ -28,6 +29,10 @@ final class QuoteService
     public function save(User $user, array $input, ?CommercialCase $case = null): CommercialCase
     {
         abort_unless($user->role === 'commerce', 403);
+        Validator::make($input, ['lines' => 'required|array|min:1|max:'.CatalogSelection::MAX_LINES,
+            'lines.*.product_id' => 'required|integer|distinct|exists:products,id',
+            'lines.*.quantity' => 'required|integer|min:1|max:1000000',
+            'lines.*.unit_price' => 'required|decimal:0,2|min:0|max:9999999'])->validate();
         $set = $case ? $this->workspace->ownCase($user, $case) : $this->workspace->live($user);
         if ($set->mode !== 'live') {
             throw ValidationException::withMessages(['quote' => 'El kit oficial no se edita como una cotización real.']);
@@ -55,15 +60,6 @@ final class QuoteService
                 $product = Product::whereKey($line['product_id'])->firstOrFail();
                 $unit = Money::cents($line['unit_price']);
                 $quantity = (int) $line['quantity'];
-                $stockUnits = isset($line['stock_units']) ? (int) $line['stock_units'] : null;
-                if (($line['supply_mode'] === 'stock' && $stockUnits !== $quantity)
-                    || ($line['supply_mode'] === 'manufacture' && $stockUnits !== 0)
-                    || ($line['supply_mode'] === 'mixed' && ($stockUnits === null || $stockUnits <= 0 || $stockUnits >= $quantity))) {
-                    throw ValidationException::withMessages(['lines.'.$i.'.stock_units' => 'Indica un reparto coherente: stock completo, fabricación sin stock o mezcla con ambas cantidades.']);
-                }
-                if ($stockUnits !== null && ($stockUnits > $quantity || ($product->stock !== null && $stockUnits > $product->stock))) {
-                    throw ValidationException::withMessages(['lines.'.$i.'.stock_units' => 'La cantidad de inventario excede la línea o la existencia observada.']);
-                }
                 $total = $unit * $quantity;
                 $subtotal += $total;
                 if ($subtotal > 999999999999) {
@@ -72,11 +68,8 @@ final class QuoteService
                 $lines[] = ['line_id' => 'L'.($i + 1), 'product_id' => $product->id, 'sku' => $product->sku, 'name' => $product->name,
                     'category' => $product->category, 'fit' => $product->fit, 'gsm' => $product->gsm, 'composition' => $product->composition,
                     'color' => $product->color, 'size' => $product->size, 'quantity' => $quantity, 'unit_price_cents' => $unit, 'total_cents' => $total,
-                    'supply_mode' => $line['supply_mode'], 'stock_units' => $stockUnits,
-                    'manufacture_units' => $stockUnits === null ? null : $quantity - $stockUnits,
-                    'observed_stock' => $product->stock, 'stock_verified_at' => $product->verified_at ? Utc::iso($product->verified_at) : null,
-                    'moq' => $product->moq, 'below_moq' => $product->moq !== null && $quantity < $product->moq,
-                    'fulfillment_confirmed' => false];
+                    'color_code' => $product->details['color_code'] ?? null, 'images' => $product->details['images'] ?? [],
+                    'moq' => $product->moq, 'below_moq' => $product->moq !== null && $quantity < $product->moq];
             }
             $tax = Money::cents($input['tax']);
             $shipping = Money::cents($input['shipping']);

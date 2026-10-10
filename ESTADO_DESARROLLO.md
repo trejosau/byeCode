@@ -1,5 +1,31 @@
 # Estado del desarrollo de ByeCode
 
+## Cierre de catálogo e imágenes del 10 de octubre de 2026
+
+Por instrucción urgente del usuario se instalaron los 48 PNG existentes, sin nuevas generaciones; el verificador completo de catálogo aprobó dimensiones y canal alfa. Esto sustituye el pendiente de imágenes descrito más abajo. Se quitó el desplegable de variantes de la solicitud presencial y se enlazó al configurador del catálogo. La edición comercial conserva selección de prendas mediante botones, IDs, cantidades y precios. Cambios acotados, sin nuevas migraciones ni cambios económicos.
+
+Comprobación de cierre: 34 pruebas de solicitudes/cotizaciones, 238 aserciones, TypeScript y lint/formato aprobados. Remoto sincronizado sin conflictos antes del commit. Hosting y SMTP de producción conservan su estado previo; subir código no configura esos servicios.
+
+## Catálogo configurable del 10 de octubre de 2026
+
+Implementado el catálogo v2 de seis modelos y 36 variantes, fichas por color con cantidades S/M/L, selección persistida en sesión y panel inferior editable. El flujo completo admite hasta 100 líneas. La navegación espera el guardado y ofrece reintento ante fallos. El tema claro/oscuro persiste; se retiraron inventario operativo y avisos/filtros visibles de demostración, manteniendo las protecciones internas. Las cotizaciones conservan sus atributos e imágenes como snapshots.
+
+Actualización incremental aplicada en Supabase con respaldo privado cifrado y mantenimiento. Se conservaron IDs, cuentas, clientes, casos, pagos, mensajes, perfiles y el hash original de la ejecución v1. La comparación independiente del respaldo confirmó cantidades, precios y atributos históricos sin cambios económicos. La repetición es idempotente; los roles públicos siguen sin acceso al esquema `byecode`. Se conserva intacto el kit público y el fixture v1.
+
+Validación: suite completa con 143 pruebas Pest aprobadas, 1,694 aserciones y nueve pruebas de verificación de correo omitidas porque esa función está deshabilitada. Después se añadió y aprobó una regresión adicional de manifiesto/publicación con 18 aserciones. Pint, Larastan, TypeScript, lint/formato y build aprobados. La primera ejecución durante mantenimiento produjo respuestas 503; se repitió la suite completa con el sitio disponible. Sin llamadas reales a OpenAI ni correos enviados.
+
+En navegador se verificaron configuración, edición de cantidades, guardado y persistencia tras recargar, traslado al formulario de solicitud y tema persistente; vistas de escritorio y móvil de 390 px. No se envió una solicitud de prueba: se retiró la selección temporal y se restauró el tema original.
+
+Las 48 imágenes se producen y revisan en otro chat por indicación del usuario. Los datos y rutas están preparados; los recursos ausentes no se publican como enlaces rotos. Esta entrega no certifica imágenes todavía ausentes: `byecode:verify-catalog --data-only` valida datos y el comando sin esa opción exige todos los PNG y sus dimensiones/canal alfa. Consultar `CATALOGO_INTEGRACION.md` y `.impeccable/review/catalog-configurable.md`.
+
+## Navegación automática del 10 de octubre de 2026
+
+Por indicación del usuario, se retiraron el aviso y los controles de analítica del catálogo y las cotizaciones. El hook inicia los eventos al montar esas páginas y deja de capturar al salir. El receptor acepta eventos sin un campo de consentimiento; no se declara una autorización inexistente. El perfil y la guía reflejan este comportamiento, que sustituye las referencias históricas a navegación consentida.
+
+Se conservan la lista de eventos y campos permitidos, la autorización de casos, la exclusión de actividad del equipo, la deduplicación y la marca `browser_unverified`. Las interacciones no demuestran intención ni resultados comerciales. Sin migraciones, llamadas reales a OpenAI ni envíos de correo durante la comprobación.
+
+Validación: 27 pruebas Pest y 227 aserciones aprobadas en CustomerJourneyTest/EventDrivenDecisionTest; TypeScript, Pint, lint/formato de los archivos cambiados y build aprobados. Se comprobó el rechazo de resultados comerciales inventados y campos ajenos como contraseñas.
+
 ## Historial comercial de demostración del 10 de octubre de 2026
 
 Implementado `PLAN_SEEDER_HISTORIAL_DEMO.md` mediante servicios compartidos con los formularios reales. `OperationalDemoSeeder` y `byecode:seed-demo` reproducen 351 operaciones ordenadas sobre nueve meses: 12 cuentas, 10 CRM, 34 solicitudes/casos, 46 versiones, dos borradores, 17 formalizaciones, 27 pagos, 149 mensajes, seis adjuntos privados y 36 variantes. Guía de cuentas y siguientes pasos: `GUIA_DEMO.md`.

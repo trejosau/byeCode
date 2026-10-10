@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\ByeCode;
 
+use App\Domain\Cases\CatalogManifest;
+use App\Domain\Cases\CommercialPresentation;
 use App\Domain\Cases\ConversationService;
 use App\Domain\Cases\CustomerJourney;
 use App\Models\CommercialCase;
@@ -23,11 +25,11 @@ class ConversationController
     {
         $case = CommercialCase::where('public_id', $publicId)->firstOrFail();
         $this->journey->authorize($request->user(), $case);
-        $quotes = QuoteVersion::where('commercial_case_id', $case->id)->orderByDesc('version')->get()->map(function ($q) {
+        $quotes = QuoteVersion::where('commercial_case_id', $case->id)->orderByDesc('version')->get()->map(function ($q) use ($case) {
             $quote = $q->only(['id', 'version', 'subtotal_cents', 'tax_cents', 'shipping_cents', 'discount_cents', 'total_cents', 'terms', 'valid_until', 'created_at', 'withdrawn_at']);
-            $quote['lines'] = array_map(fn ($l) => array_intersect_key($l, array_flip(['line_id', 'product_id', 'sku', 'name', 'fit', 'gsm', 'composition', 'color', 'size', 'quantity', 'unit_price_cents', 'total_cents', 'supply_mode'])), $q->lines);
+            $quote['lines'] = array_map(fn ($l) => CatalogManifest::visibleDetails(array_intersect_key($l, array_flip(['line_id', 'product_id', 'name', 'fit', 'gsm', 'composition', 'color', 'size', 'quantity', 'unit_price_cents', 'total_cents', 'color_code', 'images']))), $q->lines);
 
-            return $quote;
+            return app(CommercialPresentation::class)->quote($quote, $case->demo_run_id !== null);
         });
         $submission = DB::table('purchase_requests')->where('commercial_case_id', $case->id)->first();
 
@@ -36,7 +38,7 @@ class ConversationController
             'requestLines' => $submission ? json_decode($submission->lines, true) : [],
             'requestMessage' => $submission?->message, 'desiredDate' => $submission?->desired_date,
             'messages' => DB::table('chat_messages')->join('users', 'users.id', '=', 'chat_messages.author_id')->where('commercial_case_id', $case->id)->orderBy('chat_messages.id')->get(['chat_messages.id', 'event_id', 'body', 'quote_version', 'author_role', 'attachment_name', 'chat_messages.created_at', 'users.name'])
-                ->map(fn ($row) => [...(array) $row, 'created_at' => CarbonImmutable::parse($row->created_at, 'UTC')->toIso8601ZuluString()]),
+                ->map(fn ($row) => [...(array) $row, 'body' => app(CommercialPresentation::class)->text($row->body, $case->demo_run_id !== null), 'created_at' => CarbonImmutable::parse($row->created_at, 'UTC')->toIso8601ZuluString()]),
             'decisions' => DB::table('buyer_decisions')->where('commercial_case_id', $case->id)->orderBy('id')->get()->map(fn ($r) => [...(array) $r, 'lines' => json_decode($r->lines, true)]),
             'commerce' => $request->user()->role === 'commerce', 'readOnly' => $request->user()->role === 'admin',
         ]);

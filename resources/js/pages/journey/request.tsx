@@ -1,4 +1,4 @@
-import { useForm } from '@inertiajs/react';
+import { Link, useForm } from '@inertiajs/react';
 import { useState } from 'react';
 import {
     Journey,
@@ -39,7 +39,9 @@ export default function RequestPage({
                 className="max-w-3xl space-y-5"
                 onSubmit={(e) => {
                     e.preventDefault();
-                    form.post(physical ? '/physical-request' : '/request');
+                    form.post(physical ? '/physical-request' : '/request', {
+                        onSuccess: () => form.reset(),
+                    });
                 }}
             >
                 <Errors errors={form.errors} />
@@ -47,8 +49,7 @@ export default function RequestPage({
                     <>
                         <div className="rounded-lg border bg-muted p-4">
                             El cliente recibirá un correo con su contraseña
-                            temporal. Deberá cambiarla y verificar su correo
-                            para entrar.
+                            temporal. Deberá cambiarla para entrar.
                         </div>
                         <label className="block">
                             Nombre
@@ -90,12 +91,19 @@ export default function RequestPage({
                     return (
                         <div
                             key={line.product_id}
-                            className="flex items-center gap-4 rounded-lg border p-4"
+                            className="flex flex-wrap items-center gap-4 rounded-lg border p-4 sm:flex-nowrap"
                         >
-                            <p className="mr-auto">
+                            {v?.details?.images?.[0] && (
+                                <img
+                                    src={v.details.images[0].path}
+                                    alt={`${v.name} · ${v.color}`}
+                                    className="h-20 w-16 rounded-md bg-[#e7e7e4] object-contain"
+                                />
+                            )}
+                            <p className="w-full sm:mr-auto sm:w-auto sm:flex-1">
                                 {v
-                                    ? `${v.name} · ${v.fit} · ${v.color} · ${v.size}`
-                                    : 'Variante no disponible'}
+                                    ? `${v.name} · ${v.gsm ?? ''} g/m² · ${v.color} · ${v.size}`
+                                    : 'Variante retirada del catálogo'}
                                 {v?.moq && line.quantity < v.moq ? (
                                     <span className="block text-sm text-muted-foreground">
                                         Solicitud de excepción al mínimo {v.moq}
@@ -141,33 +149,12 @@ export default function RequestPage({
                         </div>
                     );
                 })}
-                {physical && (
-                    <select
-                        className={inputClass}
-                        value=""
-                        onChange={(e) => {
-                            const id = Number(e.target.value);
-                            if (
-                                id &&
-                                !form.data.lines.some(
-                                    (l) => l.product_id === id,
-                                )
-                            )
-                                form.setData('lines', [
-                                    ...form.data.lines,
-                                    { product_id: id, quantity: 1 },
-                                ]);
-                        }}
-                    >
-                        <option value="">Añadir variante…</option>
-                        {variants.map((v) => (
-                            <option key={v.id} value={v.id}>
-                                {v.sku} · {v.name} · {v.fit} · {v.color} ·{' '}
-                                {v.size}
-                            </option>
-                        ))}
-                    </select>
-                )}
+                <Link
+                    href="/catalog"
+                    className="inline-flex min-h-10 items-center underline underline-offset-4"
+                >
+                    Configurar prendas en el catálogo
+                </Link>
                 <label className="block">
                     Fecha deseada (opcional)
                     <input

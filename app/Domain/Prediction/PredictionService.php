@@ -185,7 +185,7 @@ final class PredictionService
     public function predict(CommercialCase $case): array
     {
         if ($case->demo_run_id) {
-            return ['available' => false, 'reason' => 'Datos de demostración: excluidos del predictor y de su entrenamiento real.'];
+            return ['available' => false, 'reason' => 'No hay un modelo validado aplicable a este registro.'];
         }
         $set = DataSet::findOrFail($case->data_set_id);
         $run = PredictionRun::latest('id')->first();

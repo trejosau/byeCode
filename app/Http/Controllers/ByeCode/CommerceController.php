@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\ByeCode;
 
 use App\Domain\Cases\CaseProjector;
+use App\Domain\Cases\CatalogSelection;
+use App\Domain\Cases\CommercialPresentation;
 use App\Domain\Cases\CommercialProfile;
 use App\Domain\Cases\CustomerDirectory;
 use App\Domain\Cases\CustomerJourney;
@@ -14,7 +16,6 @@ use App\Domain\Demo\DemoPolicy;
 use App\Domain\Evaluation\BudgetLedger;
 use App\Domain\Evaluation\EvaluationService;
 use App\Domain\Prediction\PredictionService;
-use App\Domain\Support\Money;
 use App\Domain\Support\Utc;
 use App\Http\Controllers\Controller;
 use App\Jobs\EvaluateCase;
@@ -112,7 +113,7 @@ class CommerceController extends Controller
             'case' => array_diff_key($case->toArray(), array_flip(['portal_token_hash'])),
             'set' => $set, 'snapshot' => $snapshot, 'rules' => app(RuleEngine::class)->assess($snapshot),
             'recommendations' => $history, 'evaluations' => Evaluation::where('commercial_case_id', $case->id)->latest('id')->limit(15)->get(['id', 'status', 'provider', 'model', 'error_code', 'error_message', 'duration_ms', 'created_at']),
-            'quotes' => QuoteVersion::where('commercial_case_id', $case->id)->orderByDesc('version')->get(),
+            'quotes' => QuoteVersion::where('commercial_case_id', $case->id)->orderByDesc('version')->get()->map(fn ($q) => app(CommercialPresentation::class)->quote($q->toArray(), $case->demo_run_id !== null)),
             'customer' => $case->customer_id ? Customer::find($case->customer_id) : null,
             'portalUrl' => $case->public_id ? url('/my/quotes/'.$case->public_id) : null,
             'prediction' => app(PredictionService::class)->predict($case),
@@ -209,9 +210,8 @@ class CommerceController extends Controller
             'authorization_reference' => ['required', 'string', 'min:5', 'max:1000'],
             'tax' => ['required', 'decimal:0,2', 'min:0', 'max:999999999'], 'shipping' => ['required', 'decimal:0,2', 'min:0', 'max:999999999'],
             'discount' => ['required', 'decimal:0,2', 'min:0', 'max:999999999'],
-            'lines' => ['required', 'array', 'min:1', 'max:30'], 'lines.*.product_id' => ['required', 'integer'],
+            'lines' => ['required', 'array', 'min:1', 'max:'.CatalogSelection::MAX_LINES], 'lines.*.product_id' => ['required', 'integer'],
             'lines.*.quantity' => ['required', 'integer', 'min:1', 'max:1000000'], 'lines.*.unit_price' => ['required', 'decimal:0,2', 'min:0', 'max:9999999'],
-            'lines.*.supply_mode' => ['required', Rule::in(['stock', 'manufacture', 'mixed'])], 'lines.*.stock_units' => ['nullable', 'integer', 'min:0', 'max:1000000'],
         ]);
         $saved = $service->save($request->user(), $data, $case);
 
@@ -252,28 +252,6 @@ class CommerceController extends Controller
 
                 return $directory->row($customer, $commercial->summaries([$customer->id])[$customer->id] ?? []);
             }]);
-    }
-
-    public function products(Request $request): Response
-    {
-        return Inertia::render('byecode/products', ['products' => Product::orderBy('name')->get()]);
-    }
-
-    public function storeProduct(Request $request): RedirectResponse
-    {
-        $data = $request->validate([
-            'sku' => ['required', 'string', 'max:80', Rule::unique('products')->where('user_id', $request->user()->id)],
-            'name' => ['required', 'string', 'max:180'], 'category' => ['required', Rule::in(['Playera', 'Hoodie', 'Crewneck', 'Long sleeve', 'Pants', 'Tank top', 'Short'])],
-            'fit' => ['nullable', 'string', 'max:80'], 'gsm' => ['nullable', 'integer', 'min:1', 'max:1500'], 'composition' => ['nullable', 'string', 'max:180'],
-            'color' => ['nullable', 'string', 'max:80'], 'size' => ['nullable', 'string', 'max:30'],
-            'unit_price' => ['nullable', 'decimal:0,2', 'min:0', 'max:9999999'], 'moq' => ['nullable', 'integer', 'min:1', 'max:1000000'],
-            'stock' => ['nullable', 'integer', 'min:0', 'max:10000000'], 'source' => ['required', 'string', 'max:500'],
-        ]);
-        $data['unit_price_cents'] = isset($data['unit_price']) ? Money::cents($data['unit_price']) : null;
-        unset($data['unit_price']);
-        Product::create(['user_id' => $request->user()->id, ...$data, 'verified_at' => now()]);
-
-        return back()->with('success', 'Producto registrado. La existencia es una observación, no una reserva.');
     }
 
     public function portalLink(Request $request, CommercialCase $case): RedirectResponse

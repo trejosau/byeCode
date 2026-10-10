@@ -110,9 +110,9 @@ it('processes the latest committed revision once when several events arrive toge
     Http::assertSent(fn ($request) => $request['text']['format']['name'] === 'byecode_semantic_v2');
 });
 
-it('schedules consented browser activity and ignores duplicate receipts without new revisions', function () {
+it('schedules automatic browser activity and ignores duplicate receipts without new revisions', function () {
     config(['integrations.openai.api_key' => 'fake-key']);
-    $payload = ['consent' => true, 'events' => [['event_id' => (string) Str::uuid(), 'type' => 'ui.section_visible', 'case_id' => $this->case->id, 'data' => ['section' => 'price']]]];
+    $payload = ['events' => [['event_id' => (string) Str::uuid(), 'type' => 'ui.section_visible', 'case_id' => $this->case->id, 'data' => ['section' => 'price']]]];
     $this->actingAs($this->buyer)->post('/activity', $payload)->assertNoContent();
     $revision = $this->case->fresh()->revision;
     Queue::assertPushed(RefreshCaseDecision::class, 1);
@@ -122,7 +122,6 @@ it('schedules consented browser activity and ignores duplicate receipts without 
     Queue::assertPushed(RefreshCaseDecision::class, 1);
     Queue::assertPushed(EnrichCustomer::class, 1);
     expect(app(CaseProjector::class)->snapshot($this->case->fresh())['activity_context']['events'][0]['source'])->toBe('browser_unverified');
-    $this->post('/activity', ['consent' => false, 'events' => $payload['events']])->assertSessionHasErrors('consent');
     Http::assertNothingSent();
 });
 

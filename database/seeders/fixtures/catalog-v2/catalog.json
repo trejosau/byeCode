@@ -1,0 +1,1634 @@
+[
+    {
+        "key": "REG",
+        "name": "Playera clásica",
+        "category": "Playeras",
+        "fit": "Clásico",
+        "gsm": 180,
+        "composition": "100% algodón",
+        "unit_price_cents": 12500,
+        "colors": ["Negro", "Natural"],
+        "sizes": ["S", "M", "L"],
+        "moq": 12,
+        "details": {
+            "description": "Playera clásica de 180 g/m² con logo ByeCode.",
+            "fabric": "Tejido de 100% algodón, 180 g/m².",
+            "construction": "Revisar construcción y acabados en muestra antes de confirmar el pedido.",
+            "care": "Lavar al revés con agua fría. No usar cloro. Secar a la sombra.",
+            "fit_guide": "Corte Clásico. Confirmar medidas finales en muestra.",
+            "size_guide": "S: pecho 50 cm/largo 68 cm. M: 53/71 cm. L: 56/74 cm. Medidas de prenda en plano; tolerancia ±1.5 cm. Medidas orientativas, sujetas a confirmación comercial.",
+            "photos": [
+                "/images/catalog/v1/REG/negro/front.png",
+                "/images/catalog/v1/REG/natural/front.png"
+            ]
+        },
+        "variants": [
+            {
+                "sku": "BC-REG-180-NEG-S",
+                "legacy_sku": "DEMO-REG-NEG-S",
+                "color": "Negro",
+                "size": "S",
+                "details": {
+                    "color_code": "#171717",
+                    "measurements": "Pecho/largo en plano: S 50/68, M 53/71, L 56/74 cm. Medidas orientativas.",
+                    "tolerance": "±1.5 cm; confirmar muestra.",
+                    "images": [
+                        {
+                            "view": "front",
+                            "path": "/images/catalog/v1/REG/negro/front.png",
+                            "alt": "Playera clásica ByeCode · Negro · frente",
+                            "width": 1254,
+                            "height": 1254
+                        },
+                        {
+                            "view": "back",
+                            "path": "/images/catalog/v1/REG/negro/back.png",
+                            "alt": "Playera clásica ByeCode · Negro · espalda",
+                            "width": 1254,
+                            "height": 1254
+                        },
+                        {
+                            "view": "three-quarter",
+                            "path": "/images/catalog/v1/REG/negro/three-quarter.png",
+                            "alt": "Playera clásica ByeCode · Negro · tres cuartos",
+                            "width": 1254,
+                            "height": 1254
+                        },
+                        {
+                            "view": "detail",
+                            "path": "/images/catalog/v1/REG/negro/detail.png",
+                            "alt": "Playera clásica ByeCode · Negro · detalle de tejido",
+                            "width": 1254,
+                            "height": 1254
+                        }
+                    ]
+                }
+            },
+            {
+                "sku": "BC-REG-180-NEG-M",
+                "legacy_sku": "DEMO-REG-NEG-M",
+                "color": "Negro",
+                "size": "M",
+                "details": {
+                    "color_code": "#171717",
+                    "measurements": "Pecho/largo en plano: S 50/68, M 53/71, L 56/74 cm. Medidas orientativas.",
+                    "tolerance": "±1.5 cm; confirmar muestra.",
+                    "images": [
+                        {
+                            "view": "front",
+                            "path": "/images/catalog/v1/REG/negro/front.png",
+                            "alt": "Playera clásica ByeCode · Negro · frente",
+                            "width": 1254,
+                            "height": 1254
+                        },
+                        {
+                            "view": "back",
+                            "path": "/images/catalog/v1/REG/negro/back.png",
+                            "alt": "Playera clásica ByeCode · Negro · espalda",
+                            "width": 1254,
+                            "height": 1254
+                        },
+                        {
+                            "view": "three-quarter",
+                            "path": "/images/catalog/v1/REG/negro/three-quarter.png",
+                            "alt": "Playera clásica ByeCode · Negro · tres cuartos",
+                            "width": 1254,
+                            "height": 1254
+                        },
+                        {
+                            "view": "detail",
+                            "path": "/images/catalog/v1/REG/negro/detail.png",
+                            "alt": "Playera clásica ByeCode · Negro · detalle de tejido",
+                            "width": 1254,
+                            "height": 1254
+                        }
+                    ]
+                }
+            },
+            {
+                "sku": "BC-REG-180-NEG-L",
+                "legacy_sku": "DEMO-REG-NEG-L",
+                "color": "Negro",
+                "size": "L",
+                "details": {
+                    "color_code": "#171717",
+                    "measurements": "Pecho/largo en plano: S 50/68, M 53/71, L 56/74 cm. Medidas orientativas.",
+                    "tolerance": "±1.5 cm; confirmar muestra.",
+                    "images": [
+                        {
+                            "view": "front",
+                            "path": "/images/catalog/v1/REG/negro/front.png",
+                            "alt": "Playera clásica ByeCode · Negro · frente",
+                            "width": 1254,
+                            "height": 1254
+                        },
+                        {
+                            "view": "back",
+                            "path": "/images/catalog/v1/REG/negro/back.png",
+                            "alt": "Playera clásica ByeCode · Negro · espalda",
+                            "width": 1254,
+                            "height": 1254
+                        },
+                        {
+                            "view": "three-quarter",
+                            "path": "/images/catalog/v1/REG/negro/three-quarter.png",
+                            "alt": "Playera clásica ByeCode · Negro · tres cuartos",
+                            "width": 1254,
+                            "height": 1254
+                        },
+                        {
+                            "view": "detail",
+                            "path": "/images/catalog/v1/REG/negro/detail.png",
+                            "alt": "Playera clásica ByeCode · Negro · detalle de tejido",
+                            "width": 1254,
+                            "height": 1254
+                        }
+                    ]
+                }
+            },
+            {
+                "sku": "BC-REG-180-NAT-S",
+                "legacy_sku": "DEMO-REG-NAT-S",
+                "color": "Natural",
+                "size": "S",
+                "details": {
+                    "color_code": "#EEE9DC",
+                    "measurements": "Pecho/largo en plano: S 50/68, M 53/71, L 56/74 cm. Medidas orientativas.",
+                    "tolerance": "±1.5 cm; confirmar muestra.",
+                    "images": [
+                        {
+                            "view": "front",
+                            "path": "/images/catalog/v1/REG/natural/front.png",
+                            "alt": "Playera clásica ByeCode · Natural · frente",
+                            "width": 1254,
+                            "height": 1254
+                        },
+                        {
+                            "view": "back",
+                            "path": "/images/catalog/v1/REG/natural/back.png",
+                            "alt": "Playera clásica ByeCode · Natural · espalda",
+                            "width": 1254,
+                            "height": 1254
+                        },
+                        {
+                            "view": "three-quarter",
+                            "path": "/images/catalog/v1/REG/natural/three-quarter.png",
+                            "alt": "Playera clásica ByeCode · Natural · tres cuartos",
+                            "width": 1254,
+                            "height": 1254
+                        },
+                        {
+                            "view": "detail",
+                            "path": "/images/catalog/v1/REG/natural/detail.png",
+                            "alt": "Playera clásica ByeCode · Natural · detalle de tejido",
+                            "width": 1254,
+                            "height": 1254
+                        }
+                    ]
+                }
+            },
+            {
+                "sku": "BC-REG-180-NAT-M",
+                "legacy_sku": "DEMO-REG-NAT-M",
+                "color": "Natural",
+                "size": "M",
+                "details": {
+                    "color_code": "#EEE9DC",
+                    "measurements": "Pecho/largo en plano: S 50/68, M 53/71, L 56/74 cm. Medidas orientativas.",
+                    "tolerance": "±1.5 cm; confirmar muestra.",
+                    "images": [
+                        {
+                            "view": "front",
+                            "path": "/images/catalog/v1/REG/natural/front.png",
+                            "alt": "Playera clásica ByeCode · Natural · frente",
+                            "width": 1254,
+                            "height": 1254
+                        },
+                        {
+                            "view": "back",
+                            "path": "/images/catalog/v1/REG/natural/back.png",
+                            "alt": "Playera clásica ByeCode · Natural · espalda",
+                            "width": 1254,
+                            "height": 1254
+                        },
+                        {
+                            "view": "three-quarter",
+                            "path": "/images/catalog/v1/REG/natural/three-quarter.png",
+                            "alt": "Playera clásica ByeCode · Natural · tres cuartos",
+                            "width": 1254,
+                            "height": 1254
+                        },
+                        {
+                            "view": "detail",
+                            "path": "/images/catalog/v1/REG/natural/detail.png",
+                            "alt": "Playera clásica ByeCode · Natural · detalle de tejido",
+                            "width": 1254,
+                            "height": 1254
+                        }
+                    ]
+                }
+            },
+            {
+                "sku": "BC-REG-180-NAT-L",
+                "legacy_sku": "DEMO-REG-NAT-L",
+                "color": "Natural",
+                "size": "L",
+                "details": {
+                    "color_code": "#EEE9DC",
+                    "measurements": "Pecho/largo en plano: S 50/68, M 53/71, L 56/74 cm. Medidas orientativas.",
+                    "tolerance": "±1.5 cm; confirmar muestra.",
+                    "images": [
+                        {
+                            "view": "front",
+                            "path": "/images/catalog/v1/REG/natural/front.png",
+                            "alt": "Playera clásica ByeCode · Natural · frente",
+                            "width": 1254,
+                            "height": 1254
+                        },
+                        {
+                            "view": "back",
+                            "path": "/images/catalog/v1/REG/natural/back.png",
+                            "alt": "Playera clásica ByeCode · Natural · espalda",
+                            "width": 1254,
+                            "height": 1254
+                        },
+                        {
+                            "view": "three-quarter",
+                            "path": "/images/catalog/v1/REG/natural/three-quarter.png",
+                            "alt": "Playera clásica ByeCode · Natural · tres cuartos",
+                            "width": 1254,
+                            "height": 1254
+                        },
+                        {
+                            "view": "detail",
+                            "path": "/images/catalog/v1/REG/natural/detail.png",
+                            "alt": "Playera clásica ByeCode · Natural · detalle de tejido",
+                            "width": 1254,
+                            "height": 1254
+                        }
+                    ]
+                }
+            }
+        ]
+    },
+    {
+        "key": "OVR",
+        "name": "Playera oversize",
+        "category": "Playeras",
+        "fit": "Oversize",
+        "gsm": 220,
+        "composition": "100% algodón",
+        "unit_price_cents": 16500,
+        "colors": ["Negro", "Natural"],
+        "sizes": ["S", "M", "L"],
+        "moq": 12,
+        "details": {
+            "description": "Playera oversize de 220 g/m² con logo ByeCode.",
+            "fabric": "Tejido de 100% algodón, 220 g/m².",
+            "construction": "Revisar construcción y acabados en muestra antes de confirmar el pedido.",
+            "care": "Lavar al revés con agua fría. No usar cloro. Secar a la sombra.",
+            "fit_guide": "Corte Oversize. Confirmar medidas finales en muestra.",
+            "size_guide": "S: pecho 50 cm/largo 68 cm. M: 53/71 cm. L: 56/74 cm. Medidas de prenda en plano; tolerancia ±1.5 cm. Medidas orientativas, sujetas a confirmación comercial.",
+            "photos": [
+                "/images/catalog/v1/OVR/negro/front.png",
+                "/images/catalog/v1/OVR/natural/front.png"
+            ]
+        },
+        "variants": [
+            {
+                "sku": "BC-OVR-220-NEG-S",
+                "legacy_sku": "DEMO-OVR-NEG-S",
+                "color": "Negro",
+                "size": "S",
+                "details": {
+                    "color_code": "#171717",
+                    "measurements": "Pecho/largo en plano: S 50/68, M 53/71, L 56/74 cm. Medidas orientativas.",
+                    "tolerance": "±1.5 cm; confirmar muestra.",
+                    "images": [
+                        {
+                            "view": "front",
+                            "path": "/images/catalog/v1/OVR/negro/front.png",
+                            "alt": "Playera oversize ByeCode · Negro · frente",
+                            "width": 1254,
+                            "height": 1254
+                        },
+                        {
+                            "view": "back",
+                            "path": "/images/catalog/v1/OVR/negro/back.png",
+                            "alt": "Playera oversize ByeCode · Negro · espalda",
+                            "width": 1254,
+                            "height": 1254
+                        },
+                        {
+                            "view": "three-quarter",
+                            "path": "/images/catalog/v1/OVR/negro/three-quarter.png",
+                            "alt": "Playera oversize ByeCode · Negro · tres cuartos",
+                            "width": 1254,
+                            "height": 1254
+                        },
+                        {
+                            "view": "detail",
+                            "path": "/images/catalog/v1/OVR/negro/detail.png",
+                            "alt": "Playera oversize ByeCode · Negro · detalle de tejido",
+                            "width": 1254,
+                            "height": 1254
+                        }
+                    ]
+                }
+            },
+            {
+                "sku": "BC-OVR-220-NEG-M",
+                "legacy_sku": "DEMO-OVR-NEG-M",
+                "color": "Negro",
+                "size": "M",
+                "details": {
+                    "color_code": "#171717",
+                    "measurements": "Pecho/largo en plano: S 50/68, M 53/71, L 56/74 cm. Medidas orientativas.",
+                    "tolerance": "±1.5 cm; confirmar muestra.",
+                    "images": [
+                        {
+                            "view": "front",
+                            "path": "/images/catalog/v1/OVR/negro/front.png",
+                            "alt": "Playera oversize ByeCode · Negro · frente",
+                            "width": 1254,
+                            "height": 1254
+                        },
+                        {
+                            "view": "back",
+                            "path": "/images/catalog/v1/OVR/negro/back.png",
+                            "alt": "Playera oversize ByeCode · Negro · espalda",
+                            "width": 1254,
+                            "height": 1254
+                        },
+                        {
+                            "view": "three-quarter",
+                            "path": "/images/catalog/v1/OVR/negro/three-quarter.png",
+                            "alt": "Playera oversize ByeCode · Negro · tres cuartos",
+                            "width": 1254,
+                            "height": 1254
+                        },
+                        {
+                            "view": "detail",
+                            "path": "/images/catalog/v1/OVR/negro/detail.png",
+                            "alt": "Playera oversize ByeCode · Negro · detalle de tejido",
+                            "width": 1254,
+                            "height": 1254
+                        }
+                    ]
+                }
+            },
+            {
+                "sku": "BC-OVR-220-NEG-L",
+                "legacy_sku": "DEMO-OVR-NEG-L",
+                "color": "Negro",
+                "size": "L",
+                "details": {
+                    "color_code": "#171717",
+                    "measurements": "Pecho/largo en plano: S 50/68, M 53/71, L 56/74 cm. Medidas orientativas.",
+                    "tolerance": "±1.5 cm; confirmar muestra.",
+                    "images": [
+                        {
+                            "view": "front",
+                            "path": "/images/catalog/v1/OVR/negro/front.png",
+                            "alt": "Playera oversize ByeCode · Negro · frente",
+                            "width": 1254,
+                            "height": 1254
+                        },
+                        {
+                            "view": "back",
+                            "path": "/images/catalog/v1/OVR/negro/back.png",
+                            "alt": "Playera oversize ByeCode · Negro · espalda",
+                            "width": 1254,
+                            "height": 1254
+                        },
+                        {
+                            "view": "three-quarter",
+                            "path": "/images/catalog/v1/OVR/negro/three-quarter.png",
+                            "alt": "Playera oversize ByeCode · Negro · tres cuartos",
+                            "width": 1254,
+                            "height": 1254
+                        },
+                        {
+                            "view": "detail",
+                            "path": "/images/catalog/v1/OVR/negro/detail.png",
+                            "alt": "Playera oversize ByeCode · Negro · detalle de tejido",
+                            "width": 1254,
+                            "height": 1254
+                        }
+                    ]
+                }
+            },
+            {
+                "sku": "BC-OVR-220-NAT-S",
+                "legacy_sku": "DEMO-OVR-NAT-S",
+                "color": "Natural",
+                "size": "S",
+                "details": {
+                    "color_code": "#EEE9DC",
+                    "measurements": "Pecho/largo en plano: S 50/68, M 53/71, L 56/74 cm. Medidas orientativas.",
+                    "tolerance": "±1.5 cm; confirmar muestra.",
+                    "images": [
+                        {
+                            "view": "front",
+                            "path": "/images/catalog/v1/OVR/natural/front.png",
+                            "alt": "Playera oversize ByeCode · Natural · frente",
+                            "width": 1254,
+                            "height": 1254
+                        },
+                        {
+                            "view": "back",
+                            "path": "/images/catalog/v1/OVR/natural/back.png",
+                            "alt": "Playera oversize ByeCode · Natural · espalda",
+                            "width": 1254,
+                            "height": 1254
+                        },
+                        {
+                            "view": "three-quarter",
+                            "path": "/images/catalog/v1/OVR/natural/three-quarter.png",
+                            "alt": "Playera oversize ByeCode · Natural · tres cuartos",
+                            "width": 1254,
+                            "height": 1254
+                        },
+                        {
+                            "view": "detail",
+                            "path": "/images/catalog/v1/OVR/natural/detail.png",
+                            "alt": "Playera oversize ByeCode · Natural · detalle de tejido",
+                            "width": 1254,
+                            "height": 1254
+                        }
+                    ]
+                }
+            },
+            {
+                "sku": "BC-OVR-220-NAT-M",
+                "legacy_sku": "DEMO-OVR-NAT-M",
+                "color": "Natural",
+                "size": "M",
+                "details": {
+                    "color_code": "#EEE9DC",
+                    "measurements": "Pecho/largo en plano: S 50/68, M 53/71, L 56/74 cm. Medidas orientativas.",
+                    "tolerance": "±1.5 cm; confirmar muestra.",
+                    "images": [
+                        {
+                            "view": "front",
+                            "path": "/images/catalog/v1/OVR/natural/front.png",
+                            "alt": "Playera oversize ByeCode · Natural · frente",
+                            "width": 1254,
+                            "height": 1254
+                        },
+                        {
+                            "view": "back",
+                            "path": "/images/catalog/v1/OVR/natural/back.png",
+                            "alt": "Playera oversize ByeCode · Natural · espalda",
+                            "width": 1254,
+                            "height": 1254
+                        },
+                        {
+                            "view": "three-quarter",
+                            "path": "/images/catalog/v1/OVR/natural/three-quarter.png",
+                            "alt": "Playera oversize ByeCode · Natural · tres cuartos",
+                            "width": 1254,
+                            "height": 1254
+                        },
+                        {
+                            "view": "detail",
+                            "path": "/images/catalog/v1/OVR/natural/detail.png",
+                            "alt": "Playera oversize ByeCode · Natural · detalle de tejido",
+                            "width": 1254,
+                            "height": 1254
+                        }
+                    ]
+                }
+            },
+            {
+                "sku": "BC-OVR-220-NAT-L",
+                "legacy_sku": "DEMO-OVR-NAT-L",
+                "color": "Natural",
+                "size": "L",
+                "details": {
+                    "color_code": "#EEE9DC",
+                    "measurements": "Pecho/largo en plano: S 50/68, M 53/71, L 56/74 cm. Medidas orientativas.",
+                    "tolerance": "±1.5 cm; confirmar muestra.",
+                    "images": [
+                        {
+                            "view": "front",
+                            "path": "/images/catalog/v1/OVR/natural/front.png",
+                            "alt": "Playera oversize ByeCode · Natural · frente",
+                            "width": 1254,
+                            "height": 1254
+                        },
+                        {
+                            "view": "back",
+                            "path": "/images/catalog/v1/OVR/natural/back.png",
+                            "alt": "Playera oversize ByeCode · Natural · espalda",
+                            "width": 1254,
+                            "height": 1254
+                        },
+                        {
+                            "view": "three-quarter",
+                            "path": "/images/catalog/v1/OVR/natural/three-quarter.png",
+                            "alt": "Playera oversize ByeCode · Natural · tres cuartos",
+                            "width": 1254,
+                            "height": 1254
+                        },
+                        {
+                            "view": "detail",
+                            "path": "/images/catalog/v1/OVR/natural/detail.png",
+                            "alt": "Playera oversize ByeCode · Natural · detalle de tejido",
+                            "width": 1254,
+                            "height": 1254
+                        }
+                    ]
+                }
+            }
+        ]
+    },
+    {
+        "key": "HVE",
+        "name": "Playera boxy",
+        "category": "Playeras",
+        "fit": "Boxy",
+        "gsm": 260,
+        "composition": "100% algodón",
+        "unit_price_cents": 19000,
+        "colors": ["Negro", "Natural"],
+        "sizes": ["S", "M", "L"],
+        "moq": 12,
+        "details": {
+            "description": "Playera boxy de 260 g/m² con logo ByeCode.",
+            "fabric": "Tejido de 100% algodón, 260 g/m².",
+            "construction": "Revisar construcción y acabados en muestra antes de confirmar el pedido.",
+            "care": "Lavar al revés con agua fría. No usar cloro. Secar a la sombra.",
+            "fit_guide": "Corte Boxy. Confirmar medidas finales en muestra.",
+            "size_guide": "S: pecho 50 cm/largo 68 cm. M: 53/71 cm. L: 56/74 cm. Medidas de prenda en plano; tolerancia ±1.5 cm. Medidas orientativas, sujetas a confirmación comercial.",
+            "photos": [
+                "/images/catalog/v1/HVE/negro/front.png",
+                "/images/catalog/v1/HVE/natural/front.png"
+            ]
+        },
+        "variants": [
+            {
+                "sku": "BC-HVE-260-NEG-S",
+                "legacy_sku": "DEMO-HVE-NEG-S",
+                "color": "Negro",
+                "size": "S",
+                "details": {
+                    "color_code": "#171717",
+                    "measurements": "Pecho/largo en plano: S 50/68, M 53/71, L 56/74 cm. Medidas orientativas.",
+                    "tolerance": "±1.5 cm; confirmar muestra.",
+                    "images": [
+                        {
+                            "view": "front",
+                            "path": "/images/catalog/v1/HVE/negro/front.png",
+                            "alt": "Playera boxy ByeCode · Negro · frente",
+                            "width": 1254,
+                            "height": 1254
+                        },
+                        {
+                            "view": "back",
+                            "path": "/images/catalog/v1/HVE/negro/back.png",
+                            "alt": "Playera boxy ByeCode · Negro · espalda",
+                            "width": 1254,
+                            "height": 1254
+                        },
+                        {
+                            "view": "three-quarter",
+                            "path": "/images/catalog/v1/HVE/negro/three-quarter.png",
+                            "alt": "Playera boxy ByeCode · Negro · tres cuartos",
+                            "width": 1254,
+                            "height": 1254
+                        },
+                        {
+                            "view": "detail",
+                            "path": "/images/catalog/v1/HVE/negro/detail.png",
+                            "alt": "Playera boxy ByeCode · Negro · detalle de tejido",
+                            "width": 1254,
+                            "height": 1254
+                        }
+                    ]
+                }
+            },
+            {
+                "sku": "BC-HVE-260-NEG-M",
+                "legacy_sku": "DEMO-HVE-NEG-M",
+                "color": "Negro",
+                "size": "M",
+                "details": {
+                    "color_code": "#171717",
+                    "measurements": "Pecho/largo en plano: S 50/68, M 53/71, L 56/74 cm. Medidas orientativas.",
+                    "tolerance": "±1.5 cm; confirmar muestra.",
+                    "images": [
+                        {
+                            "view": "front",
+                            "path": "/images/catalog/v1/HVE/negro/front.png",
+                            "alt": "Playera boxy ByeCode · Negro · frente",
+                            "width": 1254,
+                            "height": 1254
+                        },
+                        {
+                            "view": "back",
+                            "path": "/images/catalog/v1/HVE/negro/back.png",
+                            "alt": "Playera boxy ByeCode · Negro · espalda",
+                            "width": 1254,
+                            "height": 1254
+                        },
+                        {
+                            "view": "three-quarter",
+                            "path": "/images/catalog/v1/HVE/negro/three-quarter.png",
+                            "alt": "Playera boxy ByeCode · Negro · tres cuartos",
+                            "width": 1254,
+                            "height": 1254
+                        },
+                        {
+                            "view": "detail",
+                            "path": "/images/catalog/v1/HVE/negro/detail.png",
+                            "alt": "Playera boxy ByeCode · Negro · detalle de tejido",
+                            "width": 1254,
+                            "height": 1254
+                        }
+                    ]
+                }
+            },
+            {
+                "sku": "BC-HVE-260-NEG-L",
+                "legacy_sku": "DEMO-HVE-NEG-L",
+                "color": "Negro",
+                "size": "L",
+                "details": {
+                    "color_code": "#171717",
+                    "measurements": "Pecho/largo en plano: S 50/68, M 53/71, L 56/74 cm. Medidas orientativas.",
+                    "tolerance": "±1.5 cm; confirmar muestra.",
+                    "images": [
+                        {
+                            "view": "front",
+                            "path": "/images/catalog/v1/HVE/negro/front.png",
+                            "alt": "Playera boxy ByeCode · Negro · frente",
+                            "width": 1254,
+                            "height": 1254
+                        },
+                        {
+                            "view": "back",
+                            "path": "/images/catalog/v1/HVE/negro/back.png",
+                            "alt": "Playera boxy ByeCode · Negro · espalda",
+                            "width": 1254,
+                            "height": 1254
+                        },
+                        {
+                            "view": "three-quarter",
+                            "path": "/images/catalog/v1/HVE/negro/three-quarter.png",
+                            "alt": "Playera boxy ByeCode · Negro · tres cuartos",
+                            "width": 1254,
+                            "height": 1254
+                        },
+                        {
+                            "view": "detail",
+                            "path": "/images/catalog/v1/HVE/negro/detail.png",
+                            "alt": "Playera boxy ByeCode · Negro · detalle de tejido",
+                            "width": 1254,
+                            "height": 1254
+                        }
+                    ]
+                }
+            },
+            {
+                "sku": "BC-HVE-260-NAT-S",
+                "legacy_sku": "DEMO-HVE-NAT-S",
+                "color": "Natural",
+                "size": "S",
+                "details": {
+                    "color_code": "#EEE9DC",
+                    "measurements": "Pecho/largo en plano: S 50/68, M 53/71, L 56/74 cm. Medidas orientativas.",
+                    "tolerance": "±1.5 cm; confirmar muestra.",
+                    "images": [
+                        {
+                            "view": "front",
+                            "path": "/images/catalog/v1/HVE/natural/front.png",
+                            "alt": "Playera boxy ByeCode · Natural · frente",
+                            "width": 1254,
+                            "height": 1254
+                        },
+                        {
+                            "view": "back",
+                            "path": "/images/catalog/v1/HVE/natural/back.png",
+                            "alt": "Playera boxy ByeCode · Natural · espalda",
+                            "width": 1254,
+                            "height": 1254
+                        },
+                        {
+                            "view": "three-quarter",
+                            "path": "/images/catalog/v1/HVE/natural/three-quarter.png",
+                            "alt": "Playera boxy ByeCode · Natural · tres cuartos",
+                            "width": 1254,
+                            "height": 1254
+                        },
+                        {
+                            "view": "detail",
+                            "path": "/images/catalog/v1/HVE/natural/detail.png",
+                            "alt": "Playera boxy ByeCode · Natural · detalle de tejido",
+                            "width": 1254,
+                            "height": 1254
+                        }
+                    ]
+                }
+            },
+            {
+                "sku": "BC-HVE-260-NAT-M",
+                "legacy_sku": "DEMO-HVE-NAT-M",
+                "color": "Natural",
+                "size": "M",
+                "details": {
+                    "color_code": "#EEE9DC",
+                    "measurements": "Pecho/largo en plano: S 50/68, M 53/71, L 56/74 cm. Medidas orientativas.",
+                    "tolerance": "±1.5 cm; confirmar muestra.",
+                    "images": [
+                        {
+                            "view": "front",
+                            "path": "/images/catalog/v1/HVE/natural/front.png",
+                            "alt": "Playera boxy ByeCode · Natural · frente",
+                            "width": 1254,
+                            "height": 1254
+                        },
+                        {
+                            "view": "back",
+                            "path": "/images/catalog/v1/HVE/natural/back.png",
+                            "alt": "Playera boxy ByeCode · Natural · espalda",
+                            "width": 1254,
+                            "height": 1254
+                        },
+                        {
+                            "view": "three-quarter",
+                            "path": "/images/catalog/v1/HVE/natural/three-quarter.png",
+                            "alt": "Playera boxy ByeCode · Natural · tres cuartos",
+                            "width": 1254,
+                            "height": 1254
+                        },
+                        {
+                            "view": "detail",
+                            "path": "/images/catalog/v1/HVE/natural/detail.png",
+                            "alt": "Playera boxy ByeCode · Natural · detalle de tejido",
+                            "width": 1254,
+                            "height": 1254
+                        }
+                    ]
+                }
+            },
+            {
+                "sku": "BC-HVE-260-NAT-L",
+                "legacy_sku": "DEMO-HVE-NAT-L",
+                "color": "Natural",
+                "size": "L",
+                "details": {
+                    "color_code": "#EEE9DC",
+                    "measurements": "Pecho/largo en plano: S 50/68, M 53/71, L 56/74 cm. Medidas orientativas.",
+                    "tolerance": "±1.5 cm; confirmar muestra.",
+                    "images": [
+                        {
+                            "view": "front",
+                            "path": "/images/catalog/v1/HVE/natural/front.png",
+                            "alt": "Playera boxy ByeCode · Natural · frente",
+                            "width": 1254,
+                            "height": 1254
+                        },
+                        {
+                            "view": "back",
+                            "path": "/images/catalog/v1/HVE/natural/back.png",
+                            "alt": "Playera boxy ByeCode · Natural · espalda",
+                            "width": 1254,
+                            "height": 1254
+                        },
+                        {
+                            "view": "three-quarter",
+                            "path": "/images/catalog/v1/HVE/natural/three-quarter.png",
+                            "alt": "Playera boxy ByeCode · Natural · tres cuartos",
+                            "width": 1254,
+                            "height": 1254
+                        },
+                        {
+                            "view": "detail",
+                            "path": "/images/catalog/v1/HVE/natural/detail.png",
+                            "alt": "Playera boxy ByeCode · Natural · detalle de tejido",
+                            "width": 1254,
+                            "height": 1254
+                        }
+                    ]
+                }
+            }
+        ]
+    },
+    {
+        "key": "LNG",
+        "name": "Playera de manga larga",
+        "category": "Playeras",
+        "fit": "Clásico",
+        "gsm": 200,
+        "composition": "100% algodón",
+        "unit_price_cents": 18000,
+        "colors": ["Negro", "Natural"],
+        "sizes": ["S", "M", "L"],
+        "moq": 12,
+        "details": {
+            "description": "Playera de manga larga de 200 g/m² con logo ByeCode.",
+            "fabric": "Tejido de 100% algodón, 200 g/m².",
+            "construction": "Revisar construcción y acabados en muestra antes de confirmar el pedido.",
+            "care": "Lavar al revés con agua fría. No usar cloro. Secar a la sombra.",
+            "fit_guide": "Corte Clásico. Confirmar medidas finales en muestra.",
+            "size_guide": "S: pecho 50 cm/largo 68 cm. M: 53/71 cm. L: 56/74 cm. Medidas de prenda en plano; tolerancia ±1.5 cm. Medidas orientativas, sujetas a confirmación comercial.",
+            "photos": [
+                "/images/catalog/v1/LNG/negro/front.png",
+                "/images/catalog/v1/LNG/natural/front.png"
+            ]
+        },
+        "variants": [
+            {
+                "sku": "BC-LNG-200-NEG-S",
+                "legacy_sku": "DEMO-LNG-NEG-S",
+                "color": "Negro",
+                "size": "S",
+                "details": {
+                    "color_code": "#171717",
+                    "measurements": "Pecho/largo en plano: S 50/68, M 53/71, L 56/74 cm. Medidas orientativas.",
+                    "tolerance": "±1.5 cm; confirmar muestra.",
+                    "images": [
+                        {
+                            "view": "front",
+                            "path": "/images/catalog/v1/LNG/negro/front.png",
+                            "alt": "Playera de manga larga ByeCode · Negro · frente",
+                            "width": 1254,
+                            "height": 1254
+                        },
+                        {
+                            "view": "back",
+                            "path": "/images/catalog/v1/LNG/negro/back.png",
+                            "alt": "Playera de manga larga ByeCode · Negro · espalda",
+                            "width": 1254,
+                            "height": 1254
+                        },
+                        {
+                            "view": "three-quarter",
+                            "path": "/images/catalog/v1/LNG/negro/three-quarter.png",
+                            "alt": "Playera de manga larga ByeCode · Negro · tres cuartos",
+                            "width": 1254,
+                            "height": 1254
+                        },
+                        {
+                            "view": "detail",
+                            "path": "/images/catalog/v1/LNG/negro/detail.png",
+                            "alt": "Playera de manga larga ByeCode · Negro · detalle de tejido",
+                            "width": 1254,
+                            "height": 1254
+                        }
+                    ]
+                }
+            },
+            {
+                "sku": "BC-LNG-200-NEG-M",
+                "legacy_sku": "DEMO-LNG-NEG-M",
+                "color": "Negro",
+                "size": "M",
+                "details": {
+                    "color_code": "#171717",
+                    "measurements": "Pecho/largo en plano: S 50/68, M 53/71, L 56/74 cm. Medidas orientativas.",
+                    "tolerance": "±1.5 cm; confirmar muestra.",
+                    "images": [
+                        {
+                            "view": "front",
+                            "path": "/images/catalog/v1/LNG/negro/front.png",
+                            "alt": "Playera de manga larga ByeCode · Negro · frente",
+                            "width": 1254,
+                            "height": 1254
+                        },
+                        {
+                            "view": "back",
+                            "path": "/images/catalog/v1/LNG/negro/back.png",
+                            "alt": "Playera de manga larga ByeCode · Negro · espalda",
+                            "width": 1254,
+                            "height": 1254
+                        },
+                        {
+                            "view": "three-quarter",
+                            "path": "/images/catalog/v1/LNG/negro/three-quarter.png",
+                            "alt": "Playera de manga larga ByeCode · Negro · tres cuartos",
+                            "width": 1254,
+                            "height": 1254
+                        },
+                        {
+                            "view": "detail",
+                            "path": "/images/catalog/v1/LNG/negro/detail.png",
+                            "alt": "Playera de manga larga ByeCode · Negro · detalle de tejido",
+                            "width": 1254,
+                            "height": 1254
+                        }
+                    ]
+                }
+            },
+            {
+                "sku": "BC-LNG-200-NEG-L",
+                "legacy_sku": "DEMO-LNG-NEG-L",
+                "color": "Negro",
+                "size": "L",
+                "details": {
+                    "color_code": "#171717",
+                    "measurements": "Pecho/largo en plano: S 50/68, M 53/71, L 56/74 cm. Medidas orientativas.",
+                    "tolerance": "±1.5 cm; confirmar muestra.",
+                    "images": [
+                        {
+                            "view": "front",
+                            "path": "/images/catalog/v1/LNG/negro/front.png",
+                            "alt": "Playera de manga larga ByeCode · Negro · frente",
+                            "width": 1254,
+                            "height": 1254
+                        },
+                        {
+                            "view": "back",
+                            "path": "/images/catalog/v1/LNG/negro/back.png",
+                            "alt": "Playera de manga larga ByeCode · Negro · espalda",
+                            "width": 1254,
+                            "height": 1254
+                        },
+                        {
+                            "view": "three-quarter",
+                            "path": "/images/catalog/v1/LNG/negro/three-quarter.png",
+                            "alt": "Playera de manga larga ByeCode · Negro · tres cuartos",
+                            "width": 1254,
+                            "height": 1254
+                        },
+                        {
+                            "view": "detail",
+                            "path": "/images/catalog/v1/LNG/negro/detail.png",
+                            "alt": "Playera de manga larga ByeCode · Negro · detalle de tejido",
+                            "width": 1254,
+                            "height": 1254
+                        }
+                    ]
+                }
+            },
+            {
+                "sku": "BC-LNG-200-NAT-S",
+                "legacy_sku": "DEMO-LNG-NAT-S",
+                "color": "Natural",
+                "size": "S",
+                "details": {
+                    "color_code": "#EEE9DC",
+                    "measurements": "Pecho/largo en plano: S 50/68, M 53/71, L 56/74 cm. Medidas orientativas.",
+                    "tolerance": "±1.5 cm; confirmar muestra.",
+                    "images": [
+                        {
+                            "view": "front",
+                            "path": "/images/catalog/v1/LNG/natural/front.png",
+                            "alt": "Playera de manga larga ByeCode · Natural · frente",
+                            "width": 1254,
+                            "height": 1254
+                        },
+                        {
+                            "view": "back",
+                            "path": "/images/catalog/v1/LNG/natural/back.png",
+                            "alt": "Playera de manga larga ByeCode · Natural · espalda",
+                            "width": 1254,
+                            "height": 1254
+                        },
+                        {
+                            "view": "three-quarter",
+                            "path": "/images/catalog/v1/LNG/natural/three-quarter.png",
+                            "alt": "Playera de manga larga ByeCode · Natural · tres cuartos",
+                            "width": 1254,
+                            "height": 1254
+                        },
+                        {
+                            "view": "detail",
+                            "path": "/images/catalog/v1/LNG/natural/detail.png",
+                            "alt": "Playera de manga larga ByeCode · Natural · detalle de tejido",
+                            "width": 1254,
+                            "height": 1254
+                        }
+                    ]
+                }
+            },
+            {
+                "sku": "BC-LNG-200-NAT-M",
+                "legacy_sku": "DEMO-LNG-NAT-M",
+                "color": "Natural",
+                "size": "M",
+                "details": {
+                    "color_code": "#EEE9DC",
+                    "measurements": "Pecho/largo en plano: S 50/68, M 53/71, L 56/74 cm. Medidas orientativas.",
+                    "tolerance": "±1.5 cm; confirmar muestra.",
+                    "images": [
+                        {
+                            "view": "front",
+                            "path": "/images/catalog/v1/LNG/natural/front.png",
+                            "alt": "Playera de manga larga ByeCode · Natural · frente",
+                            "width": 1254,
+                            "height": 1254
+                        },
+                        {
+                            "view": "back",
+                            "path": "/images/catalog/v1/LNG/natural/back.png",
+                            "alt": "Playera de manga larga ByeCode · Natural · espalda",
+                            "width": 1254,
+                            "height": 1254
+                        },
+                        {
+                            "view": "three-quarter",
+                            "path": "/images/catalog/v1/LNG/natural/three-quarter.png",
+                            "alt": "Playera de manga larga ByeCode · Natural · tres cuartos",
+                            "width": 1254,
+                            "height": 1254
+                        },
+                        {
+                            "view": "detail",
+                            "path": "/images/catalog/v1/LNG/natural/detail.png",
+                            "alt": "Playera de manga larga ByeCode · Natural · detalle de tejido",
+                            "width": 1254,
+                            "height": 1254
+                        }
+                    ]
+                }
+            },
+            {
+                "sku": "BC-LNG-200-NAT-L",
+                "legacy_sku": "DEMO-LNG-NAT-L",
+                "color": "Natural",
+                "size": "L",
+                "details": {
+                    "color_code": "#EEE9DC",
+                    "measurements": "Pecho/largo en plano: S 50/68, M 53/71, L 56/74 cm. Medidas orientativas.",
+                    "tolerance": "±1.5 cm; confirmar muestra.",
+                    "images": [
+                        {
+                            "view": "front",
+                            "path": "/images/catalog/v1/LNG/natural/front.png",
+                            "alt": "Playera de manga larga ByeCode · Natural · frente",
+                            "width": 1254,
+                            "height": 1254
+                        },
+                        {
+                            "view": "back",
+                            "path": "/images/catalog/v1/LNG/natural/back.png",
+                            "alt": "Playera de manga larga ByeCode · Natural · espalda",
+                            "width": 1254,
+                            "height": 1254
+                        },
+                        {
+                            "view": "three-quarter",
+                            "path": "/images/catalog/v1/LNG/natural/three-quarter.png",
+                            "alt": "Playera de manga larga ByeCode · Natural · tres cuartos",
+                            "width": 1254,
+                            "height": 1254
+                        },
+                        {
+                            "view": "detail",
+                            "path": "/images/catalog/v1/LNG/natural/detail.png",
+                            "alt": "Playera de manga larga ByeCode · Natural · detalle de tejido",
+                            "width": 1254,
+                            "height": 1254
+                        }
+                    ]
+                }
+            }
+        ]
+    },
+    {
+        "key": "CRW",
+        "name": "Sudadera sin capucha",
+        "category": "Sudaderas",
+        "fit": "Clásico",
+        "gsm": 300,
+        "composition": "80% algodón / 20% poliéster",
+        "unit_price_cents": 31000,
+        "colors": ["Negro", "Natural"],
+        "sizes": ["S", "M", "L"],
+        "moq": 12,
+        "details": {
+            "description": "Sudadera sin capucha de 300 g/m² con logo ByeCode.",
+            "fabric": "Tejido de 80% algodón / 20% poliéster, 300 g/m².",
+            "construction": "Revisar construcción y acabados en muestra antes de confirmar el pedido.",
+            "care": "Lavar al revés con agua fría. No usar cloro. Secar a la sombra.",
+            "fit_guide": "Corte Clásico. Confirmar medidas finales en muestra.",
+            "size_guide": "S: pecho 50 cm/largo 68 cm. M: 53/71 cm. L: 56/74 cm. Medidas de prenda en plano; tolerancia ±1.5 cm. Medidas orientativas, sujetas a confirmación comercial.",
+            "photos": [
+                "/images/catalog/v1/CRW/negro/front.png",
+                "/images/catalog/v1/CRW/natural/front.png"
+            ]
+        },
+        "variants": [
+            {
+                "sku": "BC-CRW-300-NEG-S",
+                "legacy_sku": "DEMO-CRW-NEG-S",
+                "color": "Negro",
+                "size": "S",
+                "details": {
+                    "color_code": "#171717",
+                    "measurements": "Pecho/largo en plano: S 50/68, M 53/71, L 56/74 cm. Medidas orientativas.",
+                    "tolerance": "±1.5 cm; confirmar muestra.",
+                    "images": [
+                        {
+                            "view": "front",
+                            "path": "/images/catalog/v1/CRW/negro/front.png",
+                            "alt": "Sudadera sin capucha ByeCode · Negro · frente",
+                            "width": 1254,
+                            "height": 1254
+                        },
+                        {
+                            "view": "back",
+                            "path": "/images/catalog/v1/CRW/negro/back.png",
+                            "alt": "Sudadera sin capucha ByeCode · Negro · espalda",
+                            "width": 1254,
+                            "height": 1254
+                        },
+                        {
+                            "view": "three-quarter",
+                            "path": "/images/catalog/v1/CRW/negro/three-quarter.png",
+                            "alt": "Sudadera sin capucha ByeCode · Negro · tres cuartos",
+                            "width": 1254,
+                            "height": 1254
+                        },
+                        {
+                            "view": "detail",
+                            "path": "/images/catalog/v1/CRW/negro/detail.png",
+                            "alt": "Sudadera sin capucha ByeCode · Negro · detalle de tejido",
+                            "width": 1254,
+                            "height": 1254
+                        }
+                    ]
+                }
+            },
+            {
+                "sku": "BC-CRW-300-NEG-M",
+                "legacy_sku": "DEMO-CRW-NEG-M",
+                "color": "Negro",
+                "size": "M",
+                "details": {
+                    "color_code": "#171717",
+                    "measurements": "Pecho/largo en plano: S 50/68, M 53/71, L 56/74 cm. Medidas orientativas.",
+                    "tolerance": "±1.5 cm; confirmar muestra.",
+                    "images": [
+                        {
+                            "view": "front",
+                            "path": "/images/catalog/v1/CRW/negro/front.png",
+                            "alt": "Sudadera sin capucha ByeCode · Negro · frente",
+                            "width": 1254,
+                            "height": 1254
+                        },
+                        {
+                            "view": "back",
+                            "path": "/images/catalog/v1/CRW/negro/back.png",
+                            "alt": "Sudadera sin capucha ByeCode · Negro · espalda",
+                            "width": 1254,
+                            "height": 1254
+                        },
+                        {
+                            "view": "three-quarter",
+                            "path": "/images/catalog/v1/CRW/negro/three-quarter.png",
+                            "alt": "Sudadera sin capucha ByeCode · Negro · tres cuartos",
+                            "width": 1254,
+                            "height": 1254
+                        },
+                        {
+                            "view": "detail",
+                            "path": "/images/catalog/v1/CRW/negro/detail.png",
+                            "alt": "Sudadera sin capucha ByeCode · Negro · detalle de tejido",
+                            "width": 1254,
+                            "height": 1254
+                        }
+                    ]
+                }
+            },
+            {
+                "sku": "BC-CRW-300-NEG-L",
+                "legacy_sku": "DEMO-CRW-NEG-L",
+                "color": "Negro",
+                "size": "L",
+                "details": {
+                    "color_code": "#171717",
+                    "measurements": "Pecho/largo en plano: S 50/68, M 53/71, L 56/74 cm. Medidas orientativas.",
+                    "tolerance": "±1.5 cm; confirmar muestra.",
+                    "images": [
+                        {
+                            "view": "front",
+                            "path": "/images/catalog/v1/CRW/negro/front.png",
+                            "alt": "Sudadera sin capucha ByeCode · Negro · frente",
+                            "width": 1254,
+                            "height": 1254
+                        },
+                        {
+                            "view": "back",
+                            "path": "/images/catalog/v1/CRW/negro/back.png",
+                            "alt": "Sudadera sin capucha ByeCode · Negro · espalda",
+                            "width": 1254,
+                            "height": 1254
+                        },
+                        {
+                            "view": "three-quarter",
+                            "path": "/images/catalog/v1/CRW/negro/three-quarter.png",
+                            "alt": "Sudadera sin capucha ByeCode · Negro · tres cuartos",
+                            "width": 1254,
+                            "height": 1254
+                        },
+                        {
+                            "view": "detail",
+                            "path": "/images/catalog/v1/CRW/negro/detail.png",
+                            "alt": "Sudadera sin capucha ByeCode · Negro · detalle de tejido",
+                            "width": 1254,
+                            "height": 1254
+                        }
+                    ]
+                }
+            },
+            {
+                "sku": "BC-CRW-300-NAT-S",
+                "legacy_sku": "DEMO-CRW-NAT-S",
+                "color": "Natural",
+                "size": "S",
+                "details": {
+                    "color_code": "#EEE9DC",
+                    "measurements": "Pecho/largo en plano: S 50/68, M 53/71, L 56/74 cm. Medidas orientativas.",
+                    "tolerance": "±1.5 cm; confirmar muestra.",
+                    "images": [
+                        {
+                            "view": "front",
+                            "path": "/images/catalog/v1/CRW/natural/front.png",
+                            "alt": "Sudadera sin capucha ByeCode · Natural · frente",
+                            "width": 1254,
+                            "height": 1254
+                        },
+                        {
+                            "view": "back",
+                            "path": "/images/catalog/v1/CRW/natural/back.png",
+                            "alt": "Sudadera sin capucha ByeCode · Natural · espalda",
+                            "width": 1254,
+                            "height": 1254
+                        },
+                        {
+                            "view": "three-quarter",
+                            "path": "/images/catalog/v1/CRW/natural/three-quarter.png",
+                            "alt": "Sudadera sin capucha ByeCode · Natural · tres cuartos",
+                            "width": 1254,
+                            "height": 1254
+                        },
+                        {
+                            "view": "detail",
+                            "path": "/images/catalog/v1/CRW/natural/detail.png",
+                            "alt": "Sudadera sin capucha ByeCode · Natural · detalle de tejido",
+                            "width": 1254,
+                            "height": 1254
+                        }
+                    ]
+                }
+            },
+            {
+                "sku": "BC-CRW-300-NAT-M",
+                "legacy_sku": "DEMO-CRW-NAT-M",
+                "color": "Natural",
+                "size": "M",
+                "details": {
+                    "color_code": "#EEE9DC",
+                    "measurements": "Pecho/largo en plano: S 50/68, M 53/71, L 56/74 cm. Medidas orientativas.",
+                    "tolerance": "±1.5 cm; confirmar muestra.",
+                    "images": [
+                        {
+                            "view": "front",
+                            "path": "/images/catalog/v1/CRW/natural/front.png",
+                            "alt": "Sudadera sin capucha ByeCode · Natural · frente",
+                            "width": 1254,
+                            "height": 1254
+                        },
+                        {
+                            "view": "back",
+                            "path": "/images/catalog/v1/CRW/natural/back.png",
+                            "alt": "Sudadera sin capucha ByeCode · Natural · espalda",
+                            "width": 1254,
+                            "height": 1254
+                        },
+                        {
+                            "view": "three-quarter",
+                            "path": "/images/catalog/v1/CRW/natural/three-quarter.png",
+                            "alt": "Sudadera sin capucha ByeCode · Natural · tres cuartos",
+                            "width": 1254,
+                            "height": 1254
+                        },
+                        {
+                            "view": "detail",
+                            "path": "/images/catalog/v1/CRW/natural/detail.png",
+                            "alt": "Sudadera sin capucha ByeCode · Natural · detalle de tejido",
+                            "width": 1254,
+                            "height": 1254
+                        }
+                    ]
+                }
+            },
+            {
+                "sku": "BC-CRW-300-NAT-L",
+                "legacy_sku": "DEMO-CRW-NAT-L",
+                "color": "Natural",
+                "size": "L",
+                "details": {
+                    "color_code": "#EEE9DC",
+                    "measurements": "Pecho/largo en plano: S 50/68, M 53/71, L 56/74 cm. Medidas orientativas.",
+                    "tolerance": "±1.5 cm; confirmar muestra.",
+                    "images": [
+                        {
+                            "view": "front",
+                            "path": "/images/catalog/v1/CRW/natural/front.png",
+                            "alt": "Sudadera sin capucha ByeCode · Natural · frente",
+                            "width": 1254,
+                            "height": 1254
+                        },
+                        {
+                            "view": "back",
+                            "path": "/images/catalog/v1/CRW/natural/back.png",
+                            "alt": "Sudadera sin capucha ByeCode · Natural · espalda",
+                            "width": 1254,
+                            "height": 1254
+                        },
+                        {
+                            "view": "three-quarter",
+                            "path": "/images/catalog/v1/CRW/natural/three-quarter.png",
+                            "alt": "Sudadera sin capucha ByeCode · Natural · tres cuartos",
+                            "width": 1254,
+                            "height": 1254
+                        },
+                        {
+                            "view": "detail",
+                            "path": "/images/catalog/v1/CRW/natural/detail.png",
+                            "alt": "Sudadera sin capucha ByeCode · Natural · detalle de tejido",
+                            "width": 1254,
+                            "height": 1254
+                        }
+                    ]
+                }
+            }
+        ]
+    },
+    {
+        "key": "HOD",
+        "name": "Sudadera con capucha",
+        "category": "Sudaderas",
+        "fit": "Relajado",
+        "gsm": 320,
+        "composition": "80% algodón / 20% poliéster",
+        "unit_price_cents": 36000,
+        "colors": ["Negro", "Natural"],
+        "sizes": ["S", "M", "L"],
+        "moq": 12,
+        "details": {
+            "description": "Sudadera con capucha de 320 g/m² con logo ByeCode.",
+            "fabric": "Tejido de 80% algodón / 20% poliéster, 320 g/m².",
+            "construction": "Revisar construcción y acabados en muestra antes de confirmar el pedido.",
+            "care": "Lavar al revés con agua fría. No usar cloro. Secar a la sombra.",
+            "fit_guide": "Corte Relajado. Confirmar medidas finales en muestra.",
+            "size_guide": "S: pecho 50 cm/largo 68 cm. M: 53/71 cm. L: 56/74 cm. Medidas de prenda en plano; tolerancia ±1.5 cm. Medidas orientativas, sujetas a confirmación comercial.",
+            "photos": [
+                "/images/catalog/v1/HOD/negro/front.png",
+                "/images/catalog/v1/HOD/natural/front.png"
+            ]
+        },
+        "variants": [
+            {
+                "sku": "BC-HOD-320-NEG-S",
+                "legacy_sku": "DEMO-HOD-NEG-S",
+                "color": "Negro",
+                "size": "S",
+                "details": {
+                    "color_code": "#171717",
+                    "measurements": "Pecho/largo en plano: S 50/68, M 53/71, L 56/74 cm. Medidas orientativas.",
+                    "tolerance": "±1.5 cm; confirmar muestra.",
+                    "images": [
+                        {
+                            "view": "front",
+                            "path": "/images/catalog/v1/HOD/negro/front.png",
+                            "alt": "Sudadera con capucha ByeCode · Negro · frente",
+                            "width": 1254,
+                            "height": 1254
+                        },
+                        {
+                            "view": "back",
+                            "path": "/images/catalog/v1/HOD/negro/back.png",
+                            "alt": "Sudadera con capucha ByeCode · Negro · espalda",
+                            "width": 1254,
+                            "height": 1254
+                        },
+                        {
+                            "view": "three-quarter",
+                            "path": "/images/catalog/v1/HOD/negro/three-quarter.png",
+                            "alt": "Sudadera con capucha ByeCode · Negro · tres cuartos",
+                            "width": 1254,
+                            "height": 1254
+                        },
+                        {
+                            "view": "detail",
+                            "path": "/images/catalog/v1/HOD/negro/detail.png",
+                            "alt": "Sudadera con capucha ByeCode · Negro · detalle de tejido",
+                            "width": 1254,
+                            "height": 1254
+                        }
+                    ]
+                }
+            },
+            {
+                "sku": "BC-HOD-320-NEG-M",
+                "legacy_sku": "DEMO-HOD-NEG-M",
+                "color": "Negro",
+                "size": "M",
+                "details": {
+                    "color_code": "#171717",
+                    "measurements": "Pecho/largo en plano: S 50/68, M 53/71, L 56/74 cm. Medidas orientativas.",
+                    "tolerance": "±1.5 cm; confirmar muestra.",
+                    "images": [
+                        {
+                            "view": "front",
+                            "path": "/images/catalog/v1/HOD/negro/front.png",
+                            "alt": "Sudadera con capucha ByeCode · Negro · frente",
+                            "width": 1254,
+                            "height": 1254
+                        },
+                        {
+                            "view": "back",
+                            "path": "/images/catalog/v1/HOD/negro/back.png",
+                            "alt": "Sudadera con capucha ByeCode · Negro · espalda",
+                            "width": 1254,
+                            "height": 1254
+                        },
+                        {
+                            "view": "three-quarter",
+                            "path": "/images/catalog/v1/HOD/negro/three-quarter.png",
+                            "alt": "Sudadera con capucha ByeCode · Negro · tres cuartos",
+                            "width": 1254,
+                            "height": 1254
+                        },
+                        {
+                            "view": "detail",
+                            "path": "/images/catalog/v1/HOD/negro/detail.png",
+                            "alt": "Sudadera con capucha ByeCode · Negro · detalle de tejido",
+                            "width": 1254,
+                            "height": 1254
+                        }
+                    ]
+                }
+            },
+            {
+                "sku": "BC-HOD-320-NEG-L",
+                "legacy_sku": "DEMO-HOD-NEG-L",
+                "color": "Negro",
+                "size": "L",
+                "details": {
+                    "color_code": "#171717",
+                    "measurements": "Pecho/largo en plano: S 50/68, M 53/71, L 56/74 cm. Medidas orientativas.",
+                    "tolerance": "±1.5 cm; confirmar muestra.",
+                    "images": [
+                        {
+                            "view": "front",
+                            "path": "/images/catalog/v1/HOD/negro/front.png",
+                            "alt": "Sudadera con capucha ByeCode · Negro · frente",
+                            "width": 1254,
+                            "height": 1254
+                        },
+                        {
+                            "view": "back",
+                            "path": "/images/catalog/v1/HOD/negro/back.png",
+                            "alt": "Sudadera con capucha ByeCode · Negro · espalda",
+                            "width": 1254,
+                            "height": 1254
+                        },
+                        {
+                            "view": "three-quarter",
+                            "path": "/images/catalog/v1/HOD/negro/three-quarter.png",
+                            "alt": "Sudadera con capucha ByeCode · Negro · tres cuartos",
+                            "width": 1254,
+                            "height": 1254
+                        },
+                        {
+                            "view": "detail",
+                            "path": "/images/catalog/v1/HOD/negro/detail.png",
+                            "alt": "Sudadera con capucha ByeCode · Negro · detalle de tejido",
+                            "width": 1254,
+                            "height": 1254
+                        }
+                    ]
+                }
+            },
+            {
+                "sku": "BC-HOD-320-NAT-S",
+                "legacy_sku": "DEMO-HOD-NAT-S",
+                "color": "Natural",
+                "size": "S",
+                "details": {
+                    "color_code": "#EEE9DC",
+                    "measurements": "Pecho/largo en plano: S 50/68, M 53/71, L 56/74 cm. Medidas orientativas.",
+                    "tolerance": "±1.5 cm; confirmar muestra.",
+                    "images": [
+                        {
+                            "view": "front",
+                            "path": "/images/catalog/v1/HOD/natural/front.png",
+                            "alt": "Sudadera con capucha ByeCode · Natural · frente",
+                            "width": 1254,
+                            "height": 1254
+                        },
+                        {
+                            "view": "back",
+                            "path": "/images/catalog/v1/HOD/natural/back.png",
+                            "alt": "Sudadera con capucha ByeCode · Natural · espalda",
+                            "width": 1254,
+                            "height": 1254
+                        },
+                        {
+                            "view": "three-quarter",
+                            "path": "/images/catalog/v1/HOD/natural/three-quarter.png",
+                            "alt": "Sudadera con capucha ByeCode · Natural · tres cuartos",
+                            "width": 1254,
+                            "height": 1254
+                        },
+                        {
+                            "view": "detail",
+                            "path": "/images/catalog/v1/HOD/natural/detail.png",
+                            "alt": "Sudadera con capucha ByeCode · Natural · detalle de tejido",
+                            "width": 1254,
+                            "height": 1254
+                        }
+                    ]
+                }
+            },
+            {
+                "sku": "BC-HOD-320-NAT-M",
+                "legacy_sku": "DEMO-HOD-NAT-M",
+                "color": "Natural",
+                "size": "M",
+                "details": {
+                    "color_code": "#EEE9DC",
+                    "measurements": "Pecho/largo en plano: S 50/68, M 53/71, L 56/74 cm. Medidas orientativas.",
+                    "tolerance": "±1.5 cm; confirmar muestra.",
+                    "images": [
+                        {
+                            "view": "front",
+                            "path": "/images/catalog/v1/HOD/natural/front.png",
+                            "alt": "Sudadera con capucha ByeCode · Natural · frente",
+                            "width": 1254,
+                            "height": 1254
+                        },
+                        {
+                            "view": "back",
+                            "path": "/images/catalog/v1/HOD/natural/back.png",
+                            "alt": "Sudadera con capucha ByeCode · Natural · espalda",
+                            "width": 1254,
+                            "height": 1254
+                        },
+                        {
+                            "view": "three-quarter",
+                            "path": "/images/catalog/v1/HOD/natural/three-quarter.png",
+                            "alt": "Sudadera con capucha ByeCode · Natural · tres cuartos",
+                            "width": 1254,
+                            "height": 1254
+                        },
+                        {
+                            "view": "detail",
+                            "path": "/images/catalog/v1/HOD/natural/detail.png",
+                            "alt": "Sudadera con capucha ByeCode · Natural · detalle de tejido",
+                            "width": 1254,
+                            "height": 1254
+                        }
+                    ]
+                }
+            },
+            {
+                "sku": "BC-HOD-320-NAT-L",
+                "legacy_sku": "DEMO-HOD-NAT-L",
+                "color": "Natural",
+                "size": "L",
+                "details": {
+                    "color_code": "#EEE9DC",
+                    "measurements": "Pecho/largo en plano: S 50/68, M 53/71, L 56/74 cm. Medidas orientativas.",
+                    "tolerance": "±1.5 cm; confirmar muestra.",
+                    "images": [
+                        {
+                            "view": "front",
+                            "path": "/images/catalog/v1/HOD/natural/front.png",
+                            "alt": "Sudadera con capucha ByeCode · Natural · frente",
+                            "width": 1254,
+                            "height": 1254
+                        },
+                        {
+                            "view": "back",
+                            "path": "/images/catalog/v1/HOD/natural/back.png",
+                            "alt": "Sudadera con capucha ByeCode · Natural · espalda",
+                            "width": 1254,
+                            "height": 1254
+                        },
+                        {
+                            "view": "three-quarter",
+                            "path": "/images/catalog/v1/HOD/natural/three-quarter.png",
+                            "alt": "Sudadera con capucha ByeCode · Natural · tres cuartos",
+                            "width": 1254,
+                            "height": 1254
+                        },
+                        {
+                            "view": "detail",
+                            "path": "/images/catalog/v1/HOD/natural/detail.png",
+                            "alt": "Sudadera con capucha ByeCode · Natural · detalle de tejido",
+                            "width": 1254,
+                            "height": 1254
+                        }
+                    ]
+                }
+            }
+        ]
+    }
+]

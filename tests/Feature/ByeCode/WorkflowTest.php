@@ -25,23 +25,23 @@ beforeEach(function () {
     config(['inertia.ssr.enabled' => false]);
     $this->owner = User::factory()->create();
     $this->customer = Customer::create(['user_id' => $this->owner->id, 'company' => 'Cliente de prueba']);
-    $this->product = Product::create(['user_id' => $this->owner->id, 'sku' => 'TEST-M', 'name' => 'Playera de prueba', 'category' => 'blank', 'stock' => 100, 'moq' => 20, 'unit_price_cents' => 12550]);
+    $this->product = Product::create(['user_id' => $this->owner->id, 'sku' => 'TEST-M', 'name' => 'Playera de prueba', 'category' => 'blank', 'moq' => 20, 'unit_price_cents' => 12550]);
     $this->input = ['customer_id' => $this->customer->id, 'title' => 'Pedido de prueba', 'valid_until' => now()->addDays(7)->format('Y-m-d'), 'terms' => 'Pendiente de confirmar entrega', 'authorization_reference' => 'Referencia de prueba', 'tax' => '16.01', 'shipping' => '20.20', 'discount' => '5.15',
-        'lines' => [['product_id' => $this->product->id, 'quantity' => 10, 'unit_price' => '125.50', 'supply_mode' => 'stock', 'stock_units' => 10]]];
+        'lines' => [['product_id' => $this->product->id, 'quantity' => 10, 'unit_price' => '125.50']]];
     $this->case = app(QuoteService::class)->save($this->owner, $this->input);
 });
 
 it('calculates exact totals and keeps prior quotation versions immutable', function () {
     $q = QuoteVersion::first();
-    expect($q->total_cents)->toBe(128606)->and($q->lines[0]['below_moq'])->toBeTrue()->and($q->lines[0]['fulfillment_confirmed'])->toBeFalse();
-    app(QuoteService::class)->save($this->owner, [...$this->input, 'expected_revision' => $this->case->revision, 'lines' => [['product_id' => $this->product->id, 'quantity' => 12, 'unit_price' => '140.10', 'supply_mode' => 'mixed', 'stock_units' => 5]]], $this->case);
-    expect(QuoteVersion::count())->toBe(2)->and($q->fresh()->total_cents)->toBe(128606)->and(QuoteVersion::latest('version')->first()->lines[0]['manufacture_units'])->toBe(7);
+    expect($q->total_cents)->toBe(128606)->and($q->lines[0]['below_moq'])->toBeTrue()->and($q->lines[0])->not->toHaveKey('supply_mode');
+    app(QuoteService::class)->save($this->owner, [...$this->input, 'expected_revision' => $this->case->revision, 'lines' => [['product_id' => $this->product->id, 'quantity' => 12, 'unit_price' => '140.10']]], $this->case);
+    expect(QuoteVersion::count())->toBe(2)->and($q->fresh()->total_cents)->toBe(128606)->and(QuoteVersion::latest('version')->first()->lines[0]['quantity'])->toBe(12);
     expect(fn () => app(QuoteService::class)->save($this->owner, [...$this->input, 'expected_revision' => 1], $this->case))->toThrow(ValidationException::class);
 });
 
-it('rejects impossible allocation and prices without creating partial quotations', function () {
-    expect(fn () => app(QuoteService::class)->save($this->owner, [...$this->input, 'lines' => [['product_id' => $this->product->id, 'quantity' => 101, 'unit_price' => '125.50', 'supply_mode' => 'stock', 'stock_units' => 101]]]))->toThrow(ValidationException::class);
-    expect(fn () => app(QuoteService::class)->save($this->owner, [...$this->input, 'lines' => [['product_id' => $this->product->id, 'quantity' => 10, 'unit_price' => '125.50', 'supply_mode' => 'manufacture', 'stock_units' => 5]]]))->toThrow(ValidationException::class);
+it('rejects invalid quantities and prices without creating partial quotations', function () {
+    expect(fn () => app(QuoteService::class)->save($this->owner, [...$this->input, 'lines' => [['product_id' => $this->product->id, 'quantity' => 0, 'unit_price' => '125.50']]]))->toThrow(ValidationException::class);
+    expect(fn () => app(QuoteService::class)->save($this->owner, [...$this->input, 'lines' => [['product_id' => $this->product->id, 'quantity' => 10, 'unit_price' => '-1']]]))->toThrow(ValidationException::class);
     expect(QuoteVersion::count())->toBe(1);
 });
 

@@ -1,3 +1,4 @@
+import { ThemeSwitch } from '@/components/theme-switch';
 import { Link } from '@inertiajs/react';
 import AppWordmark from '@/components/app-wordmark';
 import { home } from '@/routes';
@@ -10,6 +11,9 @@ export default function AuthSimpleLayout({
 }: AuthLayoutProps) {
     return (
         <div className="flex min-h-svh flex-col items-center justify-center gap-6 bg-background p-6 md:p-10">
+            <div className="absolute top-5 right-5">
+                <ThemeSwitch />
+            </div>
             <div className="w-full max-w-sm">
                 <div className="flex flex-col gap-8">
                     <div className="flex flex-col items-center gap-4">

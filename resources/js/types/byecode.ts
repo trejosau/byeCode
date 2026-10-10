@@ -64,7 +64,6 @@ export type Product = {
     size: string | null;
     unit_price_cents: number | null;
     moq: number | null;
-    stock: number | null;
     verified_at: string | null;
     source: string;
 };
@@ -81,10 +80,6 @@ export type QuoteLine = {
     quantity: number;
     unit_price_cents: number;
     total_cents: number;
-    supply_mode: string;
-    stock_units: number | null;
-    manufacture_units: number | null;
-    observed_stock: number | null;
     moq: number | null;
     below_moq: boolean;
 };

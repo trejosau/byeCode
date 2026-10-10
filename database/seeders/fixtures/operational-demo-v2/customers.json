@@ -1,0 +1,202 @@
+[
+    {
+        "key": "marina",
+        "name": "Marina Salazar",
+        "email": "marina@gmail.com",
+        "company": "Lumbre Estudio",
+        "seller": "jorge",
+        "history": ["accepted", "accepted", "rejected"],
+        "profile": {
+            "business_type": "own_brand",
+            "operating_scale": "individual",
+            "purchase_frequency": "seasonal",
+            "buying_process": "direct",
+            "priorities": ["quality", "flexibility"],
+            "service_requirements": ["samples"],
+            "development_opportunity": "Evaluar una segunda colección después de aprobar la muestra."
+        },
+        "declaration": "Tengo una marca propia y trabajo por mi cuenta. Decido las compras directamente por colección. Necesito calidad y flexibilidad en cantidades; primero apruebo una muestra. Una segunda colección dependerá de esa aprobación."
+    },
+    {
+        "key": "diego",
+        "name": "Diego Montes",
+        "email": "diego@gmail.com",
+        "company": "Ruta Básica",
+        "seller": "dani",
+        "history": ["accepted", "accepted", "accepted"],
+        "profile": {
+            "business_type": "reseller",
+            "operating_scale": "single_site_team",
+            "purchase_frequency": "recurring",
+            "buying_process": "direct",
+            "priorities": ["price", "continuity"],
+            "service_requirements": ["custom_packaging"],
+            "development_opportunity": "Ampliar colores si la reposición mantiene medidas y empaque."
+        },
+        "declaration": "Revendo prendas con mi equipo en una sola tienda. Decido directamente y hacemos reposiciones recurrentes. Priorizamos precio y continuidad. Necesito cada prenda en bolsa individual; podríamos ampliar colores si mantenemos las medidas y el empaque."
+    },
+    {
+        "key": "valeria",
+        "name": "Valeria Ríos",
+        "email": "valeria@gmail.com",
+        "company": "Aula Norte",
+        "seller": "jesus",
+        "history": ["accepted", "cancelled"],
+        "profile": {
+            "business_type": "uniforms",
+            "operating_scale": "multi_site",
+            "purchase_frequency": "seasonal",
+            "buying_process": "multiple_approvals",
+            "priorities": ["deadline", "quality"],
+            "service_requirements": ["purchase_order", "multi_destination"],
+            "development_opportunity": "Incorporar otra sede después de aprobación presupuestal."
+        },
+        "declaration": "Compramos uniformes para varias sedes por campaña. Primero aprueba coordinación y después dirección. Priorizamos fecha y calidad; necesitamos orden de compra y entregas por sede. Una nueva sede depende del presupuesto."
+    },
+    {
+        "key": "rodrigo",
+        "name": "Rodrigo Vega",
+        "email": "rodrigo@gmail.com",
+        "company": "Foro Naranja",
+        "seller": "sau",
+        "history": ["rejected"],
+        "profile": {
+            "business_type": "events",
+            "operating_scale": "single_site_team",
+            "purchase_frequency": "one_off",
+            "buying_process": "direct",
+            "priorities": ["deadline", "customization"],
+            "service_requirements": null,
+            "development_opportunity": null
+        },
+        "declaration": "Organizo este evento con mi equipo en una sede. Esta compra es puntual y yo decido. Me importa la fecha y la personalización. Todavía no tengo confirmados otros requisitos ni compras futuras."
+    },
+    {
+        "key": "camila",
+        "name": "Camila Duarte",
+        "email": "camila@gmail.com",
+        "company": "Tinta Clara",
+        "seller": "jorge",
+        "history": ["accepted", "rejected"],
+        "profile": {
+            "business_type": "own_brand",
+            "operating_scale": "individual",
+            "purchase_frequency": "seasonal",
+            "buying_process": "direct",
+            "priorities": ["quality", "customization"],
+            "service_requirements": ["samples"],
+            "development_opportunity": "Validar una colección de invierno mediante muestras."
+        },
+        "declaration": "Tengo una marca propia y trabajo individualmente. Compro por temporada, decido directamente y busco calidad y personalización. Primero reviso muestras. Queremos validar una colección de invierno mediante muestras. Estamos evaluando un fit oversize, pero no es una preferencia confirmada."
+    },
+    {
+        "key": "andres",
+        "name": "Andrés Molina",
+        "email": "andres@gmail.com",
+        "company": "Suministros Prado",
+        "seller": "dani",
+        "history": ["accepted", "accepted", "accepted", "accepted"],
+        "profile": {
+            "business_type": "distributor",
+            "operating_scale": "multi_site",
+            "purchase_frequency": "supply_program",
+            "buying_process": "procurement",
+            "priorities": ["continuity", "price"],
+            "service_requirements": ["scheduled_supply", "purchase_order"],
+            "development_opportunity": "Negociar calendario trimestral sujeto a órdenes de compra."
+        },
+        "declaration": "Distribuimos a varias sedes mediante un programa de abastecimiento. El área de compras emite órdenes y coordina el calendario. Buscamos continuidad y precio. Un programa trimestral depende de cada orden aprobada."
+    },
+    {
+        "key": "paula",
+        "name": "Paula Serrano",
+        "email": "paula@gmail.com",
+        "company": "Casa Laurel",
+        "seller": "sau",
+        "history": ["accepted", "cancelled"],
+        "profile": {
+            "business_type": "uniforms",
+            "operating_scale": "single_site_team",
+            "purchase_frequency": "seasonal",
+            "buying_process": "direct",
+            "priorities": ["quality"],
+            "service_requirements": ["samples"],
+            "development_opportunity": null
+        },
+        "declaration": "Somos un equipo en una sede y pedimos uniformes por temporada. Yo decido las compras. La calidad es prioritaria. No he definido requisitos adicionales o una ampliación de pedidos."
+    },
+    {
+        "key": "ricardo",
+        "name": "Ricardo Paredes",
+        "email": "ricardo@gmail.com",
+        "company": "Taller Vértice",
+        "seller": "jorge",
+        "history": ["accepted", "accepted"],
+        "profile": {
+            "business_type": "other",
+            "operating_scale": "single_site_team",
+            "purchase_frequency": "recurring",
+            "buying_process": "direct",
+            "priorities": ["quality", "price"],
+            "service_requirements": ["quality_traceability"],
+            "development_opportunity": "Probar consistencia de color antes de ampliar la reposición."
+        },
+        "declaration": "Personalizamos prendas con un equipo en un solo taller. Yo decido y reponemos regularmente. Priorizamos calidad y precio; necesitamos trazabilidad y tolerancia consistente de color antes de ampliar volumen."
+    },
+    {
+        "key": "elena",
+        "name": "Elena Campos",
+        "email": "elena@gmail.com",
+        "company": "Colectivo Sur",
+        "seller": "dani",
+        "history": ["accepted"],
+        "profile": {
+            "business_type": "events",
+            "operating_scale": "individual",
+            "purchase_frequency": "one_off",
+            "buying_process": "multiple_approvals",
+            "priorities": ["deadline", "flexibility"],
+            "service_requirements": null,
+            "development_opportunity": null
+        },
+        "declaration": "Trabajo individualmente coordinando este evento. La compra es puntual y requiere mi aprobación y la del organizador. Necesitamos fecha y flexibilidad; aún no confirmamos entrega ni condiciones de pago. No solicito crédito aprobado."
+    },
+    {
+        "key": "mateo",
+        "name": "Mateo Navarro",
+        "email": "mateo@gmail.com",
+        "company": "Punto Nube",
+        "seller": "jesus",
+        "history": ["accepted", "rejected"],
+        "profile": {
+            "business_type": "reseller",
+            "operating_scale": "single_site_team",
+            "purchase_frequency": "recurring",
+            "buying_process": "direct",
+            "priorities": ["quality", "continuity"],
+            "service_requirements": ["custom_packaging"],
+            "development_opportunity": "Ampliar tallas según los resultados de la siguiente reposición."
+        },
+        "declaration": "Revendo con mi equipo en una sola tienda y decido directamente las reposiciones. Priorizamos calidad y continuidad; pedimos empaque consistente. Evaluaremos ampliar tallas después de esta reposición."
+    },
+    {
+        "key": "daniela",
+        "name": "Daniela Fuentes",
+        "email": "daniela@gmail.com",
+        "company": null,
+        "seller": null,
+        "history": [],
+        "profile": {},
+        "declaration": null
+    },
+    {
+        "key": "nicolas",
+        "name": "Nicolás Torres",
+        "email": "nicolas@gmail.com",
+        "company": null,
+        "seller": null,
+        "history": [],
+        "profile": {},
+        "declaration": null
+    }
+]

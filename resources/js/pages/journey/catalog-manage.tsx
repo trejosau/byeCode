@@ -5,6 +5,7 @@ import {
     inputClass,
     type Style,
     type Variant,
+    type CatalogImage,
 } from '@/components/byecode/journey';
 import { Button } from '@/components/ui/button';
 export default function CatalogManage({
@@ -41,14 +42,13 @@ export default function CatalogManage({
         composition: '',
         gsm: '',
         moq: '',
-        stock: '',
         source: '',
         published: false,
         details: {
             color_code: '',
             measurements: '',
             tolerance: '',
-            availability: '',
+            images: [] as CatalogImage[],
         },
     });
     return (
@@ -190,19 +190,19 @@ export default function CatalogManage({
                                     id: v.id,
                                     style_id: String(v.style_id ?? ''),
                                     sku: v.sku,
+                                    source: v.source ?? '',
                                     fit: v.fit ?? '',
                                     color: v.color ?? '',
                                     size: v.size ?? '',
                                     composition: v.composition ?? '',
                                     gsm: String(v.gsm ?? ''),
                                     moq: String(v.moq ?? ''),
-                                    stock: String(v.stock ?? ''),
                                     published: v.published ?? false,
                                     details: {
                                         color_code: '',
                                         measurements: '',
                                         tolerance: '',
-                                        availability: '',
+                                        images: [],
                                         ...v.details,
                                     },
                                 });
@@ -212,7 +212,7 @@ export default function CatalogManage({
                         <option value="">Nueva variante</option>
                         {variants.map((v) => (
                             <option key={v.id} value={v.id}>
-                                {v.sku}
+                                {v.name} · {v.color} · {v.size}
                             </option>
                         ))}
                     </select>
@@ -244,7 +244,6 @@ export default function CatalogManage({
                             composition: 'Composición',
                             gsm: 'Gramaje GSM',
                             moq: 'Cantidad mínima',
-                            stock: 'Existencia observada',
                             source: 'Fuente de verificación',
                         }).map(([key, label]) => (
                             <label key={key}>
@@ -266,7 +265,6 @@ export default function CatalogManage({
                         color_code: 'Código de color',
                         measurements: 'Medidas de esta talla',
                         tolerance: 'Tolerancia',
-                        availability: 'Condición de suministro',
                     }).map(([key, label]) => (
                         <label className="block" key={key}>
                             {label}
@@ -284,6 +282,60 @@ export default function CatalogManage({
                             />
                         </label>
                     ))}
+                    <fieldset className="space-y-3">
+                        <legend>Imágenes de esta variante</legend>
+                        {(
+                            [
+                                'front',
+                                'back',
+                                'three-quarter',
+                                'detail',
+                            ] as const
+                        ).map((view) => (
+                            <label key={view} className="block text-sm">
+                                {
+                                    {
+                                        front: 'Frente',
+                                        back: 'Espalda',
+                                        'three-quarter': 'Tres cuartos',
+                                        detail: 'Detalle',
+                                    }[view]
+                                }
+                                <input
+                                    className={inputClass}
+                                    placeholder="URL HTTPS o /images/catalog/v1/…"
+                                    value={
+                                        variant.data.details.images.find(
+                                            (image) => image.view === view,
+                                        )?.path ?? ''
+                                    }
+                                    onChange={(e) => {
+                                        const previous =
+                                            variant.data.details.images.find(
+                                                (image) => image.view === view,
+                                            );
+                                        const images =
+                                            variant.data.details.images.filter(
+                                                (image) => image.view !== view,
+                                            );
+                                        if (e.target.value)
+                                            images.push({
+                                                view,
+                                                path: e.target.value,
+                                                alt: `${variant.data.color} · ${view}`,
+                                                width: previous?.width ?? 1254,
+                                                height:
+                                                    previous?.height ?? 1254,
+                                            });
+                                        variant.setData('details', {
+                                            ...variant.data.details,
+                                            images,
+                                        });
+                                    }}
+                                />
+                            </label>
+                        ))}
+                    </fieldset>
                     <label className="flex gap-2">
                         <input
                             type="checkbox"

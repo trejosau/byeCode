@@ -24,8 +24,6 @@ type Line = {
     product_id: string;
     quantity: string;
     unit_price: string;
-    supply_mode: string;
-    stock_units: string;
 };
 export default function QuoteForm({
     case: current,
@@ -51,8 +49,6 @@ export default function QuoteForm({
         product_id: '',
         quantity: '1',
         unit_price: '',
-        supply_mode: 'stock',
-        stock_units: '',
     };
     const stored = (draft ? JSON.parse(draft.payload) : {}) as Partial<{
         title: string;
@@ -82,17 +78,12 @@ export default function QuoteForm({
                 product_id: String(l.product_id),
                 quantity: String(l.quantity),
                 unit_price: String(l.unit_price_cents / 100),
-                supply_mode: l.supply_mode,
-                stock_units:
-                    l.stock_units === null ? '' : String(l.stock_units),
             })) ??
             (requestLines.length
                 ? requestLines.map((l) => ({
                       ...blank,
                       product_id: String(l.product_id),
                       quantity: String(l.quantity),
-                      supply_mode: 'manufacture',
-                      stock_units: '0',
                   }))
                 : [{ ...blank }]),
     });
@@ -226,7 +217,7 @@ export default function QuoteForm({
                             type="button"
                             variant="outline"
                             size="sm"
-                            disabled={form.data.lines.length >= 30}
+                            disabled={form.data.lines.length >= 100}
                             onClick={() =>
                                 form.setData('lines', [
                                     ...form.data.lines,
@@ -263,31 +254,60 @@ export default function QuoteForm({
                                         <Trash2 className="size-4" />
                                     </Button>
                                 </div>
-                                <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-5">
+                                <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
                                     <Field
-                                        label="Variante / SKU"
+                                        label="Prenda"
                                         htmlFor={'product-' + i}
                                     >
-                                        <Select
-                                            value={l.product_id}
-                                            onValueChange={(v) =>
-                                                setLine(i, 'product_id', v)
-                                            }
-                                        >
-                                            <SelectTrigger id={'product-' + i}>
-                                                <SelectValue placeholder="Seleccionar" />
-                                            </SelectTrigger>
-                                            <SelectContent>
+                                        <details className="rounded-md border p-3">
+                                            <summary
+                                                id={'product-' + i}
+                                                className="cursor-pointer text-sm"
+                                            >
+                                                {(() => {
+                                                    const p = products.find(
+                                                        (p) =>
+                                                            String(p.id) ===
+                                                            l.product_id,
+                                                    );
+                                                    return p
+                                                        ? `${p.name} · ${p.color} · ${p.size} · ${p.gsm} g/m²`
+                                                        : 'Elegir prenda';
+                                                })()}
+                                            </summary>
+                                            <div className="mt-3 grid max-h-64 gap-2 overflow-y-auto">
                                                 {products.map((p) => (
-                                                    <SelectItem
+                                                    <Button
                                                         key={p.id}
-                                                        value={String(p.id)}
+                                                        type="button"
+                                                        variant={
+                                                            String(p.id) ===
+                                                            l.product_id
+                                                                ? 'secondary'
+                                                                : 'ghost'
+                                                        }
+                                                        className="h-auto justify-start text-left whitespace-normal"
+                                                        onClick={(event) => {
+                                                            setLine(
+                                                                i,
+                                                                'product_id',
+                                                                String(p.id),
+                                                            );
+                                                            event.currentTarget
+                                                                .closest(
+                                                                    'details',
+                                                                )
+                                                                ?.removeAttribute(
+                                                                    'open',
+                                                                );
+                                                        }}
                                                     >
-                                                        {p.sku} · {p.name}
-                                                    </SelectItem>
+                                                        {p.name} · {p.color} ·{' '}
+                                                        {p.size} · {p.gsm} g/m²
+                                                    </Button>
                                                 ))}
-                                            </SelectContent>
-                                        </Select>
+                                            </div>
+                                        </details>
                                     </Field>
                                     <Field
                                         label="Cantidad"
@@ -324,52 +344,6 @@ export default function QuoteForm({
                                                 setLine(
                                                     i,
                                                     'unit_price',
-                                                    e.target.value,
-                                                )
-                                            }
-                                        />
-                                    </Field>
-                                    <Field
-                                        label="Abastecimiento"
-                                        htmlFor={'supply-' + i}
-                                    >
-                                        <Select
-                                            value={l.supply_mode}
-                                            onValueChange={(v) =>
-                                                setLine(i, 'supply_mode', v)
-                                            }
-                                        >
-                                            <SelectTrigger id={'supply-' + i}>
-                                                <SelectValue />
-                                            </SelectTrigger>
-                                            <SelectContent>
-                                                <SelectItem value="stock">
-                                                    Inventario
-                                                </SelectItem>
-                                                <SelectItem value="manufacture">
-                                                    Fabricación
-                                                </SelectItem>
-                                                <SelectItem value="mixed">
-                                                    Mixto
-                                                </SelectItem>
-                                            </SelectContent>
-                                        </Select>
-                                    </Field>
-                                    <Field
-                                        label="Unidades de inventario"
-                                        htmlFor={'stock-' + i}
-                                    >
-                                        <Input
-                                            id={'stock-' + i}
-                                            type="number"
-                                            min="0"
-                                            max={l.quantity}
-                                            value={l.stock_units}
-                                            placeholder="Por verificar"
-                                            onChange={(e) =>
-                                                setLine(
-                                                    i,
-                                                    'stock_units',
                                                     e.target.value,
                                                 )
                                             }

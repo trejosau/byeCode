@@ -1,3 +1,4 @@
+import { EvidenceFields } from '@/components/byecode/evidence-fields';
 import { Link, router } from '@inertiajs/react';
 import { useEffect } from 'react';
 import {
@@ -162,7 +163,7 @@ export default function CaseDetail({
         >
             {set.mode === 'kit' && (
                 <Alert>
-                    <AlertTitle>Escenario sintético · reloj fijo</AlertTitle>
+                    <AlertTitle>Historial con reloj fijo</AlertTitle>
                     <AlertDescription>
                         Evaluación: {snapshot.evaluation_at}. Importar la
                         actualización agrega conocimiento al mismo instante de
@@ -400,7 +401,7 @@ export default function CaseDetail({
                                                         {l.name}
                                                     </p>
                                                     <p className="mt-1 text-xs text-muted-foreground">
-                                                        {l.sku} ·{' '}
+                                                        {l.name} ·{' '}
                                                         {[
                                                             l.fit,
                                                             l.gsm
@@ -523,7 +524,7 @@ export default function CaseDetail({
                                                             (l) =>
                                                                 l.quantity +
                                                                 ' × ' +
-                                                                l.sku,
+                                                                l.name,
                                                         )
                                                         .join(' · ')}
                                                 </p>
@@ -582,30 +583,7 @@ export default function CaseDetail({
                                             {String(e.data.message)}
                                         </p>
                                     ) : (
-                                        <dl className="mt-3 flex flex-wrap gap-x-5 gap-y-2 text-xs">
-                                            {Object.entries(e.data).map(
-                                                ([k, v]) => (
-                                                    <div key={k}>
-                                                        <dt className="text-muted-foreground">
-                                                            {k}
-                                                        </dt>
-                                                        <dd className="mt-1 break-words">
-                                                            {typeof v ===
-                                                            'object'
-                                                                ? JSON.stringify(
-                                                                      v,
-                                                                  )
-                                                                : typeof v ===
-                                                                    'string'
-                                                                  ? v
-                                                                  : JSON.stringify(
-                                                                        v,
-                                                                    )}
-                                                        </dd>
-                                                    </div>
-                                                ),
-                                            )}
-                                        </dl>
+                                        <EvidenceFields data={e.data} />
                                     )}
                                 </article>
                             ))}

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 
 type Activity = {
     event_id: string;
@@ -40,7 +40,7 @@ function flush() {
             Accept: 'application/json',
             'X-XSRF-TOKEN': decodeURIComponent(csrf ?? ''),
         },
-        body: JSON.stringify({ consent: true, events }),
+        body: JSON.stringify({ events }),
     })
         .then((r) => {
             if (!r.ok && r.status >= 500) pending.unshift(...events);
@@ -48,17 +48,8 @@ function flush() {
         .catch(() => pending.unshift(...events));
 }
 export function useActivity(caseId?: number) {
-    const [consent, setConsent] = useState(
-        () =>
-            typeof window !== 'undefined' &&
-            localStorage.getItem('byecode-analytics') === 'yes',
-    );
     useEffect(() => {
-        allowed = consent;
-        if (!consent) {
-            pending = [];
-            return;
-        }
+        allowed = true;
         track('ui.session_started', {}, caseId);
         const visible = new Set<string>();
         let last = performance.now();
@@ -124,13 +115,7 @@ export function useActivity(caseId?: number) {
             window.removeEventListener('pointermove', interact);
             window.removeEventListener('scroll', scroll);
             flush();
+            allowed = false;
         };
-    }, [consent, caseId]);
-    return {
-        consent,
-        choose: (yes: boolean) => {
-            localStorage.setItem('byecode-analytics', yes ? 'yes' : 'no');
-            setConsent(yes);
-        },
-    };
+    }, [caseId]);
 }

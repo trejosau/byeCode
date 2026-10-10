@@ -1,0 +1,19 @@
+{
+    "key": "operational-demo-v1",
+    "version": "1.0.0",
+    "seed": 20261010,
+    "customers": 12,
+    "crm": 10,
+    "cases": 34,
+    "closed": 22,
+    "open": 12,
+    "quotes": 46,
+    "drafts": 2,
+    "formalized": 17,
+    "payments": 27,
+    "sales": 50,
+    "styles": 6,
+    "products": 36,
+    "attachments": 6,
+    "messages": 149
+}

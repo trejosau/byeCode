@@ -64,7 +64,7 @@ final class DecisionValidator
         if ($action === 'request_information' && ! array_intersect($candidate['missing_information'], ['size_breakdown', 'customer_requirements'])) {
             throw new InvalidArgumentException('El faltante no corresponde al comprador.');
         }
-        if (in_array($action, RuleEngine::CONTACT, true) && array_intersect($candidate['missing_information'], ['stock_confirmation', 'delivery_confirmation', 'authorization', 'commercial_terms', 'quotation_details'])) {
+        if (in_array($action, RuleEngine::CONTACT, true) && array_intersect($candidate['missing_information'], ['delivery_confirmation', 'authorization', 'commercial_terms', 'quotation_details'])) {
             throw new InvalidArgumentException('Una condición interna sin verificar necesita revisión interna.');
         }
         if ($s['metrics']['messages'] === 0 && ($action === 'contact' || $action === 'resolve_objection' || $candidate['timing'] === 'immediate')) {

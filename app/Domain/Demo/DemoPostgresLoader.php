@@ -43,9 +43,9 @@ final class DemoPostgresLoader
             if ($preflight['installed']) {
                 return app(DemoIntegrityAudit::class)->verify($preflight['run_id']);
             }
-            $existing = DB::table('demo_runs')->where('key', DemoScenarioLoader::KEY)->first();
+            $existing = DB::table('demo_runs')->where('key', $loader->version)->first();
             $runId = $existing->id ?? (string) Str::uuid();
-            $run = ['id' => $runId, 'key' => DemoScenarioLoader::KEY, 'version' => '1.0.0', 'seed' => 20261010,
+            $run = ['id' => $runId, 'key' => $loader->version, 'version' => '1.0.0', 'seed' => 20261010,
                 'reference_at' => $existing->reference_at ?? CarbonImmutable::now('UTC')->startOfMinute()->toDateTimeString(),
                 'loaded_at' => now()->toDateTimeString(), 'manifest_hash' => $loader->hash(), 'status' => 'loading', 'semantic_policy' => 'rules_only',
                 'created_at' => $existing->created_at ?? now()->toDateTimeString(), 'updated_at' => now()->toDateTimeString()];

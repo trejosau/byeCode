@@ -42,6 +42,8 @@ class CustomerJourney
     /** @param array<string, mixed> $input */
     public function submit(User $buyer, array $input, ?User $seller = null): CommercialCase
     {
+        $input['lines'] = app(CatalogSelection::class)->validate($input['lines'], false);
+
         return DB::transaction(function () use ($buyer, $input, $seller) {
             $buyer = User::whereKey($buyer->id)->lockForUpdate()->firstOrFail();
             abort_unless($buyer->role === 'customer', 403);
@@ -62,6 +64,7 @@ class CustomerJourney
                 $lines[] = ['product_id' => $product->id, 'sku' => $product->sku, 'name' => $product->name,
                     'fit' => $product->fit, 'gsm' => $product->gsm, 'composition' => $product->composition,
                     'color' => $product->color, 'size' => $product->size, 'quantity' => (int) $line['quantity'],
+                    'color_code' => $product->details['color_code'] ?? null, 'images' => $product->details['images'] ?? [],
                     'below_moq' => $product->moq !== null && $line['quantity'] < $product->moq];
             }
             $customer = Customer::firstOrCreate(['account_id' => $buyer->id], ['user_id' => $owner->id,

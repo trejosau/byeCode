@@ -1,6 +1,11 @@
 import { Link, router, useForm } from '@inertiajs/react';
 import { useEffect, useState } from 'react';
-import { Journey, Errors, inputClass } from '@/components/byecode/journey';
+import {
+    Journey,
+    Errors,
+    inputClass,
+    type CatalogImage,
+} from '@/components/byecode/journey';
 import { Button } from '@/components/ui/button';
 import { track, useActivity } from '@/hooks/use-activity';
 import { money } from '@/lib/byecode';
@@ -11,6 +16,8 @@ type Line = {
     fit: string;
     color: string;
     size: string;
+    gsm?: number;
+    images?: CatalogImage[];
     quantity: number;
     unit_price_cents: number;
     total_cents: number;
@@ -63,7 +70,14 @@ export default function QuotePage({
         conditions: string | null;
         lines: { line_id: string; quantity: number }[];
     }[];
-    requestLines: { sku: string; name: string; quantity: number }[];
+    requestLines: {
+        product_id: number;
+        sku: string;
+        name: string;
+        color: string;
+        size: string;
+        quantity: number;
+    }[];
     requestMessage: string | null;
     desiredDate: string | null;
     commerce: boolean;
@@ -72,7 +86,7 @@ export default function QuotePage({
     const [selected, setSelected] = useState(quotes[0]?.version ?? 0);
     const quote = quotes.find((q) => q.version === selected) ?? quotes[0];
     const [comparison, setComparison] = useState(false);
-    const activity = useActivity(current.id);
+    useActivity(current.id);
     const message = useForm({
         event_id: crypto.randomUUID(),
         body: '',
@@ -157,14 +171,6 @@ export default function QuotePage({
                         </Button>
                     </>
                 )}
-                <Button
-                    variant="outline"
-                    onClick={() => activity.choose(!activity.consent)}
-                >
-                    {activity.consent
-                        ? 'Desactivar analítica de navegación'
-                        : 'Permitir analítica de navegación'}
-                </Button>
             </div>
             <div className="grid items-start gap-7 lg:grid-cols-[3fr_2fr]">
                 <section className="min-w-0 space-y-6" data-section="proposal">
@@ -178,8 +184,9 @@ export default function QuotePage({
                                 Puedes conversar desde ahora.
                             </p>
                             {requestLines.map((l) => (
-                                <p key={l.sku}>
-                                    {l.name} · {l.sku} · {l.quantity} unidades
+                                <p key={l.product_id}>
+                                    {l.name} · {l.color} · {l.size} ·{' '}
+                                    {l.quantity} unidades
                                 </p>
                             ))}
                         </div>
@@ -276,10 +283,24 @@ export default function QuotePage({
                                                 className="border-t"
                                             >
                                                 <td className="p-4">
+                                                    {l.images?.[0] && (
+                                                        <img
+                                                            src={
+                                                                l.images[0].path
+                                                            }
+                                                            alt={
+                                                                l.images[0].alt
+                                                            }
+                                                            className="mb-2 h-20 w-16 rounded-md bg-[#e7e7e4] object-contain"
+                                                        />
+                                                    )}
                                                     {l.name}
                                                     <p className="text-muted-foreground">
-                                                        {l.sku} · {l.fit} ·{' '}
-                                                        {l.color} · {l.size}
+                                                        {l.gsm
+                                                            ? `${l.gsm} g/m² · `
+                                                            : ''}
+                                                        {l.fit} · {l.color} ·{' '}
+                                                        {l.size}
                                                     </p>
                                                 </td>
                                                 <td className="p-4">
@@ -387,11 +408,11 @@ export default function QuotePage({
                                                 key={l.line_id}
                                                 className="flex items-center justify-between gap-4"
                                             >
-                                                {l.sku}
+                                                {l.name} · {l.color} · {l.size}
                                                 <input
                                                     aria-label={
                                                         'Unidades aceptadas ' +
-                                                        l.sku
+                                                        l.name
                                                     }
                                                     type="number"
                                                     min="0"
@@ -749,7 +770,7 @@ export default function QuotePage({
                                         {d.lines
                                             .map(
                                                 (line) =>
-                                                    `${quotes.find((version) => version.version === d.quote_version)?.lines.find((item) => item.line_id === line.line_id)?.sku ?? line.line_id}: ${line.quantity} unidades`,
+                                                    `${quotes.find((version) => version.version === d.quote_version)?.lines.find((item) => item.line_id === line.line_id)?.name ?? line.line_id}: ${line.quantity} unidades`,
                                             )
                                             .join(' · ')}
                                     </p>

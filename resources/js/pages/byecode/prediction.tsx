@@ -146,7 +146,7 @@ export default function Prediction({ runs }: { runs: Run[] }) {
                                         {date(run.created_at)} ·{' '}
                                         {run.data_kind === 'real'
                                             ? 'Historial declarado real'
-                                            : 'Prueba sintética'}
+                                            : 'Evaluación no comercial'}
                                     </p>
                                 </CardHeader>
                                 <CardContent className="space-y-5">
@@ -360,7 +360,7 @@ export default function Prediction({ runs }: { runs: Run[] }) {
                                     </SelectTrigger>
                                     <SelectContent>
                                         <SelectItem value="synthetic">
-                                            Datos sintéticos
+                                            Datos de evaluación
                                         </SelectItem>
                                         <SelectItem value="real">
                                             Historial real autorizado
@@ -410,7 +410,7 @@ export default function Prediction({ runs }: { runs: Run[] }) {
                             </p>
                             <p>
                                 Un entrenamiento nuevo reemplaza la elegibilidad
-                                del anterior. Los datos sintéticos nunca
+                                del anterior. Los datos de evaluación nunca
                                 habilitan estimaciones reales. Estas pruebas no
                                 sustituyen validación prospectiva.
                             </p>

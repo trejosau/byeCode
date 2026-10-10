@@ -24,7 +24,6 @@ use Illuminate\Support\Facades\DB;
  * @property ?string $size
  * @property ?int $unit_price_cents
  * @property ?int $moq
- * @property ?int $stock
  * @property ?Carbon $verified_at
  * @property ?string $source
  * @property ?Carbon $created_at
@@ -50,6 +49,6 @@ class Product extends Model
      */
     protected function casts(): array
     {
-        return ['details' => 'array', 'published' => 'boolean', 'gsm' => 'integer', 'unit_price_cents' => 'integer', 'moq' => 'integer', 'stock' => 'integer', 'verified_at' => 'immutable_datetime'];
+        return ['details' => 'array', 'published' => 'boolean', 'gsm' => 'integer', 'unit_price_cents' => 'integer', 'moq' => 'integer', 'verified_at' => 'immutable_datetime'];
     }
 }

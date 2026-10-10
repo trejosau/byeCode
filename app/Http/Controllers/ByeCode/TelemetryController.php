@@ -22,7 +22,7 @@ class TelemetryController
 
     public function store(Request $request): Response
     {
-        $data = $request->validate(['consent' => 'accepted', 'events' => 'required|array|max:50', 'events.*.event_id' => 'required|uuid',
+        $data = $request->validate(['events' => 'required|array|max:50', 'events.*.event_id' => 'required|uuid',
             'events.*.type' => ['required', Rule::in(self::TYPES)], 'events.*.case_id' => 'nullable|integer',
             'events.*.data' => 'present|array:section,product_id,quantity,version,duration_ms,depth,query,filter,element',
             'events.*.data.section' => 'nullable|string|max:80', 'events.*.data.element' => 'nullable|string|max:80',

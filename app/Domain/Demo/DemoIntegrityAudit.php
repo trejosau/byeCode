@@ -30,7 +30,7 @@ final class DemoIntegrityAudit
             'facts' => DB::table('profile_facts')->whereIn('customer_id', $customers->pluck('id'))->count(),
             'activities' => DB::table('activity_events')->whereIn('commercial_case_id', $ids)->count()];
         $errors = [];
-        if ($run->manifest_hash !== app(DemoScenarioLoader::class)->hash()) {
+        if ($run->manifest_hash !== app(DemoScenarioLoader::class)->forVersion($run->key)->hash()) {
             $errors[] = 'El manifiesto no corresponde a la carga instalada.';
         }
         foreach (['users', 'customers', 'commercial_cases', 'quote_versions', 'sale_records', 'chat_messages', 'profile_facts'] as $table) {
@@ -40,7 +40,7 @@ final class DemoIntegrityAudit
             }
         }
         if ($initial) {
-            foreach (app(DemoScenarioLoader::class)->fixture('manifest.json') as $key => $value) {
+            foreach (app(DemoScenarioLoader::class)->forVersion($run->key)->fixture('manifest.json') as $key => $value) {
                 if (array_key_exists($key, $counts) && $counts[$key] !== $value) {
                     $errors[] = "Conteo $key: {$counts[$key]}, esperado $value.";
                 }

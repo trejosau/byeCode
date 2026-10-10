@@ -104,7 +104,7 @@ final class EvaluationService
                         $r['evidence']);
                     $decision['confidence'] = 'medium';
                     $decision['requires_human_review'] = true;
-                    $decision['missing_information'] = [$case->demo_run_id ? 'Análisis semántico de demostración deshabilitado; sin llamadas facturables.' : 'Interpretación semántica pendiente: configure OPENAI_API_KEY.'];
+                    $decision['missing_information'] = [$case->demo_run_id ? 'Análisis no habilitado para este registro.' : 'Interpretación semántica pendiente: configure OPENAI_API_KEY.'];
                     $source = 'rules_contingency';
                 } else {
                     $this->fail($evaluation, $case->demo_run_id ? 'demo_ai_disabled' : 'missing_api_key', 'blocked');
@@ -248,7 +248,7 @@ final class EvaluationService
     private function fail(Evaluation $evaluation, string $code, string $status = 'failed'): void
     {
         $messages = [
-            'demo_ai_disabled' => 'Escenario de demostración: interpretación semántica deshabilitada. Puedes continuar cotizando y registrar decisiones; no se simula una respuesta de IA.',
+            'demo_ai_disabled' => 'Análisis no habilitado para este registro. Puedes continuar cotizando y registrar decisiones.',
             'missing_api_key' => 'Falta OPENAI_API_KEY. El caso necesita interpretación; no se inventó una recomendación.',
             'incomplete_history' => 'Historial incompleto o conflictivo. Revise la importación y cargue un conjunto corregido.',
             'budget_exhausted' => 'Se alcanzó el límite preventivo de consumo. La IA está pausada hasta liberar presupuesto.',

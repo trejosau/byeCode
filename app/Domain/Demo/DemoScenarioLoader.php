@@ -2,6 +2,7 @@
 
 namespace App\Domain\Demo;
 
+use App\Domain\Cases\CatalogManifest;
 use App\Domain\Cases\CatalogService;
 use App\Domain\Cases\ConversationService;
 use App\Domain\Cases\CustomerJourney;
@@ -18,6 +19,7 @@ use App\Models\Recommendation;
 use App\Models\User;
 use Carbon\Carbon;
 use Carbon\CarbonImmutable;
+use Database\Seeders\ProductCatalogSeeder;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
@@ -29,7 +31,20 @@ use RuntimeException;
 
 final class DemoScenarioLoader
 {
-    public const KEY = 'operational-demo-v1';
+    public const KEY = 'operational-demo-v2';
+
+    public string $version = self::KEY;
+
+    public function forVersion(string $version): self
+    {
+        if (! in_array($version, ['operational-demo-v1', 'operational-demo-v2'], true)) {
+            throw new RuntimeException('Versión desconocida.');
+        }
+        $copy = clone $this;
+        $copy->version = $version;
+
+        return $copy;
+    }
 
     /** @var array<string, User> */
     private array $accounts = [];
@@ -58,12 +73,16 @@ final class DemoScenarioLoader
 
     public function fixturePath(string $name): string
     {
-        return database_path('seeders/fixtures/'.self::KEY.'/'.$name);
+        return database_path('seeders/fixtures/'.$this->version.'/'.$name);
     }
 
     /** @return array<mixed> */
     public function fixture(string $name): array
     {
+        if ($name === 'catalog.json' && $this->version === self::KEY) {
+            return app(CatalogManifest::class)->styles();
+        }
+
         return json_decode((string) file_get_contents($this->fixturePath($name)), true, 512, JSON_THROW_ON_ERROR);
     }
 
@@ -76,6 +95,9 @@ final class DemoScenarioLoader
                 $hashes[str_replace('\\', '/', substr($file->getPathname(), strlen($this->fixturePath(''))))] = hash_file('sha256', $file->getPathname());
             }
         }
+        if ($this->version === self::KEY) {
+            $hashes['catalog-v2'] = app(CatalogManifest::class)->hash();
+        }
         ksort($hashes);
 
         return hash('sha256', json_encode($hashes, JSON_THROW_ON_ERROR));
@@ -85,7 +107,7 @@ final class DemoScenarioLoader
     public function preflight(): array
     {
         DemoPolicy::requireLoadingEnabled();
-        $run = DB::table('demo_runs')->where('key', self::KEY)->first();
+        $run = DB::table('demo_runs')->where('key', $this->version)->first();
         if ($run && $run->manifest_hash !== $this->hash()) {
             throw new RuntimeException('El manifiesto difiere de la ejecución existente. No se sobrescribirá.');
         }
@@ -141,10 +163,10 @@ final class DemoScenarioLoader
             if ($preflight['installed']) {
                 return app(DemoIntegrityAudit::class)->verify($preflight['run_id']);
             }
-            $existing = DB::table('demo_runs')->where('key', self::KEY)->first();
+            $existing = DB::table('demo_runs')->where('key', $this->version)->first();
             $this->runId = $existing ? $existing->id : (string) Str::uuid();
             $this->reference = $existing ? CarbonImmutable::parse($existing->reference_at, 'UTC') : CarbonImmutable::now('UTC')->startOfMinute();
-            DB::table('demo_runs')->updateOrInsert(['id' => $this->runId], ['key' => self::KEY, 'version' => '1.0.0', 'seed' => 20261010,
+            DB::table('demo_runs')->updateOrInsert(['id' => $this->runId], ['key' => $this->version, 'version' => '1.0.0', 'seed' => 20261010,
                 'reference_at' => $this->reference, 'loaded_at' => now(), 'manifest_hash' => $this->hash(), 'status' => 'loading',
                 'semantic_policy' => 'rules_only', 'created_at' => $existing->created_at ?? now(), 'updated_at' => now()]);
             $context->loading = true;
@@ -210,6 +232,21 @@ final class DemoScenarioLoader
 
     private function createCatalog(): void
     {
+        if ($this->version === self::KEY) {
+            $products = app(ProductCatalogSeeder::class)->seedFor($this->sellers['jorge']);
+            foreach ($this->fixture('catalog.json') as $style) {
+                $this->catalog[$style['key']] = $style;
+                foreach ($style['variants'] as $variant) {
+                    $product = $products[$variant['sku']];
+                    $this->products[$variant['legacy_sku']] = $product;
+                    $this->remember('products', $product->id, 'product.'.$variant['sku']);
+                }
+                $first = $products[$style['variants'][0]['sku']];
+                $this->remember('product_styles', $first->style_id, 'style.'.$style['key']);
+            }
+
+            return;
+        }
         foreach ($this->fixture('catalog.json') as $style) {
             $this->catalog[$style['key']] = $style;
             $service = app(CatalogService::class);
@@ -220,16 +257,36 @@ final class DemoScenarioLoader
                 foreach ($style['sizes'] as $size) {
                     $sku = 'DEMO-'.$style['key'].'-'.($color === 'Negro' ? 'NEG' : 'NAT').'-'.$size;
                     $service->variant($this->sellers['jorge'], ['style_id' => $id, 'sku' => $sku, 'fit' => $style['fit'], 'color' => $color, 'size' => $size,
-                        'composition' => $style['composition'], 'gsm' => $style['gsm'], 'moq' => $style['moq'], 'stock' => $style['stock'],
+                        'composition' => $style['composition'], 'gsm' => $style['gsm'], 'moq' => $style['moq'],
                         'source' => 'Observación sintética del catálogo de demostración', 'published' => true,
                         'details' => ['color_code' => $color === 'Negro' ? '#171717' : '#eee9dc', 'measurements' => 'Pecho/largo en plano: S 50/68, M 53/71, L 56/74 cm.',
-                            'tolerance' => '±1.5 cm; confirmar muestra.', 'availability' => $style['stock'] === null ? 'Por confirmar' : 'Existencia observada; no es reserva.']]);
+                            'tolerance' => '±1.5 cm; confirmar muestra.']]);
                     $product = Product::where('sku', $sku)->firstOrFail();
                     $this->products[$sku] = $product;
                     $this->remember('products', $product->id, 'product.'.$sku);
                 }
             }
         }
+    }
+
+    /** @param array<string, mixed> $scenario
+     * @return list<array{product_id: int, quantity: int}>
+     */
+    private function requestLines(array $scenario, Product $product): array
+    {
+        if ($this->version !== self::KEY) {
+            return [['product_id' => $product->id, 'quantity' => $scenario['quantity']]];
+        }
+        $variants = array_values(array_filter($this->products, fn ($p) => $p->style_id === $product->style_id));
+        $lines = [];
+        foreach ($variants as $index => $variant) {
+            $quantity = intdiv($scenario['quantity'], count($variants)) + ($index < $scenario['quantity'] % count($variants) ? 1 : 0);
+            if ($quantity > 0) {
+                $lines[] = ['product_id' => $variant->id, 'quantity' => $quantity];
+            }
+        }
+
+        return $lines;
     }
 
     /** @param array<string, mixed> $operation */
@@ -242,7 +299,7 @@ final class DemoScenarioLoader
         $product = $this->products['DEMO-'.$scenario['style'].'-NEG-M'];
         if ($operation['kind'] === 'request') {
             $case = app(CustomerJourney::class)->submit($buyer, ['submission_id' => $id,
-                'company' => $this->people[$scenario['customer']]['company'], 'lines' => [['product_id' => $product->id, 'quantity' => $scenario['quantity']]]]);
+                'company' => $this->people[$scenario['customer']]['company'], 'lines' => $this->requestLines($scenario, $product)]);
             $case->update(['title' => $scenario['title'], 'assigned_to' => $operation['case'] === 'A02' ? null : $seller->id]);
             $this->caseIds[$scenario['key']] = $case->id;
             $this->remember('commercial_cases', $case->id, $scenario['key']);
@@ -277,7 +334,7 @@ final class DemoScenarioLoader
                 $amount = $fraction === 70 ? $total - intdiv($total * 30, 100) : intdiv($total * $fraction, 100);
                 $conversations->result($seller, $case, ['event_id' => $id, 'kind' => $operation['result'],
                     'amount' => isset($operation['fraction']) ? $this->money($amount) : null, 'close' => $operation['close'],
-                    'reference' => 'DEMO-'.strtoupper($operation['key']).' · registro sintético del escenario; sin transacción bancaria.', 'occurred_at' => now()->toIso8601String()]);
+                    'reference' => 'REF-'.strtoupper($operation['key']), 'occurred_at' => now()->toIso8601String()]);
                 break;
             case 'constraint':
                 $data = array_key_exists('contact_allowed', $operation) ? ['contact_allowed' => $operation['contact_allowed']] : ['contact_not_before' => $this->reference->addMinutes($operation['contact_not_before_minutes'])->toIso8601ZuluString()];
@@ -337,13 +394,10 @@ final class DemoScenarioLoader
 
         return ['customer_id' => $case->customer_id, 'title' => $scenario['title'], 'expected_revision' => $case->revision,
             'valid_until' => now()->addDays($days)->setTimezone('America/Mexico_City')->format('Y-m-d'),
-            'terms' => 'Precios de demostración en MXN. '.($version > 1 ? 'Esta versión incorpora un ajuste de precio autorizado; conserva las cantidades solicitadas. ' : '').'Abastecimiento sujeto a confirmación operativa. Aceptar no registra pagos ni cierre.',
-            'authorization_reference' => 'DEMO-AUT-'.$scenario['key'].'-V'.$version,
+            'terms' => 'Precios en MXN. '.($version > 1 ? 'Esta versión incorpora un ajuste de precio autorizado; conserva las cantidades solicitadas. ' : '').'Entrega sujeta a fecha acordada. Aceptar no registra pagos ni cierre.',
+            'authorization_reference' => 'AUT-'.$scenario['key'].'-V'.$version,
             'tax' => $this->money(intdiv($subtotal * 16 + 50, 100)), 'shipping' => '150.00', 'discount' => '0.00',
-            'lines' => [['product_id' => $product->id, 'quantity' => $quantity, 'unit_price' => $this->money($unit), 'supply_mode' => $scenario['supply'],
-                'stock_units' => match ($scenario['supply']) {
-                    'stock' => $quantity, 'mixed' => intdiv($quantity, 2), default => 0
-                }]]];
+            'lines' => array_map(fn ($line) => [...$line, 'unit_price' => $this->money($unit)], $this->requestLines($scenario, $product))];
     }
 
     private function evaluate(CommercialCase $case, bool $review): void

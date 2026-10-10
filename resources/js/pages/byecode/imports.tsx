@@ -60,7 +60,7 @@ export default function Imports({
     return (
         <WorkspacePage
             title="Simulador e importaciones"
-            description="Reproduce decisiones con datos sintéticos y un reloj controlado. Cada ejecución conserva su propio historial."
+            description="Reproduce decisiones con datos de evaluación y un reloj controlado. Cada ejecución conserva su propio historial."
             actions={
                 <Button
                     disabled={load.processing}
@@ -101,7 +101,7 @@ export default function Imports({
                                         >
                                             {s.integrity_blocked
                                                 ? 'Historial en revisión'
-                                                : 'Kit sintético'}
+                                                : 'Importación'}
                                         </Badge>
                                     </div>
                                     <CardDescription>

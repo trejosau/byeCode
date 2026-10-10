@@ -1,0 +1,3169 @@
+{
+    "cases": [
+        {
+            "key": "H01",
+            "customer": "marina",
+            "seller": "jorge",
+            "title": "Lumbre Estudio · pedido 1 · Playera regular",
+            "versions": 3,
+            "outcome": "accepted",
+            "quantity": 36,
+            "style": "REG"
+        },
+        {
+            "key": "H02",
+            "customer": "marina",
+            "seller": "jorge",
+            "title": "Lumbre Estudio · pedido 2 · Playera oversize",
+            "versions": 3,
+            "outcome": "accepted",
+            "quantity": 48,
+            "style": "OVR"
+        },
+        {
+            "key": "H03",
+            "customer": "marina",
+            "seller": "jorge",
+            "title": "Lumbre Estudio · pedido 3 · Playera pesada",
+            "versions": 2,
+            "outcome": "rejected",
+            "quantity": 60,
+            "style": "HVE"
+        },
+        {
+            "key": "H04",
+            "customer": "diego",
+            "seller": "dani",
+            "title": "Ruta Básica · pedido 1 · Manga larga",
+            "versions": 2,
+            "outcome": "accepted",
+            "quantity": 72,
+            "style": "LNG"
+        },
+        {
+            "key": "H05",
+            "customer": "diego",
+            "seller": "dani",
+            "title": "Ruta Básica · pedido 2 · Sudadera sin capucha",
+            "versions": 2,
+            "outcome": "accepted",
+            "quantity": 24,
+            "style": "CRW"
+        },
+        {
+            "key": "H06",
+            "customer": "diego",
+            "seller": "dani",
+            "title": "Ruta Básica · pedido 3 · Sudadera con capucha",
+            "versions": 2,
+            "outcome": "accepted",
+            "quantity": 36,
+            "style": "HOD"
+        },
+        {
+            "key": "H07",
+            "customer": "valeria",
+            "seller": "jesus",
+            "title": "Aula Norte · pedido 1 · Playera regular",
+            "versions": 2,
+            "outcome": "accepted",
+            "quantity": 48,
+            "style": "REG"
+        },
+        {
+            "key": "H08",
+            "customer": "valeria",
+            "seller": "jesus",
+            "title": "Aula Norte · pedido 2 · Playera oversize",
+            "versions": 2,
+            "outcome": "cancelled",
+            "quantity": 60,
+            "style": "OVR"
+        },
+        {
+            "key": "H09",
+            "customer": "rodrigo",
+            "seller": "sau",
+            "title": "Foro Naranja · pedido 1 · Playera pesada",
+            "versions": 1,
+            "outcome": "rejected",
+            "quantity": 72,
+            "style": "HVE"
+        },
+        {
+            "key": "H10",
+            "customer": "camila",
+            "seller": "jorge",
+            "title": "Tinta Clara · pedido 1 · Manga larga",
+            "versions": 1,
+            "outcome": "accepted",
+            "quantity": 24,
+            "style": "LNG"
+        },
+        {
+            "key": "H11",
+            "customer": "camila",
+            "seller": "jorge",
+            "title": "Tinta Clara · pedido 2 · Sudadera sin capucha",
+            "versions": 1,
+            "outcome": "rejected",
+            "quantity": 36,
+            "style": "CRW"
+        },
+        {
+            "key": "H12",
+            "customer": "andres",
+            "seller": "dani",
+            "title": "Suministros Prado · pedido 1 · Sudadera con capucha",
+            "versions": 1,
+            "outcome": "accepted",
+            "quantity": 48,
+            "style": "HOD"
+        },
+        {
+            "key": "H13",
+            "customer": "andres",
+            "seller": "dani",
+            "title": "Suministros Prado · pedido 2 · Playera regular",
+            "versions": 1,
+            "outcome": "accepted",
+            "quantity": 60,
+            "style": "REG"
+        },
+        {
+            "key": "H14",
+            "customer": "andres",
+            "seller": "dani",
+            "title": "Suministros Prado · pedido 3 · Playera oversize",
+            "versions": 1,
+            "outcome": "accepted",
+            "quantity": 72,
+            "style": "OVR"
+        },
+        {
+            "key": "H15",
+            "customer": "andres",
+            "seller": "dani",
+            "title": "Suministros Prado · pedido 4 · Playera pesada",
+            "versions": 1,
+            "outcome": "accepted",
+            "quantity": 24,
+            "style": "HVE"
+        },
+        {
+            "key": "H16",
+            "customer": "paula",
+            "seller": "sau",
+            "title": "Casa Laurel · pedido 1 · Manga larga",
+            "versions": 1,
+            "outcome": "accepted",
+            "quantity": 36,
+            "style": "LNG"
+        },
+        {
+            "key": "H17",
+            "customer": "paula",
+            "seller": "sau",
+            "title": "Casa Laurel · pedido 2 · Sudadera sin capucha",
+            "versions": 1,
+            "outcome": "cancelled",
+            "quantity": 48,
+            "style": "CRW"
+        },
+        {
+            "key": "H18",
+            "customer": "ricardo",
+            "seller": "jorge",
+            "title": "Taller Vértice · pedido 1 · Sudadera con capucha",
+            "versions": 1,
+            "outcome": "accepted",
+            "quantity": 60,
+            "style": "HOD"
+        },
+        {
+            "key": "H19",
+            "customer": "ricardo",
+            "seller": "jorge",
+            "title": "Taller Vértice · pedido 2 · Playera regular",
+            "versions": 1,
+            "outcome": "accepted",
+            "quantity": 72,
+            "style": "REG"
+        },
+        {
+            "key": "H20",
+            "customer": "elena",
+            "seller": "dani",
+            "title": "Colectivo Sur · pedido 1 · Playera oversize",
+            "versions": 1,
+            "outcome": "accepted",
+            "quantity": 24,
+            "style": "OVR"
+        },
+        {
+            "key": "H21",
+            "customer": "mateo",
+            "seller": "jesus",
+            "title": "Punto Nube · pedido 1 · Playera pesada",
+            "versions": 1,
+            "outcome": "accepted",
+            "quantity": 36,
+            "style": "HVE"
+        },
+        {
+            "key": "H22",
+            "customer": "mateo",
+            "seller": "jesus",
+            "title": "Punto Nube · pedido 2 · Manga larga",
+            "versions": 1,
+            "outcome": "rejected",
+            "quantity": 48,
+            "style": "LNG"
+        },
+        {
+            "key": "A01",
+            "customer": "marina",
+            "seller": "jorge",
+            "title": "Lumbre Estudio · partial · Playera regular",
+            "versions": 2,
+            "outcome": "open",
+            "quantity": 36,
+            "style": "REG"
+        },
+        {
+            "key": "A02",
+            "customer": "marina",
+            "seller": "jorge",
+            "title": "Lumbre Estudio · request · Playera oversize",
+            "versions": 0,
+            "outcome": "open",
+            "quantity": 48,
+            "style": "OVR"
+        },
+        {
+            "key": "A03",
+            "customer": "diego",
+            "seller": "dani",
+            "title": "Ruta Básica · deposit · Playera pesada",
+            "versions": 1,
+            "outcome": "open",
+            "quantity": 60,
+            "style": "HVE"
+        },
+        {
+            "key": "A04",
+            "customer": "valeria",
+            "seller": "jesus",
+            "title": "Aula Norte · date · Manga larga",
+            "versions": 2,
+            "outcome": "open",
+            "quantity": 120,
+            "style": "LNG"
+        },
+        {
+            "key": "A05",
+            "customer": "rodrigo",
+            "seller": "sau",
+            "title": "Foro Naranja · draft · Sudadera sin capucha",
+            "versions": 0,
+            "outcome": "open",
+            "quantity": 6,
+            "style": "CRW"
+        },
+        {
+            "key": "A06",
+            "customer": "camila",
+            "seller": "jorge",
+            "title": "Tinta Clara · change · Sudadera con capucha",
+            "versions": 2,
+            "outcome": "open",
+            "quantity": 36,
+            "style": "HOD"
+        },
+        {
+            "key": "A07",
+            "customer": "andres",
+            "seller": "dani",
+            "title": "Suministros Prado · refusal · Playera regular",
+            "versions": 1,
+            "outcome": "open",
+            "quantity": 72,
+            "style": "REG"
+        },
+        {
+            "key": "A08",
+            "customer": "andres",
+            "seller": "jesus",
+            "title": "Suministros Prado · withdrawn · Playera oversize",
+            "versions": 1,
+            "outcome": "open",
+            "quantity": 96,
+            "style": "OVR"
+        },
+        {
+            "key": "A09",
+            "customer": "paula",
+            "seller": "sau",
+            "title": "Casa Laurel · views · Playera pesada",
+            "versions": 1,
+            "outcome": "open",
+            "quantity": 24,
+            "style": "HVE"
+        },
+        {
+            "key": "A10",
+            "customer": "ricardo",
+            "seller": "jorge",
+            "title": "Taller Vértice · pause · Manga larga",
+            "versions": 1,
+            "outcome": "open",
+            "quantity": 48,
+            "style": "LNG"
+        },
+        {
+            "key": "A11",
+            "customer": "elena",
+            "seller": "dani",
+            "title": "Colectivo Sur · expired · Sudadera con capucha",
+            "versions": 1,
+            "outcome": "open",
+            "quantity": 24,
+            "style": "HOD"
+        },
+        {
+            "key": "A12",
+            "customer": "mateo",
+            "seller": "jesus",
+            "title": "Punto Nube · reply · Sudadera con capucha",
+            "versions": 2,
+            "outcome": "open",
+            "quantity": 60,
+            "style": "HOD"
+        }
+    ],
+    "operations": [
+        {
+            "key": "H01.request",
+            "case": "H01",
+            "offset_minutes": -374400,
+            "kind": "request"
+        },
+        {
+            "key": "H01.quote.1",
+            "case": "H01",
+            "offset_minutes": -372960,
+            "kind": "quote",
+            "version": 1,
+            "valid_days": 14
+        },
+        {
+            "key": "H01.message.1",
+            "case": "H01",
+            "offset_minutes": -372840,
+            "kind": "message",
+            "sender": "buyer",
+            "body": "Tengo una marca propia y trabajo por mi cuenta. Decido las compras directamente por colección. Necesito calidad y flexibilidad en cantidades; primero apruebo una muestra. Una segunda colección dependerá de esa aprobación.",
+            "attachment": "referencia-1.png"
+        },
+        {
+            "key": "H01.profile",
+            "case": "H01",
+            "offset_minutes": -372839,
+            "kind": "profile",
+            "evidence": "H01.message.1"
+        },
+        {
+            "key": "H01.message.2",
+            "case": "H01",
+            "offset_minutes": -372780,
+            "kind": "message",
+            "sender": "seller",
+            "body": "La propuesta detalla 36 unidades de Playera regular, sus tallas y condiciones. Revisaremos cualquier cambio en una versión nueva, sin alterar la publicada.",
+            "attachment": null
+        },
+        {
+            "key": "H01.quote.2",
+            "case": "H01",
+            "offset_minutes": -371520,
+            "kind": "quote",
+            "version": 2,
+            "valid_days": 14
+        },
+        {
+            "key": "H01.message.3",
+            "case": "H01",
+            "offset_minutes": -371400,
+            "kind": "message",
+            "sender": "buyer",
+            "body": "La distribución solicitada es de 36 piezas en talla M. Por favor conserva esa cantidad; las condiciones se confirman sobre la última versión.",
+            "attachment": null
+        },
+        {
+            "key": "H01.quote.3",
+            "case": "H01",
+            "offset_minutes": -370080,
+            "kind": "quote",
+            "version": 3,
+            "valid_days": 14
+        },
+        {
+            "key": "H01.message.4",
+            "case": "H01",
+            "offset_minutes": -369900,
+            "kind": "message",
+            "sender": "seller",
+            "body": "La versión vigente conserva la cantidad y documenta el condiciones comerciales. El precio y la vigencia son los de esa versión; la aprobación no constituye todavía un pago.",
+            "attachment": null
+        },
+        {
+            "key": "H01.message.5",
+            "case": "H01",
+            "offset_minutes": -368520,
+            "kind": "message",
+            "sender": "buyer",
+            "body": "Confirmo la propuesta vigente y sus cantidades. Podemos pasar a la formalización con la referencia del pedido.",
+            "attachment": null
+        },
+        {
+            "key": "H01.decision",
+            "case": "H01",
+            "offset_minutes": -368510,
+            "kind": "decision",
+            "decision": "accept"
+        },
+        {
+            "key": "H01.formalized",
+            "case": "H01",
+            "offset_minutes": -367200,
+            "kind": "result",
+            "result": "formalized",
+            "fraction": 100,
+            "close": false
+        },
+        {
+            "key": "H01.deposit",
+            "case": "H01",
+            "offset_minutes": -364320,
+            "kind": "result",
+            "result": "payment",
+            "fraction": 30,
+            "close": false
+        },
+        {
+            "key": "H01.balance",
+            "case": "H01",
+            "offset_minutes": -360000,
+            "kind": "result",
+            "result": "payment",
+            "fraction": 70,
+            "close": true
+        },
+        {
+            "key": "H01.final-evaluation",
+            "case": "H01",
+            "offset_minutes": -359940,
+            "kind": "evaluate"
+        },
+        {
+            "case": "H01",
+            "key": "marina.collection",
+            "offset_minutes": -359880,
+            "kind": "fact",
+            "name": "coleccion.muestra",
+            "scope": "coleccion_segunda",
+            "value": "Pendiente de aprobación",
+            "nature": "confirmed",
+            "evidence": "H01.message.1"
+        },
+        {
+            "key": "H02.request",
+            "case": "H02",
+            "offset_minutes": -358560,
+            "kind": "request"
+        },
+        {
+            "key": "H02.quote.1",
+            "case": "H02",
+            "offset_minutes": -357120,
+            "kind": "quote",
+            "version": 1,
+            "valid_days": 14
+        },
+        {
+            "key": "H02.message.1",
+            "case": "H02",
+            "offset_minutes": -357000,
+            "kind": "message",
+            "sender": "buyer",
+            "body": "Es una reposición de 48 prendas de Playera oversize. Mantengamos las medidas de la ficha; confirmaré la versión final antes de formalizar.",
+            "attachment": "referencia-2.png"
+        },
+        {
+            "key": "H02.message.2",
+            "case": "H02",
+            "offset_minutes": -356940,
+            "kind": "message",
+            "sender": "seller",
+            "body": "La propuesta detalla 48 unidades de Playera oversize, sus tallas y condiciones. Revisaremos cualquier cambio en una versión nueva, sin alterar la publicada.",
+            "attachment": null
+        },
+        {
+            "key": "H02.quote.2",
+            "case": "H02",
+            "offset_minutes": -355680,
+            "kind": "quote",
+            "version": 2,
+            "valid_days": 14
+        },
+        {
+            "key": "H02.message.3",
+            "case": "H02",
+            "offset_minutes": -355560,
+            "kind": "message",
+            "sender": "buyer",
+            "body": "La distribución solicitada es de 48 piezas en talla M. Por favor conserva esa cantidad; las condiciones se confirman sobre la última versión.",
+            "attachment": null
+        },
+        {
+            "key": "H02.quote.3",
+            "case": "H02",
+            "offset_minutes": -354240,
+            "kind": "quote",
+            "version": 3,
+            "valid_days": 14
+        },
+        {
+            "key": "H02.message.4",
+            "case": "H02",
+            "offset_minutes": -354060,
+            "kind": "message",
+            "sender": "seller",
+            "body": "La versión vigente conserva la cantidad y documenta el condiciones comerciales. El precio y la vigencia son los de esa versión; la aprobación no constituye todavía un pago.",
+            "attachment": null
+        },
+        {
+            "key": "H02.message.5",
+            "case": "H02",
+            "offset_minutes": -352680,
+            "kind": "message",
+            "sender": "buyer",
+            "body": "Confirmo la propuesta vigente y sus cantidades. Podemos pasar a la formalización con la referencia del pedido.",
+            "attachment": null
+        },
+        {
+            "key": "H02.decision",
+            "case": "H02",
+            "offset_minutes": -352670,
+            "kind": "decision",
+            "decision": "accept"
+        },
+        {
+            "key": "H02.formalized",
+            "case": "H02",
+            "offset_minutes": -351360,
+            "kind": "result",
+            "result": "formalized",
+            "fraction": 100,
+            "close": false
+        },
+        {
+            "key": "H02.deposit",
+            "case": "H02",
+            "offset_minutes": -348480,
+            "kind": "result",
+            "result": "payment",
+            "fraction": 30,
+            "close": false
+        },
+        {
+            "key": "H02.balance",
+            "case": "H02",
+            "offset_minutes": -344160,
+            "kind": "result",
+            "result": "payment",
+            "fraction": 70,
+            "close": true
+        },
+        {
+            "key": "H02.final-evaluation",
+            "case": "H02",
+            "offset_minutes": -344100,
+            "kind": "evaluate"
+        },
+        {
+            "key": "H03.request",
+            "case": "H03",
+            "offset_minutes": -342720,
+            "kind": "request"
+        },
+        {
+            "key": "H03.quote.1",
+            "case": "H03",
+            "offset_minutes": -341280,
+            "kind": "quote",
+            "version": 1,
+            "valid_days": 14
+        },
+        {
+            "key": "H03.message.1",
+            "case": "H03",
+            "offset_minutes": -341160,
+            "kind": "message",
+            "sender": "buyer",
+            "body": "Es una reposición de 60 prendas de Playera pesada. Mantengamos las medidas de la ficha; confirmaré la versión final antes de formalizar.",
+            "attachment": "referencia-3.png"
+        },
+        {
+            "key": "H03.message.2",
+            "case": "H03",
+            "offset_minutes": -341100,
+            "kind": "message",
+            "sender": "seller",
+            "body": "La propuesta detalla 60 unidades de Playera pesada, sus tallas y condiciones. Revisaremos cualquier cambio en una versión nueva, sin alterar la publicada.",
+            "attachment": null
+        },
+        {
+            "key": "H03.quote.2",
+            "case": "H03",
+            "offset_minutes": -339840,
+            "kind": "quote",
+            "version": 2,
+            "valid_days": 14
+        },
+        {
+            "key": "H03.message.3",
+            "case": "H03",
+            "offset_minutes": -339720,
+            "kind": "message",
+            "sender": "buyer",
+            "body": "La distribución solicitada es de 60 piezas en talla M. Por favor conserva esa cantidad; las condiciones se confirman sobre la última versión.",
+            "attachment": null
+        },
+        {
+            "key": "H03.message.4",
+            "case": "H03",
+            "offset_minutes": -338220,
+            "kind": "message",
+            "sender": "seller",
+            "body": "La versión vigente conserva la cantidad y documenta el condiciones comerciales. El precio y la vigencia son los de esa versión; la aprobación no constituye todavía un pago.",
+            "attachment": null
+        },
+        {
+            "key": "H03.message.5",
+            "case": "H03",
+            "offset_minutes": -336840,
+            "kind": "message",
+            "sender": "buyer",
+            "body": "No aceptamos esta propuesta; el presupuesto autorizado no alcanza para este pedido.",
+            "attachment": null
+        },
+        {
+            "key": "H03.decision",
+            "case": "H03",
+            "offset_minutes": -336830,
+            "kind": "decision",
+            "decision": "reject"
+        },
+        {
+            "key": "H03.closed",
+            "case": "H03",
+            "offset_minutes": -335520,
+            "kind": "result",
+            "result": "rejected",
+            "close": true
+        },
+        {
+            "key": "H03.final-evaluation",
+            "case": "H03",
+            "offset_minutes": -328260,
+            "kind": "evaluate"
+        },
+        {
+            "key": "H04.request",
+            "case": "H04",
+            "offset_minutes": -326880,
+            "kind": "request"
+        },
+        {
+            "key": "H04.quote.1",
+            "case": "H04",
+            "offset_minutes": -325440,
+            "kind": "quote",
+            "version": 1,
+            "valid_days": 14
+        },
+        {
+            "key": "H04.message.1",
+            "case": "H04",
+            "offset_minutes": -325320,
+            "kind": "message",
+            "sender": "buyer",
+            "body": "Revendo prendas con mi equipo en una sola tienda. Decido directamente y hacemos reposiciones recurrentes. Priorizamos precio y continuidad. Necesito cada prenda en bolsa individual; podríamos ampliar colores si mantenemos las medidas y el empaque.",
+            "attachment": "referencia-4.png"
+        },
+        {
+            "key": "H04.profile",
+            "case": "H04",
+            "offset_minutes": -325319,
+            "kind": "profile",
+            "evidence": "H04.message.1"
+        },
+        {
+            "key": "H04.message.2",
+            "case": "H04",
+            "offset_minutes": -325260,
+            "kind": "message",
+            "sender": "seller",
+            "body": "La propuesta detalla 72 unidades de Manga larga, sus tallas y condiciones. Revisaremos cualquier cambio en una versión nueva, sin alterar la publicada.",
+            "attachment": null
+        },
+        {
+            "key": "H04.quote.2",
+            "case": "H04",
+            "offset_minutes": -324000,
+            "kind": "quote",
+            "version": 2,
+            "valid_days": 14
+        },
+        {
+            "key": "H04.message.3",
+            "case": "H04",
+            "offset_minutes": -323880,
+            "kind": "message",
+            "sender": "buyer",
+            "body": "La distribución solicitada es de 72 piezas en talla M. Por favor conserva esa cantidad; las condiciones se confirman sobre la última versión.",
+            "attachment": null
+        },
+        {
+            "key": "H04.message.4",
+            "case": "H04",
+            "offset_minutes": -322380,
+            "kind": "message",
+            "sender": "seller",
+            "body": "La versión vigente conserva la cantidad y documenta el condiciones comerciales. El precio y la vigencia son los de esa versión; la aprobación no constituye todavía un pago.",
+            "attachment": null
+        },
+        {
+            "key": "H04.message.5",
+            "case": "H04",
+            "offset_minutes": -321000,
+            "kind": "message",
+            "sender": "buyer",
+            "body": "Confirmo la propuesta vigente y sus cantidades. Podemos pasar a la formalización con la referencia del pedido.",
+            "attachment": null
+        },
+        {
+            "key": "H04.decision",
+            "case": "H04",
+            "offset_minutes": -320990,
+            "kind": "decision",
+            "decision": "accept"
+        },
+        {
+            "key": "H04.formalized",
+            "case": "H04",
+            "offset_minutes": -319680,
+            "kind": "result",
+            "result": "formalized",
+            "fraction": 100,
+            "close": false
+        },
+        {
+            "key": "H04.deposit",
+            "case": "H04",
+            "offset_minutes": -316800,
+            "kind": "result",
+            "result": "payment",
+            "fraction": 30,
+            "close": false
+        },
+        {
+            "key": "H04.balance",
+            "case": "H04",
+            "offset_minutes": -312480,
+            "kind": "result",
+            "result": "payment",
+            "fraction": 70,
+            "close": true
+        },
+        {
+            "key": "H04.final-evaluation",
+            "case": "H04",
+            "offset_minutes": -312420,
+            "kind": "evaluate"
+        },
+        {
+            "key": "H05.request",
+            "case": "H05",
+            "offset_minutes": -311040,
+            "kind": "request"
+        },
+        {
+            "key": "H05.quote.1",
+            "case": "H05",
+            "offset_minutes": -309600,
+            "kind": "quote",
+            "version": 1,
+            "valid_days": 14
+        },
+        {
+            "key": "H05.message.1",
+            "case": "H05",
+            "offset_minutes": -309480,
+            "kind": "message",
+            "sender": "buyer",
+            "body": "Es una reposición de 24 prendas de Sudadera sin capucha. Mantengamos las medidas de la ficha; confirmaré la versión final antes de formalizar.",
+            "attachment": "referencia-5.png"
+        },
+        {
+            "key": "H05.message.2",
+            "case": "H05",
+            "offset_minutes": -309420,
+            "kind": "message",
+            "sender": "seller",
+            "body": "La propuesta detalla 24 unidades de Sudadera sin capucha, sus tallas y condiciones. Revisaremos cualquier cambio en una versión nueva, sin alterar la publicada.",
+            "attachment": null
+        },
+        {
+            "key": "H05.quote.2",
+            "case": "H05",
+            "offset_minutes": -308160,
+            "kind": "quote",
+            "version": 2,
+            "valid_days": 14
+        },
+        {
+            "key": "H05.message.3",
+            "case": "H05",
+            "offset_minutes": -308040,
+            "kind": "message",
+            "sender": "buyer",
+            "body": "La distribución solicitada es de 24 piezas en talla M. Por favor conserva esa cantidad; las condiciones se confirman sobre la última versión.",
+            "attachment": null
+        },
+        {
+            "key": "H05.message.4",
+            "case": "H05",
+            "offset_minutes": -306540,
+            "kind": "message",
+            "sender": "seller",
+            "body": "La versión vigente conserva la cantidad y documenta el condiciones comerciales. El precio y la vigencia son los de esa versión; la aprobación no constituye todavía un pago.",
+            "attachment": null
+        },
+        {
+            "key": "H05.message.5",
+            "case": "H05",
+            "offset_minutes": -305160,
+            "kind": "message",
+            "sender": "buyer",
+            "body": "Confirmo la propuesta vigente y sus cantidades. Podemos pasar a la formalización con la referencia del pedido.",
+            "attachment": null
+        },
+        {
+            "key": "H05.decision",
+            "case": "H05",
+            "offset_minutes": -305150,
+            "kind": "decision",
+            "decision": "accept"
+        },
+        {
+            "key": "H05.formalized",
+            "case": "H05",
+            "offset_minutes": -303840,
+            "kind": "result",
+            "result": "formalized",
+            "fraction": 100,
+            "close": false
+        },
+        {
+            "key": "H05.deposit",
+            "case": "H05",
+            "offset_minutes": -300960,
+            "kind": "result",
+            "result": "payment",
+            "fraction": 30,
+            "close": false
+        },
+        {
+            "key": "H05.balance",
+            "case": "H05",
+            "offset_minutes": -296640,
+            "kind": "result",
+            "result": "payment",
+            "fraction": 70,
+            "close": true
+        },
+        {
+            "key": "H05.final-evaluation",
+            "case": "H05",
+            "offset_minutes": -296580,
+            "kind": "evaluate"
+        },
+        {
+            "key": "H06.request",
+            "case": "H06",
+            "offset_minutes": -295200,
+            "kind": "request"
+        },
+        {
+            "key": "H06.quote.1",
+            "case": "H06",
+            "offset_minutes": -293760,
+            "kind": "quote",
+            "version": 1,
+            "valid_days": 14
+        },
+        {
+            "key": "H06.message.1",
+            "case": "H06",
+            "offset_minutes": -293640,
+            "kind": "message",
+            "sender": "buyer",
+            "body": "Es una reposición de 36 prendas de Sudadera con capucha. Mantengamos las medidas de la ficha; confirmaré la versión final antes de formalizar.",
+            "attachment": "referencia-6.png"
+        },
+        {
+            "key": "H06.message.2",
+            "case": "H06",
+            "offset_minutes": -293580,
+            "kind": "message",
+            "sender": "seller",
+            "body": "La propuesta detalla 36 unidades de Sudadera con capucha, sus tallas y condiciones. Revisaremos cualquier cambio en una versión nueva, sin alterar la publicada.",
+            "attachment": null
+        },
+        {
+            "key": "H06.quote.2",
+            "case": "H06",
+            "offset_minutes": -292320,
+            "kind": "quote",
+            "version": 2,
+            "valid_days": 14
+        },
+        {
+            "key": "H06.message.3",
+            "case": "H06",
+            "offset_minutes": -292200,
+            "kind": "message",
+            "sender": "buyer",
+            "body": "La distribución solicitada es de 36 piezas en talla M. Por favor conserva esa cantidad; las condiciones se confirman sobre la última versión.",
+            "attachment": null
+        },
+        {
+            "key": "H06.message.4",
+            "case": "H06",
+            "offset_minutes": -290700,
+            "kind": "message",
+            "sender": "seller",
+            "body": "La versión vigente conserva la cantidad y documenta el condiciones comerciales. El precio y la vigencia son los de esa versión; la aprobación no constituye todavía un pago.",
+            "attachment": null
+        },
+        {
+            "key": "H06.message.5",
+            "case": "H06",
+            "offset_minutes": -289320,
+            "kind": "message",
+            "sender": "buyer",
+            "body": "Confirmo la propuesta vigente y sus cantidades. Podemos pasar a la formalización con la referencia del pedido.",
+            "attachment": null
+        },
+        {
+            "key": "H06.decision",
+            "case": "H06",
+            "offset_minutes": -289310,
+            "kind": "decision",
+            "decision": "accept"
+        },
+        {
+            "key": "H06.formalized",
+            "case": "H06",
+            "offset_minutes": -288000,
+            "kind": "result",
+            "result": "formalized",
+            "fraction": 100,
+            "close": false
+        },
+        {
+            "key": "H06.deposit",
+            "case": "H06",
+            "offset_minutes": -285120,
+            "kind": "result",
+            "result": "payment",
+            "fraction": 30,
+            "close": false
+        },
+        {
+            "key": "H06.balance",
+            "case": "H06",
+            "offset_minutes": -280800,
+            "kind": "result",
+            "result": "payment",
+            "fraction": 70,
+            "close": true
+        },
+        {
+            "key": "H06.final-evaluation",
+            "case": "H06",
+            "offset_minutes": -280740,
+            "kind": "evaluate"
+        },
+        {
+            "key": "H07.request",
+            "case": "H07",
+            "offset_minutes": -279360,
+            "kind": "request"
+        },
+        {
+            "key": "H07.quote.1",
+            "case": "H07",
+            "offset_minutes": -277920,
+            "kind": "quote",
+            "version": 1,
+            "valid_days": 14
+        },
+        {
+            "key": "H07.message.1",
+            "case": "H07",
+            "offset_minutes": -277800,
+            "kind": "message",
+            "sender": "buyer",
+            "body": "Compramos uniformes para varias sedes por campaña. Primero aprueba coordinación y después dirección. Priorizamos fecha y calidad; necesitamos orden de compra y entregas por sede. Una nueva sede depende del presupuesto.",
+            "attachment": null
+        },
+        {
+            "key": "H07.profile",
+            "case": "H07",
+            "offset_minutes": -277799,
+            "kind": "profile",
+            "evidence": "H07.message.1"
+        },
+        {
+            "key": "H07.message.2",
+            "case": "H07",
+            "offset_minutes": -277740,
+            "kind": "message",
+            "sender": "seller",
+            "body": "La propuesta detalla 48 unidades de Playera regular, sus tallas y condiciones. Revisaremos cualquier cambio en una versión nueva, sin alterar la publicada.",
+            "attachment": null
+        },
+        {
+            "key": "H07.quote.2",
+            "case": "H07",
+            "offset_minutes": -276480,
+            "kind": "quote",
+            "version": 2,
+            "valid_days": 14
+        },
+        {
+            "key": "H07.message.3",
+            "case": "H07",
+            "offset_minutes": -276360,
+            "kind": "message",
+            "sender": "buyer",
+            "body": "La distribución solicitada es de 48 piezas en talla M. Por favor conserva esa cantidad; las condiciones se confirman sobre la última versión.",
+            "attachment": null
+        },
+        {
+            "key": "H07.message.4",
+            "case": "H07",
+            "offset_minutes": -274860,
+            "kind": "message",
+            "sender": "seller",
+            "body": "La versión vigente conserva la cantidad y documenta el condiciones comerciales. El precio y la vigencia son los de esa versión; la aprobación no constituye todavía un pago.",
+            "attachment": null
+        },
+        {
+            "key": "H07.message.5",
+            "case": "H07",
+            "offset_minutes": -273480,
+            "kind": "message",
+            "sender": "buyer",
+            "body": "Confirmo la propuesta vigente y sus cantidades. Podemos pasar a la formalización con la referencia del pedido.",
+            "attachment": null
+        },
+        {
+            "key": "H07.decision",
+            "case": "H07",
+            "offset_minutes": -273470,
+            "kind": "decision",
+            "decision": "accept"
+        },
+        {
+            "key": "H07.formalized",
+            "case": "H07",
+            "offset_minutes": -272160,
+            "kind": "result",
+            "result": "formalized",
+            "fraction": 100,
+            "close": false
+        },
+        {
+            "key": "H07.deposit",
+            "case": "H07",
+            "offset_minutes": -269280,
+            "kind": "result",
+            "result": "payment",
+            "fraction": 30,
+            "close": false
+        },
+        {
+            "key": "H07.balance",
+            "case": "H07",
+            "offset_minutes": -264960,
+            "kind": "result",
+            "result": "payment",
+            "fraction": 70,
+            "close": true
+        },
+        {
+            "key": "H07.final-evaluation",
+            "case": "H07",
+            "offset_minutes": -264900,
+            "kind": "evaluate"
+        },
+        {
+            "key": "H08.request",
+            "case": "H08",
+            "offset_minutes": -263520,
+            "kind": "request"
+        },
+        {
+            "key": "H08.quote.1",
+            "case": "H08",
+            "offset_minutes": -262080,
+            "kind": "quote",
+            "version": 1,
+            "valid_days": 14
+        },
+        {
+            "key": "H08.message.1",
+            "case": "H08",
+            "offset_minutes": -261960,
+            "kind": "message",
+            "sender": "buyer",
+            "body": "Es una reposición de 60 prendas de Playera oversize. Mantengamos las medidas de la ficha; confirmaré la versión final antes de formalizar.",
+            "attachment": null
+        },
+        {
+            "key": "H08.message.2",
+            "case": "H08",
+            "offset_minutes": -261900,
+            "kind": "message",
+            "sender": "seller",
+            "body": "La propuesta detalla 60 unidades de Playera oversize, sus tallas y condiciones. Revisaremos cualquier cambio en una versión nueva, sin alterar la publicada.",
+            "attachment": null
+        },
+        {
+            "key": "H08.quote.2",
+            "case": "H08",
+            "offset_minutes": -260640,
+            "kind": "quote",
+            "version": 2,
+            "valid_days": 14
+        },
+        {
+            "key": "H08.message.3",
+            "case": "H08",
+            "offset_minutes": -260520,
+            "kind": "message",
+            "sender": "buyer",
+            "body": "La distribución solicitada es de 60 piezas en talla M. Por favor conserva esa cantidad; las condiciones se confirman sobre la última versión.",
+            "attachment": null
+        },
+        {
+            "key": "H08.message.4",
+            "case": "H08",
+            "offset_minutes": -259020,
+            "kind": "message",
+            "sender": "seller",
+            "body": "La versión vigente conserva la cantidad y documenta el condiciones comerciales. El precio y la vigencia son los de esa versión; la aprobación no constituye todavía un pago.",
+            "attachment": null
+        },
+        {
+            "key": "H08.message.5",
+            "case": "H08",
+            "offset_minutes": -257640,
+            "kind": "message",
+            "sender": "buyer",
+            "body": "El proyecto fue cancelado antes de formalizar. No realizamos ningún pago; solicito registrar la cancelación.",
+            "attachment": null
+        },
+        {
+            "key": "H08.closed",
+            "case": "H08",
+            "offset_minutes": -256320,
+            "kind": "result",
+            "result": "cancelled",
+            "close": true
+        },
+        {
+            "key": "H08.final-evaluation",
+            "case": "H08",
+            "offset_minutes": -249060,
+            "kind": "evaluate"
+        },
+        {
+            "key": "H09.request",
+            "case": "H09",
+            "offset_minutes": -247680,
+            "kind": "request"
+        },
+        {
+            "key": "H09.quote.1",
+            "case": "H09",
+            "offset_minutes": -246240,
+            "kind": "quote",
+            "version": 1,
+            "valid_days": 14
+        },
+        {
+            "key": "H09.message.1",
+            "case": "H09",
+            "offset_minutes": -246120,
+            "kind": "message",
+            "sender": "buyer",
+            "body": "Organizo este evento con mi equipo en una sede. Esta compra es puntual y yo decido. Me importa la fecha y la personalización. Todavía no tengo confirmados otros requisitos ni compras futuras.",
+            "attachment": null
+        },
+        {
+            "key": "H09.profile",
+            "case": "H09",
+            "offset_minutes": -246119,
+            "kind": "profile",
+            "evidence": "H09.message.1"
+        },
+        {
+            "key": "H09.message.2",
+            "case": "H09",
+            "offset_minutes": -246060,
+            "kind": "message",
+            "sender": "seller",
+            "body": "La propuesta detalla 72 unidades de Playera pesada, sus tallas y condiciones. Revisaremos cualquier cambio en una versión nueva, sin alterar la publicada.",
+            "attachment": null
+        },
+        {
+            "key": "H09.message.3",
+            "case": "H09",
+            "offset_minutes": -244680,
+            "kind": "message",
+            "sender": "buyer",
+            "body": "La distribución solicitada es de 72 piezas en talla M. Por favor conserva esa cantidad; las condiciones se confirman sobre la última versión.",
+            "attachment": null
+        },
+        {
+            "key": "H09.message.4",
+            "case": "H09",
+            "offset_minutes": -243180,
+            "kind": "message",
+            "sender": "seller",
+            "body": "La versión vigente conserva la cantidad y documenta el condiciones comerciales. El precio y la vigencia son los de esa versión; la aprobación no constituye todavía un pago.",
+            "attachment": null
+        },
+        {
+            "key": "H09.message.5",
+            "case": "H09",
+            "offset_minutes": -241800,
+            "kind": "message",
+            "sender": "buyer",
+            "body": "No aceptamos esta propuesta; el presupuesto autorizado no alcanza para este pedido.",
+            "attachment": null
+        },
+        {
+            "key": "H09.decision",
+            "case": "H09",
+            "offset_minutes": -241790,
+            "kind": "decision",
+            "decision": "reject"
+        },
+        {
+            "key": "H09.closed",
+            "case": "H09",
+            "offset_minutes": -240480,
+            "kind": "result",
+            "result": "rejected",
+            "close": true
+        },
+        {
+            "key": "H09.final-evaluation",
+            "case": "H09",
+            "offset_minutes": -233220,
+            "kind": "evaluate"
+        },
+        {
+            "key": "H10.request",
+            "case": "H10",
+            "offset_minutes": -231840,
+            "kind": "request"
+        },
+        {
+            "key": "H10.quote.1",
+            "case": "H10",
+            "offset_minutes": -230400,
+            "kind": "quote",
+            "version": 1,
+            "valid_days": 14
+        },
+        {
+            "key": "H10.message.1",
+            "case": "H10",
+            "offset_minutes": -230280,
+            "kind": "message",
+            "sender": "buyer",
+            "body": "Tengo una marca propia y trabajo individualmente. Compro por temporada, decido directamente y busco calidad y personalización. Primero reviso muestras. Queremos validar una colección de invierno mediante muestras. Estamos evaluando un fit oversize, pero no es una preferencia confirmada.",
+            "attachment": null
+        },
+        {
+            "key": "H10.profile",
+            "case": "H10",
+            "offset_minutes": -230279,
+            "kind": "profile",
+            "evidence": "H10.message.1"
+        },
+        {
+            "case": "H10",
+            "key": "camila.hypothesis",
+            "offset_minutes": -230278,
+            "kind": "fact",
+            "name": "fit_preferido",
+            "scope": "cliente",
+            "value": "Oversize",
+            "nature": "inferred",
+            "evidence": "H10.message.1"
+        },
+        {
+            "key": "H10.message.2",
+            "case": "H10",
+            "offset_minutes": -230220,
+            "kind": "message",
+            "sender": "seller",
+            "body": "La propuesta detalla 24 unidades de Manga larga, sus tallas y condiciones. Revisaremos cualquier cambio en una versión nueva, sin alterar la publicada.",
+            "attachment": null
+        },
+        {
+            "key": "H10.message.3",
+            "case": "H10",
+            "offset_minutes": -228840,
+            "kind": "message",
+            "sender": "buyer",
+            "body": "La distribución solicitada es de 24 piezas en talla M. Por favor conserva esa cantidad; las condiciones se confirman sobre la última versión.",
+            "attachment": null
+        },
+        {
+            "key": "H10.message.4",
+            "case": "H10",
+            "offset_minutes": -227340,
+            "kind": "message",
+            "sender": "seller",
+            "body": "La versión vigente conserva la cantidad y documenta el condiciones comerciales. El precio y la vigencia son los de esa versión; la aprobación no constituye todavía un pago.",
+            "attachment": null
+        },
+        {
+            "key": "H10.message.5",
+            "case": "H10",
+            "offset_minutes": -225960,
+            "kind": "message",
+            "sender": "buyer",
+            "body": "Confirmo la propuesta vigente y sus cantidades. Podemos pasar a la formalización con la referencia del pedido.",
+            "attachment": null
+        },
+        {
+            "key": "H10.decision",
+            "case": "H10",
+            "offset_minutes": -225950,
+            "kind": "decision",
+            "decision": "accept"
+        },
+        {
+            "case": "H10",
+            "key": "camila.correction-message",
+            "offset_minutes": -225940,
+            "kind": "message",
+            "sender": "buyer",
+            "body": "Corrección de preferencia: el fit definitivo de esta colección será Regular. Oversize era solo una opción que evaluamos."
+        },
+        {
+            "case": "H10",
+            "key": "camila.correction",
+            "offset_minutes": -225939,
+            "kind": "fact",
+            "name": "fit_preferido",
+            "scope": "cliente",
+            "value": "Regular",
+            "nature": "confirmed",
+            "evidence": "camila.correction-message"
+        },
+        {
+            "case": "H10",
+            "key": "camila.conflict",
+            "offset_minutes": -225938,
+            "kind": "fact",
+            "name": "fit_preferido",
+            "scope": "cliente",
+            "value": "Oversize",
+            "nature": "inferred",
+            "evidence": "H10.message.1"
+        },
+        {
+            "key": "H10.formalized",
+            "case": "H10",
+            "offset_minutes": -224640,
+            "kind": "result",
+            "result": "formalized",
+            "fraction": 100,
+            "close": false
+        },
+        {
+            "key": "H10.deposit",
+            "case": "H10",
+            "offset_minutes": -221760,
+            "kind": "result",
+            "result": "payment",
+            "fraction": 30,
+            "close": false
+        },
+        {
+            "key": "H10.balance",
+            "case": "H10",
+            "offset_minutes": -217440,
+            "kind": "result",
+            "result": "payment",
+            "fraction": 70,
+            "close": true
+        },
+        {
+            "key": "H10.final-evaluation",
+            "case": "H10",
+            "offset_minutes": -217380,
+            "kind": "evaluate"
+        },
+        {
+            "key": "H11.request",
+            "case": "H11",
+            "offset_minutes": -216000,
+            "kind": "request"
+        },
+        {
+            "key": "H11.quote.1",
+            "case": "H11",
+            "offset_minutes": -214560,
+            "kind": "quote",
+            "version": 1,
+            "valid_days": 14
+        },
+        {
+            "key": "H11.message.1",
+            "case": "H11",
+            "offset_minutes": -214440,
+            "kind": "message",
+            "sender": "buyer",
+            "body": "Es una reposición de 36 prendas de Sudadera sin capucha. Mantengamos las medidas de la ficha; confirmaré la versión final antes de formalizar.",
+            "attachment": null
+        },
+        {
+            "key": "H11.message.2",
+            "case": "H11",
+            "offset_minutes": -214380,
+            "kind": "message",
+            "sender": "seller",
+            "body": "La propuesta detalla 36 unidades de Sudadera sin capucha, sus tallas y condiciones. Revisaremos cualquier cambio en una versión nueva, sin alterar la publicada.",
+            "attachment": null
+        },
+        {
+            "key": "H11.message.3",
+            "case": "H11",
+            "offset_minutes": -213000,
+            "kind": "message",
+            "sender": "buyer",
+            "body": "La distribución solicitada es de 36 piezas en talla M. Por favor conserva esa cantidad; las condiciones se confirman sobre la última versión.",
+            "attachment": null
+        },
+        {
+            "key": "H11.message.4",
+            "case": "H11",
+            "offset_minutes": -211500,
+            "kind": "message",
+            "sender": "seller",
+            "body": "La versión vigente conserva la cantidad y documenta el condiciones comerciales. El precio y la vigencia son los de esa versión; la aprobación no constituye todavía un pago.",
+            "attachment": null
+        },
+        {
+            "key": "H11.message.5",
+            "case": "H11",
+            "offset_minutes": -210120,
+            "kind": "message",
+            "sender": "buyer",
+            "body": "No aceptamos esta propuesta; el presupuesto autorizado no alcanza para este pedido.",
+            "attachment": null
+        },
+        {
+            "key": "H11.decision",
+            "case": "H11",
+            "offset_minutes": -210110,
+            "kind": "decision",
+            "decision": "reject"
+        },
+        {
+            "key": "H11.closed",
+            "case": "H11",
+            "offset_minutes": -208800,
+            "kind": "result",
+            "result": "rejected",
+            "close": true
+        },
+        {
+            "key": "H11.final-evaluation",
+            "case": "H11",
+            "offset_minutes": -201540,
+            "kind": "evaluate"
+        },
+        {
+            "key": "H12.request",
+            "case": "H12",
+            "offset_minutes": -200160,
+            "kind": "request"
+        },
+        {
+            "key": "H12.quote.1",
+            "case": "H12",
+            "offset_minutes": -198720,
+            "kind": "quote",
+            "version": 1,
+            "valid_days": 14
+        },
+        {
+            "key": "H12.message.1",
+            "case": "H12",
+            "offset_minutes": -198600,
+            "kind": "message",
+            "sender": "buyer",
+            "body": "Distribuimos a varias sedes mediante un programa de condiciones comerciales. El área de compras emite órdenes y coordina el calendario. Buscamos continuidad y precio. Un programa trimestral depende de cada orden aprobada.",
+            "attachment": null
+        },
+        {
+            "key": "H12.profile",
+            "case": "H12",
+            "offset_minutes": -198599,
+            "kind": "profile",
+            "evidence": "H12.message.1"
+        },
+        {
+            "key": "H12.message.2",
+            "case": "H12",
+            "offset_minutes": -198540,
+            "kind": "message",
+            "sender": "seller",
+            "body": "La propuesta detalla 48 unidades de Sudadera con capucha, sus tallas y condiciones. Revisaremos cualquier cambio en una versión nueva, sin alterar la publicada.",
+            "attachment": null
+        },
+        {
+            "key": "H12.message.3",
+            "case": "H12",
+            "offset_minutes": -197160,
+            "kind": "message",
+            "sender": "buyer",
+            "body": "La distribución solicitada es de 48 piezas en talla M. Por favor conserva esa cantidad; las condiciones se confirman sobre la última versión.",
+            "attachment": null
+        },
+        {
+            "key": "H12.message.4",
+            "case": "H12",
+            "offset_minutes": -195660,
+            "kind": "message",
+            "sender": "seller",
+            "body": "La versión vigente conserva la cantidad y documenta el condiciones comerciales. El precio y la vigencia son los de esa versión; la aprobación no constituye todavía un pago.",
+            "attachment": null
+        },
+        {
+            "key": "H12.message.5",
+            "case": "H12",
+            "offset_minutes": -194280,
+            "kind": "message",
+            "sender": "buyer",
+            "body": "Confirmo la propuesta vigente y sus cantidades. Podemos pasar a la formalización con la referencia del pedido.",
+            "attachment": null
+        },
+        {
+            "key": "H12.decision",
+            "case": "H12",
+            "offset_minutes": -194270,
+            "kind": "decision",
+            "decision": "accept"
+        },
+        {
+            "key": "H12.formalized",
+            "case": "H12",
+            "offset_minutes": -192960,
+            "kind": "result",
+            "result": "formalized",
+            "fraction": 100,
+            "close": false
+        },
+        {
+            "key": "H12.deposit",
+            "case": "H12",
+            "offset_minutes": -190080,
+            "kind": "result",
+            "result": "payment",
+            "fraction": 30,
+            "close": false
+        },
+        {
+            "key": "H12.balance",
+            "case": "H12",
+            "offset_minutes": -185760,
+            "kind": "result",
+            "result": "payment",
+            "fraction": 70,
+            "close": true
+        },
+        {
+            "key": "H12.final-evaluation",
+            "case": "H12",
+            "offset_minutes": -185700,
+            "kind": "evaluate"
+        },
+        {
+            "key": "H13.request",
+            "case": "H13",
+            "offset_minutes": -184320,
+            "kind": "request"
+        },
+        {
+            "key": "H13.quote.1",
+            "case": "H13",
+            "offset_minutes": -182880,
+            "kind": "quote",
+            "version": 1,
+            "valid_days": 14
+        },
+        {
+            "key": "H13.message.1",
+            "case": "H13",
+            "offset_minutes": -182760,
+            "kind": "message",
+            "sender": "buyer",
+            "body": "Es una reposición de 60 prendas de Playera regular. Mantengamos las medidas de la ficha; confirmaré la versión final antes de formalizar.",
+            "attachment": null
+        },
+        {
+            "key": "H13.message.2",
+            "case": "H13",
+            "offset_minutes": -182700,
+            "kind": "message",
+            "sender": "seller",
+            "body": "La propuesta detalla 60 unidades de Playera regular, sus tallas y condiciones. Revisaremos cualquier cambio en una versión nueva, sin alterar la publicada.",
+            "attachment": null
+        },
+        {
+            "key": "H13.message.3",
+            "case": "H13",
+            "offset_minutes": -181320,
+            "kind": "message",
+            "sender": "buyer",
+            "body": "La distribución solicitada es de 60 piezas en talla M. Por favor conserva esa cantidad; las condiciones se confirman sobre la última versión.",
+            "attachment": null
+        },
+        {
+            "key": "H13.message.4",
+            "case": "H13",
+            "offset_minutes": -179820,
+            "kind": "message",
+            "sender": "seller",
+            "body": "La versión vigente conserva la cantidad y documenta el condiciones comerciales. El precio y la vigencia son los de esa versión; la aprobación no constituye todavía un pago.",
+            "attachment": null
+        },
+        {
+            "key": "H13.message.5",
+            "case": "H13",
+            "offset_minutes": -178440,
+            "kind": "message",
+            "sender": "buyer",
+            "body": "Confirmo la propuesta vigente y sus cantidades. Podemos pasar a la formalización con la referencia del pedido.",
+            "attachment": null
+        },
+        {
+            "key": "H13.decision",
+            "case": "H13",
+            "offset_minutes": -178430,
+            "kind": "decision",
+            "decision": "accept"
+        },
+        {
+            "key": "H13.formalized",
+            "case": "H13",
+            "offset_minutes": -177120,
+            "kind": "result",
+            "result": "formalized",
+            "fraction": 100,
+            "close": false
+        },
+        {
+            "key": "H13.deposit",
+            "case": "H13",
+            "offset_minutes": -174240,
+            "kind": "result",
+            "result": "payment",
+            "fraction": 30,
+            "close": false
+        },
+        {
+            "key": "H13.balance",
+            "case": "H13",
+            "offset_minutes": -169920,
+            "kind": "result",
+            "result": "payment",
+            "fraction": 70,
+            "close": true
+        },
+        {
+            "key": "H13.final-evaluation",
+            "case": "H13",
+            "offset_minutes": -169860,
+            "kind": "evaluate"
+        },
+        {
+            "key": "H14.request",
+            "case": "H14",
+            "offset_minutes": -168480,
+            "kind": "request"
+        },
+        {
+            "key": "H14.quote.1",
+            "case": "H14",
+            "offset_minutes": -167040,
+            "kind": "quote",
+            "version": 1,
+            "valid_days": 14
+        },
+        {
+            "key": "H14.message.1",
+            "case": "H14",
+            "offset_minutes": -166920,
+            "kind": "message",
+            "sender": "buyer",
+            "body": "Es una reposición de 72 prendas de Playera oversize. Mantengamos las medidas de la ficha; confirmaré la versión final antes de formalizar.",
+            "attachment": null
+        },
+        {
+            "key": "H14.message.2",
+            "case": "H14",
+            "offset_minutes": -166860,
+            "kind": "message",
+            "sender": "seller",
+            "body": "La propuesta detalla 72 unidades de Playera oversize, sus tallas y condiciones. Revisaremos cualquier cambio en una versión nueva, sin alterar la publicada.",
+            "attachment": null
+        },
+        {
+            "key": "H14.message.3",
+            "case": "H14",
+            "offset_minutes": -165480,
+            "kind": "message",
+            "sender": "buyer",
+            "body": "La distribución solicitada es de 72 piezas en talla M. Por favor conserva esa cantidad; las condiciones se confirman sobre la última versión.",
+            "attachment": null
+        },
+        {
+            "key": "H14.message.4",
+            "case": "H14",
+            "offset_minutes": -163980,
+            "kind": "message",
+            "sender": "seller",
+            "body": "La versión vigente conserva la cantidad y documenta el condiciones comerciales. El precio y la vigencia son los de esa versión; la aprobación no constituye todavía un pago.",
+            "attachment": null
+        },
+        {
+            "key": "H14.message.5",
+            "case": "H14",
+            "offset_minutes": -162600,
+            "kind": "message",
+            "sender": "buyer",
+            "body": "Confirmo la propuesta vigente y sus cantidades. Podemos pasar a la formalización con la referencia del pedido.",
+            "attachment": null
+        },
+        {
+            "key": "H14.decision",
+            "case": "H14",
+            "offset_minutes": -162590,
+            "kind": "decision",
+            "decision": "accept"
+        },
+        {
+            "key": "H14.formalized",
+            "case": "H14",
+            "offset_minutes": -161280,
+            "kind": "result",
+            "result": "formalized",
+            "fraction": 100,
+            "close": false
+        },
+        {
+            "key": "H14.deposit",
+            "case": "H14",
+            "offset_minutes": -158400,
+            "kind": "result",
+            "result": "payment",
+            "fraction": 30,
+            "close": false
+        },
+        {
+            "key": "H14.balance",
+            "case": "H14",
+            "offset_minutes": -154080,
+            "kind": "result",
+            "result": "payment",
+            "fraction": 70,
+            "close": true
+        },
+        {
+            "key": "H14.final-evaluation",
+            "case": "H14",
+            "offset_minutes": -154020,
+            "kind": "evaluate"
+        },
+        {
+            "key": "H15.request",
+            "case": "H15",
+            "offset_minutes": -152640,
+            "kind": "request"
+        },
+        {
+            "key": "H15.quote.1",
+            "case": "H15",
+            "offset_minutes": -151200,
+            "kind": "quote",
+            "version": 1,
+            "valid_days": 14
+        },
+        {
+            "key": "H15.message.1",
+            "case": "H15",
+            "offset_minutes": -151080,
+            "kind": "message",
+            "sender": "buyer",
+            "body": "Es una reposición de 24 prendas de Playera pesada. Mantengamos las medidas de la ficha; confirmaré la versión final antes de formalizar.",
+            "attachment": null
+        },
+        {
+            "key": "H15.message.2",
+            "case": "H15",
+            "offset_minutes": -151020,
+            "kind": "message",
+            "sender": "seller",
+            "body": "La propuesta detalla 24 unidades de Playera pesada, sus tallas y condiciones. Revisaremos cualquier cambio en una versión nueva, sin alterar la publicada.",
+            "attachment": null
+        },
+        {
+            "key": "H15.message.3",
+            "case": "H15",
+            "offset_minutes": -149640,
+            "kind": "message",
+            "sender": "buyer",
+            "body": "La distribución solicitada es de 24 piezas en talla M. Por favor conserva esa cantidad; las condiciones se confirman sobre la última versión.",
+            "attachment": null
+        },
+        {
+            "key": "H15.message.4",
+            "case": "H15",
+            "offset_minutes": -148140,
+            "kind": "message",
+            "sender": "seller",
+            "body": "La versión vigente conserva la cantidad y documenta el condiciones comerciales. El precio y la vigencia son los de esa versión; la aprobación no constituye todavía un pago.",
+            "attachment": null
+        },
+        {
+            "key": "H15.message.5",
+            "case": "H15",
+            "offset_minutes": -146760,
+            "kind": "message",
+            "sender": "buyer",
+            "body": "Confirmo la propuesta vigente y sus cantidades. Podemos pasar a la formalización con la referencia del pedido.",
+            "attachment": null
+        },
+        {
+            "key": "H15.decision",
+            "case": "H15",
+            "offset_minutes": -146750,
+            "kind": "decision",
+            "decision": "accept"
+        },
+        {
+            "key": "H15.formalized",
+            "case": "H15",
+            "offset_minutes": -145440,
+            "kind": "result",
+            "result": "formalized",
+            "fraction": 100,
+            "close": false
+        },
+        {
+            "key": "H15.paid",
+            "case": "H15",
+            "offset_minutes": -142560,
+            "kind": "result",
+            "result": "payment",
+            "fraction": 100,
+            "close": true
+        },
+        {
+            "key": "H15.final-evaluation",
+            "case": "H15",
+            "offset_minutes": -138180,
+            "kind": "evaluate"
+        },
+        {
+            "key": "H16.request",
+            "case": "H16",
+            "offset_minutes": -136800,
+            "kind": "request"
+        },
+        {
+            "key": "H16.quote.1",
+            "case": "H16",
+            "offset_minutes": -135360,
+            "kind": "quote",
+            "version": 1,
+            "valid_days": 14
+        },
+        {
+            "key": "H16.message.1",
+            "case": "H16",
+            "offset_minutes": -135240,
+            "kind": "message",
+            "sender": "buyer",
+            "body": "Somos un equipo en una sede y pedimos uniformes por temporada. Yo decido las compras. La calidad es prioritaria. No he definido requisitos adicionales o una ampliación de pedidos.",
+            "attachment": null
+        },
+        {
+            "key": "H16.profile",
+            "case": "H16",
+            "offset_minutes": -135239,
+            "kind": "profile",
+            "evidence": "H16.message.1"
+        },
+        {
+            "key": "H16.message.2",
+            "case": "H16",
+            "offset_minutes": -135180,
+            "kind": "message",
+            "sender": "seller",
+            "body": "La propuesta detalla 36 unidades de Manga larga, sus tallas y condiciones. Revisaremos cualquier cambio en una versión nueva, sin alterar la publicada.",
+            "attachment": null
+        },
+        {
+            "key": "H16.message.3",
+            "case": "H16",
+            "offset_minutes": -133800,
+            "kind": "message",
+            "sender": "buyer",
+            "body": "La distribución solicitada es de 36 piezas en talla M. Por favor conserva esa cantidad; las condiciones se confirman sobre la última versión.",
+            "attachment": null
+        },
+        {
+            "key": "H16.message.4",
+            "case": "H16",
+            "offset_minutes": -132300,
+            "kind": "message",
+            "sender": "seller",
+            "body": "La versión vigente conserva la cantidad y documenta el condiciones comerciales. El precio y la vigencia son los de esa versión; la aprobación no constituye todavía un pago.",
+            "attachment": null
+        },
+        {
+            "key": "H16.message.5",
+            "case": "H16",
+            "offset_minutes": -130920,
+            "kind": "message",
+            "sender": "buyer",
+            "body": "Confirmo la propuesta vigente y sus cantidades. Podemos pasar a la formalización con la referencia del pedido.",
+            "attachment": null
+        },
+        {
+            "key": "H16.decision",
+            "case": "H16",
+            "offset_minutes": -130910,
+            "kind": "decision",
+            "decision": "accept"
+        },
+        {
+            "case": "H16",
+            "key": "paula.requirement-message",
+            "offset_minutes": -130900,
+            "kind": "message",
+            "sender": "buyer",
+            "body": "Retiro el requisito general de muestra para las siguientes temporadas; se acordará en cada pedido si hace falta."
+        },
+        {
+            "case": "H16",
+            "key": "paula.withdraw-requirement",
+            "offset_minutes": -130899,
+            "kind": "fact",
+            "name": "commercial.service_requirements",
+            "scope": "cliente",
+            "value": null,
+            "nature": "confirmed",
+            "evidence": "paula.requirement-message"
+        },
+        {
+            "key": "H16.formalized",
+            "case": "H16",
+            "offset_minutes": -129600,
+            "kind": "result",
+            "result": "formalized",
+            "fraction": 100,
+            "close": false
+        },
+        {
+            "key": "H16.paid",
+            "case": "H16",
+            "offset_minutes": -126720,
+            "kind": "result",
+            "result": "payment",
+            "fraction": 100,
+            "close": true
+        },
+        {
+            "key": "H16.final-evaluation",
+            "case": "H16",
+            "offset_minutes": -122340,
+            "kind": "evaluate"
+        },
+        {
+            "key": "H17.request",
+            "case": "H17",
+            "offset_minutes": -120960,
+            "kind": "request"
+        },
+        {
+            "key": "H17.quote.1",
+            "case": "H17",
+            "offset_minutes": -119520,
+            "kind": "quote",
+            "version": 1,
+            "valid_days": 14
+        },
+        {
+            "key": "H17.message.1",
+            "case": "H17",
+            "offset_minutes": -119400,
+            "kind": "message",
+            "sender": "buyer",
+            "body": "Es una reposición de 48 prendas de Sudadera sin capucha. Mantengamos las medidas de la ficha; confirmaré la versión final antes de formalizar.",
+            "attachment": null
+        },
+        {
+            "key": "H17.message.2",
+            "case": "H17",
+            "offset_minutes": -119340,
+            "kind": "message",
+            "sender": "seller",
+            "body": "La propuesta detalla 48 unidades de Sudadera sin capucha, sus tallas y condiciones. Revisaremos cualquier cambio en una versión nueva, sin alterar la publicada.",
+            "attachment": null
+        },
+        {
+            "key": "H17.message.3",
+            "case": "H17",
+            "offset_minutes": -117960,
+            "kind": "message",
+            "sender": "buyer",
+            "body": "La distribución solicitada es de 48 piezas en talla M. Por favor conserva esa cantidad; las condiciones se confirman sobre la última versión.",
+            "attachment": null
+        },
+        {
+            "key": "H17.message.4",
+            "case": "H17",
+            "offset_minutes": -116460,
+            "kind": "message",
+            "sender": "seller",
+            "body": "La versión vigente conserva la cantidad y documenta el condiciones comerciales. El precio y la vigencia son los de esa versión; la aprobación no constituye todavía un pago.",
+            "attachment": null
+        },
+        {
+            "key": "H17.message.5",
+            "case": "H17",
+            "offset_minutes": -115080,
+            "kind": "message",
+            "sender": "buyer",
+            "body": "El proyecto fue cancelado antes de formalizar. No realizamos ningún pago; solicito registrar la cancelación.",
+            "attachment": null
+        },
+        {
+            "key": "H17.closed",
+            "case": "H17",
+            "offset_minutes": -113760,
+            "kind": "result",
+            "result": "cancelled",
+            "close": true
+        },
+        {
+            "key": "H17.final-evaluation",
+            "case": "H17",
+            "offset_minutes": -106500,
+            "kind": "evaluate"
+        },
+        {
+            "key": "H18.request",
+            "case": "H18",
+            "offset_minutes": -105120,
+            "kind": "request"
+        },
+        {
+            "key": "H18.quote.1",
+            "case": "H18",
+            "offset_minutes": -103680,
+            "kind": "quote",
+            "version": 1,
+            "valid_days": 14
+        },
+        {
+            "key": "H18.message.1",
+            "case": "H18",
+            "offset_minutes": -103560,
+            "kind": "message",
+            "sender": "buyer",
+            "body": "Personalizamos prendas con un equipo en un solo taller. Yo decido y reponemos regularmente. Priorizamos calidad y precio; necesitamos trazabilidad y tolerancia consistente de color antes de ampliar volumen.",
+            "attachment": null
+        },
+        {
+            "key": "H18.profile",
+            "case": "H18",
+            "offset_minutes": -103559,
+            "kind": "profile",
+            "evidence": "H18.message.1"
+        },
+        {
+            "key": "H18.message.2",
+            "case": "H18",
+            "offset_minutes": -103500,
+            "kind": "message",
+            "sender": "seller",
+            "body": "La propuesta detalla 60 unidades de Sudadera con capucha, sus tallas y condiciones. Revisaremos cualquier cambio en una versión nueva, sin alterar la publicada.",
+            "attachment": null
+        },
+        {
+            "key": "H18.message.3",
+            "case": "H18",
+            "offset_minutes": -102120,
+            "kind": "message",
+            "sender": "buyer",
+            "body": "La distribución solicitada es de 60 piezas en talla M. Por favor conserva esa cantidad; las condiciones se confirman sobre la última versión.",
+            "attachment": null
+        },
+        {
+            "key": "H18.message.4",
+            "case": "H18",
+            "offset_minutes": -100620,
+            "kind": "message",
+            "sender": "seller",
+            "body": "La versión vigente conserva la cantidad y documenta el condiciones comerciales. El precio y la vigencia son los de esa versión; la aprobación no constituye todavía un pago.",
+            "attachment": null
+        },
+        {
+            "key": "H18.message.5",
+            "case": "H18",
+            "offset_minutes": -99240,
+            "kind": "message",
+            "sender": "buyer",
+            "body": "Confirmo la propuesta vigente y sus cantidades. Podemos pasar a la formalización con la referencia del pedido.",
+            "attachment": null
+        },
+        {
+            "key": "H18.decision",
+            "case": "H18",
+            "offset_minutes": -99230,
+            "kind": "decision",
+            "decision": "accept"
+        },
+        {
+            "key": "H18.formalized",
+            "case": "H18",
+            "offset_minutes": -97920,
+            "kind": "result",
+            "result": "formalized",
+            "fraction": 100,
+            "close": false
+        },
+        {
+            "key": "H18.paid",
+            "case": "H18",
+            "offset_minutes": -95040,
+            "kind": "result",
+            "result": "payment",
+            "fraction": 100,
+            "close": true
+        },
+        {
+            "key": "H18.final-evaluation",
+            "case": "H18",
+            "offset_minutes": -90660,
+            "kind": "evaluate"
+        },
+        {
+            "key": "H19.request",
+            "case": "H19",
+            "offset_minutes": -89280,
+            "kind": "request"
+        },
+        {
+            "key": "H19.quote.1",
+            "case": "H19",
+            "offset_minutes": -87840,
+            "kind": "quote",
+            "version": 1,
+            "valid_days": 14
+        },
+        {
+            "key": "H19.message.1",
+            "case": "H19",
+            "offset_minutes": -87720,
+            "kind": "message",
+            "sender": "buyer",
+            "body": "Es una reposición de 72 prendas de Playera regular. Mantengamos las medidas de la ficha; confirmaré la versión final antes de formalizar.",
+            "attachment": null
+        },
+        {
+            "key": "H19.message.2",
+            "case": "H19",
+            "offset_minutes": -87660,
+            "kind": "message",
+            "sender": "seller",
+            "body": "La propuesta detalla 72 unidades de Playera regular, sus tallas y condiciones. Revisaremos cualquier cambio en una versión nueva, sin alterar la publicada.",
+            "attachment": null
+        },
+        {
+            "key": "H19.message.3",
+            "case": "H19",
+            "offset_minutes": -86280,
+            "kind": "message",
+            "sender": "buyer",
+            "body": "La distribución solicitada es de 72 piezas en talla M. Por favor conserva esa cantidad; las condiciones se confirman sobre la última versión.",
+            "attachment": null
+        },
+        {
+            "key": "H19.message.4",
+            "case": "H19",
+            "offset_minutes": -84780,
+            "kind": "message",
+            "sender": "seller",
+            "body": "La versión vigente conserva la cantidad y documenta el condiciones comerciales. El precio y la vigencia son los de esa versión; la aprobación no constituye todavía un pago.",
+            "attachment": null
+        },
+        {
+            "key": "H19.message.5",
+            "case": "H19",
+            "offset_minutes": -83400,
+            "kind": "message",
+            "sender": "buyer",
+            "body": "Confirmo la propuesta vigente y sus cantidades. Podemos pasar a la formalización con la referencia del pedido.",
+            "attachment": null
+        },
+        {
+            "key": "H19.decision",
+            "case": "H19",
+            "offset_minutes": -83390,
+            "kind": "decision",
+            "decision": "accept"
+        },
+        {
+            "key": "H19.formalized",
+            "case": "H19",
+            "offset_minutes": -82080,
+            "kind": "result",
+            "result": "formalized",
+            "fraction": 100,
+            "close": false
+        },
+        {
+            "key": "H19.paid",
+            "case": "H19",
+            "offset_minutes": -79200,
+            "kind": "result",
+            "result": "payment",
+            "fraction": 100,
+            "close": true
+        },
+        {
+            "key": "H19.final-evaluation",
+            "case": "H19",
+            "offset_minutes": -74820,
+            "kind": "evaluate"
+        },
+        {
+            "key": "H20.request",
+            "case": "H20",
+            "offset_minutes": -73440,
+            "kind": "request"
+        },
+        {
+            "key": "H20.quote.1",
+            "case": "H20",
+            "offset_minutes": -72000,
+            "kind": "quote",
+            "version": 1,
+            "valid_days": 14
+        },
+        {
+            "key": "H20.message.1",
+            "case": "H20",
+            "offset_minutes": -71880,
+            "kind": "message",
+            "sender": "buyer",
+            "body": "Trabajo individualmente coordinando este evento. La compra es puntual y requiere mi aprobación y la del organizador. Necesitamos fecha y flexibilidad; aún no confirmamos entrega ni condiciones de pago. No solicito crédito aprobado.",
+            "attachment": null
+        },
+        {
+            "key": "H20.profile",
+            "case": "H20",
+            "offset_minutes": -71879,
+            "kind": "profile",
+            "evidence": "H20.message.1"
+        },
+        {
+            "key": "H20.message.2",
+            "case": "H20",
+            "offset_minutes": -71820,
+            "kind": "message",
+            "sender": "seller",
+            "body": "La propuesta detalla 24 unidades de Playera oversize, sus tallas y condiciones. Revisaremos cualquier cambio en una versión nueva, sin alterar la publicada.",
+            "attachment": null
+        },
+        {
+            "key": "H20.message.3",
+            "case": "H20",
+            "offset_minutes": -70440,
+            "kind": "message",
+            "sender": "buyer",
+            "body": "La distribución solicitada es de 24 piezas en talla M. Por favor conserva esa cantidad; las condiciones se confirman sobre la última versión.",
+            "attachment": null
+        },
+        {
+            "key": "H20.message.4",
+            "case": "H20",
+            "offset_minutes": -68940,
+            "kind": "message",
+            "sender": "seller",
+            "body": "La versión vigente conserva la cantidad y documenta el condiciones comerciales. El precio y la vigencia son los de esa versión; la aprobación no constituye todavía un pago.",
+            "attachment": null
+        },
+        {
+            "key": "H20.message.5",
+            "case": "H20",
+            "offset_minutes": -67560,
+            "kind": "message",
+            "sender": "buyer",
+            "body": "Confirmo la propuesta vigente y sus cantidades. Podemos pasar a la formalización con la referencia del pedido.",
+            "attachment": null
+        },
+        {
+            "key": "H20.decision",
+            "case": "H20",
+            "offset_minutes": -67550,
+            "kind": "decision",
+            "decision": "accept"
+        },
+        {
+            "key": "H20.formalized",
+            "case": "H20",
+            "offset_minutes": -66240,
+            "kind": "result",
+            "result": "formalized",
+            "fraction": 100,
+            "close": false
+        },
+        {
+            "key": "H20.paid",
+            "case": "H20",
+            "offset_minutes": -63360,
+            "kind": "result",
+            "result": "payment",
+            "fraction": 100,
+            "close": true
+        },
+        {
+            "key": "H20.final-evaluation",
+            "case": "H20",
+            "offset_minutes": -58980,
+            "kind": "evaluate"
+        },
+        {
+            "key": "H21.request",
+            "case": "H21",
+            "offset_minutes": -57600,
+            "kind": "request"
+        },
+        {
+            "key": "H21.quote.1",
+            "case": "H21",
+            "offset_minutes": -56160,
+            "kind": "quote",
+            "version": 1,
+            "valid_days": 14
+        },
+        {
+            "key": "H21.message.1",
+            "case": "H21",
+            "offset_minutes": -56040,
+            "kind": "message",
+            "sender": "buyer",
+            "body": "Revendo con mi equipo en una sola tienda y decido directamente las reposiciones. Priorizamos calidad y continuidad; pedimos empaque consistente. Evaluaremos ampliar tallas después de esta reposición.",
+            "attachment": null
+        },
+        {
+            "key": "H21.profile",
+            "case": "H21",
+            "offset_minutes": -56039,
+            "kind": "profile",
+            "evidence": "H21.message.1"
+        },
+        {
+            "key": "H21.message.2",
+            "case": "H21",
+            "offset_minutes": -55980,
+            "kind": "message",
+            "sender": "seller",
+            "body": "La propuesta detalla 36 unidades de Playera pesada, sus tallas y condiciones. Revisaremos cualquier cambio en una versión nueva, sin alterar la publicada.",
+            "attachment": null
+        },
+        {
+            "key": "H21.message.3",
+            "case": "H21",
+            "offset_minutes": -54600,
+            "kind": "message",
+            "sender": "buyer",
+            "body": "La distribución solicitada es de 36 piezas en talla M. Por favor conserva esa cantidad; las condiciones se confirman sobre la última versión.",
+            "attachment": null
+        },
+        {
+            "key": "H21.message.4",
+            "case": "H21",
+            "offset_minutes": -53100,
+            "kind": "message",
+            "sender": "seller",
+            "body": "La versión vigente conserva la cantidad y documenta el condiciones comerciales. El precio y la vigencia son los de esa versión; la aprobación no constituye todavía un pago.",
+            "attachment": null
+        },
+        {
+            "key": "H21.message.5",
+            "case": "H21",
+            "offset_minutes": -51720,
+            "kind": "message",
+            "sender": "buyer",
+            "body": "Confirmo la propuesta vigente y sus cantidades. Podemos pasar a la formalización con la referencia del pedido.",
+            "attachment": null
+        },
+        {
+            "key": "H21.decision",
+            "case": "H21",
+            "offset_minutes": -51710,
+            "kind": "decision",
+            "decision": "accept"
+        },
+        {
+            "key": "H21.formalized",
+            "case": "H21",
+            "offset_minutes": -50400,
+            "kind": "result",
+            "result": "formalized",
+            "fraction": 100,
+            "close": false
+        },
+        {
+            "key": "H21.paid",
+            "case": "H21",
+            "offset_minutes": -47520,
+            "kind": "result",
+            "result": "payment",
+            "fraction": 100,
+            "close": true
+        },
+        {
+            "key": "H21.final-evaluation",
+            "case": "H21",
+            "offset_minutes": -43140,
+            "kind": "evaluate"
+        },
+        {
+            "key": "H22.request",
+            "case": "H22",
+            "offset_minutes": -41760,
+            "kind": "request"
+        },
+        {
+            "key": "H22.quote.1",
+            "case": "H22",
+            "offset_minutes": -40320,
+            "kind": "quote",
+            "version": 1,
+            "valid_days": 14
+        },
+        {
+            "key": "H22.message.1",
+            "case": "H22",
+            "offset_minutes": -40200,
+            "kind": "message",
+            "sender": "buyer",
+            "body": "Es una reposición de 48 prendas de Manga larga. Mantengamos las medidas de la ficha; confirmaré la versión final antes de formalizar.",
+            "attachment": null
+        },
+        {
+            "key": "H22.message.2",
+            "case": "H22",
+            "offset_minutes": -40140,
+            "kind": "message",
+            "sender": "seller",
+            "body": "La propuesta detalla 48 unidades de Manga larga, sus tallas y condiciones. Revisaremos cualquier cambio en una versión nueva, sin alterar la publicada.",
+            "attachment": null
+        },
+        {
+            "key": "H22.message.3",
+            "case": "H22",
+            "offset_minutes": -38760,
+            "kind": "message",
+            "sender": "buyer",
+            "body": "La distribución solicitada es de 48 piezas en talla M. Por favor conserva esa cantidad; las condiciones se confirman sobre la última versión.",
+            "attachment": null
+        },
+        {
+            "key": "H22.message.4",
+            "case": "H22",
+            "offset_minutes": -37260,
+            "kind": "message",
+            "sender": "seller",
+            "body": "La versión vigente conserva la cantidad y documenta el condiciones comerciales. El precio y la vigencia son los de esa versión; la aprobación no constituye todavía un pago.",
+            "attachment": null
+        },
+        {
+            "key": "H22.message.5",
+            "case": "H22",
+            "offset_minutes": -35880,
+            "kind": "message",
+            "sender": "buyer",
+            "body": "No aceptamos esta propuesta; el presupuesto autorizado no alcanza para este pedido.",
+            "attachment": null
+        },
+        {
+            "key": "H22.decision",
+            "case": "H22",
+            "offset_minutes": -35870,
+            "kind": "decision",
+            "decision": "reject"
+        },
+        {
+            "key": "H22.closed",
+            "case": "H22",
+            "offset_minutes": -34560,
+            "kind": "result",
+            "result": "rejected",
+            "close": true
+        },
+        {
+            "key": "H22.final-evaluation",
+            "case": "H22",
+            "offset_minutes": -27300,
+            "kind": "evaluate"
+        },
+        {
+            "key": "A01.request",
+            "case": "A01",
+            "offset_minutes": -14400,
+            "kind": "request"
+        },
+        {
+            "key": "A03.request",
+            "case": "A03",
+            "offset_minutes": -14400,
+            "kind": "request"
+        },
+        {
+            "key": "A04.request",
+            "case": "A04",
+            "offset_minutes": -14400,
+            "kind": "request"
+        },
+        {
+            "key": "A06.request",
+            "case": "A06",
+            "offset_minutes": -14400,
+            "kind": "request"
+        },
+        {
+            "key": "A07.request",
+            "case": "A07",
+            "offset_minutes": -14400,
+            "kind": "request"
+        },
+        {
+            "key": "A08.request",
+            "case": "A08",
+            "offset_minutes": -14400,
+            "kind": "request"
+        },
+        {
+            "key": "A09.request",
+            "case": "A09",
+            "offset_minutes": -14400,
+            "kind": "request"
+        },
+        {
+            "key": "A10.request",
+            "case": "A10",
+            "offset_minutes": -14400,
+            "kind": "request"
+        },
+        {
+            "key": "A11.request",
+            "case": "A11",
+            "offset_minutes": -14400,
+            "kind": "request"
+        },
+        {
+            "key": "A12.request",
+            "case": "A12",
+            "offset_minutes": -14400,
+            "kind": "request"
+        },
+        {
+            "key": "A01.quote.1",
+            "case": "A01",
+            "offset_minutes": -11520,
+            "kind": "quote",
+            "version": 1,
+            "valid_days": 21
+        },
+        {
+            "key": "A03.quote.1",
+            "case": "A03",
+            "offset_minutes": -11520,
+            "kind": "quote",
+            "version": 1,
+            "valid_days": 21
+        },
+        {
+            "key": "A04.quote.1",
+            "case": "A04",
+            "offset_minutes": -11520,
+            "kind": "quote",
+            "version": 1,
+            "valid_days": 21
+        },
+        {
+            "key": "A06.quote.1",
+            "case": "A06",
+            "offset_minutes": -11520,
+            "kind": "quote",
+            "version": 1,
+            "valid_days": 21
+        },
+        {
+            "key": "A07.quote.1",
+            "case": "A07",
+            "offset_minutes": -11520,
+            "kind": "quote",
+            "version": 1,
+            "valid_days": 21
+        },
+        {
+            "key": "A08.quote.1",
+            "case": "A08",
+            "offset_minutes": -11520,
+            "kind": "quote",
+            "version": 1,
+            "valid_days": 21
+        },
+        {
+            "key": "A09.quote.1",
+            "case": "A09",
+            "offset_minutes": -11520,
+            "kind": "quote",
+            "version": 1,
+            "valid_days": 21
+        },
+        {
+            "key": "A10.quote.1",
+            "case": "A10",
+            "offset_minutes": -11520,
+            "kind": "quote",
+            "version": 1,
+            "valid_days": 21
+        },
+        {
+            "key": "A11.quote.1",
+            "case": "A11",
+            "offset_minutes": -11520,
+            "kind": "quote",
+            "version": 1,
+            "valid_days": 7
+        },
+        {
+            "key": "A12.quote.1",
+            "case": "A12",
+            "offset_minutes": -11520,
+            "kind": "quote",
+            "version": 1,
+            "valid_days": 21
+        },
+        {
+            "key": "A01.message.1",
+            "case": "A01",
+            "offset_minutes": -10080,
+            "kind": "message",
+            "sender": "buyer",
+            "body": "Necesito 36 unidades de Playera regular. Revisaré la distribución y condiciones de la versión vigente."
+        },
+        {
+            "key": "A03.message.1",
+            "case": "A03",
+            "offset_minutes": -10080,
+            "kind": "message",
+            "sender": "buyer",
+            "body": "Necesito 60 unidades de Playera pesada. Revisaré la distribución y condiciones de la versión vigente."
+        },
+        {
+            "key": "A04.message.1",
+            "case": "A04",
+            "offset_minutes": -10080,
+            "kind": "message",
+            "sender": "buyer",
+            "body": "Necesito 120 unidades de Manga larga. Revisaré la distribución y condiciones de la versión vigente."
+        },
+        {
+            "key": "A06.message.1",
+            "case": "A06",
+            "offset_minutes": -10080,
+            "kind": "message",
+            "sender": "buyer",
+            "body": "Necesito 36 unidades de Sudadera con capucha. Revisaré la distribución y condiciones de la versión vigente."
+        },
+        {
+            "key": "A07.message.1",
+            "case": "A07",
+            "offset_minutes": -10080,
+            "kind": "message",
+            "sender": "buyer",
+            "body": "Necesito 72 unidades de Playera regular. Revisaré la distribución y condiciones de la versión vigente."
+        },
+        {
+            "key": "A08.message.1",
+            "case": "A08",
+            "offset_minutes": -10080,
+            "kind": "message",
+            "sender": "buyer",
+            "body": "Necesito 96 unidades de Playera oversize. Revisaré la distribución y condiciones de la versión vigente."
+        },
+        {
+            "key": "A10.message.1",
+            "case": "A10",
+            "offset_minutes": -10080,
+            "kind": "message",
+            "sender": "buyer",
+            "body": "Necesito 48 unidades de Manga larga. Revisaré la distribución y condiciones de la versión vigente."
+        },
+        {
+            "key": "A11.message.1",
+            "case": "A11",
+            "offset_minutes": -10080,
+            "kind": "message",
+            "sender": "buyer",
+            "body": "Necesito 24 unidades de Sudadera con capucha. Revisaré la distribución y condiciones de la versión vigente."
+        },
+        {
+            "key": "A12.message.1",
+            "case": "A12",
+            "offset_minutes": -10080,
+            "kind": "message",
+            "sender": "buyer",
+            "body": "Necesito 60 unidades de Sudadera con capucha. Revisaré la distribución y condiciones de la versión vigente."
+        },
+        {
+            "key": "A01.message.2",
+            "case": "A01",
+            "offset_minutes": -10020,
+            "kind": "message",
+            "sender": "seller",
+            "body": "La propuesta conserva 36 unidades. Los tiempos de condiciones comerciales requieren confirmación, y cualquier cambio se publicará como una versión nueva."
+        },
+        {
+            "key": "A03.message.2",
+            "case": "A03",
+            "offset_minutes": -10020,
+            "kind": "message",
+            "sender": "seller",
+            "body": "La propuesta conserva 60 unidades. Los tiempos de condiciones comerciales requieren confirmación, y cualquier cambio se publicará como una versión nueva."
+        },
+        {
+            "key": "A04.message.2",
+            "case": "A04",
+            "offset_minutes": -10020,
+            "kind": "message",
+            "sender": "seller",
+            "body": "La propuesta conserva 120 unidades. Los tiempos de condiciones comerciales requieren confirmación, y cualquier cambio se publicará como una versión nueva."
+        },
+        {
+            "key": "A06.message.2",
+            "case": "A06",
+            "offset_minutes": -10020,
+            "kind": "message",
+            "sender": "seller",
+            "body": "La propuesta conserva 36 unidades. Los tiempos de condiciones comerciales requieren confirmación, y cualquier cambio se publicará como una versión nueva."
+        },
+        {
+            "key": "A07.message.2",
+            "case": "A07",
+            "offset_minutes": -10020,
+            "kind": "message",
+            "sender": "seller",
+            "body": "La propuesta conserva 72 unidades. Los tiempos de condiciones comerciales requieren confirmación, y cualquier cambio se publicará como una versión nueva."
+        },
+        {
+            "key": "A08.message.2",
+            "case": "A08",
+            "offset_minutes": -10020,
+            "kind": "message",
+            "sender": "seller",
+            "body": "La propuesta conserva 96 unidades. Los tiempos de condiciones comerciales requieren confirmación, y cualquier cambio se publicará como una versión nueva."
+        },
+        {
+            "key": "A10.message.2",
+            "case": "A10",
+            "offset_minutes": -10020,
+            "kind": "message",
+            "sender": "seller",
+            "body": "La propuesta conserva 48 unidades. Los tiempos de condiciones comerciales requieren confirmación, y cualquier cambio se publicará como una versión nueva."
+        },
+        {
+            "key": "A11.message.2",
+            "case": "A11",
+            "offset_minutes": -10020,
+            "kind": "message",
+            "sender": "seller",
+            "body": "La propuesta conserva 24 unidades. Los tiempos de condiciones comerciales requieren confirmación, y cualquier cambio se publicará como una versión nueva."
+        },
+        {
+            "key": "A12.message.2",
+            "case": "A12",
+            "offset_minutes": -10020,
+            "kind": "message",
+            "sender": "seller",
+            "body": "La propuesta conserva 60 unidades. Los tiempos de condiciones comerciales requieren confirmación, y cualquier cambio se publicará como una versión nueva."
+        },
+        {
+            "key": "A01.message.3",
+            "case": "A01",
+            "offset_minutes": -8640,
+            "kind": "message",
+            "sender": "buyer",
+            "body": "Recibí la información. Revisaré las condiciones antes de decidir; este mensaje no confirma pago ni cierre."
+        },
+        {
+            "key": "A03.message.3",
+            "case": "A03",
+            "offset_minutes": -8640,
+            "kind": "message",
+            "sender": "buyer",
+            "body": "Recibí la información. Revisaré las condiciones antes de decidir; este mensaje no confirma pago ni cierre."
+        },
+        {
+            "key": "A04.message.3",
+            "case": "A04",
+            "offset_minutes": -8640,
+            "kind": "message",
+            "sender": "buyer",
+            "body": "Recibí la información. Revisaré las condiciones antes de decidir; este mensaje no confirma pago ni cierre."
+        },
+        {
+            "key": "A06.message.3",
+            "case": "A06",
+            "offset_minutes": -8640,
+            "kind": "message",
+            "sender": "buyer",
+            "body": "Recibí la información. Revisaré las condiciones antes de decidir; este mensaje no confirma pago ni cierre."
+        },
+        {
+            "key": "A07.message.3",
+            "case": "A07",
+            "offset_minutes": -8640,
+            "kind": "message",
+            "sender": "buyer",
+            "body": "Recibí la información. Revisaré las condiciones antes de decidir; este mensaje no confirma pago ni cierre."
+        },
+        {
+            "key": "A08.message.3",
+            "case": "A08",
+            "offset_minutes": -8640,
+            "kind": "message",
+            "sender": "buyer",
+            "body": "Recibí la información. Revisaré las condiciones antes de decidir; este mensaje no confirma pago ni cierre."
+        },
+        {
+            "key": "A10.message.3",
+            "case": "A10",
+            "offset_minutes": -8640,
+            "kind": "message",
+            "sender": "buyer",
+            "body": "Recibí la información. Revisaré las condiciones antes de decidir; este mensaje no confirma pago ni cierre."
+        },
+        {
+            "key": "A11.message.3",
+            "case": "A11",
+            "offset_minutes": -8640,
+            "kind": "message",
+            "sender": "buyer",
+            "body": "Recibí la información. Revisaré las condiciones antes de decidir; este mensaje no confirma pago ni cierre."
+        },
+        {
+            "key": "A12.message.3",
+            "case": "A12",
+            "offset_minutes": -8640,
+            "kind": "message",
+            "sender": "buyer",
+            "body": "Recibí la información. Revisaré las condiciones antes de decidir; este mensaje no confirma pago ni cierre."
+        },
+        {
+            "case": "A03",
+            "key": "diego.pack-message",
+            "offset_minutes": -8500,
+            "kind": "message",
+            "sender": "buyer",
+            "body": "Actualizo el empaque: prefiero paquetes de seis prendas por talla. La bolsa individual ya no aplica a las siguientes reposiciones."
+        },
+        {
+            "case": "A03",
+            "key": "diego.pack-update",
+            "offset_minutes": -8499,
+            "kind": "fact",
+            "name": "empaque_preferido",
+            "scope": "cliente",
+            "value": "Paquetes de seis por talla",
+            "nature": "confirmed",
+            "evidence": "diego.pack-message"
+        },
+        {
+            "key": "A01.quote.2",
+            "case": "A01",
+            "offset_minutes": -7200,
+            "kind": "quote",
+            "version": 2,
+            "valid_days": 21
+        },
+        {
+            "key": "A04.quote.2",
+            "case": "A04",
+            "offset_minutes": -7200,
+            "kind": "quote",
+            "version": 2,
+            "valid_days": 21
+        },
+        {
+            "key": "A06.quote.2",
+            "case": "A06",
+            "offset_minutes": -7200,
+            "kind": "quote",
+            "version": 2,
+            "valid_days": 21
+        },
+        {
+            "key": "A12.quote.2",
+            "case": "A12",
+            "offset_minutes": -7200,
+            "kind": "quote",
+            "version": 2,
+            "valid_days": 21
+        },
+        {
+            "key": "A03.decision",
+            "case": "A03",
+            "offset_minutes": -2880,
+            "kind": "decision",
+            "decision": "accept"
+        },
+        {
+            "key": "A05.request",
+            "case": "A05",
+            "offset_minutes": -2880,
+            "kind": "request"
+        },
+        {
+            "key": "A03.formalized",
+            "case": "A03",
+            "offset_minutes": -2820,
+            "kind": "result",
+            "result": "formalized",
+            "fraction": 100,
+            "close": false
+        },
+        {
+            "key": "A05.pending-message",
+            "case": "A05",
+            "offset_minutes": -2800,
+            "kind": "message",
+            "sender": "buyer",
+            "body": "Necesito seis prendas para un evento; aún no sé si requieren personalización y solicito revisar la excepción al mínimo."
+        },
+        {
+            "key": "A05.draft",
+            "case": "A05",
+            "offset_minutes": -2760,
+            "kind": "draft"
+        },
+        {
+            "key": "A01.condition",
+            "case": "A01",
+            "offset_minutes": -1440,
+            "kind": "message",
+            "sender": "buyer",
+            "body": "Acepto la mitad de las unidades, condicionada a aprobar la muestra. El resto queda pendiente; no he autorizado formalizar todo el pedido."
+        },
+        {
+            "key": "A02.request",
+            "case": "A02",
+            "offset_minutes": -1440,
+            "kind": "request"
+        },
+        {
+            "key": "A03.deposit",
+            "case": "A03",
+            "offset_minutes": -1440,
+            "kind": "result",
+            "result": "payment",
+            "fraction": 30,
+            "close": false
+        },
+        {
+            "key": "A06.change-message",
+            "case": "A06",
+            "offset_minutes": -1440,
+            "kind": "message",
+            "sender": "buyer",
+            "body": "Solicito revisar el color Natural y reducir la cantidad antes de aceptar. No acepto todavía la versión publicada."
+        },
+        {
+            "key": "A08.withdraw",
+            "case": "A08",
+            "offset_minutes": -1440,
+            "kind": "withdraw",
+            "reason": "La observación de fecha de entrega requiere revisión antes de renovar condiciones."
+        },
+        {
+            "key": "A09.view.0",
+            "case": "A09",
+            "offset_minutes": -1440,
+            "kind": "view"
+        },
+        {
+            "key": "A01.decision",
+            "case": "A01",
+            "offset_minutes": -1380,
+            "kind": "decision",
+            "decision": "accept",
+            "partial": true,
+            "conditions": "Aceptación de la mitad de las unidades, sujeta a aprobar muestra. Resto pendiente."
+        },
+        {
+            "key": "A06.decision",
+            "case": "A06",
+            "offset_minutes": -1380,
+            "kind": "decision",
+            "decision": "change",
+            "partial": true,
+            "conditions": "Revisar Natural y reducir cantidades en nueva versión."
+        },
+        {
+            "key": "A08.draft",
+            "case": "A08",
+            "offset_minutes": -1380,
+            "kind": "draft"
+        },
+        {
+            "key": "A09.view.1",
+            "case": "A09",
+            "offset_minutes": -1380,
+            "kind": "view"
+        },
+        {
+            "key": "A09.view.2",
+            "case": "A09",
+            "offset_minutes": -1320,
+            "kind": "view"
+        },
+        {
+            "key": "A12.recent-contact",
+            "case": "A12",
+            "offset_minutes": -480,
+            "kind": "message",
+            "sender": "seller",
+            "body": "¿Confirmas si revisaste el empaque y las tallas de la versión vigente? La decisión sigue pendiente."
+        },
+        {
+            "key": "A10.recent-contact",
+            "case": "A10",
+            "offset_minutes": -360,
+            "kind": "message",
+            "sender": "seller",
+            "body": "Quedamos atentos a tu confirmación de cantidades y color de la propuesta vigente. No registramos una aceptación con esta consulta."
+        },
+        {
+            "key": "A04.wait-message",
+            "case": "A04",
+            "offset_minutes": -180,
+            "kind": "message",
+            "sender": "buyer",
+            "body": "Dirección revisará la compra dentro de dos días. No contacten antes de esa revisión; todavía no hay autorización."
+        },
+        {
+            "key": "A07.refusal-message",
+            "case": "A07",
+            "offset_minutes": -180,
+            "kind": "message",
+            "sender": "buyer",
+            "body": "No autorizo nuevos contactos comerciales para este pedido. Yo escribiré si necesito retomarlo."
+        },
+        {
+            "key": "A04.constraint",
+            "case": "A04",
+            "offset_minutes": -179,
+            "kind": "constraint",
+            "contact_not_before_minutes": 2880
+        },
+        {
+            "key": "A07.constraint",
+            "case": "A07",
+            "offset_minutes": -179,
+            "kind": "constraint",
+            "contact_allowed": false
+        },
+        {
+            "key": "A11.availability",
+            "case": "A11",
+            "offset_minutes": -120,
+            "kind": "message",
+            "sender": "buyer",
+            "body": "La vigencia terminó. Necesito confirmar fecha de entrega y fecha antes de que preparen una versión nueva."
+        },
+        {
+            "key": "A12.reply",
+            "case": "A12",
+            "offset_minutes": -120,
+            "kind": "message",
+            "sender": "buyer",
+            "body": "Sí, ya revisé las tallas. Necesito una bolsa por prenda y confirmar el total antes de aceptar; todavía no he pagado."
+        },
+        {
+            "key": "A04.checkpoint",
+            "case": "A04",
+            "offset_minutes": -60,
+            "kind": "evaluate",
+            "review": true
+        },
+        {
+            "key": "A07.checkpoint",
+            "case": "A07",
+            "offset_minutes": -60,
+            "kind": "evaluate",
+            "review": true
+        },
+        {
+            "key": "A10.checkpoint",
+            "case": "A10",
+            "offset_minutes": -60,
+            "kind": "evaluate",
+            "review": true
+        }
+    ]
+}

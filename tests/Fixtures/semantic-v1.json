@@ -28,8 +28,8 @@
         "expected_kinds": ["approval_pending", "wait_request"]
     },
     {
-        "id": "S05-stock",
-        "message": "Antes de decidir necesito que su almacén confirme si hay 300 piezas talla M.",
+        "id": "S05-delivery",
+        "message": "Antes de decidir necesito que su equipo confirme la fecha de entrega para 300 piezas talla M.",
         "extra": [],
         "expected_actions": ["escalate"],
         "expected_kinds": ["question"]

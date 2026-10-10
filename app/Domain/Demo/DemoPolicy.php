@@ -11,9 +11,9 @@ final class DemoPolicy
 {
     public static function scope(Request $request): string
     {
-        $scope = $request->query('origin', $request->session()->get('demo_origin', 'all'));
+        $request->session()->forget('demo_origin');
 
-        return in_array($scope, ['all', 'real', 'demo'], true) ? $scope : 'all';
+        return 'all';
     }
 
     /** @template T of \Illuminate\Database\Eloquent\Model

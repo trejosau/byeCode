@@ -62,7 +62,7 @@ final class ConversationService
         abort_unless(in_array($user->role, ['customer'], true), 403);
         app(CustomerJourney::class)->authorize($user, $case);
         $data = Validator::make($input, ['event_id' => 'required|uuid', 'quote_version' => 'required|integer', 'kind' => ['required', Rule::in(['accept', 'reject', 'change'])],
-            'lines' => 'required|array|min:1|max:30', 'lines.*.line_id' => 'required|string|distinct', 'lines.*.quantity' => 'required|integer|min:0|max:1000000', 'conditions' => 'nullable|string|max:4000'])->validate();
+            'lines' => 'required|array|min:1|max:'.CatalogSelection::MAX_LINES, 'lines.*.line_id' => 'required|string|distinct', 'lines.*.quantity' => 'required|integer|min:0|max:1000000', 'conditions' => 'nullable|string|max:4000'])->validate();
         DB::transaction(function () use ($user, $case, $data) {
             DB::table('data_sets')->where('id', $case->data_set_id)->lockForUpdate()->firstOrFail();
             $case = CommercialCase::whereKey($case->id)->lockForUpdate()->firstOrFail();

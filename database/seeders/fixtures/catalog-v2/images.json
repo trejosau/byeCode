@@ -1,0 +1,338 @@
+[
+    {
+        "view": "front",
+        "path": "/images/catalog/v1/REG/negro/front.png",
+        "alt": "Playera clásica ByeCode · Negro · frente",
+        "width": 1254,
+        "height": 1254
+    },
+    {
+        "view": "back",
+        "path": "/images/catalog/v1/REG/negro/back.png",
+        "alt": "Playera clásica ByeCode · Negro · espalda",
+        "width": 1254,
+        "height": 1254
+    },
+    {
+        "view": "three-quarter",
+        "path": "/images/catalog/v1/REG/negro/three-quarter.png",
+        "alt": "Playera clásica ByeCode · Negro · tres cuartos",
+        "width": 1254,
+        "height": 1254
+    },
+    {
+        "view": "detail",
+        "path": "/images/catalog/v1/REG/negro/detail.png",
+        "alt": "Playera clásica ByeCode · Negro · detalle de tejido",
+        "width": 1254,
+        "height": 1254
+    },
+    {
+        "view": "front",
+        "path": "/images/catalog/v1/REG/natural/front.png",
+        "alt": "Playera clásica ByeCode · Natural · frente",
+        "width": 1254,
+        "height": 1254
+    },
+    {
+        "view": "back",
+        "path": "/images/catalog/v1/REG/natural/back.png",
+        "alt": "Playera clásica ByeCode · Natural · espalda",
+        "width": 1254,
+        "height": 1254
+    },
+    {
+        "view": "three-quarter",
+        "path": "/images/catalog/v1/REG/natural/three-quarter.png",
+        "alt": "Playera clásica ByeCode · Natural · tres cuartos",
+        "width": 1254,
+        "height": 1254
+    },
+    {
+        "view": "detail",
+        "path": "/images/catalog/v1/REG/natural/detail.png",
+        "alt": "Playera clásica ByeCode · Natural · detalle de tejido",
+        "width": 1254,
+        "height": 1254
+    },
+    {
+        "view": "front",
+        "path": "/images/catalog/v1/OVR/negro/front.png",
+        "alt": "Playera oversize ByeCode · Negro · frente",
+        "width": 1254,
+        "height": 1254
+    },
+    {
+        "view": "back",
+        "path": "/images/catalog/v1/OVR/negro/back.png",
+        "alt": "Playera oversize ByeCode · Negro · espalda",
+        "width": 1254,
+        "height": 1254
+    },
+    {
+        "view": "three-quarter",
+        "path": "/images/catalog/v1/OVR/negro/three-quarter.png",
+        "alt": "Playera oversize ByeCode · Negro · tres cuartos",
+        "width": 1254,
+        "height": 1254
+    },
+    {
+        "view": "detail",
+        "path": "/images/catalog/v1/OVR/negro/detail.png",
+        "alt": "Playera oversize ByeCode · Negro · detalle de tejido",
+        "width": 1254,
+        "height": 1254
+    },
+    {
+        "view": "front",
+        "path": "/images/catalog/v1/OVR/natural/front.png",
+        "alt": "Playera oversize ByeCode · Natural · frente",
+        "width": 1254,
+        "height": 1254
+    },
+    {
+        "view": "back",
+        "path": "/images/catalog/v1/OVR/natural/back.png",
+        "alt": "Playera oversize ByeCode · Natural · espalda",
+        "width": 1254,
+        "height": 1254
+    },
+    {
+        "view": "three-quarter",
+        "path": "/images/catalog/v1/OVR/natural/three-quarter.png",
+        "alt": "Playera oversize ByeCode · Natural · tres cuartos",
+        "width": 1254,
+        "height": 1254
+    },
+    {
+        "view": "detail",
+        "path": "/images/catalog/v1/OVR/natural/detail.png",
+        "alt": "Playera oversize ByeCode · Natural · detalle de tejido",
+        "width": 1254,
+        "height": 1254
+    },
+    {
+        "view": "front",
+        "path": "/images/catalog/v1/HVE/negro/front.png",
+        "alt": "Playera boxy ByeCode · Negro · frente",
+        "width": 1254,
+        "height": 1254
+    },
+    {
+        "view": "back",
+        "path": "/images/catalog/v1/HVE/negro/back.png",
+        "alt": "Playera boxy ByeCode · Negro · espalda",
+        "width": 1254,
+        "height": 1254
+    },
+    {
+        "view": "three-quarter",
+        "path": "/images/catalog/v1/HVE/negro/three-quarter.png",
+        "alt": "Playera boxy ByeCode · Negro · tres cuartos",
+        "width": 1254,
+        "height": 1254
+    },
+    {
+        "view": "detail",
+        "path": "/images/catalog/v1/HVE/negro/detail.png",
+        "alt": "Playera boxy ByeCode · Negro · detalle de tejido",
+        "width": 1254,
+        "height": 1254
+    },
+    {
+        "view": "front",
+        "path": "/images/catalog/v1/HVE/natural/front.png",
+        "alt": "Playera boxy ByeCode · Natural · frente",
+        "width": 1254,
+        "height": 1254
+    },
+    {
+        "view": "back",
+        "path": "/images/catalog/v1/HVE/natural/back.png",
+        "alt": "Playera boxy ByeCode · Natural · espalda",
+        "width": 1254,
+        "height": 1254
+    },
+    {
+        "view": "three-quarter",
+        "path": "/images/catalog/v1/HVE/natural/three-quarter.png",
+        "alt": "Playera boxy ByeCode · Natural · tres cuartos",
+        "width": 1254,
+        "height": 1254
+    },
+    {
+        "view": "detail",
+        "path": "/images/catalog/v1/HVE/natural/detail.png",
+        "alt": "Playera boxy ByeCode · Natural · detalle de tejido",
+        "width": 1254,
+        "height": 1254
+    },
+    {
+        "view": "front",
+        "path": "/images/catalog/v1/LNG/negro/front.png",
+        "alt": "Playera de manga larga ByeCode · Negro · frente",
+        "width": 1254,
+        "height": 1254
+    },
+    {
+        "view": "back",
+        "path": "/images/catalog/v1/LNG/negro/back.png",
+        "alt": "Playera de manga larga ByeCode · Negro · espalda",
+        "width": 1254,
+        "height": 1254
+    },
+    {
+        "view": "three-quarter",
+        "path": "/images/catalog/v1/LNG/negro/three-quarter.png",
+        "alt": "Playera de manga larga ByeCode · Negro · tres cuartos",
+        "width": 1254,
+        "height": 1254
+    },
+    {
+        "view": "detail",
+        "path": "/images/catalog/v1/LNG/negro/detail.png",
+        "alt": "Playera de manga larga ByeCode · Negro · detalle de tejido",
+        "width": 1254,
+        "height": 1254
+    },
+    {
+        "view": "front",
+        "path": "/images/catalog/v1/LNG/natural/front.png",
+        "alt": "Playera de manga larga ByeCode · Natural · frente",
+        "width": 1254,
+        "height": 1254
+    },
+    {
+        "view": "back",
+        "path": "/images/catalog/v1/LNG/natural/back.png",
+        "alt": "Playera de manga larga ByeCode · Natural · espalda",
+        "width": 1254,
+        "height": 1254
+    },
+    {
+        "view": "three-quarter",
+        "path": "/images/catalog/v1/LNG/natural/three-quarter.png",
+        "alt": "Playera de manga larga ByeCode · Natural · tres cuartos",
+        "width": 1254,
+        "height": 1254
+    },
+    {
+        "view": "detail",
+        "path": "/images/catalog/v1/LNG/natural/detail.png",
+        "alt": "Playera de manga larga ByeCode · Natural · detalle de tejido",
+        "width": 1254,
+        "height": 1254
+    },
+    {
+        "view": "front",
+        "path": "/images/catalog/v1/CRW/negro/front.png",
+        "alt": "Sudadera sin capucha ByeCode · Negro · frente",
+        "width": 1254,
+        "height": 1254
+    },
+    {
+        "view": "back",
+        "path": "/images/catalog/v1/CRW/negro/back.png",
+        "alt": "Sudadera sin capucha ByeCode · Negro · espalda",
+        "width": 1254,
+        "height": 1254
+    },
+    {
+        "view": "three-quarter",
+        "path": "/images/catalog/v1/CRW/negro/three-quarter.png",
+        "alt": "Sudadera sin capucha ByeCode · Negro · tres cuartos",
+        "width": 1254,
+        "height": 1254
+    },
+    {
+        "view": "detail",
+        "path": "/images/catalog/v1/CRW/negro/detail.png",
+        "alt": "Sudadera sin capucha ByeCode · Negro · detalle de tejido",
+        "width": 1254,
+        "height": 1254
+    },
+    {
+        "view": "front",
+        "path": "/images/catalog/v1/CRW/natural/front.png",
+        "alt": "Sudadera sin capucha ByeCode · Natural · frente",
+        "width": 1254,
+        "height": 1254
+    },
+    {
+        "view": "back",
+        "path": "/images/catalog/v1/CRW/natural/back.png",
+        "alt": "Sudadera sin capucha ByeCode · Natural · espalda",
+        "width": 1254,
+        "height": 1254
+    },
+    {
+        "view": "three-quarter",
+        "path": "/images/catalog/v1/CRW/natural/three-quarter.png",
+        "alt": "Sudadera sin capucha ByeCode · Natural · tres cuartos",
+        "width": 1254,
+        "height": 1254
+    },
+    {
+        "view": "detail",
+        "path": "/images/catalog/v1/CRW/natural/detail.png",
+        "alt": "Sudadera sin capucha ByeCode · Natural · detalle de tejido",
+        "width": 1254,
+        "height": 1254
+    },
+    {
+        "view": "front",
+        "path": "/images/catalog/v1/HOD/negro/front.png",
+        "alt": "Sudadera con capucha ByeCode · Negro · frente",
+        "width": 1254,
+        "height": 1254
+    },
+    {
+        "view": "back",
+        "path": "/images/catalog/v1/HOD/negro/back.png",
+        "alt": "Sudadera con capucha ByeCode · Negro · espalda",
+        "width": 1254,
+        "height": 1254
+    },
+    {
+        "view": "three-quarter",
+        "path": "/images/catalog/v1/HOD/negro/three-quarter.png",
+        "alt": "Sudadera con capucha ByeCode · Negro · tres cuartos",
+        "width": 1254,
+        "height": 1254
+    },
+    {
+        "view": "detail",
+        "path": "/images/catalog/v1/HOD/negro/detail.png",
+        "alt": "Sudadera con capucha ByeCode · Negro · detalle de tejido",
+        "width": 1254,
+        "height": 1254
+    },
+    {
+        "view": "front",
+        "path": "/images/catalog/v1/HOD/natural/front.png",
+        "alt": "Sudadera con capucha ByeCode · Natural · frente",
+        "width": 1254,
+        "height": 1254
+    },
+    {
+        "view": "back",
+        "path": "/images/catalog/v1/HOD/natural/back.png",
+        "alt": "Sudadera con capucha ByeCode · Natural · espalda",
+        "width": 1254,
+        "height": 1254
+    },
+    {
+        "view": "three-quarter",
+        "path": "/images/catalog/v1/HOD/natural/three-quarter.png",
+        "alt": "Sudadera con capucha ByeCode · Natural · tres cuartos",
+        "width": 1254,
+        "height": 1254
+    },
+    {
+        "view": "detail",
+        "path": "/images/catalog/v1/HOD/natural/detail.png",
+        "alt": "Sudadera con capucha ByeCode · Natural · detalle de tejido",
+        "width": 1254,
+        "height": 1254
+    }
+]

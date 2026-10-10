@@ -162,9 +162,9 @@ export default function Intelligence({
                 </AlertTitle>
                 <AlertDescription>
                     La confianza de la recomendación no es probabilidad de
-                    compra. El kit sintético no permite entrenar ni validar un
-                    predictor comercial. Consulta la evaluación predictiva y su
-                    estado antes de usar porcentajes.
+                    compra. Los registros sin historial real no permiten validar
+                    un predictor comercial. Consulta la evaluación predictiva y
+                    su estado antes de usar porcentajes.
                     <Button
                         variant="link"
                         className="h-auto justify-start px-0"

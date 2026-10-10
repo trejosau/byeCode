@@ -19,7 +19,7 @@ export function CaseTable({ cases }: { cases: CaseRow[] }) {
         return (
             <EmptyState
                 title="Tu bandeja está lista"
-                description="Crea una cotización con tus productos o recorre los seis casos sintéticos del kit público."
+                description="Crea una cotización con tus productos o recorre los casos importados."
                 href="/imports"
                 label="Explorar el kit de prueba"
             />
@@ -42,7 +42,7 @@ export function CaseTable({ cases }: { cases: CaseRow[] }) {
                             </p>
                             {c.mode === 'kit' && (
                                 <Badge variant="outline" className="mt-2">
-                                    Kit sintético
+                                    Importación
                                 </Badge>
                             )}
                         </div>
@@ -113,7 +113,7 @@ export function CaseTable({ cases }: { cases: CaseRow[] }) {
                                             variant="outline"
                                             className="mt-2 text-[11px]"
                                         >
-                                            Kit sintético
+                                            Importación
                                         </Badge>
                                     )}
                                 </TableCell>

@@ -37,9 +37,7 @@ class HandleInertiaRequests extends Middleware
      */
     public function share(Request $request): array
     {
-        if ($request->has('origin') && in_array($request->user()?->role, ['admin', 'commerce'], true)) {
-            $request->session()->put('demo_origin', DemoPolicy::scope($request));
-        }
+        $request->session()->forget('demo_origin');
 
         return [
             ...parent::share($request),

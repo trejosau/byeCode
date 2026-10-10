@@ -122,7 +122,7 @@ export default function Dashboard({
                         </h2>
                         <p className="mt-1 text-xs text-muted-foreground">
                             Últimas actualizaciones del espacio operativo y de
-                            los kits sintéticos, identificados en cada caso. Los
+                            las importaciones, identificadas en cada caso. Los
                             indicadores comerciales superiores excluyen los
                             kits.
                         </p>

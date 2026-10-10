@@ -125,7 +125,7 @@ export default function Portal({
                                                         {l.name}
                                                     </p>
                                                     <p className="mt-1 text-xs text-muted-foreground">
-                                                        {l.sku} ·{' '}
+                                                        {l.name} ·{' '}
                                                         {[
                                                             l.fit,
                                                             l.gsm
