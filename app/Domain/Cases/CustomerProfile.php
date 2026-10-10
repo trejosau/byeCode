@@ -3,6 +3,8 @@
 namespace App\Domain\Cases;
 
 use App\Domain\Evaluation\BudgetLedger;
+use App\Domain\Evaluation\DecisionUpdates;
+use App\Models\CommercialCase;
 use App\Models\Customer;
 use Carbon\CarbonImmutable;
 use Illuminate\Support\Facades\DB;
@@ -55,7 +57,7 @@ class CustomerProfile
     }
 
     /** @param array<string, mixed> $candidate */
-    public function fact(Customer $customer, array $candidate, string $nature, ?string $model = null): void
+    public function fact(Customer $customer, array $candidate, string $nature, ?string $model = null, ?int $authorId = null, string $origin = 'application'): void
     {
         $data = Validator::make($candidate, ['name' => 'required|string|max:120', 'scope' => 'required|string|max:120', 'value_json' => 'required|json|max:4000',
             'confidence' => ['required', Rule::in(['low', 'medium', 'high'])], 'evidence' => 'required|array|min:1|max:20', 'evidence.*' => 'required|integer'])->validate();
@@ -64,7 +66,7 @@ class CustomerProfile
         if (count(array_unique($data['evidence'])) !== count($evidence)) {
             throw new \RuntimeException('invalid_evidence');
         }
-        DB::transaction(function () use ($customer, $data, $nature, $model) {
+        DB::transaction(function () use ($customer, $data, $nature, $model, $authorId, $origin) {
             Customer::whereKey($customer->id)->lockForUpdate()->firstOrFail();
             $old = DB::table('profile_facts')->where('customer_id', $customer->id)->where('name', $data['name'])->where('scope', $data['scope'])->where('status', 'active')->latest('id')->first();
             // A hypothesis never overwrites a human correction.
@@ -73,17 +75,24 @@ class CustomerProfile
                 DB::table('profile_facts')->where('id', $old->id)->update(['status' => 'superseded']);
             }
             DB::table('profile_facts')->insert(['customer_id' => $customer->id, 'name' => $data['name'], 'scope' => $data['scope'], 'value' => $data['value_json'],
-                'nature' => $nature, 'confidence' => $data['confidence'], 'evidence' => json_encode($data['evidence'], JSON_THROW_ON_ERROR), 'status' => $status, 'model' => $model,
+                'author_id' => $authorId, 'origin' => $origin, 'nature' => $nature, 'confidence' => $data['confidence'], 'evidence' => json_encode($data['evidence'], JSON_THROW_ON_ERROR), 'status' => $status, 'model' => $model,
                 'processor_version' => 'customer-profile-v2', 'supersedes_id' => $old?->id, 'observed_at' => now(), 'created_at' => now()]);
             if ($status === 'active') {
-                DB::table('commercial_cases')->where('customer_id', $customer->id)->where('status', 'open')
-                    ->update(['revision' => DB::raw('revision + 1'), 'next_review_at' => now()]);
+                CommercialCase::where('customer_id', $customer->id)->where('status', 'open')->each(function ($case) {
+                    app(DecisionUpdates::class)->caseChanged($case);
+                });
             }
         });
     }
 
     public function process(Customer $customer, bool $retryFailures = false): void
     {
+        if ($customer->demo_run_id) {
+            $cutoff = (int) DB::table('activity_events')->where('customer_id', $customer->id)->max('id');
+            DB::table('profile_runs')->insertOrIgnore(['customer_id' => $customer->id, 'cutoff' => $cutoff, 'attempt' => 1, 'status' => 'blocked', 'error' => 'demo_ai_disabled', 'context' => '{}', 'created_at' => now(), 'updated_at' => now()]);
+
+            return;
+        }
         if (! config('integrations.openai.api_key')) {
             return;
         }

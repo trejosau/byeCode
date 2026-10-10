@@ -2,6 +2,7 @@
 
 namespace App\Jobs;
 
+use App\Domain\Demo\DemoPolicy;
 use Carbon\CarbonImmutable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Queue\Queueable;
@@ -19,6 +20,12 @@ class DeliverTransactionalMail implements ShouldQueue
 
     public function handle(): void
     {
+        $candidate = DB::table('mail_deliveries')->where('id', $this->deliveryId)->first();
+        if ($candidate && ($candidate->demo_run_id || DemoPolicy::recipientRun($candidate->recipient))) {
+            DB::table('mail_deliveries')->where('id', $this->deliveryId)->update(['status' => 'suppressed_demo', 'encrypted_body' => null, 'updated_at' => now()]);
+
+            return;
+        }
         if (! config('onboarding.mail_enabled') || config('mail.default') !== 'smtp') {
             return;
         }

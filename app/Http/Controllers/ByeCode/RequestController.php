@@ -4,6 +4,7 @@ namespace App\Http\Controllers\ByeCode;
 
 use App\Domain\Cases\CustomerJourney;
 use App\Domain\Cases\Onboarding;
+use App\Domain\Demo\DemoPolicy;
 use App\Models\CommercialCase;
 use App\Models\Customer;
 use App\Models\Product;
@@ -50,6 +51,8 @@ class RequestController
         $query = CommercialCase::whereIn('data_set_id', DB::table('data_sets')->where('mode', 'live')->select('id'));
         if ($request->user()->role === 'customer') {
             $query->whereIn('customer_id', Customer::where('account_id', $request->user()->id)->select('id'));
+        } else {
+            DemoPolicy::filter($query, $request);
         }
 
         return Inertia::render('journey/requests', ['cases' => $query->latest('updated_at')->limit(200)->get(['id', 'public_id', 'external_id', 'title', 'stage', 'status', 'amount_cents', 'assigned_to', 'created_at', 'updated_at']),

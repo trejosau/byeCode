@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\ByeCode;
 
 use App\Domain\Cases\CustomerJourney;
+use App\Domain\Evaluation\DecisionUpdates;
 use App\Models\CommercialCase;
 use App\Models\Customer;
 use Illuminate\Http\Request;
@@ -38,6 +39,8 @@ class TelemetryController
         }
         $customer = $request->user() ? Customer::where('account_id', $request->user()->id)->first() : null;
         DB::transaction(function () use ($data, $request, $session, $customer) {
+            $changed = 0;
+            $cases = [];
             foreach ($data['events'] as $event) {
                 $case = null;
                 if (! empty($event['case_id'])) {
@@ -48,13 +51,26 @@ class TelemetryController
                         abort_unless(DB::table('quote_versions')->where('commercial_case_id', $case->id)->where('version', $event['data']['version'])->exists(), 422);
                     }
                 }
-                DB::table('activity_events')->insertOrIgnore(['event_id' => $event['event_id'], 'customer_id' => $customer?->id, 'account_id' => $request->user()?->id,
+                $inserted = DB::table('activity_events')->insertOrIgnore(['event_id' => $event['event_id'], 'customer_id' => $customer?->id, 'account_id' => $request->user()?->id,
                     'commercial_case_id' => $case?->id, 'session_key' => $session, 'type' => $event['type'], 'actor' => $request->user() ? 'customer' : 'visitor',
                     'source' => 'browser_unverified', 'data' => json_encode($event['data'], JSON_THROW_ON_ERROR), 'occurred_at' => now(), 'ingested_at' => now()]);
+                $changed += $inserted;
+                if ($inserted && $case) {
+                    $cases[$case->id] = $case;
+                }
             }
             if ($customer) {
-                DB::table('activity_events')->where('session_key', $session)->whereNull('account_id')->update(['account_id' => $request->user()->id, 'customer_id' => $customer->id]);
-                DB::table('activity_events')->where('account_id', $request->user()->id)->whereNull('customer_id')->update(['customer_id' => $customer->id]);
+                $changed += DB::table('activity_events')->where('session_key', $session)->whereNull('account_id')->update(['account_id' => $request->user()->id, 'customer_id' => $customer->id]);
+                $changed += DB::table('activity_events')->where('account_id', $request->user()->id)->whereNull('customer_id')->update(['customer_id' => $customer->id]);
+                if ($changed) {
+                    app(DecisionUpdates::class)->customerChanged($customer->id);
+                    foreach (CommercialCase::where('customer_id', $customer->id)->where('status', 'open')->get() as $openCase) {
+                        $cases[$openCase->id] = $openCase;
+                    }
+                }
+            }
+            foreach ($cases as $changedCase) {
+                app(DecisionUpdates::class)->caseChanged($changedCase);
             }
         });
 

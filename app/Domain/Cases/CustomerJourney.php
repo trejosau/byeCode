@@ -2,6 +2,7 @@
 
 namespace App\Domain\Cases;
 
+use App\Domain\Evaluation\DecisionUpdates;
 use App\Domain\Events\EventProfile;
 use App\Domain\Events\ImportService;
 use App\Domain\Support\Utc;
@@ -21,9 +22,21 @@ class CustomerJourney
         if (! $case->customer_id) {
             return;
         }
-        DB::table('activity_events')->insertOrIgnore(['event_id' => $id ?? (string) Str::uuid(), 'account_id' => Customer::find($case->customer_id)?->account_id,
-            'customer_id' => $case->customer_id, 'commercial_case_id' => $case->id, 'type' => $type, 'actor' => $actor ? $actor->role : 'system',
-            'source' => 'application', 'data' => json_encode($data, JSON_THROW_ON_ERROR), 'occurred_at' => now(), 'ingested_at' => now()]);
+        DB::transaction(function () use ($case, $actor, $type, $data, $id) {
+            $inserted = DB::table('activity_events')->insertOrIgnore(['event_id' => $id ?? (string) Str::uuid(), 'account_id' => Customer::find($case->customer_id)?->account_id,
+                'customer_id' => $case->customer_id, 'commercial_case_id' => $case->id, 'type' => $type, 'actor' => $actor ? $actor->role : 'system',
+                'source' => 'application', 'data' => json_encode($data, JSON_THROW_ON_ERROR), 'occurred_at' => now(), 'ingested_at' => now()]);
+            if ($inserted) {
+                app(DecisionUpdates::class)->caseChanged($case);
+                app(DecisionUpdates::class)->customerChanged($case->customer_id);
+                // These facts change the customer-wide indicators included in other open cases.
+                if ($type === 'request.submitted' || str_starts_with($type, 'sale.')) {
+                    CommercialCase::where('customer_id', $case->customer_id)->where('id', '!=', $case->id)->where('status', 'open')->each(function ($related) {
+                        app(DecisionUpdates::class)->caseChanged($related);
+                    });
+                }
+            }
+        });
     }
 
     /** @param array<string, mixed> $input */
@@ -52,14 +65,14 @@ class CustomerJourney
                     'below_moq' => $product->moq !== null && $line['quantity'] < $product->moq];
             }
             $customer = Customer::firstOrCreate(['account_id' => $buyer->id], ['user_id' => $owner->id,
-                'company' => $input['company'] ?? $buyer->name, 'contact_name' => $buyer->name, 'email' => $buyer->email]);
+                'company' => $input['company'] ?? $buyer->name, 'contact_name' => $buyer->name, 'email' => $buyer->email, 'demo_run_id' => $buyer->demo_run_id]);
             $set = app(Workspace::class)->live($owner);
             $external = 'SOL-'.Str::upper(Str::random(10));
             $batch = app(ImportService::class)->import($set, json_encode(['event_id' => (string) Str::uuid(), 'case_id' => $external,
-                'event_type' => 'case.opened', 'occurred_at' => Utc::iso(CarbonImmutable::now('UTC')), 'data' => ['status' => 'open', 'proposal_amount_mxn' => null]], JSON_THROW_ON_ERROR), 'Solicitud del cliente', EventProfile::BUSINESS);
+                'event_type' => 'case.opened', 'occurred_at' => Utc::iso(CarbonImmutable::now('UTC')), 'data' => ['status' => 'open', 'proposal_amount_mxn' => null]], JSON_THROW_ON_ERROR), 'Solicitud del cliente', EventProfile::BUSINESS, $buyer->demo_run_id);
             abort_if($batch->errors !== [], 422);
             $case = CommercialCase::where('data_set_id', $set->id)->where('external_id', $external)->firstOrFail();
-            $case->update(['customer_id' => $customer->id, 'public_id' => (string) Str::uuid(), 'title' => 'Solicitud de '.$buyer->name, 'stage' => 'request_received', 'assigned_to' => $seller?->id]);
+            $case->update(['demo_run_id' => $buyer->demo_run_id, 'customer_id' => $customer->id, 'public_id' => (string) Str::uuid(), 'title' => 'Solicitud de '.$buyer->name, 'stage' => 'request_received', 'assigned_to' => $seller?->id]);
             DB::table('purchase_requests')->insert(['account_id' => $buyer->id, 'commercial_case_id' => $case->id,
                 'submission_id' => $input['submission_id'], 'lines' => json_encode($lines, JSON_THROW_ON_ERROR), 'message' => $input['message'] ?? null,
                 'desired_date' => $input['desired_date'] ?? null, 'source' => $seller ? 'physical' : 'self_service', 'created_at' => now(), 'updated_at' => now()]);

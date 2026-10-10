@@ -34,13 +34,13 @@ class ProfileController
             'events' => DB::table('activity_events')->where('customer_id', $customer->id)->latest('id')->limit(200)->get()->map(fn ($r) => [...(array) $r, 'data' => json_decode($r->data, true), 'occurred_at' => CarbonImmutable::parse($r->occurred_at, 'UTC')->toIso8601ZuluString()]),
             'runs' => DB::table('profile_runs')->where('customer_id', $customer->id)->latest('id')->limit(20)->get(['id', 'cutoff', 'status', 'error', 'updated_at']),
             'cases' => DB::table('commercial_cases')->where('customer_id', $customer->id)->latest('id')->get(['id', 'title', 'public_id', 'status']),
-            'readOnly' => $request->user()->role === 'admin', 'aiReady' => (bool) config('integrations.openai.api_key')]);
+            'readOnly' => $request->user()->role === 'admin', 'aiReady' => ! $customer->demo_run_id && (bool) config('integrations.openai.api_key')]);
     }
 
     public function correct(Request $request, Customer $customer, CustomerProfile $profile): RedirectResponse
     {
         try {
-            $profile->fact($customer, $request->all(), 'confirmed');
+            $profile->fact($customer, $request->all(), 'confirmed', null, $request->user()->id);
         } catch (\RuntimeException $e) {
             if ($e->getMessage() !== 'invalid_evidence') {
                 throw $e;

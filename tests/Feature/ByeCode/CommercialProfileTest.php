@@ -38,6 +38,7 @@ beforeEach(function () {
 
 it('distinguishes commercial structure for customers with the same paid amount without automatic tiers', function () {
     $profile = app(CustomerProfile::class);
+    $beforeRevision = CommercialCase::where('customer_id', $this->customer->id)->value('revision');
     expect($profile->indicators($this->customer)['paid_cents'])->toEqual(5000000)
         ->and($profile->indicators($this->corporate)['paid_cents'])->toEqual(5000000)
         ->and(app(CommercialProfile::class)->summaries([$this->customer->id, $this->corporate->id]))->toBe([]);
@@ -45,7 +46,7 @@ it('distinguishes commercial structure for customers with the same paid amount w
     $this->post('/customers/'.$this->corporate->id.'/facts', [...$this->fact, 'value_json' => '"corporate_group"', 'evidence' => [$this->corporateEvidence]])->assertRedirect()->assertSessionHasNoErrors();
     $this->get('/customers/'.$this->customer->id)->assertInertia(fn (Assert $p) => $p->where('commercialProfile.operating_scale.value', 'individual')->where('indicators.paid_cents', 5000000)->where('commercialProfile.operating_scale.nature', 'confirmed'));
     $this->get('/customers?operating_scale=corporate_group')->assertInertia(fn (Assert $p) => $p->has('customers.data', 1)->where('customers.data.0.id', $this->corporate->id));
-    expect(CommercialCase::where('customer_id', $this->customer->id)->value('revision'))->toBe(1);
+    expect(CommercialCase::where('customer_id', $this->customer->id)->value('revision'))->toBe($beforeRevision + 1);
 });
 
 it('filters only current confirmed facts and keeps uncertain classifications visible for review', function () {

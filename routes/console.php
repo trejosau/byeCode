@@ -19,7 +19,7 @@ Schedule::call(function () {
     DB::table('ai_usages')->whereIn('profile_run_id', $interrupted)->where('status', 'reserved')->update(['status' => 'uncertain']);
     DB::table('profile_runs')->whereIn('id', $interrupted)->update(['status' => 'failed', 'error' => 'worker_interrupted', 'updated_at' => now()]);
     if (config('integrations.openai.api_key')) {
-        Customer::whereNotNull('account_id')->chunkById(100, function ($customers) {
+        Customer::whereNotNull('account_id')->whereNull('demo_run_id')->chunkById(100, function ($customers) {
             foreach ($customers as $customer) {
                 EnrichCustomer::dispatch($customer->id);
             }

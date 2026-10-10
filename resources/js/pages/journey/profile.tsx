@@ -6,7 +6,7 @@ import {
     Plus,
     History,
 } from 'lucide-react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Errors } from '@/components/byecode/journey';
 import {
     CommercialProfile,
@@ -93,6 +93,22 @@ export default function Profile({
 }: Props) {
     const [adding, setAdding] = useState(false);
     const [analyzing, setAnalyzing] = useState(false);
+    useEffect(() => {
+        const timer = setInterval(() => {
+            if (document.visibilityState === 'visible') {
+                router.reload({
+                    only: [
+                        'indicators',
+                        'facts',
+                        'events',
+                        'runs',
+                        'commercialProfile',
+                    ],
+                });
+            }
+        }, 10000);
+        return () => clearInterval(timer);
+    }, []);
     const form = useForm({
         name: '',
         scope: 'cliente',
@@ -491,7 +507,7 @@ export default function Profile({
                             </h2>
                             <p className="text-sm leading-6 text-muted-foreground">
                                 {aiReady
-                                    ? 'La IA propone hipótesis basadas en eventos. Comercio confirma o corrige con evidencia.'
+                                    ? 'La actividad nueva solicita el análisis automático. La IA propone hipótesis con evidencia; comercio puede confirmarlas o corregirlas.'
                                     : 'La interpretación automática espera configuración de IA. Puedes revisar y confirmar el perfil manualmente.'}
                             </p>
                             {!readOnly && (
