@@ -1,0 +1,523 @@
+{
+    "schemaVersion": 2,
+    "generatedAt": "2026-10-10T09:32:01Z",
+    "title": "Design System: ByeCode / BLANKS",
+    "extensions": {
+        "colorMeta": {
+            "background": {
+                "role": "neutral",
+                "displayName": "Blanco de trabajo",
+                "tonalRamp": [
+                    "oklch(0.15 0 0)",
+                    "oklch(0.27 0 0)",
+                    "oklch(0.38 0 0)",
+                    "oklch(0.49 0 0)",
+                    "oklch(0.61 0 0)",
+                    "oklch(0.73 0 0)",
+                    "oklch(0.85 0 0)",
+                    "oklch(0.95 0 0)"
+                ]
+            },
+            "foreground": {
+                "role": "neutral",
+                "displayName": "Tinta",
+                "tonalRamp": [
+                    "oklch(0.15 0 0)",
+                    "oklch(0.27 0 0)",
+                    "oklch(0.38 0 0)",
+                    "oklch(0.49 0 0)",
+                    "oklch(0.61 0 0)",
+                    "oklch(0.73 0 0)",
+                    "oklch(0.85 0 0)",
+                    "oklch(0.95 0 0)"
+                ]
+            },
+            "primary": {
+                "role": "primary",
+                "displayName": "Negro de acción",
+                "tonalRamp": [
+                    "oklch(0.15 0 0)",
+                    "oklch(0.27 0 0)",
+                    "oklch(0.38 0 0)",
+                    "oklch(0.49 0 0)",
+                    "oklch(0.61 0 0)",
+                    "oklch(0.73 0 0)",
+                    "oklch(0.85 0 0)",
+                    "oklch(0.95 0 0)"
+                ]
+            },
+            "primary-foreground": {
+                "role": "neutral",
+                "displayName": "Texto de acción",
+                "tonalRamp": [
+                    "oklch(0.15 0 0)",
+                    "oklch(0.27 0 0)",
+                    "oklch(0.38 0 0)",
+                    "oklch(0.49 0 0)",
+                    "oklch(0.61 0 0)",
+                    "oklch(0.73 0 0)",
+                    "oklch(0.85 0 0)",
+                    "oklch(0.95 0 0)"
+                ]
+            },
+            "muted": {
+                "role": "neutral",
+                "displayName": "Gris de apoyo",
+                "tonalRamp": [
+                    "oklch(0.15 0 0)",
+                    "oklch(0.27 0 0)",
+                    "oklch(0.38 0 0)",
+                    "oklch(0.49 0 0)",
+                    "oklch(0.61 0 0)",
+                    "oklch(0.73 0 0)",
+                    "oklch(0.85 0 0)",
+                    "oklch(0.95 0 0)"
+                ]
+            },
+            "muted-foreground": {
+                "role": "neutral",
+                "displayName": "Gris de lectura auxiliar",
+                "tonalRamp": [
+                    "oklch(0.15 0 0)",
+                    "oklch(0.27 0 0)",
+                    "oklch(0.38 0 0)",
+                    "oklch(0.49 0 0)",
+                    "oklch(0.61 0 0)",
+                    "oklch(0.73 0 0)",
+                    "oklch(0.85 0 0)",
+                    "oklch(0.95 0 0)"
+                ]
+            },
+            "border": {
+                "role": "neutral",
+                "displayName": "Línea",
+                "tonalRamp": [
+                    "oklch(0.15 0 0)",
+                    "oklch(0.27 0 0)",
+                    "oklch(0.38 0 0)",
+                    "oklch(0.49 0 0)",
+                    "oklch(0.61 0 0)",
+                    "oklch(0.73 0 0)",
+                    "oklch(0.85 0 0)",
+                    "oklch(0.95 0 0)"
+                ]
+            },
+            "ring": {
+                "role": "neutral",
+                "displayName": "Foco",
+                "tonalRamp": [
+                    "oklch(0.15 0 0)",
+                    "oklch(0.27 0 0)",
+                    "oklch(0.38 0 0)",
+                    "oklch(0.49 0 0)",
+                    "oklch(0.61 0 0)",
+                    "oklch(0.73 0 0)",
+                    "oklch(0.85 0 0)",
+                    "oklch(0.95 0 0)"
+                ]
+            },
+            "sidebar": {
+                "role": "neutral",
+                "displayName": "Marco lateral",
+                "tonalRamp": [
+                    "oklch(0.15 0 0)",
+                    "oklch(0.27 0 0)",
+                    "oklch(0.38 0 0)",
+                    "oklch(0.49 0 0)",
+                    "oklch(0.61 0 0)",
+                    "oklch(0.73 0 0)",
+                    "oklch(0.85 0 0)",
+                    "oklch(0.95 0 0)"
+                ]
+            },
+            "destructive": {
+                "role": "semantic",
+                "displayName": "Rojo de incidencia",
+                "tonalRamp": [
+                    "oklch(0.15 0.245 27.325)",
+                    "oklch(0.27 0.245 27.325)",
+                    "oklch(0.38 0.245 27.325)",
+                    "oklch(0.49 0.245 27.325)",
+                    "oklch(0.61 0.245 27.325)",
+                    "oklch(0.73 0.245 27.325)",
+                    "oklch(0.85 0.245 27.325)",
+                    "oklch(0.95 0.245 27.325)"
+                ]
+            },
+            "dark-background": {
+                "role": "neutral",
+                "displayName": "Lienzo oscuro",
+                "tonalRamp": [
+                    "oklch(0.15 0 0)",
+                    "oklch(0.27 0 0)",
+                    "oklch(0.38 0 0)",
+                    "oklch(0.49 0 0)",
+                    "oklch(0.61 0 0)",
+                    "oklch(0.73 0 0)",
+                    "oklch(0.85 0 0)",
+                    "oklch(0.95 0 0)"
+                ]
+            },
+            "dark-foreground": {
+                "role": "neutral",
+                "displayName": "Tinta clara",
+                "tonalRamp": [
+                    "oklch(0.15 0 0)",
+                    "oklch(0.27 0 0)",
+                    "oklch(0.38 0 0)",
+                    "oklch(0.49 0 0)",
+                    "oklch(0.61 0 0)",
+                    "oklch(0.73 0 0)",
+                    "oklch(0.85 0 0)",
+                    "oklch(0.95 0 0)"
+                ]
+            },
+            "dark-primary": {
+                "role": "primary",
+                "displayName": "Acción clara",
+                "tonalRamp": [
+                    "oklch(0.15 0 0)",
+                    "oklch(0.27 0 0)",
+                    "oklch(0.38 0 0)",
+                    "oklch(0.49 0 0)",
+                    "oklch(0.61 0 0)",
+                    "oklch(0.73 0 0)",
+                    "oklch(0.85 0 0)",
+                    "oklch(0.95 0 0)"
+                ]
+            },
+            "dark-primary-foreground": {
+                "role": "neutral",
+                "displayName": "Texto de acción oscura",
+                "tonalRamp": [
+                    "oklch(0.15 0 0)",
+                    "oklch(0.27 0 0)",
+                    "oklch(0.38 0 0)",
+                    "oklch(0.49 0 0)",
+                    "oklch(0.61 0 0)",
+                    "oklch(0.73 0 0)",
+                    "oklch(0.85 0 0)",
+                    "oklch(0.95 0 0)"
+                ]
+            },
+            "dark-muted": {
+                "role": "neutral",
+                "displayName": "Apoyo oscuro",
+                "tonalRamp": [
+                    "oklch(0.15 0 0)",
+                    "oklch(0.27 0 0)",
+                    "oklch(0.38 0 0)",
+                    "oklch(0.49 0 0)",
+                    "oklch(0.61 0 0)",
+                    "oklch(0.73 0 0)",
+                    "oklch(0.85 0 0)",
+                    "oklch(0.95 0 0)"
+                ]
+            },
+            "dark-muted-foreground": {
+                "role": "neutral",
+                "displayName": "Lectura auxiliar oscura",
+                "tonalRamp": [
+                    "oklch(0.15 0 0)",
+                    "oklch(0.27 0 0)",
+                    "oklch(0.38 0 0)",
+                    "oklch(0.49 0 0)",
+                    "oklch(0.61 0 0)",
+                    "oklch(0.73 0 0)",
+                    "oklch(0.85 0 0)",
+                    "oklch(0.95 0 0)"
+                ]
+            },
+            "dark-border": {
+                "role": "neutral",
+                "displayName": "Línea oscura",
+                "tonalRamp": [
+                    "oklch(0.15 0 0)",
+                    "oklch(0.27 0 0)",
+                    "oklch(0.38 0 0)",
+                    "oklch(0.49 0 0)",
+                    "oklch(0.61 0 0)",
+                    "oklch(0.73 0 0)",
+                    "oklch(0.85 0 0)",
+                    "oklch(0.95 0 0)"
+                ]
+            },
+            "dark-ring": {
+                "role": "neutral",
+                "displayName": "Foco oscuro",
+                "tonalRamp": [
+                    "oklch(0.15 0 0)",
+                    "oklch(0.27 0 0)",
+                    "oklch(0.38 0 0)",
+                    "oklch(0.49 0 0)",
+                    "oklch(0.61 0 0)",
+                    "oklch(0.73 0 0)",
+                    "oklch(0.85 0 0)",
+                    "oklch(0.95 0 0)"
+                ]
+            },
+            "dark-sidebar": {
+                "role": "neutral",
+                "displayName": "Marco lateral oscuro",
+                "tonalRamp": [
+                    "oklch(0.15 0 0)",
+                    "oklch(0.27 0 0)",
+                    "oklch(0.38 0 0)",
+                    "oklch(0.49 0 0)",
+                    "oklch(0.61 0 0)",
+                    "oklch(0.73 0 0)",
+                    "oklch(0.85 0 0)",
+                    "oklch(0.95 0 0)"
+                ]
+            },
+            "dark-destructive": {
+                "role": "semantic",
+                "displayName": "Incidencia oscura",
+                "tonalRamp": [
+                    "oklch(0.15 0.141 25.723)",
+                    "oklch(0.27 0.141 25.723)",
+                    "oklch(0.38 0.141 25.723)",
+                    "oklch(0.49 0.141 25.723)",
+                    "oklch(0.61 0.141 25.723)",
+                    "oklch(0.73 0.141 25.723)",
+                    "oklch(0.85 0.141 25.723)",
+                    "oklch(0.95 0.141 25.723)"
+                ]
+            },
+            "dark-destructive-foreground": {
+                "role": "semantic",
+                "displayName": "Texto de incidencia oscura",
+                "tonalRamp": [
+                    "oklch(0.15 0.237 25.331)",
+                    "oklch(0.27 0.237 25.331)",
+                    "oklch(0.38 0.237 25.331)",
+                    "oklch(0.49 0.237 25.331)",
+                    "oklch(0.61 0.237 25.331)",
+                    "oklch(0.73 0.237 25.331)",
+                    "oklch(0.85 0.237 25.331)",
+                    "oklch(0.95 0.237 25.331)"
+                ]
+            }
+        },
+        "typographyMeta": {
+            "headline": {
+                "displayName": "Título de página",
+                "purpose": "Base móvil y tamaño de la decisión principal; Instrument Sans se hereda por toda la interfaz."
+            },
+            "headline-wide": {
+                "displayName": "Título amplio",
+                "purpose": "Título de página desde md y totales destacados."
+            },
+            "title": {
+                "displayName": "Título de sección",
+                "purpose": "Bandeja e historial."
+            },
+            "panel-title": {
+                "displayName": "Título de tarjeta",
+                "purpose": "Cabeceras compactas de Card."
+            },
+            "body": {
+                "displayName": "Texto explicativo",
+                "purpose": "Párrafos con interlínea relajada."
+            },
+            "table-body": {
+                "displayName": "Texto de tabla",
+                "purpose": "Datos y valores compactos."
+            },
+            "control": {
+                "displayName": "Control",
+                "purpose": "Botones y controles de peso medio."
+            },
+            "label": {
+                "displayName": "Metadatos",
+                "purpose": "Ayudas, fechas, identificadores y rótulos."
+            },
+            "badge": {
+                "displayName": "Insignia",
+                "purpose": "Etiquetas de estado y origen con peso medio."
+            }
+        },
+        "shadows": [
+            {
+                "name": "control-xs",
+                "value": "0 1px 2px 0 rgb(0 0 0 / 0.05)",
+                "purpose": "Botones principales/outline e Input; valor instalado de Tailwind."
+            },
+            {
+                "name": "inset-sm",
+                "value": "0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1)",
+                "purpose": "Marco inset del escritorio. Card lo trae por defecto, pero ByeCode lo anula."
+            },
+            {
+                "name": "card-flat",
+                "value": "none",
+                "purpose": "Tarjetas de las superficies comerciales."
+            }
+        ],
+        "motion": [
+            {
+                "name": "workspace-enter",
+                "value": "180ms ease-out; translateY(3px) → translateY(0)",
+                "purpose": "Entrada de workspace-page, solo con prefers-reduced-motion: no-preference."
+            },
+            {
+                "name": "control-transition",
+                "value": "150ms cubic-bezier(0.4, 0, 0.2, 1)",
+                "purpose": "Valor Tailwind de transición de color/sombra para Button e Input."
+            },
+            {
+                "name": "sidebar-transition",
+                "value": "200ms linear",
+                "purpose": "Cambio de ancho y posición de la navegación lateral."
+            }
+        ],
+        "breakpoints": [
+            {
+                "name": "sm",
+                "value": "40rem"
+            },
+            {
+                "name": "md",
+                "value": "48rem"
+            },
+            {
+                "name": "lg",
+                "value": "64rem"
+            },
+            {
+                "name": "xl",
+                "value": "80rem"
+            },
+            {
+                "name": "2xl",
+                "value": "96rem"
+            }
+        ]
+    },
+    "components": [
+        {
+            "name": "Botón primario",
+            "kind": "button",
+            "refersTo": "button-primary",
+            "description": "Variante primary del componente Button; ejemplo de etiqueta real, sin ejecutar acciones.",
+            "html": "<button type=\"button\" class=\"ds-button-primary\">Nueva cotización</button>",
+            "css": ".ds-button-primary{font-family:var(--font-sans,'Instrument Sans',ui-sans-serif,system-ui,sans-serif);display:inline-flex;align-items:center;justify-content:center;gap:8px;height:36px;padding:8px 16px;border:0;border-radius:calc(var(--radius,0.625rem) - 2px);font-size:14px;line-height:20px;font-weight:500;white-space:nowrap;transition:color 150ms cubic-bezier(0.4,0,0.2,1),box-shadow 150ms cubic-bezier(0.4,0,0.2,1);}.ds-button-primary:disabled{pointer-events:none;opacity:.5;}.ds-button-primary{background:var(--primary,oklch(0.205 0 0));color:var(--primary-foreground,oklch(0.985 0 0));box-shadow:0 1px 2px 0 rgb(0 0 0 / .05);}.ds-button-primary:hover{background:color-mix(in oklab,var(--primary,oklch(0.205 0 0)) 90%,transparent);}.ds-button-primary:focus-visible{outline:none;border-color:var(--ring,oklch(0.87 0 0));box-shadow:0 0 0 3px color-mix(in oklab,var(--ring,oklch(0.87 0 0)) 50%,transparent);}"
+        },
+        {
+            "name": "Botón outline",
+            "kind": "button",
+            "refersTo": "button-outline",
+            "description": "Variante outline del componente Button; ejemplo de etiqueta real, sin ejecutar acciones.",
+            "html": "<button type=\"button\" class=\"ds-button-outline\">Probar con el kit</button>",
+            "css": ".ds-button-outline{font-family:var(--font-sans,'Instrument Sans',ui-sans-serif,system-ui,sans-serif);display:inline-flex;align-items:center;justify-content:center;gap:8px;height:36px;padding:8px 16px;border:0;border-radius:calc(var(--radius,0.625rem) - 2px);font-size:14px;line-height:20px;font-weight:500;white-space:nowrap;transition:color 150ms cubic-bezier(0.4,0,0.2,1),box-shadow 150ms cubic-bezier(0.4,0,0.2,1);}.ds-button-outline:disabled{pointer-events:none;opacity:.5;}.ds-button-outline{background:var(--background,oklch(1 0 0));color:var(--foreground,oklch(0.145 0 0));border:1px solid var(--input,oklch(0.922 0 0));box-shadow:0 1px 2px 0 rgb(0 0 0 / .05);}.ds-button-outline:hover{background:var(--accent,oklch(0.97 0 0));color:var(--accent-foreground,oklch(0.205 0 0));}.ds-button-outline:focus-visible{outline:none;border-color:var(--ring,oklch(0.87 0 0));box-shadow:0 0 0 3px color-mix(in oklab,var(--ring,oklch(0.87 0 0)) 50%,transparent);}"
+        },
+        {
+            "name": "Botón ghost",
+            "kind": "button",
+            "refersTo": "button-ghost",
+            "description": "Variante ghost del componente Button; ejemplo de etiqueta real, sin ejecutar acciones.",
+            "html": "<button type=\"button\" class=\"ds-button-ghost\">Todas las cotizaciones</button>",
+            "css": ".ds-button-ghost{font-family:var(--font-sans,'Instrument Sans',ui-sans-serif,system-ui,sans-serif);display:inline-flex;align-items:center;justify-content:center;gap:8px;height:36px;padding:8px 16px;border:0;border-radius:calc(var(--radius,0.625rem) - 2px);font-size:14px;line-height:20px;font-weight:500;white-space:nowrap;transition:color 150ms cubic-bezier(0.4,0,0.2,1),box-shadow 150ms cubic-bezier(0.4,0,0.2,1);}.ds-button-ghost:disabled{pointer-events:none;opacity:.5;}.ds-button-ghost{background:transparent;color:var(--foreground,oklch(0.145 0 0));}.ds-button-ghost:hover{background:var(--accent,oklch(0.97 0 0));color:var(--accent-foreground,oklch(0.205 0 0));}.ds-button-ghost:focus-visible{outline:none;border-color:var(--ring,oklch(0.87 0 0));box-shadow:0 0 0 3px color-mix(in oklab,var(--ring,oklch(0.87 0 0)) 50%,transparent);}"
+        },
+        {
+            "name": "Botón enlace",
+            "kind": "button",
+            "refersTo": "button-link",
+            "description": "Variante link del componente Button; ejemplo de etiqueta real, sin ejecutar acciones.",
+            "html": "<button type=\"button\" class=\"ds-button-link\">Revisar consumo y evaluaciones</button>",
+            "css": ".ds-button-link{font-family:var(--font-sans,'Instrument Sans',ui-sans-serif,system-ui,sans-serif);display:inline-flex;align-items:center;justify-content:center;gap:8px;height:36px;padding:8px 16px;border:0;border-radius:calc(var(--radius,0.625rem) - 2px);font-size:14px;line-height:20px;font-weight:500;white-space:nowrap;transition:color 150ms cubic-bezier(0.4,0,0.2,1),box-shadow 150ms cubic-bezier(0.4,0,0.2,1);}.ds-button-link:disabled{pointer-events:none;opacity:.5;}.ds-button-link{background:transparent;color:var(--primary,oklch(0.205 0 0));text-underline-offset:4px;}.ds-button-link:hover{text-decoration:underline;}.ds-button-link:focus-visible{outline:none;border-color:var(--ring,oklch(0.87 0 0));box-shadow:0 0 0 3px color-mix(in oklab,var(--ring,oklch(0.87 0 0)) 50%,transparent);}"
+        },
+        {
+            "name": "Campo de texto",
+            "kind": "input",
+            "refersTo": "input",
+            "description": "Input con texto de 16 px en móvil y 14 px desde md; etiqueta asociada.",
+            "html": "<label class=\"ds-input-label\" for=\"ds-search\">Buscar cotizaciones</label><input id=\"ds-search\" class=\"ds-input\" type=\"text\" placeholder=\"Buscar por cliente o cotización\">",
+            "css": ".ds-input-label{font-family:var(--font-sans,'Instrument Sans',ui-sans-serif,system-ui,sans-serif);display:block;margin-bottom:8px;font-size:14px;line-height:20px;font-weight:500;color:var(--foreground,oklch(0.145 0 0));}.ds-input{font-family:var(--font-sans,'Instrument Sans',ui-sans-serif,system-ui,sans-serif);display:flex;height:36px;width:100%;min-width:0;padding:4px 12px;border:1px solid var(--input,oklch(0.922 0 0));border-radius:calc(var(--radius,0.625rem) - 2px);background:transparent;color:var(--foreground,oklch(0.145 0 0));font-size:16px;line-height:24px;box-shadow:0 1px 2px 0 rgb(0 0 0 / .05);transition:color 150ms cubic-bezier(0.4,0,0.2,1),box-shadow 150ms cubic-bezier(0.4,0,0.2,1);}.ds-input::placeholder{color:var(--muted-foreground,oklch(0.556 0 0));}.ds-input:disabled{pointer-events:none;cursor:not-allowed;opacity:.5;}.ds-input[aria-invalid=true]{border-color:var(--destructive,oklch(0.577 0.245 27.325));box-shadow:0 0 0 3px color-mix(in oklab,var(--destructive,oklch(0.577 0.245 27.325)) 20%,transparent);}.ds-input:focus-visible{outline:none;border-color:var(--ring,oklch(0.87 0 0));box-shadow:0 0 0 3px color-mix(in oklab,var(--ring,oklch(0.87 0 0)) 50%,transparent);}@media(min-width:48rem){.ds-input{font-size:14px;line-height:20px;}}"
+        },
+        {
+            "name": "Navegación lateral",
+            "kind": "nav",
+            "refersTo": "navigation-item",
+            "description": "Ítem activo gris, peso medio e icono SVG de 16 px; el ejemplo conserva el tratamiento de foco.",
+            "html": "<nav class=\"ds-nav\" aria-label=\"Espacio comercial\"><a class=\"ds-nav-item\" href=\"#ds-resumen\" aria-current=\"page\"><svg viewBox=\"0 0 24 24\" width=\"16\" height=\"16\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><rect width=\"7\" height=\"7\" x=\"3\" y=\"3\" rx=\"1\"/><rect width=\"7\" height=\"7\" x=\"14\" y=\"3\" rx=\"1\"/><rect width=\"7\" height=\"7\" x=\"14\" y=\"14\" rx=\"1\"/><rect width=\"7\" height=\"7\" x=\"3\" y=\"14\" rx=\"1\"/></svg><span>Resumen</span></a></nav>",
+            "css": ".ds-nav{padding:8px;background:var(--sidebar,oklch(0.985 0 0));}.ds-nav-item{font-family:var(--font-sans,'Instrument Sans',ui-sans-serif,system-ui,sans-serif);display:flex;align-items:center;gap:8px;overflow:hidden;height:32px;padding:8px;border-radius:calc(var(--radius,0.625rem) - 2px);color:var(--sidebar-foreground,oklch(0.145 0 0));font-size:14px;line-height:20px;text-decoration:none;transition:width 150ms cubic-bezier(0.4,0,0.2,1),height 150ms cubic-bezier(0.4,0,0.2,1),padding 150ms cubic-bezier(0.4,0,0.2,1);}.ds-nav-item:hover,.ds-nav-item:active,.ds-nav-item[aria-current=page]{background:var(--sidebar-accent,oklch(0.97 0 0));color:var(--sidebar-accent-foreground,oklch(0.205 0 0));}.ds-nav-item[aria-current=page]{font-weight:500;}.ds-nav-item:focus-visible{outline:none;box-shadow:0 0 0 2px var(--sidebar-ring,oklch(0.87 0 0));}.ds-nav-item svg{flex-shrink:0;}"
+        },
+        {
+            "name": "Etiqueta de estado",
+            "kind": "chip",
+            "refersTo": "chip-secondary",
+            "description": "Estado textual sobre fondo neutro.",
+            "html": "<span class=\"ds-chip-secondary\">Abierta</span>",
+            "css": ".ds-chip-secondary{font-family:var(--font-sans,'Instrument Sans',ui-sans-serif,system-ui,sans-serif);display:inline-flex;align-items:center;justify-content:center;gap:4px;width:fit-content;padding:2px 8px;border:1px solid transparent;border-radius:calc(var(--radius,0.625rem) - 2px);background:var(--secondary,oklch(0.97 0 0));color:var(--secondary-foreground,oklch(0.205 0 0));font-size:12px;font-weight:500;line-height:16px;white-space:nowrap;transition:color 150ms cubic-bezier(0.4,0,0.2,1),box-shadow 150ms cubic-bezier(0.4,0,0.2,1);}a.ds-chip-secondary:hover{background:color-mix(in oklab,var(--secondary,oklch(0.97 0 0)) 90%,transparent);}.ds-chip-secondary:focus-visible{outline:none;border-color:var(--ring,oklch(0.87 0 0));box-shadow:0 0 0 3px color-mix(in oklab,var(--ring,oklch(0.87 0 0)) 50%,transparent);}"
+        },
+        {
+            "name": "Etiqueta de origen",
+            "kind": "chip",
+            "refersTo": "chip-outline",
+            "description": "Origen explícito sobre una etiqueta de borde fino.",
+            "html": "<span class=\"ds-chip-outline\">Kit sintético</span>",
+            "css": ".ds-chip-outline{font-family:var(--font-sans,'Instrument Sans',ui-sans-serif,system-ui,sans-serif);display:inline-flex;align-items:center;justify-content:center;gap:4px;width:fit-content;padding:2px 8px;border:1px solid var(--border,oklch(0.922 0 0));border-radius:calc(var(--radius,0.625rem) - 2px);background:transparent;color:var(--foreground,oklch(0.145 0 0));font-size:12px;font-weight:500;line-height:16px;white-space:nowrap;transition:color 150ms cubic-bezier(0.4,0,0.2,1),box-shadow 150ms cubic-bezier(0.4,0,0.2,1);}a.ds-chip-outline:hover{background:var(--accent,oklch(0.97 0 0));}.ds-chip-outline:focus-visible{outline:none;border-color:var(--ring,oklch(0.87 0 0));box-shadow:0 0 0 3px color-mix(in oklab,var(--ring,oklch(0.87 0 0)) 50%,transparent);}"
+        },
+        {
+            "name": "Tarjeta comercial",
+            "kind": "card",
+            "refersTo": "card-flat",
+            "description": "Card comercial con sombra anulada y 24 px entre cabecera y contenido.",
+            "html": "<section class=\"ds-card\"><h2 class=\"ds-card-title\">Reglas operativas</h2><p class=\"ds-card-copy\">Las restricciones y fechas mandan sobre la recomendación.</p></section>",
+            "css": ".ds-card{font-family:var(--font-sans,'Instrument Sans',ui-sans-serif,system-ui,sans-serif);display:flex;flex-direction:column;gap:24px;padding:24px;border:1px solid var(--border,oklch(0.922 0 0));border-radius:12px;background:var(--card,oklch(1 0 0));color:var(--card-foreground,oklch(0.145 0 0));box-shadow:none;}.ds-card-title{margin:0;font-size:16px;font-weight:600;line-height:1;}.ds-card-copy{margin:0;color:var(--muted-foreground,oklch(0.556 0 0));font-size:14px;line-height:22.75px;}"
+        },
+        {
+            "name": "Siguiente decisión",
+            "kind": "custom",
+            "refersTo": "recommendation-panel",
+            "description": "Fragmento estático del panel del caso sintético P06: acción, razón y evidencia; no es una predicción.",
+            "html": "<section class=\"ds-decision\"><header class=\"ds-decision-header\"><h2 class=\"ds-decision-title\">Siguiente decisión</h2><span class=\"ds-decision-source\">Reglas · Kit sintético</span><p class=\"ds-decision-action\">Esperar</p></header><div class=\"ds-decision-body\"><p>Existe una pausa de contacto vigente. Reevaluar al vencer la última restricción; esa fecha no autoriza un envío.</p><div class=\"ds-decision-evidence\"><h3>Eventos de respaldo</h3><a href=\"#ds-event-p06-e2\">P06-e2</a></div><p class=\"ds-decision-note\">La decisión deriva de una regla verificable; no expresa probabilidad de compra.</p></div></section>",
+            "css": ".ds-decision{font-family:var(--font-sans,'Instrument Sans',ui-sans-serif,system-ui,sans-serif);display:flex;flex-direction:column;gap:24px;padding:24px;border:1px solid var(--border,oklch(0.922 0 0));border-radius:12px;background:var(--card,oklch(1 0 0));color:var(--foreground,oklch(0.145 0 0));box-shadow:none;}.ds-decision-header{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;}.ds-decision-title{margin:0;font-size:16px;font-weight:600;line-height:1;}.ds-decision-source{padding:2px 8px;border:1px solid var(--border,oklch(0.922 0 0));border-radius:calc(var(--radius,0.625rem) - 2px);font-size:12px;line-height:16px;font-weight:500;}.ds-decision-action{width:100%;margin:0;font-size:24px;line-height:32px;font-weight:600;letter-spacing:-.025em;}.ds-decision-body{display:flex;flex-direction:column;gap:24px;font-size:14px;line-height:22.75px;}.ds-decision-body p{margin:0;}.ds-decision-evidence h3{margin:0 0 8px;font-size:14px;line-height:20px;font-weight:600;}.ds-decision-evidence a{display:inline-flex;padding:2px 8px;border:1px solid transparent;border-radius:calc(var(--radius,0.625rem) - 2px);background:var(--muted,oklch(0.97 0 0));color:var(--foreground,oklch(0.145 0 0));font-size:12px;line-height:16px;font-weight:500;text-decoration:none;transition:color 150ms cubic-bezier(0.4,0,0.2,1),box-shadow 150ms cubic-bezier(0.4,0,0.2,1);}.ds-decision-evidence a:hover{background:color-mix(in oklab,var(--muted,oklch(0.97 0 0)) 90%,transparent);}.ds-decision-evidence a:focus-visible{outline:none;border-color:var(--ring,oklch(0.87 0 0));box-shadow:0 0 0 3px color-mix(in oklab,var(--ring,oklch(0.87 0 0)) 50%,transparent);}.ds-decision-note{color:var(--muted-foreground,oklch(0.556 0 0));font-size:12px;line-height:19.5px;}"
+        }
+    ],
+    "narrative": {
+        "northStar": "Mesa de trabajo comercial",
+        "overview": "ByeCode usa una superficie sobria de trabajo: blanco, grises neutros y negro, navegación lateral compacta, tablas legibles y decisiones acompañadas por contexto. La jerarquía depende de la tipografía, el espacio y los bordes; los estados se expresan con palabras y etiquetas discretas. La interfaz está en español y los importes del negocio se presentan en MXN.\n\nEl sistema describe la implementación Laravel, Inertia, React, TypeScript, Tailwind CSS y shadcn/ui observada el 10 de octubre de 2026. La referencia vinculante es Figma `janyEh3129fn9yUeb4bn3Z`, nodo `0:1`. El código concreta esa dirección con Instrument Sans y esquinas suaves; los valores del mockup no se convierten en datos de producción. La ausencia de datos, interpretación o validación se muestra de forma explícita, sin sustituirla por probabilidades ilustrativas.",
+        "keyCharacteristics": [
+            "Paleta neutra con rojo reservado para errores y restricciones que requieren atención.",
+            "Una familia sans serif, cifras tabulares y jerarquía compacta.",
+            "Bordes finos, tarjetas planas y controles con relieve mínimo.",
+            "Evidencia, origen y límites visibles junto a la decisión.",
+            "Composición adaptable que conserva el acceso al caso y al panel de decisión."
+        ],
+        "rules": [
+            {
+                "name": "The Estado con palabras Rule",
+                "body": "Todo estado comercial conserva una etiqueta textual; el color no sustituye estado, origen, vigencia ni explicación.",
+                "section": "colors"
+            },
+            {
+                "name": "The Jerarquía sobria Rule",
+                "body": "Crear jerarquía con tamaño, peso, espacio y contenido; conservar la misma familia y evitar titulares promocionales en el espacio operativo.",
+                "section": "typography"
+            },
+            {
+                "name": "The Superficie plana Rule",
+                "body": "Las tarjetas comerciales se separan con fondo, borde y espacio; no heredan automáticamente la sombra predeterminada de Card.",
+                "section": "elevation"
+            }
+        ],
+        "dos": [
+            "Do conservar Instrument Sans, la escala compacta y los tokens semánticos para que ambos temas mantengan sus funciones.",
+            "Do acompañar estados y decisiones con texto, origen y evidencia accesible.",
+            "Do alinear importes a la derecha y conservar cifras tabulares en el espacio de trabajo.",
+            "Do presentar el caso completo y su acción en móvil, y situar la decisión después de las métricas.",
+            "Do distinguir indicadores del espacio operativo, kits sintéticos y consumo de toda la instalación.",
+            "Do expresar ausencia de datos o validación con un estado explícito y texto legible."
+        ],
+        "donts": [
+            "Don't convertir cifras, porcentajes, urgencias o monedas ilustrativas de Figma en hechos del producto.",
+            "Don't usar el rojo de incidencia como decoración o sustituir etiquetas de estado por color.",
+            "Don't añadir sombras grandes o gradientes a las tarjetas comerciales de este sistema.",
+            "Don't recortar avisos necesarios para comprender el estado ni ocultar la acción del caso en una tabla móvil.",
+            "Don't presentar confianza cualitativa o aperturas de una propuesta como una probabilidad de compra validada.",
+            "Don't extender el `ship` de cuatro correcciones a una certificación global."
+        ]
+    }
+}

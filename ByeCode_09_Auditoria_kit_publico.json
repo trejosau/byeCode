@@ -1,0 +1,131 @@
+{
+  "status": "static_source_audit_not_application_test",
+  "review_date": "2026-10-10",
+  "source_directory": "C:\\Users\\User\\Downloads",
+  "reference_directory": "C:\\Decisiones empresariales con IA\\referencias\\kit_publico",
+  "files": [
+    {
+      "file": "manifest.json",
+      "bytes": 128,
+      "sha256": "ad228c794e5e4672037d22687e0a35ed0af15fc710fa037f92198f4c132dc1f8"
+    },
+    {
+      "file": "contratos.json",
+      "bytes": 1603,
+      "sha256": "cd64b6161b75d081f59f5411695dbabe8d21c6ef27dfac23ce3b5a513ff79d38"
+    },
+    {
+      "file": "events.jsonl",
+      "bytes": 2602,
+      "sha256": "407e5377b7ff1c14900df88bc814c9ca4df91494eb1d1112100a542c94255c7c"
+    },
+    {
+      "file": "updates.jsonl",
+      "bytes": 190,
+      "sha256": "681d8340447b181fbccbcb7b06d8aeadae09e2737b566fb88fe430a928f49968"
+    },
+    {
+      "file": "politicas.txt",
+      "bytes": 567,
+      "sha256": "db6320d2c79f5d4468ebafe25c90691fb2ed8ec74390ad6d75d5b3ff22dadaab"
+    },
+    {
+      "file": "README.txt",
+      "bytes": 596,
+      "sha256": "e05c4cf62115bb44ae137fedabc94059967eb72597336eaf322d8e36d97a40a5"
+    },
+    {
+      "file": "ejemplo_salida.json",
+      "bytes": 520,
+      "sha256": "7dc19491fcaa55fd0be63f55ad4bcbba837d9000ce3ed54fd10daaec6667e6ec"
+    },
+    {
+      "file": "Reto_Byecode_Participantes_24h.pdf",
+      "bytes": 319076,
+      "sha256": "8e879ff0468d6a05d1de3865b644b2b1992f6759275b777afcbf8575210be453"
+    }
+  ],
+  "manifest": {
+    "evaluation_at": "2026-10-09T16:00:00Z",
+    "timezone": "UTC",
+    "scenario": "propuestas comerciales",
+    "rules_version": 1
+  },
+  "defaults": {
+    "contact_allowed": true,
+    "contact_not_before": null
+  },
+  "initial": {
+    "lines": 16,
+    "unique_events": 15,
+    "cases": 6,
+    "by_case": {
+      "P01": 2,
+      "P02": 2,
+      "P03": 3,
+      "P04": 3,
+      "P05": 3,
+      "P06": 2
+    },
+    "duplicate_event_ids": [
+      "P02-e2"
+    ]
+  },
+  "updates": {
+    "lines": 1,
+    "unique_events_after_update": 16,
+    "event_ids": [
+      "P06-e3"
+    ]
+  },
+  "source_order_anomalies": [
+    {
+      "case_id": "P06",
+      "previous_event": "P06-e1",
+      "event_id": "P06-e2",
+      "note": "Source order differs from occurred_at order; preserve both."
+    }
+  ],
+  "p06": {
+    "last_contact_at": "2026-10-09T14:00:00Z",
+    "elapsed_hours_at_evaluation": 2.0,
+    "initial_has_message_after_contact": false,
+    "updated_has_message_after_contact": true
+  },
+  "official_example": {
+    "count": 1,
+    "local_recommendation_schema_passed": true,
+    "same_case_evidence_passed": true
+  },
+  "direct_internal_v1_incompatibilities": [
+    {
+      "event_id": "P02-e2",
+      "event_type": "proposal.viewed",
+      "errors": [
+        {
+          "path": "data",
+          "message": "Additional properties are not allowed ('section' was unexpected)"
+        }
+      ]
+    },
+    {
+      "event_id": "P06-e2",
+      "event_type": "action.executed",
+      "errors": [
+        {
+          "path": "data",
+          "message": "Additional properties are not allowed ('action' was unexpected)"
+        },
+        {
+          "path": "data",
+          "message": "'action_type' is a required property"
+        }
+      ]
+    }
+  ],
+  "limitations": [
+    "Input checks cover the observed public kit, not every possible contract input.",
+    "The internal v1 schema is not a direct validator for raw official events.",
+    "No Laravel, React, queue, provider call or reserved jury case was executed."
+  ]
+}
