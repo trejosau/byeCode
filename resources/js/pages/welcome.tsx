@@ -1,5 +1,6 @@
 import { Head, Link, usePage } from '@inertiajs/react';
 import { ArrowRight, ListChecks } from 'lucide-react';
+import AppWordmark from '@/components/app-wordmark';
 import { Button } from '@/components/ui/button';
 import { dashboard, login, register } from '@/routes';
 
@@ -11,9 +12,7 @@ export default function Welcome() {
             <Head title="Bienvenido" />
             <div className="flex min-h-screen flex-col bg-background text-foreground">
                 <header className="mx-auto flex w-full max-w-5xl items-center justify-between px-6 py-6">
-                    <span className="text-xl font-semibold tracking-tight">
-                        ByeCode<span className="text-emerald-600">.</span>
-                    </span>
+                    <AppWordmark className="text-3xl font-normal" />
                     <Button variant="ghost" asChild>
                         <Link href={auth.user ? dashboard() : login()}>
                             {auth.user ? 'Abrir panel' : 'Iniciar sesión'}
@@ -57,7 +56,8 @@ export default function Welcome() {
                     </div>
                 </main>
                 <footer className="mx-auto w-full max-w-5xl border-t px-6 py-6 text-sm text-muted-foreground">
-                    ByeCode · Proyecto de decisiones empresariales con IA
+                    <AppWordmark className="mr-1 text-lg font-normal text-foreground" />
+                    · Proyecto de decisiones empresariales con IA
                 </footer>
             </div>
         </>

@@ -1,5 +1,6 @@
 import { Head, Link, usePage } from '@inertiajs/react';
 import type { PropsWithChildren } from 'react';
+import AppWordmark from '@/components/app-wordmark';
 import { Button } from '@/components/ui/button';
 import type { User } from '@/types/auth';
 
@@ -20,11 +21,8 @@ export function Journey({
                     className="mx-auto flex max-w-7xl flex-wrap items-center gap-5 px-5 py-4"
                     aria-label="Principal"
                 >
-                    <Link
-                        href="/"
-                        className="mr-auto text-xl font-semibold tracking-tight"
-                    >
-                        ByeCode
+                    <Link href="/" className="mr-auto">
+                        <AppWordmark className="text-3xl font-normal" />
                     </Link>
                     <Link href="/catalog">Blanks</Link>
                     {auth.user ? (

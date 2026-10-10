@@ -1,6 +1,7 @@
 import { Head, useForm, usePage, router } from '@inertiajs/react';
 import { useEffect, useRef } from 'react';
 import { Printer, Send, CheckCircle2, Shirt } from 'lucide-react';
+import AppWordmark from '@/components/app-wordmark';
 import { Field, FormErrors } from '@/components/byecode/workspace-page';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Badge } from '@/components/ui/badge';
@@ -54,8 +55,8 @@ export default function Portal({
                     <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-3">
                         <div className="flex items-center gap-3">
                             <Shirt className="size-6" />
-                            <span className="text-lg font-semibold tracking-tight">
-                                ByeCode / BLANKS
+                            <span className="text-2xl font-normal tracking-tight">
+                                <AppWordmark /> / BLANKS
                             </span>
                         </div>
                         <Badge variant="outline">
