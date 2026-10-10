@@ -4,6 +4,7 @@ namespace App\Domain\Evaluation;
 
 use App\Domain\Decision\RuleEngine;
 use App\Domain\Decision\SemanticContract;
+use App\Models\CommercialCase;
 use App\Models\Evaluation;
 use Illuminate\Support\Facades\Http;
 use RuntimeException;
@@ -18,6 +19,9 @@ class OpenAiAdapter
      */
     public function evaluate(Evaluation $evaluation): array
     {
+        if (CommercialCase::findOrFail($evaluation->commercial_case_id)->demo_run_id) {
+            throw new RuntimeException('demo_ai_disabled');
+        }
         $key = config('integrations.openai.api_key');
         if (! is_string($key) || $key === '') {
             throw new RuntimeException('missing_api_key');
@@ -34,7 +38,7 @@ class OpenAiAdapter
             'instructions' => $this->contract->instructions(),
             'input' => [['role' => 'user', 'content' => $input]],
             'max_output_tokens' => (int) config('byecode.max_output_tokens'),
-            'text' => ['format' => ['type' => 'json_schema', 'name' => 'byecode_semantic_v1', 'strict' => true, 'schema' => $this->contract->schema()]],
+            'text' => ['format' => ['type' => 'json_schema', 'name' => 'byecode_semantic_v2', 'strict' => true, 'schema' => $this->contract->schema()]],
         ];
         if (str_starts_with((string) config('byecode.model'), 'gpt-5')) {
             $body['reasoning'] = ['effort' => 'none'];

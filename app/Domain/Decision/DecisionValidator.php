@@ -14,9 +14,15 @@ final class DecisionValidator
      */
     public function compile(array $s, array $candidate): array
     {
-        $expected = ['action', 'timing', 'scheduled_for', 'signals', 'missing_information', 'confidence', 'risk_level', 'requires_human_review'];
+        $expected = ['action', 'action_order', 'timing', 'scheduled_for', 'signals', 'missing_information', 'confidence', 'risk_level', 'requires_human_review'];
         if (array_diff(array_keys($candidate), $expected) || array_diff($expected, array_keys($candidate))) {
             throw new InvalidArgumentException('Contrato semántico incompleto o con campos extra.');
+        }
+        if (! is_array($candidate['action_order']) || ! array_is_list($candidate['action_order']) || count($candidate['action_order']) !== 6
+            || count(array_filter($candidate['action_order'], 'is_string')) !== 6
+            || count(array_unique($candidate['action_order'])) !== 6 || array_diff($candidate['action_order'], RuleEngine::ACTIONS)
+            || $candidate['action_order'][0] !== $candidate['action']) {
+            throw new InvalidArgumentException('El ranking debe ordenar las seis acciones y comenzar por la seleccionada.');
         }
         if (! is_array($candidate['signals']) || ! array_is_list($candidate['signals']) || count($candidate['signals']) > 20
             || ! is_array($candidate['missing_information']) || ! array_is_list($candidate['missing_information'])
@@ -103,7 +109,7 @@ final class DecisionValidator
         }
         $this->validate($s, $result, $signals);
 
-        return ['result' => $result, 'signals' => $signals, 'validation' => $rules];
+        return ['result' => $result, 'signals' => $signals, 'validation' => $rules, 'candidate' => $candidate];
     }
 
     /**

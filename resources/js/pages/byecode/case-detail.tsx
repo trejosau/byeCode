@@ -78,6 +78,14 @@ type Props = {
         reason?: string;
         probability?: number;
         label?: string;
+        validation?: {
+            run_id: number;
+            evaluated_at: string;
+            test_cases: number | null;
+            brier: number | null;
+            auc: number | null;
+            ece: number | null;
+        };
     };
 };
 export default function CaseDetail({
@@ -96,9 +104,9 @@ export default function CaseDetail({
         (e) => e.status === 'pending' || e.status === 'running',
     );
     useEffect(() => {
-        if (!pending) return;
         const timer = setInterval(
             () =>
+                document.visibilityState === 'visible' &&
                 router.reload({
                     only: [
                         'case',
@@ -106,12 +114,13 @@ export default function CaseDetail({
                         'rules',
                         'recommendations',
                         'evaluations',
+                        'prediction',
                     ],
                 }),
-            15000,
+            10000,
         );
         return () => clearInterval(timer);
-    }, [pending]);
+    }, []);
     const current = recommendations.find((r) => r.is_current);
     const quote = quotes[0];
     return (
@@ -211,7 +220,7 @@ export default function CaseDetail({
                                 }
                                 description={
                                     evaluations[0]?.error_message ??
-                                    'Evalúa el contexto para obtener una decisión respaldada por el historial.'
+                                    'Los eventos del negocio solicitan una evaluación automática. Revisa el estado del procesamiento o solicita una reevaluación.'
                                 }
                             />
                         </>
@@ -219,7 +228,7 @@ export default function CaseDetail({
                     <Card className="shadow-none">
                         <CardHeader>
                             <CardTitle className="text-base">
-                                Estimación de cierre a 14 días
+                                Probabilidad de cierre · 14 días
                             </CardTitle>
                         </CardHeader>
                         <CardContent className="space-y-3">
@@ -235,11 +244,42 @@ export default function CaseDetail({
                                     <p className="text-xs text-muted-foreground">
                                         {prediction.label}
                                     </p>
+                                    {prediction.validation && (
+                                        <p className="text-xs leading-relaxed text-muted-foreground">
+                                            Validación #
+                                            {prediction.validation.run_id} ·{' '}
+                                            {prediction.validation.test_cases ??
+                                                '—'}{' '}
+                                            casos de prueba ·{' '}
+                                            {date(
+                                                prediction.validation
+                                                    .evaluated_at,
+                                            )}
+                                            <br />
+                                            Brier:{' '}
+                                            {prediction.validation.brier?.toFixed(
+                                                3,
+                                            ) ?? '—'}{' '}
+                                            · AUC:{' '}
+                                            {prediction.validation.auc?.toFixed(
+                                                3,
+                                            ) ?? '—'}{' '}
+                                            · Error de calibración:{' '}
+                                            {prediction.validation.ece?.toFixed(
+                                                3,
+                                            ) ?? '—'}
+                                        </p>
+                                    )}
                                 </>
                             ) : (
-                                <p className="text-sm text-muted-foreground">
-                                    {prediction.reason}
-                                </p>
+                                <div className="space-y-2">
+                                    <p className="text-sm font-medium">
+                                        Porcentaje no disponible
+                                    </p>
+                                    <p className="text-sm text-muted-foreground">
+                                        {prediction.reason}
+                                    </p>
+                                </div>
                             )}
                             <Link
                                 href="/prediction"

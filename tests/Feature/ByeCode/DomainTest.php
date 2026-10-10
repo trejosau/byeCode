@@ -39,7 +39,7 @@ function kitCase(string $id): CommercialCase
 }
 function candidate(array $overrides = []): array
 {
-    return array_replace(['action' => 'escalate', 'timing' => 'within_24h', 'scheduled_for' => null, 'signals' => [['kind' => 'question', 'event_id' => 'P01-e2', 'quote' => '¿La propuesta incluye instalación?']], 'missing_information' => ['quotation_details'], 'confidence' => 'medium', 'risk_level' => 'medium', 'requires_human_review' => true], $overrides);
+    return array_replace(['action' => 'escalate', 'action_order' => array_values(array_unique([$overrides['action'] ?? 'escalate', ...RuleEngine::ACTIONS])), 'timing' => 'within_24h', 'scheduled_for' => null, 'signals' => [['kind' => 'question', 'event_id' => 'P01-e2', 'quote' => '¿La propuesta incluye instalación?']], 'missing_information' => ['quotation_details'], 'confidence' => 'medium', 'risk_level' => 'medium', 'requires_human_review' => true], $overrides);
 }
 
 it('imports the immutable official kit without losing duplicates, section or pre-opening contact', function () {

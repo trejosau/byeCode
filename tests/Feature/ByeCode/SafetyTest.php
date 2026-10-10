@@ -55,6 +55,7 @@ it('accounts for refusal incomplete malformed and failed provider responses with
 
 it('reuses unchanged semantic evidence across additional views without another charge', function () {
     $candidate = ['action' => 'escalate', 'timing' => 'within_24h', 'scheduled_for' => null, 'signals' => [['kind' => 'question', 'event_id' => 'P01-e2', 'quote' => '¿La propuesta incluye instalación?']], 'missing_information' => ['quotation_details'], 'confidence' => 'medium', 'risk_level' => 'medium', 'requires_human_review' => true];
+    $candidate['action_order'] = ['escalate', 'wait', 'no_action', 'contact', 'request_information', 'resolve_objection'];
     Http::fake(['api.openai.com/*' => Http::response(['status' => 'completed', 'model' => config('byecode.model'), 'usage' => ['input_tokens' => 1500, 'output_tokens' => 300], 'output' => [['content' => [['type' => 'output_text', 'text' => json_encode($candidate)]]]]])]);
     $case = CommercialCase::where('external_id', 'P01')->firstOrFail();
     $s = app(EvaluationService::class);
@@ -70,6 +71,7 @@ it('reuses unchanged semantic evidence across additional views without another c
 
 it('rejects a response if the case changes while HTTP is in flight', function () {
     $candidate = ['action' => 'escalate', 'timing' => 'within_24h', 'scheduled_for' => null, 'signals' => [['kind' => 'question', 'event_id' => 'P01-e2', 'quote' => '¿La propuesta incluye instalación?']], 'missing_information' => ['quotation_details'], 'confidence' => 'medium', 'risk_level' => 'medium', 'requires_human_review' => true];
+    $candidate['action_order'] = ['escalate', 'wait', 'no_action', 'contact', 'request_information', 'resolve_objection'];
     Http::fake(function () use ($candidate) {
         CommercialCase::where('external_id', 'P01')->increment('revision');
 

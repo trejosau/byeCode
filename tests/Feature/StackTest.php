@@ -19,5 +19,5 @@ it('serves the Inertia entry point without exposing integration secrets', functi
 it('runs tests with an isolated database', function () {
     expect(config('database.default'))->toBe('sqlite')
         ->and(config('database.connections.sqlite.database'))->toBe(':memory:')
-        ->and(config('queue.default'))->toBe('sync');
+        ->and(config('queue.default'))->toBe('database');
 });

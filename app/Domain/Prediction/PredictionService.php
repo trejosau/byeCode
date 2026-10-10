@@ -184,6 +184,9 @@ final class PredictionService
      */
     public function predict(CommercialCase $case): array
     {
+        if ($case->demo_run_id) {
+            return ['available' => false, 'reason' => 'Datos de demostración: excluidos del predictor y de su entrenamiento real.'];
+        }
         $set = DataSet::findOrFail($case->data_set_id);
         $run = PredictionRun::latest('id')->first();
         if ($case->amount_cents === null) {
@@ -223,6 +226,9 @@ final class PredictionService
             }
         }
 
-        return ['available' => true, 'probability' => $this->logistic->score($x, $run->model), 'horizon_days' => 14, 'run_id' => $run->id, 'label' => 'Estimación experimental; no autoriza una acción ni demuestra causalidad.'];
+        return ['available' => true, 'probability' => $this->logistic->score($x, $run->model), 'horizon_days' => 14, 'run_id' => $run->id,
+            'label' => 'Estimación experimental de cierre registrado como aceptado en 14 días; no estima el efecto de cada acción ni garantiza el resultado.',
+            'validation' => ['run_id' => $run->id, 'evaluated_at' => $run->created_at->toIso8601String(), 'test_cases' => $run->report['split_counts']['test'] ?? null,
+                'brier' => $run->report['metrics']['brier'] ?? null, 'auc' => $run->report['metrics']['auc'] ?? null, 'ece' => $run->report['metrics']['ece'] ?? null]];
     }
 }

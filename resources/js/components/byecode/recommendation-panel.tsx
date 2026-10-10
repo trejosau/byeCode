@@ -26,6 +26,7 @@ export function RecommendationPanel({
     recommendation: Recommendation;
 }) {
     const r = recommendation.result;
+    const ranked = recommendation.alternatives.filter((a) => a.rank != null);
     const review = useForm({ decision: 'approved', reason: '' });
     const feedback = useForm({ verdict: 'useful', reason: '' });
     return (
@@ -68,6 +69,37 @@ export function RecommendationPanel({
                     </div>
                 </div>
                 <p className="text-sm leading-relaxed">{r.reason}</p>
+                {recommendation.change_summary && (
+                    <section className="space-y-2 rounded-md bg-muted p-3 text-xs">
+                        <h3 className="font-semibold">
+                            Qué cambió desde la decisión anterior
+                        </h3>
+                        <p>
+                            {recommendation.change_summary.previous_action ===
+                            r.action
+                                ? 'Se mantiene la acción: ' +
+                                  actions[r.action] +
+                                  '.'
+                                : actions[
+                                      recommendation.change_summary
+                                          .previous_action
+                                  ] +
+                                  ' → ' +
+                                  actions[r.action] +
+                                  '.'}
+                        </p>
+                        <p>
+                            {recommendation.change_summary.new_event_ids.length}{' '}
+                            eventos nuevos del caso ·{' '}
+                            {recommendation.change_summary.new_activity_count}{' '}
+                            registros nuevos en el contexto de actividad.
+                        </p>
+                        <p className="text-muted-foreground">
+                            El historial conserva la decisión anterior y su
+                            evidencia.
+                        </p>
+                    </section>
+                )}
                 <dl className="grid grid-cols-2 gap-4 border-y py-4">
                     <div>
                         <dt className="text-xs text-muted-foreground">
@@ -136,33 +168,104 @@ export function RecommendationPanel({
                         </ul>
                     </section>
                 )}
+                {ranked.length > 0 && (
+                    <section className="space-y-3 border-t pt-4">
+                        <h3 className="text-sm font-semibold">
+                            Prioridad de acciones
+                        </h3>
+                        <p className="text-xs leading-relaxed text-muted-foreground">
+                            {ranked[0].ranking_source === 'model_validated'
+                                ? 'Orden propuesto por IA y validado con las reglas y la evidencia del caso.'
+                                : 'Acción sustentada por las reglas del caso.'}{' '}
+                            La posición indica prioridad, no probabilidad de
+                            éxito.
+                        </p>
+                        <ol className="space-y-3">
+                            {ranked.map((alternative) => (
+                                <li
+                                    key={alternative.action}
+                                    className="rounded-md border p-3 text-sm"
+                                >
+                                    <div className="flex items-start justify-between gap-2 font-medium">
+                                        <span>
+                                            {alternative.rank}.{' '}
+                                            {actions[alternative.action]}
+                                        </span>
+                                        {alternative.selected && (
+                                            <Badge variant="secondary">
+                                                Sugerida
+                                            </Badge>
+                                        )}
+                                    </div>
+                                    <p className="mt-2 text-xs leading-relaxed text-muted-foreground">
+                                        {alternative.reason}
+                                    </p>
+                                    {alternative.timing && (
+                                        <p className="mt-2 text-xs">
+                                            {timings[alternative.timing]}
+                                            {alternative.scheduled_for
+                                                ? ' · ' +
+                                                  date(
+                                                      alternative.scheduled_for,
+                                                  )
+                                                : ''}
+                                        </p>
+                                    )}
+                                    <div className="mt-2 flex flex-wrap gap-2">
+                                        {alternative.evidence_event_ids?.map(
+                                            (id) => (
+                                                <a
+                                                    key={id}
+                                                    href={'#event-' + id}
+                                                    className="text-xs underline underline-offset-4"
+                                                >
+                                                    {id}
+                                                </a>
+                                            ),
+                                        )}
+                                    </div>
+                                </li>
+                            ))}
+                        </ol>
+                        <p className="text-xs text-muted-foreground">
+                            Probabilidad de éxito por acción: sin estimación
+                            validada. La estimación del caso se muestra por
+                            separado.
+                        </p>
+                    </section>
+                )}
                 <Collapsible>
                     <CollapsibleTrigger asChild>
                         <Button
                             variant="ghost"
                             className="w-full justify-between px-0 text-sm"
                         >
-                            Alternativas y restricciones
+                            {ranked.length
+                                ? 'Acciones excluidas y motivos'
+                                : 'Alternativas y restricciones'}
                             <ChevronDown className="size-4" />
                         </Button>
                     </CollapsibleTrigger>
                     <CollapsibleContent className="space-y-3 pt-2">
-                        {recommendation.alternatives.map((a) => (
-                            <div
-                                className="flex justify-between gap-3 text-xs"
-                                key={a.action}
-                            >
-                                <span>{actions[a.action]}</span>
-                                <span className="text-right text-muted-foreground">
-                                    {a.selected
-                                        ? 'Seleccionada'
-                                        : a.allowed
-                                          ? 'Admisible, no seleccionada'
-                                          : 'Excluida: ' +
-                                            a.excluded_by.join(', ')}
-                                </span>
-                            </div>
-                        ))}
+                        {recommendation.alternatives
+                            .filter((a) => !ranked.length || a.rank == null)
+                            .map((a) => (
+                                <div
+                                    className="flex justify-between gap-3 text-xs"
+                                    key={a.action}
+                                >
+                                    <span>{actions[a.action]}</span>
+                                    <span className="text-right text-muted-foreground">
+                                        {a.selected
+                                            ? 'Seleccionada'
+                                            : a.allowed
+                                              ? 'Admisible, no seleccionada'
+                                              : (a.reason ??
+                                                'Excluida: ' +
+                                                    a.excluded_by.join(', '))}
+                                    </span>
+                                </div>
+                            ))}
                     </CollapsibleContent>
                 </Collapsible>
                 {recommendation.is_current &&

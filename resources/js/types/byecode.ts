@@ -112,6 +112,13 @@ export type CaseEvent = {
 export type Signal = { kind: string; event_id: string; quote: string };
 export type Recommendation = {
     id: number;
+    change_summary?: {
+        previous_action: Action;
+        previous_recommendation_id: number;
+        changed_fields: string[];
+        new_event_ids: string[];
+        new_activity_count: number;
+    } | null;
     result: Decision;
     signals: Signal[];
     source: string;
@@ -126,6 +133,14 @@ export type Recommendation = {
         allowed: boolean;
         selected: boolean;
         excluded_by: string[];
+        rank?: number | null;
+        reason?: string;
+        evidence_event_ids?: string[];
+        timing?: string | null;
+        scheduled_for?: string | null;
+        ranking_source?: 'model_validated' | 'rules';
+        probability?: number | null;
+        probability_status?: string;
     }[];
 };
 export type Evaluation = {

@@ -28,9 +28,9 @@ class BusinessHistory
         $lines = $quote ? $quote->lines : [];
         $counts = $caseEvents->countBy('type');
         $visible = $caseEvents->where('type', 'ui.section_visibility_duration')->sum(fn ($e) => json_decode($e->data, true)['duration_ms'] ?? 0);
-        $priorCases = DB::table('commercial_cases')->where('customer_id', $case->customer_id)->where('created_at', '<', $at)->where('id', '!=', $case->id)->pluck('id');
+        $priorCases = DB::table('commercial_cases')->whereNull('demo_run_id')->where('customer_id', $case->customer_id)->where('created_at', '<', $at)->where('id', '!=', $case->id)->pluck('id');
         $paid = DB::table('sale_records')->whereIn('commercial_case_id', $priorCases)->where('kind', 'payment')->where('created_at', '<=', $at)->where('occurred_at', '<=', $at)->sum('amount_cents');
-        $closed = DB::table('case_events')->join('data_sets', 'data_sets.id', '=', 'case_events.data_set_id')->where('data_sets.mode', 'live')->where('event_type', 'case.closed')->where('occurred_at', '<', $at)->where('ingested_at', '<', $at)->get(['case_events.data']);
+        $closed = DB::table('case_events')->join('data_sets', 'data_sets.id', '=', 'case_events.data_set_id')->where('data_sets.mode', 'live')->whereIn('commercial_case_id', DB::table('commercial_cases')->whereNull('demo_run_id')->select('id'))->where('event_type', 'case.closed')->where('occurred_at', '<', $at)->where('ingested_at', '<', $at)->get(['case_events.data']);
         $won = $closed->filter(fn ($e) => json_decode($e->data, true)['status'] === 'accepted')->count();
         $buckets = array_fill(0, 16, 0.0);
         // Signed feature hashing admits new typed properties without schema mutation.
@@ -55,7 +55,7 @@ class BusinessHistory
         $rows = [];
         $seen = 0;
         $censored = 0;
-        $cases = CommercialCase::whereNotNull('customer_id')->whereIn('data_set_id', DB::table('data_sets')->where('mode', 'live')->select('id'))->orderBy('created_at')->get();
+        $cases = CommercialCase::whereNull('demo_run_id')->whereNotNull('customer_id')->whereIn('data_set_id', DB::table('data_sets')->where('mode', 'live')->select('id'))->orderBy('created_at')->get();
         foreach ($cases as $case) {
             $seen++;
             $at = CarbonImmutable::parse($case->created_at)->addDay();

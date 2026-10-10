@@ -9,6 +9,7 @@ use App\Models\Customer;
 use App\Models\DataSet;
 use App\Models\QuoteVersion;
 use Carbon\CarbonImmutable;
+use Illuminate\Support\Facades\DB;
 
 final class CaseProjector
 {
@@ -97,6 +98,10 @@ final class CaseProjector
             }
         }
         $quote = QuoteVersion::where('commercial_case_id', $case->id)->where('created_at', '<=', $at)->orderByDesc('version')->first();
+        $activity = DB::table('activity_events')->where('customer_id', $case->customer_id)->where('ingested_at', '<=', $at)->where('occurred_at', '<=', $at)
+            ->where(fn ($q) => $q->where('commercial_case_id', $case->id)->orWhereNull('commercial_case_id'));
+        $activityCount = $set->mode === 'live' && $case->customer_id ? (clone $activity)->count() : 0;
+        $activityRows = $activityCount ? (clone $activity)->latest('id')->limit(30)->get() : collect();
 
         return [
             'case_id' => $case->external_id, 'case_pk' => $case->id, 'data_set_id' => $set->id, 'mode' => $set->mode,
@@ -115,6 +120,9 @@ final class CaseProjector
             ],
             'quote' => $quote ? ['version' => $quote->version, 'lines' => $quote->lines, 'total_cents' => $quote->total_cents, 'terms' => $quote->terms, 'valid_until' => Utc::iso($quote->valid_until), 'is_expired' => $quote->valid_until->lessThanOrEqualTo($at) || ($quote->getAttribute('withdrawn_at') && CarbonImmutable::parse($quote->getAttribute('withdrawn_at'))->lessThanOrEqualTo($at))] : null,
             'customer_context' => $set->mode === 'live' && $case->customer_id ? app(CustomerProfile::class)->context(Customer::findOrFail($case->customer_id), $at) : null,
+            'activity_context' => ['total' => $activityCount, 'omitted' => max(0, $activityCount - $activityRows->count()),
+                'events' => $activityRows->reverse()->values()->map(fn ($event) => ['event_id' => $event->event_id, 'type' => $event->type, 'actor' => $event->actor,
+                    'source' => $event->source, 'occurred_at' => $event->occurred_at, 'data' => json_decode($event->data, true)])->all()],
         ];
     }
 }
