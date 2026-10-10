@@ -72,3 +72,11 @@ El predictor local necesita historial real con validación temporal, calibració
 - Directorio responsive con tabla/fichas, filtros confirmados, orden global y vista rápida; perfil con secciones y edición contextual con evidencia. Mantener el retorno al directorio filtrado y los permisos de lectura del administrador.
 - `CustomerDirectory` agrega solicitudes/pagos/actividad por separado para evitar multiplicar importes. Los enlaces de evidencia admiten eventos anteriores a la ventana de 200, siempre del mismo cliente. Fechas enviadas en ISO UTC.
 - 123 pruebas Pest, 770 aserciones; Pint/Larastan/TypeScript/build aprobados. Sin migraciones ni llamadas reales de IA. La adaptación visual conserva el sistema ByeCode y se limita al CRM; consultar la guía y el brief de superficie en `.impeccable/surfaces`.
+
+## Historial de demostración del 10 de octubre de 2026
+
+- `OperationalDemoSeeder` / `byecode:seed-demo` implementados y cargados en Supabase: ejecución `operational-demo-v1` lista, 12 cuentas de cliente, 10 CRM, 34 casos (22 cerrados y 12 abiertos), 46 versiones, 27 pagos, 149 mensajes y 77 hechos de perfil. Leer `GUIA_DEMO.md` y la sección vigente de `ESTADO_DESARROLLO.md`.
+- Contraseña inicial demo únicamente en `.env`; no restablecer cuentas existentes. Admin y equipo conservados. Dos cuentas sin CRM permiten probar su primera solicitud. La repetición solo verifica y conserva avances, archivos, fechas y contraseñas.
+- Procedencia persistente `demo_run_id`; las nuevas solicitudes/cotizaciones de estas cuentas la heredan. Supresión de correo en productor y worker, bloqueo de OpenAI en evaluación/adaptador/perfil y exclusión del predictor, incluidos agregados. Desactivar el modo demo no elimina estas protecciones.
+- Servicios de negocio compartidos y replay cronológico; para PostgreSQL se prepara SQLite temporal privada con IDs reservados y se transfiere en lotes dentro de una transacción auditada. Nunca retroceder secuencias ni reiniciar el esquema. No modificar silenciosamente el manifiesto de una ejecución cargada.
+- 148 pruebas Pest, 1676 aserciones; Pint/Larastan/TypeScript/build aprobados. Verificación independiente en Supabase y portal de Marina en navegador. Sin llamadas reales a OpenAI ni envío de correos. Informes locales ignorados: `.local/demo-report.json` y `.local/demo-links.md`.

@@ -1,5 +1,40 @@
 # Estado del desarrollo de ByeCode
 
+## Historial comercial de demostración del 10 de octubre de 2026
+
+Implementado `PLAN_SEEDER_HISTORIAL_DEMO.md` mediante servicios compartidos con los formularios reales. `OperationalDemoSeeder` y `byecode:seed-demo` reproducen 351 operaciones ordenadas sobre nueve meses: 12 cuentas, 10 CRM, 34 solicitudes/casos, 46 versiones, dos borradores, 17 formalizaciones, 27 pagos, 149 mensajes, seis adjuntos privados y 36 variantes. Guía de cuentas y siguientes pasos: `GUIA_DEMO.md`.
+
+Una migración incremental incorpora `demo_runs`, `demo_records`, procedencia persistente en entidades raíz/correos y autor/origen en hechos del perfil. La carga es transaccional, con manifiesto versionado y reloj estable, detección de colisiones, limpieza de archivos propios ante error y repetición sin sobrescribir avances. `byecode:verify-demo` audita importes, relaciones, evidencia temporal, archivos originales y aislamiento. Nuevas solicitudes/cotizaciones heredan la procedencia antes de programar evaluaciones.
+
+Correo suprimido en productor y worker; análisis semántico deshabilitado por procedencia en evaluación, adaptador y perfil; exclusión del predictor tanto en filas como en agregados. Los escenarios siguen en modo operativo y admiten modificaciones normales. El envío comercial de mensajes ahora comprueba todos los bloqueos de contacto, incluidos R3/R4. Aviso visible y alcance todos/demo/sin demo en CRM, casos, solicitudes y administración. Las confirmaciones e hipótesis del guion son sintéticas y no prueban calidad de OpenAI.
+
+- `composer run ci:check`: **148 pruebas Pest, 1676 aserciones**, Pint, Larastan, formato/lint y TypeScript aprobados.
+- `npm run build`: aprobado; aviso opcional preexistente sobre optimización de fuentes.
+- Pruebas nuevas de continuidad HTTP hasta cierre, borradores/versiones, privacidad de adjuntos, filtros/indicadores, evidencia temporal, no consumo de IA/correo, exclusión predictiva, colisiones e idempotencia; fallo inyectado con reversión/limpieza y reintento aprobado.
+- Migración incremental y carga confirmadas en Supabase, ejecución `operational-demo-v1` en estado `ready`, referencia estable `2026-10-10T19:44:00Z`. Auditoría independiente aprobada: 77 hechos de perfil, 314 actividades y todos los conteos iniciales esperados; 12 accesos preparados y cuentas previas intactas. Informe y enlaces en `.local/demo-report.json` y `.local/demo-links.md` (ignorados por Git).
+- Preparación mediante los servicios reales en SQLite temporal privada, reserva de IDs exclusivos y transferencia por lotes en una transacción PostgreSQL con auditoría previa al commit. Prueba de transferencia completa, incluidas las referencias de eventos dentro de snapshots. Directorio temporal limpio al terminar; las secuencias nunca retroceden.
+- Aislamiento real comprobado: sin consumo adicional de IA, 46 notificaciones `suppressed_demo`, roles `anon`/`authenticated` sin acceso al esquema ni a las tablas nuevas. Worker verificado con `byecode:check --queue`.
+- Navegador contra Supabase: acceso de Marina, sus cinco solicitudes, conversación y aceptación parcial de 18/36 unidades, comparación V1/V2 e importes visibles. Sin errores de consola ni desbordamiento horizontal en la vista disponible de 553 px. Acceso de Daniela y estado sin solicitudes comprobados tras la compilación final. No se avanzaron los escenarios durante esta revisión; los recorridos hasta cierre se prueban en SQLite aislado.
+
+La integración conserva los cambios de decisiones por evento del chat relacionado, así como tarifas, presupuesto, kit y cuentas del equipo existentes. Los datos de prueba son ficticios y se distinguen de cualquier futura operación real.
+
+## Decisiones por evento y ranking del 10 de octubre de 2026
+
+Se revisaron las cuatro páginas del PDF del reto facilitado por el usuario y se documentó la diferencia entre el contrato obligatorio y las ampliaciones solicitadas en `ESPECIFICACION_DECISIONES_POR_EVENTO.md`.
+
+Los eventos del negocio solicitan procesamiento en cola después de confirmar la transacción. Se incluyen operaciones registradas, pagos sin cierre, navegación consentida y cambios del perfil. Las solicitudes y resultados comerciales invalidan también los otros casos abiertos del cliente por sus indicadores compartidos. El worker usa el contexto confirmado más reciente; las evaluaciones pendientes sustituidas dejan de aparecer como trabajo vigente. Los lotes completados del perfil continúan automáticamente si queda actividad.
+
+El modelo propone un orden de acciones en el contrato interno v2; Laravel valida cada alternativa y excluye las bloqueadas o sin evidencia. La pantalla muestra prioridades, razones, evidencia, momento, exclusiones y cambio respecto de la recomendación anterior. El contrato público del reto conserva once campos. Las pantallas de caso y perfil consultan actualizaciones cada diez segundos mientras están visibles.
+
+La probabilidad experimental del caso a 14 días sigue condicionada a historial real validado; ahora se muestran muestra, fecha y métricas del entrenamiento elegible. No hay porcentajes de éxito estimados por acción, ni se convierte confianza cualitativa en probabilidad. La implementación no habilita un predictor comercial por sí misma.
+
+- `composer run ci:check`: **140 pruebas Pest y 919 aserciones aprobadas**, Pint, Larastan, formato/lint de frontend y TypeScript aprobados.
+- `npm run build`: aprobado; permanece el aviso opcional de optimización de fuentes, sin bloqueo de compilación.
+- Revisión de navegador sobre SQLite temporal, usuario y respuestas sintéticas: ranking, exclusiones R2, historial de cambios y ausencia explícita de porcentaje; sin errores de consola ni desbordamiento horizontal a 1280 y 390 px. Registro en `.impeccable/review/event-ranking.md`.
+- Sin migraciones nuevas, llamadas reales a OpenAI, cambios de tarifa/presupuesto ni alteraciones de los datos de negocio para verificar estos cambios. El kit público permanece intacto.
+
+Las pruebas de IA usan respuestas simuladas: prueban flujo, contratos y restricciones, no calidad semántica real ni precisión de probabilidades.
+
 ## Equipo inicial de comercio del 10 de octubre de 2026
 
 Se creó y ejecutó `CommerceTeamSeeder` para las cuatro cuentas solicitadas de Jorge, Dani, Jesús y Sau. PostgreSQL `byecode` conserva el administrador existente y añade cuatro usuarios `commerce`, con correo verificado y cambio de contraseña al primer ingreso. La contraseña inicial se configura únicamente en `.env`; no se versiona.
