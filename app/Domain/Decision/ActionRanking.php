@@ -19,8 +19,15 @@ final class ActionRanking
         $order = $candidate['action_order'] ?? array_values(array_unique([$decision['action'], 'wait', 'no_action', ...RuleEngine::ACTIONS]));
         $rows = [];
         $plans = [];
+        $planActions = [];
         foreach ($candidate['plans'] ?? [] as $plan) {
             $plans[$plan['action']] = $plan;
+            if (! in_array($plan['action'], $planActions, true)) {
+                $planActions[] = $plan['action'];
+            }
+        }
+        if ($planActions) {
+            $order = array_values(array_unique([...$planActions, ...$order]));
         }
         $rank = 0;
         $evidence = app(BehaviorEvidence::class)->catalog($snapshot);
@@ -28,7 +35,7 @@ final class ActionRanking
             $result = null;
             $excluded = $rules['blocked'][$action] ?? [];
             $reason = $excluded ? 'Bloqueada por las restricciones vigentes: '.implode(', ', $excluded).'.' : '';
-            if (! $excluded && $action === 'no_action' && ! in_array($decision['action'], ['wait', 'no_action'], true)) {
+            if (! $excluded && $action === 'no_action' && ! isset($plans['no_action']) && ! in_array($decision['action'], ['wait', 'no_action'], true)) {
                 $excluded = ['supported_intervention'];
                 $reason = 'Existe una intervención sustentada; omitirla no es una alternativa equivalente.';
             }
@@ -36,16 +43,21 @@ final class ActionRanking
                 if ($action === $decision['action']) {
                     $result = $decision;
                 } elseif ($candidate) {
-                    $timing = match ($action) {
-                        'no_action' => 'not_applicable', 'wait' => $rules['reevaluate_at'] ? 'at_date' : 'on_new_information', default => 'within_24h',
-                    };
-                    try {
-                        $result = app(DecisionValidator::class)->compile($snapshot, [...$candidate, 'action' => $action,
-                            'action_order' => array_values(array_unique([$action, ...$order])), 'timing' => $timing,
-                            'scheduled_for' => $timing === 'at_date' ? $rules['reevaluate_at'] : null])['result'];
-                    } catch (InvalidArgumentException $e) {
-                        $excluded = ['insufficient_evidence'];
-                        $reason = $e->getMessage();
+                    if (isset($candidate['plans']) && ! isset($plans[$action])) {
+                        $excluded = ['no_plan_provided'];
+                        $reason = 'Sin plan específico propuesto.';
+                    } else {
+                        $timing = match ($action) {
+                            'no_action' => 'not_applicable', 'wait' => $rules['reevaluate_at'] ? 'at_date' : 'on_new_information', default => 'within_24h',
+                        };
+                        try {
+                            $result = app(DecisionValidator::class)->compile($snapshot, [...$candidate, 'action' => $action,
+                                'action_order' => array_values(array_unique([$action, ...$order])), 'timing' => $timing,
+                                'scheduled_for' => $timing === 'at_date' ? $rules['reevaluate_at'] : null])['result'];
+                        } catch (InvalidArgumentException $e) {
+                            $excluded = ['insufficient_evidence'];
+                            $reason = $e->getMessage();
+                        }
                     }
                 } else {
                     // Deterministic outcomes do not manufacture competing AI interpretations.

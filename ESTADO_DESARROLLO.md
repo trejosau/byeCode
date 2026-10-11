@@ -284,3 +284,10 @@ Corrección posterior: `request.submitted` estaba presente en `activity_context`
 Por petición del usuario, el máximo de contexto serializado pasa de 20,000 a 200,000 bytes UTF-8, configurable mediante `BYECODE_MAX_CONTEXT_BYTES`, tanto para ranking como para lotes de perfil. Se conservan la evidencia completa del ranking, tarifas y límites de presupuesto. Los bloqueos anteriores no se reintentan automáticamente.
 
 Validación: 49 pruebas de seguridad, análisis por eventos y perfil comercial aprobadas (371 aserciones), incluyendo envío íntegro de un historial mayor de 20 KB y bloqueo previo a gasto si supera el nuevo máximo. HTTP simulado y SQLite aislado, sin llamadas reales de IA ni correo.
+
+## Ranking directo de acciones a tomar del 10 de octubre de 2026
+
+Por requerimiento comercial, se rediseña la presentación del ranking y el contrato de razonamiento:
+- Se elimina la sección de "Acciones excluidas por las reglas" y el desglose de evidencia técnica (UUIDs de eventos y resúmenes redundantes de navegación/mensajes ya visibles en el caso).
+- La interfaz presenta el "Ranking de acciones a tomar" con enfoque ejecutivo: título de la acción directa, escenario y probabilidad de qué puede pasar (`Qué puede pasar · Escenario y probabilidad`), pasos directos a tomar, borrador de respuesta condicional y validaciones previas.
+- Prompt versión `byecode-semantic-4.4`: instruye a la IA a evitar preámbulos y repetición del historial, ordenando las alternativas por viabilidad comercial y sintetizando en cada opción el escenario directo y las probabilidades estimadas de avance vs. riesgo (máximo 45 palabras).

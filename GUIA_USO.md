@@ -22,9 +22,9 @@ En **Tu decisión**, el cliente puede ajustar cantidades y el **total propuesto 
 
 El último ranking permanece visible al recargar y mientras se procesa información nueva. Si perdió vigencia, aparece marcado como referencia pendiente de actualización. Se conserva su scroll independiente. Los clientes no ven el análisis interno ni el costo de fabricación.
 
-## Qué hacer y qué decirle al cliente
+## Ranking de acciones a tomar
 
-Las nuevas evaluaciones muestran una decisión principal y alternativas concretas ordenadas por prioridad. Cada opción incluye motivo, pasos, un borrador de respuesta cuando corresponde y comprobaciones pendientes. Ante una objeción de precio, la IA puede proponer un total y días adicionales, sujetos a verificar margen, costos y capacidad. Son propuestas internas: no cambian la cotización ni se envían al cliente automáticamente. Esperar o no actuar también pueden ser decisiones apropiadas; no se rellenan opciones sin evidencia.
+Las evaluaciones muestran directamente un ranking de acciones a tomar ordenadas por probabilidad de éxito comercial y viabilidad estratégica. Cada tarjeta presenta el escenario y probabilidad estimada de qué puede pasar si se ejecuta la acción (o si se omite), los pasos directos a tomar, el borrador de respuesta condicional cuando corresponde y las validaciones previas. Se retiró la sección de acciones excluidas y el volcado de eventos técnicos de la vista principal para centrarse en decisiones ejecutables. Ante una objeción de precio, la IA puede proponer un total y días adicionales, sujetos a verificar margen, costos y capacidad. Son propuestas internas: no cambian la cotización ni se envían al cliente automáticamente. Esperar o no actuar también pueden ser decisiones apropiadas cuando no existe condición observable.
 
 ## Vista siempre actual
 
